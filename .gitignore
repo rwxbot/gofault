@@ -6,3 +6,7 @@
 # Scratch files
 *.tmp
 *.log
+
+# OS
+.DS_Store
+
