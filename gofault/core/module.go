@@ -1,0 +1,1 @@
+// Package core defines the fundamental interfaces for the gofault framework.
