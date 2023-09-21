@@ -2,3 +2,7 @@
 /dist/
 *.test
 *.out
+
+# Scratch files
+*.tmp
+*.log
