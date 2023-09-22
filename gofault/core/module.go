@@ -6,3 +6,5 @@ import (
 	"context"
 	"net/http"
 )
+
+// Context wraps the standard HTTP request context with framework-specific data.
