@@ -8,3 +8,4 @@ import (
 )
 
 // Context wraps the standard HTTP request context with framework-specific data.
+type Context = context.Context
