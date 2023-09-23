@@ -14,3 +14,6 @@ type Context = context.Context
 type Ctx struct {
 	Request    *http.Request
 	Response   http.ResponseWriter
+	Params     map[string]string
+	StatusCode int
+	// Locals holds arbitrary context values, used to pass data between middleware.
