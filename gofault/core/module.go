@@ -11,3 +11,6 @@ import (
 type Context = context.Context
 
 // Ctx encapsulates an HTTP request/response pair plus extracted route parameters.
+type Ctx struct {
+	Request    *http.Request
+	Response   http.ResponseWriter
