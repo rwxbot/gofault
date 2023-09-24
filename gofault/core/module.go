@@ -24,3 +24,5 @@ type Ctx struct {
 func NewCtx(w http.ResponseWriter, r *http.Request) *Ctx {
 	return &Ctx{Request: r, Response: w, Params: make(map[string]string), StatusCode: http.StatusOK, Locals: make(map[string]any)}
 }
+
+// SetLocal stores a value in Locals, creating the map when the Ctx was built
