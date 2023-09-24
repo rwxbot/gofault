@@ -20,3 +20,7 @@ type Ctx struct {
 	// For example, WebSocket middleware stores the upgraded connection here.
 	Locals map[string]any
 }
+
+func NewCtx(w http.ResponseWriter, r *http.Request) *Ctx {
+	return &Ctx{Request: r, Response: w, Params: make(map[string]string), StatusCode: http.StatusOK, Locals: make(map[string]any)}
+}
