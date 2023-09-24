@@ -19,3 +19,4 @@ type Ctx struct {
 	// Locals holds arbitrary context values, used to pass data between middleware.
 	// For example, WebSocket middleware stores the upgraded connection here.
 	Locals map[string]any
+}
