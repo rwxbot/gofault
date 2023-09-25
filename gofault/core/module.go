@@ -28,3 +28,5 @@ func NewCtx(w http.ResponseWriter, r *http.Request) *Ctx {
 // SetLocal stores a value in Locals, creating the map when the Ctx was built
 // without NewCtx. Middleware should use this instead of assigning into Locals
 // directly, so a minimally-constructed Ctx cannot panic on a nil map.
+func (c *Ctx) SetLocal(key string, value any) {
+	if c.Locals == nil {
