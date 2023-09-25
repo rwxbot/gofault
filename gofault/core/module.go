@@ -33,3 +33,4 @@ func (c *Ctx) SetLocal(key string, value any) {
 		c.Locals = make(map[string]any)
 	}
 	c.Locals[key] = value
+}
