@@ -30,3 +30,6 @@ func NewCtx(w http.ResponseWriter, r *http.Request) *Ctx {
 // directly, so a minimally-constructed Ctx cannot panic on a nil map.
 func (c *Ctx) SetLocal(key string, value any) {
 	if c.Locals == nil {
+		c.Locals = make(map[string]any)
+	}
+	c.Locals[key] = value
