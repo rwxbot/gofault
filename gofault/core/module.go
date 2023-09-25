@@ -34,3 +34,5 @@ func (c *Ctx) SetLocal(key string, value any) {
 	}
 	c.Locals[key] = value
 }
+
+// GetVersion returns the API version extracted by versioning middleware, or 0 if not set.
