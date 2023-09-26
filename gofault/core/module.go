@@ -39,3 +39,5 @@ func (c *Ctx) SetLocal(key string, value any) {
 func (c *Ctx) GetVersion() int {
 	if v, ok := c.Locals["version"].(int); ok {
 		return v
+	}
+	return 0
