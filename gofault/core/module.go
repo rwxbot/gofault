@@ -36,3 +36,4 @@ func (c *Ctx) SetLocal(key string, value any) {
 }
 
 // GetVersion returns the API version extracted by versioning middleware, or 0 if not set.
+func (c *Ctx) GetVersion() int {
