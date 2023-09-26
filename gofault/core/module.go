@@ -42,3 +42,5 @@ func (c *Ctx) GetVersion() int {
 	}
 	return 0
 }
+
+// GetVersionStatus returns the API version status, or VersionStatusActive if not set.
