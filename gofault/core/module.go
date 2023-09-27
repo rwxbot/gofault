@@ -47,3 +47,4 @@ func (c *Ctx) GetVersion() int {
 func (c *Ctx) GetVersionStatus() int {
 	if v, ok := c.Locals["version_status"].(int); ok {
 		return v
+	}
