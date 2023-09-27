@@ -46,3 +46,4 @@ func (c *Ctx) GetVersion() int {
 // GetVersionStatus returns the API version status, or VersionStatusActive if not set.
 func (c *Ctx) GetVersionStatus() int {
 	if v, ok := c.Locals["version_status"].(int); ok {
+		return v
