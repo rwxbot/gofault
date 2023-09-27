@@ -49,3 +49,4 @@ func (c *Ctx) GetVersionStatus() int {
 		return v
 	}
 	return 0
+}
