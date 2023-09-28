@@ -55,3 +55,5 @@ func (c *Ctx) GetVersionStatus() int {
 func (c *Ctx) RespHeader() http.Header {
 	return c.Response.Header()
 }
+
+// Route describes a single route entry.
