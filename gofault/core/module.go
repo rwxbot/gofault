@@ -50,3 +50,5 @@ func (c *Ctx) GetVersionStatus() int {
 	}
 	return 0
 }
+
+// RespHeader returns the response headers for middleware convenience.
