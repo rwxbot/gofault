@@ -54,3 +54,4 @@ func (c *Ctx) GetVersionStatus() int {
 // RespHeader returns the response headers for middleware convenience.
 func (c *Ctx) RespHeader() http.Header {
 	return c.Response.Header()
+}
