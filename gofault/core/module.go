@@ -57,3 +57,5 @@ func (c *Ctx) RespHeader() http.Header {
 }
 
 // Route describes a single route entry.
+type Route struct {
+	Method  string
