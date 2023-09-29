@@ -64,3 +64,6 @@ type Route struct {
 }
 
 // Provider is implemented by types that can be registered as injectable dependencies.
+type Provider interface {
+	Provide() any
+}
