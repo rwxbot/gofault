@@ -62,3 +62,5 @@ type Route struct {
 	Path    string
 	Handler string // name of the controller method to call (e.g. "Greet", "Index")
 }
+
+// Provider is implemented by types that can be registered as injectable dependencies.
