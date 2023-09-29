@@ -59,3 +59,6 @@ func (c *Ctx) RespHeader() http.Header {
 // Route describes a single route entry.
 type Route struct {
 	Method  string
+	Path    string
+	Handler string // name of the controller method to call (e.g. "Greet", "Index")
+}
