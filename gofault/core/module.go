@@ -69,3 +69,4 @@ type Provider interface {
 }
 
 // Controller is implemented by types that expose routes.
+type Controller interface {
