@@ -73,3 +73,5 @@ type Controller interface {
 	Routes() []Route
 	Prefix() string
 }
+
+// OnBoot is implemented by types that need to perform setup when the application starts.
