@@ -67,3 +67,5 @@ type Route struct {
 type Provider interface {
 	Provide() any
 }
+
+// Controller is implemented by types that expose routes.
