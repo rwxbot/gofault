@@ -75,3 +75,4 @@ type Controller interface {
 }
 
 // OnBoot is implemented by types that need to perform setup when the application starts.
+// Called after all modules are registered and routes are wired, but before the server starts.
