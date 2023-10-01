@@ -79,3 +79,5 @@ type Controller interface {
 type OnBoot interface {
 	OnBoot() error
 }
+
+// OnShutdown is implemented by types that need to perform cleanup when the application stops.
