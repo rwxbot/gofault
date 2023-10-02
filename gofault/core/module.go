@@ -87,3 +87,4 @@ type OnShutdown interface {
 }
 
 // OnInit is implemented by types that need to perform initialization before the module starts.
+// Called after all dependencies have been resolved but before the server starts.
