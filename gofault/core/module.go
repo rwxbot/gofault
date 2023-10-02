@@ -85,3 +85,5 @@ type OnBoot interface {
 type OnShutdown interface {
 	OnShutdown() error
 }
+
+// OnInit is implemented by types that need to perform initialization before the module starts.
