@@ -83,3 +83,5 @@ type OnBoot interface {
 // OnShutdown is implemented by types that need to perform cleanup when the application stops.
 // Called during graceful shutdown.
 type OnShutdown interface {
+	OnShutdown() error
+}
