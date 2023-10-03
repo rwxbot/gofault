@@ -92,3 +92,5 @@ type OnShutdown interface {
 type OnInit interface {
 	OnInit() error
 }
+
+// Module is the basic unit of application organization.
