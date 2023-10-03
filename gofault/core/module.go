@@ -100,3 +100,6 @@ type Module struct {
 	// Depends declares the names of modules that must be initialized before this one.
 	Depends         []string
 	Controllers     []Controller
+	Providers       []Provider
+	Middleware      []MiddlewareFunc
+	OnInitHooks     []OnInit
