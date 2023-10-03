@@ -103,3 +103,4 @@ type Module struct {
 	Providers       []Provider
 	Middleware      []MiddlewareFunc
 	OnInitHooks     []OnInit
+	OnBootHooks     []OnBoot
