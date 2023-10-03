@@ -94,3 +94,6 @@ type OnInit interface {
 }
 
 // Module is the basic unit of application organization.
+type Module struct {
+	// Name uniquely identifies the module. Used for dependency resolution.
+	Name string
