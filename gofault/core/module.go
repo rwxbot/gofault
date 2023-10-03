@@ -90,3 +90,5 @@ type OnShutdown interface {
 // Called after all dependencies have been resolved but before the server starts.
 // Dependencies are guaranteed to be initialized before the dependent module's OnInit runs.
 type OnInit interface {
+	OnInit() error
+}
