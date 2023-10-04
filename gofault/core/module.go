@@ -117,3 +117,4 @@ func NewModule(name string) *Module {
 		OnInitHooks:     []OnInit{},
 		OnBootHooks:     []OnBoot{},
 		OnShutdownHooks: []OnShutdown{},
+	}
