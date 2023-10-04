@@ -106,3 +106,7 @@ type Module struct {
 	OnBootHooks     []OnBoot
 	OnShutdownHooks []OnShutdown
 }
+
+func NewModule(name string) *Module {
+	return &Module{
+		Name:            name,
