@@ -114,3 +114,6 @@ func NewModule(name string) *Module {
 		Controllers:     []Controller{},
 		Providers:       []Provider{},
 		Middleware:      []MiddlewareFunc{},
+		OnInitHooks:     []OnInit{},
+		OnBootHooks:     []OnBoot{},
+		OnShutdownHooks: []OnShutdown{},
