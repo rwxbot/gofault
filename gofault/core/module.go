@@ -110,3 +110,5 @@ type Module struct {
 func NewModule(name string) *Module {
 	return &Module{
 		Name:            name,
+		Depends:         []string{},
+		Controllers:     []Controller{},
