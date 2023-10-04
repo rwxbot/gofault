@@ -104,3 +104,5 @@ type Module struct {
 	Middleware      []MiddlewareFunc
 	OnInitHooks     []OnInit
 	OnBootHooks     []OnBoot
+	OnShutdownHooks []OnShutdown
+}
