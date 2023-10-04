@@ -112,3 +112,5 @@ func NewModule(name string) *Module {
 		Name:            name,
 		Depends:         []string{},
 		Controllers:     []Controller{},
+		Providers:       []Provider{},
+		Middleware:      []MiddlewareFunc{},
