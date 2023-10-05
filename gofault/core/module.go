@@ -121,3 +121,4 @@ func NewModule(name string) *Module {
 }
 
 // RegisterControllers appends controllers to the module.
+func (m *Module) RegisterControllers(ctrls ...Controller) *Module {
