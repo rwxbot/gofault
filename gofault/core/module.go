@@ -125,3 +125,5 @@ func (m *Module) RegisterControllers(ctrls ...Controller) *Module {
 	m.Controllers = append(m.Controllers, ctrls...)
 	return m
 }
+
+// RegisterProviders appends providers to the module.
