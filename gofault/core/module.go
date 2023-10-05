@@ -119,3 +119,5 @@ func NewModule(name string) *Module {
 		OnShutdownHooks: []OnShutdown{},
 	}
 }
+
+// RegisterControllers appends controllers to the module.
