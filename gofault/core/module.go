@@ -127,3 +127,4 @@ func (m *Module) RegisterControllers(ctrls ...Controller) *Module {
 }
 
 // RegisterProviders appends providers to the module.
+func (m *Module) RegisterProviders(providers ...Provider) *Module {
