@@ -139,3 +139,5 @@ func (m *Module) RegisterMiddleware(mw ...MiddlewareFunc) *Module {
 }
 
 // RegisterOnInit appends OnInit hooks to the module.
+func (m *Module) RegisterOnInit(hooks ...OnInit) *Module {
+	m.OnInitHooks = append(m.OnInitHooks, hooks...)
