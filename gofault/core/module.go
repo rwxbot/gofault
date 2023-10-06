@@ -131,3 +131,5 @@ func (m *Module) RegisterProviders(providers ...Provider) *Module {
 	m.Providers = append(m.Providers, providers...)
 	return m
 }
+
+// RegisterMiddleware appends middleware to the module.
