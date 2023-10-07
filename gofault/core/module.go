@@ -151,3 +151,5 @@ func (m *Module) RegisterOnInit(hooks ...OnInit) *Module {
 	m.OnInitHooks = append(m.OnInitHooks, hooks...)
 	return m
 }
+
+// RegisterOnBoot appends OnBoot hooks to the module.
