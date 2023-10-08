@@ -155,3 +155,5 @@ func (m *Module) RegisterOnShutdown(hooks ...OnShutdown) *Module {
 	m.OnShutdownHooks = append(m.OnShutdownHooks, hooks...)
 	return m
 }
+
+// MiddlewareFunc is the function signature for HTTP middleware.
