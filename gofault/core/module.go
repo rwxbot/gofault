@@ -161,3 +161,5 @@ func (m *Module) RegisterOnBoot(hooks ...OnBoot) *Module {
 // RegisterOnShutdown appends OnShutdown hooks to the module.
 func (m *Module) RegisterOnShutdown(hooks ...OnShutdown) *Module {
 	m.OnShutdownHooks = append(m.OnShutdownHooks, hooks...)
+	return m
+}
