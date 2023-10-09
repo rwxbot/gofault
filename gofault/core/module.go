@@ -160,3 +160,4 @@ func (m *Module) RegisterOnShutdown(hooks ...OnShutdown) *Module {
 type MiddlewareFunc func(ctx *Ctx, next Handler) error
 
 // Handler is the function signature for request handlers.
+type Handler func(ctx *Ctx) error
