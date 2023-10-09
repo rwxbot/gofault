@@ -9,3 +9,5 @@ import (
 func TestNewCtx(t *testing.T) {
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest("GET", "/test", nil)
+
+	ctx := NewCtx(w, r)
