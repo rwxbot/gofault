@@ -11,3 +11,4 @@ func TestNewCtx(t *testing.T) {
 	r := httptest.NewRequest("GET", "/test", nil)
 
 	ctx := NewCtx(w, r)
+	if ctx.Request != r {
