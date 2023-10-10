@@ -19,3 +19,5 @@ func TestNewCtx(t *testing.T) {
 	}
 	if ctx.StatusCode != http.StatusOK {
 		t.Errorf("expected StatusOK, got %d", ctx.StatusCode)
+	}
+	if ctx.Params == nil {
