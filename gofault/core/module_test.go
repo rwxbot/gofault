@@ -17,3 +17,5 @@ func TestNewCtx(t *testing.T) {
 	if ctx.Response != w {
 		t.Error("Response not set")
 	}
+	if ctx.StatusCode != http.StatusOK {
+		t.Errorf("expected StatusOK, got %d", ctx.StatusCode)
