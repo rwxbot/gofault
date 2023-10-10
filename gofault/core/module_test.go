@@ -24,3 +24,4 @@ func TestNewCtx(t *testing.T) {
 		t.Error("Params should be initialized")
 	}
 	if ctx.Locals == nil {
+		t.Error("Locals should be initialized")
