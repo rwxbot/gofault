@@ -16,3 +16,4 @@ func TestNewCtx(t *testing.T) {
 	}
 	if ctx.Response != w {
 		t.Error("Response not set")
+	}
