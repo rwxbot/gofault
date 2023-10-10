@@ -15,3 +15,4 @@ func TestNewCtx(t *testing.T) {
 		t.Error("Request not set")
 	}
 	if ctx.Response != w {
+		t.Error("Response not set")
