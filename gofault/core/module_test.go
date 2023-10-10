@@ -21,3 +21,5 @@ func TestNewCtx(t *testing.T) {
 		t.Errorf("expected StatusOK, got %d", ctx.StatusCode)
 	}
 	if ctx.Params == nil {
+		t.Error("Params should be initialized")
+	}
