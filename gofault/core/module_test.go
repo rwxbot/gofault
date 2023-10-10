@@ -12,3 +12,6 @@ func TestNewCtx(t *testing.T) {
 
 	ctx := NewCtx(w, r)
 	if ctx.Request != r {
+		t.Error("Request not set")
+	}
+	if ctx.Response != w {
