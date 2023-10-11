@@ -32,3 +32,5 @@ func TestCtx_Locals(t *testing.T) {
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest("POST", "/", nil)
 	ctx := NewCtx(w, r)
+
+	// Store and retrieve
