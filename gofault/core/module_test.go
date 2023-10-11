@@ -25,3 +25,5 @@ func TestNewCtx(t *testing.T) {
 	}
 	if ctx.Locals == nil {
 		t.Error("Locals should be initialized")
+	}
+}
