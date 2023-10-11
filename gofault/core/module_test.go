@@ -35,3 +35,4 @@ func TestCtx_Locals(t *testing.T) {
 
 	// Store and retrieve
 	ctx.Locals["user"] = "alice"
+	ctx.Locals["score"] = 42
