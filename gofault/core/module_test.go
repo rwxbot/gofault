@@ -27,3 +27,5 @@ func TestNewCtx(t *testing.T) {
 		t.Error("Locals should be initialized")
 	}
 }
+
+func TestCtx_Locals(t *testing.T) {
