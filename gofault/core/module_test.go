@@ -34,3 +34,4 @@ func TestCtx_Locals(t *testing.T) {
 	ctx := NewCtx(w, r)
 
 	// Store and retrieve
+	ctx.Locals["user"] = "alice"
