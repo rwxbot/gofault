@@ -44,3 +44,6 @@ func TestCtx_Locals(t *testing.T) {
 		t.Errorf("expected 42, got %v", v)
 	}
 }
+
+func TestNewModule(t *testing.T) {
+	m := NewModule("test")
