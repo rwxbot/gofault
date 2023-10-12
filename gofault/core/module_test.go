@@ -43,3 +43,4 @@ func TestCtx_Locals(t *testing.T) {
 	if v := ctx.Locals["score"]; v != 42 {
 		t.Errorf("expected 42, got %v", v)
 	}
+}
