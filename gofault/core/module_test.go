@@ -39,3 +39,4 @@ func TestCtx_Locals(t *testing.T) {
 
 	if v := ctx.Locals["user"]; v != "alice" {
 		t.Errorf("expected alice, got %v", v)
+	}
