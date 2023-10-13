@@ -49,3 +49,5 @@ func TestNewModule(t *testing.T) {
 	m := NewModule("test")
 	if m.Name != "test" {
 		t.Errorf("expected name 'test', got '%s'", m.Name)
+	}
+	if m.Depends == nil {
