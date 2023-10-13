@@ -47,3 +47,5 @@ func TestCtx_Locals(t *testing.T) {
 
 func TestNewModule(t *testing.T) {
 	m := NewModule("test")
+	if m.Name != "test" {
+		t.Errorf("expected name 'test', got '%s'", m.Name)
