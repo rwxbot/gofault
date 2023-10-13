@@ -53,3 +53,4 @@ func TestNewModule(t *testing.T) {
 	if m.Depends == nil {
 		t.Error("Depends should be initialized")
 	}
+	if m.Controllers == nil {
