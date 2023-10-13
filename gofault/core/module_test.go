@@ -57,3 +57,6 @@ func TestNewModule(t *testing.T) {
 		t.Error("Controllers should be initialized")
 	}
 	if m.Providers == nil {
+		t.Error("Providers should be initialized")
+	}
+	if m.Middleware == nil {
