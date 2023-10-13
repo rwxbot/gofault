@@ -51,3 +51,5 @@ func TestNewModule(t *testing.T) {
 		t.Errorf("expected name 'test', got '%s'", m.Name)
 	}
 	if m.Depends == nil {
+		t.Error("Depends should be initialized")
+	}
