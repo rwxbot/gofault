@@ -60,3 +60,4 @@ func TestNewModule(t *testing.T) {
 		t.Error("Providers should be initialized")
 	}
 	if m.Middleware == nil {
+		t.Error("Middleware should be initialized")
