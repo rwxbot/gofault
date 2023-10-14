@@ -63,3 +63,6 @@ func TestNewModule(t *testing.T) {
 		t.Error("Middleware should be initialized")
 	}
 }
+
+func TestModule_RegisterControllers(t *testing.T) {
+	m := NewModule("test")
