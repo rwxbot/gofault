@@ -73,3 +73,4 @@ func TestModule_RegisterControllers(t *testing.T) {
 		t.Errorf("expected 1 controller, got %d", len(m.Controllers))
 	}
 	m.RegisterControllers(ctrl, ctrl)
+	if len(m.Controllers) != 3 {
