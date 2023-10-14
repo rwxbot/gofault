@@ -62,3 +62,4 @@ func TestNewModule(t *testing.T) {
 	if m.Middleware == nil {
 		t.Error("Middleware should be initialized")
 	}
+}
