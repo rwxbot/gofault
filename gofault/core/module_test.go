@@ -66,3 +66,6 @@ func TestNewModule(t *testing.T) {
 
 func TestModule_RegisterControllers(t *testing.T) {
 	m := NewModule("test")
+	ctrl := &testController{}
+
+	m.RegisterControllers(ctrl)
