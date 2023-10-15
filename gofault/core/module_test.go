@@ -77,3 +77,6 @@ func TestModule_RegisterControllers(t *testing.T) {
 		t.Errorf("expected 3 controllers, got %d", len(m.Controllers))
 	}
 }
+
+func TestModule_RegisterProviders(t *testing.T) {
+	m := NewModule("test")
