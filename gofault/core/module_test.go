@@ -85,3 +85,5 @@ func TestModule_RegisterProviders(t *testing.T) {
 	m.RegisterProviders(prov)
 	if len(m.Providers) != 1 {
 		t.Errorf("expected 1 provider, got %d", len(m.Providers))
+	}
+}
