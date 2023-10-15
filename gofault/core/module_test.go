@@ -90,3 +90,4 @@ func TestModule_RegisterProviders(t *testing.T) {
 
 func TestModule_RegisterMiddleware(t *testing.T) {
 	m := NewModule("test")
+	mw := MiddlewareFunc(func(ctx *Ctx, next Handler) error { return nil })
