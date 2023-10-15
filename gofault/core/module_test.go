@@ -80,3 +80,6 @@ func TestModule_RegisterControllers(t *testing.T) {
 
 func TestModule_RegisterProviders(t *testing.T) {
 	m := NewModule("test")
+	prov := &testProvider{}
+
+	m.RegisterProviders(prov)
