@@ -87,3 +87,6 @@ func TestModule_RegisterProviders(t *testing.T) {
 		t.Errorf("expected 1 provider, got %d", len(m.Providers))
 	}
 }
+
+func TestModule_RegisterMiddleware(t *testing.T) {
+	m := NewModule("test")
