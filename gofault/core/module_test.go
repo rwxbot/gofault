@@ -96,3 +96,4 @@ func TestModule_RegisterMiddleware(t *testing.T) {
 	if len(m.Middleware) != 1 {
 		t.Errorf("expected 1 middleware, got %d", len(m.Middleware))
 	}
+}
