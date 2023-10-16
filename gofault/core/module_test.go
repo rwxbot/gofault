@@ -101,3 +101,5 @@ func TestModule_RegisterMiddleware(t *testing.T) {
 func TestModule_RegisterOnInit(t *testing.T) {
 	m := NewModule("test")
 	hook := &testHook{}
+
+	m.RegisterOnInit(hook)
