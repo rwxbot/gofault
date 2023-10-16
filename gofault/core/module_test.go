@@ -93,3 +93,6 @@ func TestModule_RegisterMiddleware(t *testing.T) {
 	mw := MiddlewareFunc(func(ctx *Ctx, next Handler) error { return nil })
 
 	m.RegisterMiddleware(mw)
+	if len(m.Middleware) != 1 {
+		t.Errorf("expected 1 middleware, got %d", len(m.Middleware))
+	}
