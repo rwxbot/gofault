@@ -103,3 +103,4 @@ func TestModule_RegisterOnInit(t *testing.T) {
 	hook := &testHook{}
 
 	m.RegisterOnInit(hook)
+	if len(m.OnInitHooks) != 1 {
