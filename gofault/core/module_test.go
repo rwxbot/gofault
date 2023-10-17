@@ -107,3 +107,5 @@ func TestModule_RegisterOnInit(t *testing.T) {
 		t.Errorf("expected 1 OnInit hook, got %d", len(m.OnInitHooks))
 	}
 }
+
+func TestModule_RegisterOnBoot(t *testing.T) {
