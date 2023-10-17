@@ -109,3 +109,5 @@ func TestModule_RegisterOnInit(t *testing.T) {
 }
 
 func TestModule_RegisterOnBoot(t *testing.T) {
+	m := NewModule("test")
+	hook := &testHook{}
