@@ -117,3 +117,6 @@ func TestModule_RegisterOnBoot(t *testing.T) {
 		t.Errorf("expected 1 OnBoot hook, got %d", len(m.OnBootHooks))
 	}
 }
+
+func TestModule_RegisterOnShutdown(t *testing.T) {
+	m := NewModule("test")
