@@ -116,3 +116,4 @@ func TestModule_RegisterOnBoot(t *testing.T) {
 	if len(m.OnBootHooks) != 1 {
 		t.Errorf("expected 1 OnBoot hook, got %d", len(m.OnBootHooks))
 	}
+}
