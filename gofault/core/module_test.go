@@ -130,3 +130,4 @@ func TestModule_RegisterOnShutdown(t *testing.T) {
 
 func TestModule_Chaining(t *testing.T) {
 	m := NewModule("test")
+	ctrl := &testController{}
