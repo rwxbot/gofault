@@ -123,3 +123,6 @@ func TestModule_RegisterOnShutdown(t *testing.T) {
 	hook := &testHook{}
 
 	m.RegisterOnShutdown(hook)
+	if len(m.OnShutdownHooks) != 1 {
+		t.Errorf("expected 1 OnShutdown hook, got %d", len(m.OnShutdownHooks))
+	}
