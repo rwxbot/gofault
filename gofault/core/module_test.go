@@ -127,3 +127,6 @@ func TestModule_RegisterOnShutdown(t *testing.T) {
 		t.Errorf("expected 1 OnShutdown hook, got %d", len(m.OnShutdownHooks))
 	}
 }
+
+func TestModule_Chaining(t *testing.T) {
+	m := NewModule("test")
