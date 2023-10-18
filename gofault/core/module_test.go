@@ -120,3 +120,6 @@ func TestModule_RegisterOnBoot(t *testing.T) {
 
 func TestModule_RegisterOnShutdown(t *testing.T) {
 	m := NewModule("test")
+	hook := &testHook{}
+
+	m.RegisterOnShutdown(hook)
