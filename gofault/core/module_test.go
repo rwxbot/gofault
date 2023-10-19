@@ -145,3 +145,4 @@ func TestModule_Chaining(t *testing.T) {
 	if len(m.OnInitHooks) != 1 {
 		t.Error("onInit not chained")
 	}
+}
