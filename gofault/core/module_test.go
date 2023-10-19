@@ -139,3 +139,5 @@ func TestModule_Chaining(t *testing.T) {
 	if len(m.Controllers) != 1 {
 		t.Error("controllers not chained")
 	}
+	if len(m.Middleware) != 1 {
+		t.Error("middleware not chained")
