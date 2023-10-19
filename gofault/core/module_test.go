@@ -142,3 +142,6 @@ func TestModule_Chaining(t *testing.T) {
 	if len(m.Middleware) != 1 {
 		t.Error("middleware not chained")
 	}
+	if len(m.OnInitHooks) != 1 {
+		t.Error("onInit not chained")
+	}
