@@ -137,3 +137,4 @@ func TestModule_Chaining(t *testing.T) {
 	m.RegisterControllers(ctrl).RegisterMiddleware(mw).RegisterOnInit(hook)
 
 	if len(m.Controllers) != 1 {
+		t.Error("controllers not chained")
