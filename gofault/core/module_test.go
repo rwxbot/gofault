@@ -133,3 +133,5 @@ func TestModule_Chaining(t *testing.T) {
 	ctrl := &testController{}
 	mw := MiddlewareFunc(func(ctx *Ctx, next Handler) error { return nil })
 	hook := &testHook{}
+
+	m.RegisterControllers(ctrl).RegisterMiddleware(mw).RegisterOnInit(hook)
