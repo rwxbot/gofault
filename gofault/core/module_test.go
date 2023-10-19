@@ -135,3 +135,5 @@ func TestModule_Chaining(t *testing.T) {
 	hook := &testHook{}
 
 	m.RegisterControllers(ctrl).RegisterMiddleware(mw).RegisterOnInit(hook)
+
+	if len(m.Controllers) != 1 {
