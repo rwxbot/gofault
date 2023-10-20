@@ -150,3 +150,5 @@ func TestModule_Chaining(t *testing.T) {
 // Mock types for testing
 
 type testController struct{}
+
+func (c *testController) Prefix() string  { return "/test" }
