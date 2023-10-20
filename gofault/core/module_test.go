@@ -157,3 +157,5 @@ func (c *testController) Routes() []Route { return nil }
 type testProvider struct{}
 
 func (p *testProvider) Provide() any { return nil }
+
+type testHook struct{}
