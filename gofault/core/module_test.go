@@ -153,3 +153,5 @@ type testController struct{}
 
 func (c *testController) Prefix() string  { return "/test" }
 func (c *testController) Routes() []Route { return nil }
+
+type testProvider struct{}
