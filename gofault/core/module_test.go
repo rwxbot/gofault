@@ -146,3 +146,5 @@ func TestModule_Chaining(t *testing.T) {
 		t.Error("onInit not chained")
 	}
 }
+
+// Mock types for testing
