@@ -163,3 +163,6 @@ type testHook struct{}
 func (h *testHook) OnInit() error     { return nil }
 func (h *testHook) OnBoot() error     { return nil }
 func (h *testHook) OnShutdown() error { return nil }
+
+func TestRoute_Struct(t *testing.T) {
+	r := Route{Method: "GET", Path: "/hello/:name", Handler: "Greet"}
