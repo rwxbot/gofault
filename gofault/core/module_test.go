@@ -172,3 +172,4 @@ func TestRoute_Struct(t *testing.T) {
 	if r.Path != "/hello/:name" {
 		t.Errorf("expected /hello/:name, got %s", r.Path)
 	}
+	if r.Handler != "Greet" {
