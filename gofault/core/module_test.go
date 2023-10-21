@@ -159,3 +159,5 @@ type testProvider struct{}
 func (p *testProvider) Provide() any { return nil }
 
 type testHook struct{}
+
+func (h *testHook) OnInit() error     { return nil }
