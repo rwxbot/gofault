@@ -169,3 +169,6 @@ func TestRoute_Struct(t *testing.T) {
 	if r.Method != "GET" {
 		t.Errorf("expected GET, got %s", r.Method)
 	}
+	if r.Path != "/hello/:name" {
+		t.Errorf("expected /hello/:name, got %s", r.Path)
+	}
