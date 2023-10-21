@@ -166,3 +166,6 @@ func (h *testHook) OnShutdown() error { return nil }
 
 func TestRoute_Struct(t *testing.T) {
 	r := Route{Method: "GET", Path: "/hello/:name", Handler: "Greet"}
+	if r.Method != "GET" {
+		t.Errorf("expected GET, got %s", r.Method)
+	}
