@@ -176,3 +176,5 @@ func TestRoute_Struct(t *testing.T) {
 		t.Errorf("expected Greet, got %s", r.Handler)
 	}
 }
+
+func TestMiddlewareFunc_Signature(t *testing.T) {
