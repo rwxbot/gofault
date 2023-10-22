@@ -178,3 +178,4 @@ func TestRoute_Struct(t *testing.T) {
 }
 
 func TestMiddlewareFunc_Signature(t *testing.T) {
+	called := false
