@@ -192,3 +192,5 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
+	if !called {
+		t.Error("middleware was not called")
