@@ -182,3 +182,4 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 	mw := MiddlewareFunc(func(ctx *Ctx, next Handler) error {
 		called = true
 		return next(ctx)
+	})
