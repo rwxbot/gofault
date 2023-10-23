@@ -191,3 +191,4 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 	err := mw(ctx, func(c *Ctx) error { return nil })
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
+	}
