@@ -179,3 +179,6 @@ func TestRoute_Struct(t *testing.T) {
 
 func TestMiddlewareFunc_Signature(t *testing.T) {
 	called := false
+	mw := MiddlewareFunc(func(ctx *Ctx, next Handler) error {
+		called = true
+		return next(ctx)
