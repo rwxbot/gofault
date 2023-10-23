@@ -189,3 +189,4 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 	ctx := NewCtx(w, r)
 
 	err := mw(ctx, func(c *Ctx) error { return nil })
+	if err != nil {
