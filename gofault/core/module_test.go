@@ -185,3 +185,5 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 	})
 
 	w := httptest.NewRecorder()
+	r := httptest.NewRequest("GET", "/", nil)
+	ctx := NewCtx(w, r)
