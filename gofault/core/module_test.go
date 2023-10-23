@@ -183,3 +183,5 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 		called = true
 		return next(ctx)
 	})
+
+	w := httptest.NewRecorder()
