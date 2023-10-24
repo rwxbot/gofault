@@ -196,3 +196,5 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 		t.Error("middleware was not called")
 	}
 }
+
+func TestHandler_Signature(t *testing.T) {
