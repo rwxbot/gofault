@@ -208,3 +208,5 @@ func TestHandler_Signature(t *testing.T) {
 	ctx := NewCtx(w, r)
 
 	err := h(ctx)
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
