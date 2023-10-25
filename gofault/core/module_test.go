@@ -202,3 +202,5 @@ func TestHandler_Signature(t *testing.T) {
 		ctx.StatusCode = 201
 		return nil
 	})
+
+	w := httptest.NewRecorder()
