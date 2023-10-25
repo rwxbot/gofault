@@ -205,3 +205,6 @@ func TestHandler_Signature(t *testing.T) {
 
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest("PUT", "/item", nil)
+	ctx := NewCtx(w, r)
+
+	err := h(ctx)
