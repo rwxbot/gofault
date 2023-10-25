@@ -200,3 +200,5 @@ func TestMiddlewareFunc_Signature(t *testing.T) {
 func TestHandler_Signature(t *testing.T) {
 	h := Handler(func(ctx *Ctx) error {
 		ctx.StatusCode = 201
+		return nil
+	})
