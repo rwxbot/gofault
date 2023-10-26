@@ -213,3 +213,5 @@ func TestHandler_Signature(t *testing.T) {
 	}
 	if ctx.StatusCode != 201 {
 		t.Errorf("expected 201, got %d", ctx.StatusCode)
+	}
+}
