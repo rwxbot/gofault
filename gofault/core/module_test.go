@@ -210,3 +210,6 @@ func TestHandler_Signature(t *testing.T) {
 	err := h(ctx)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
+	}
+	if ctx.StatusCode != 201 {
+		t.Errorf("expected 201, got %d", ctx.StatusCode)
