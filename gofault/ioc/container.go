@@ -10,3 +10,5 @@ import (
 
 // contextKey is a custom type to avoid collisions in context.WithValue.
 type contextKey string
+
+const requestCtxKey contextKey = "gofault-request-scope"
