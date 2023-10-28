@@ -21,3 +21,6 @@ const requestCtxKey contextKey = "gofault-request-scope"
 
 // Scope defines the lifecycle scope of a registered service.
 type Scope int
+
+const (
+	ScopeSingleton Scope = iota
