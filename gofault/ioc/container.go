@@ -24,3 +24,5 @@ const (
 
 // Container is the publicly exposed IoC container type (alias of the internal container).
 type Container = container
+
+// container is the inversion-of-control container.
