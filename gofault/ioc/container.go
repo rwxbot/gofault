@@ -32,3 +32,6 @@ const (
 type Container = container
 
 // container is the inversion-of-control container.
+type container struct {
+	mu         sync.RWMutex
+	singletons map[reflect.Type]*entry
