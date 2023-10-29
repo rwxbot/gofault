@@ -34,3 +34,6 @@ type container struct {
 	// requestScope stores per-context instances for request-scoped resolution.
 	// The key is the context value returned by context.WithValue.
 	requestScope map[contextKey]map[reflect.Type]any
+	// counter for generating unique request scope keys.
+	scopeCounter uint64
+}
