@@ -27,3 +27,5 @@ const (
 	ScopeRequest
 	ScopeTransient
 )
+
+// Container is the publicly exposed IoC container type (alias of the internal container).
