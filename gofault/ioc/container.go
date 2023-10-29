@@ -29,3 +29,4 @@ const (
 )
 
 // Container is the publicly exposed IoC container type (alias of the internal container).
+type Container = container
