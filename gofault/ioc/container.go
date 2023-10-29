@@ -20,3 +20,4 @@ const (
 	ScopeSingleton Scope = iota
 	ScopeRequest
 	ScopeTransient
+)
