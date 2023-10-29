@@ -35,3 +35,5 @@ type Container = container
 type container struct {
 	mu         sync.RWMutex
 	singletons map[reflect.Type]*entry
+	transients map[reflect.Type]*entry
+	request    map[reflect.Type]*entry
