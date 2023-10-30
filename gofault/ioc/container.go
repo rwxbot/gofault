@@ -48,3 +48,5 @@ type entry struct {
 	ctor any
 	inst any // nil means not-yet-instantiated (for singletons)
 }
+
+// New creates a new container.
