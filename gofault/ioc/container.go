@@ -43,3 +43,6 @@ type container struct {
 	// counter for generating unique request scope keys.
 	scopeCounter uint64
 }
+
+type entry struct {
+	ctor any
