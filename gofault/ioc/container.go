@@ -40,3 +40,4 @@ type container struct {
 
 type entry struct {
 	ctor any
+	inst any // nil means not-yet-instantiated (for singletons)
