@@ -44,3 +44,5 @@ type entry struct {
 }
 
 // New creates a new container.
+func New() *container {
+	return &container{
