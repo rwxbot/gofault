@@ -67,3 +67,4 @@ func (c *container) BeginRequest(ctx context.Context) context.Context {
 	c.scopeCounter++
 	key := contextKey(fmt.Sprintf("%d", c.scopeCounter))
 	if c.requestScope[key] == nil {
+		c.requestScope[key] = make(map[reflect.Type]any)
