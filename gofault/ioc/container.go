@@ -58,3 +58,5 @@ func New() *container {
 		requestScope: make(map[contextKey]map[reflect.Type]any),
 	}
 }
+
+// BeginRequest creates a request scope bound to the returned context.
