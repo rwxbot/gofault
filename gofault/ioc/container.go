@@ -61,3 +61,4 @@ func New() *container {
 
 // BeginRequest creates a request scope bound to the returned context.
 // All request-scoped resolutions within this context will share the same instances.
+// Call EndRequest when the request completes to clean up.
