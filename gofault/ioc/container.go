@@ -65,3 +65,5 @@ func New() *container {
 func (c *container) BeginRequest(ctx context.Context) context.Context {
 	c.mu.Lock()
 	c.scopeCounter++
+	key := contextKey(fmt.Sprintf("%d", c.scopeCounter))
+	if c.requestScope[key] == nil {
