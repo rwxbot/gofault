@@ -70,3 +70,5 @@ func (c *container) BeginRequest(ctx context.Context) context.Context {
 		c.requestScope[key] = make(map[reflect.Type]any)
 	}
 	c.mu.Unlock()
+	return context.WithValue(ctx, requestCtxKey, key)
+}
