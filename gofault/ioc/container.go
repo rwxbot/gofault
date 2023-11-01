@@ -66,3 +66,5 @@ func (c *container) BeginRequest(ctx context.Context) context.Context {
 	c.mu.Unlock()
 	return context.WithValue(ctx, requestCtxKey, key)
 }
+
+// EndRequest releases all request-scoped instances associated with the context.
