@@ -63,3 +63,4 @@ func (c *container) BeginRequest(ctx context.Context) context.Context {
 	if c.requestScope[key] == nil {
 		c.requestScope[key] = make(map[reflect.Type]any)
 	}
+	c.mu.Unlock()
