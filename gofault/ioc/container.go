@@ -75,3 +75,4 @@ func (c *container) BeginRequest(ctx context.Context) context.Context {
 
 // EndRequest releases all request-scoped instances associated with the context.
 // Call this when the request handling is complete.
+func (c *container) EndRequest(ctx context.Context) {
