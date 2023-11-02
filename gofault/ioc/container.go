@@ -80,3 +80,4 @@ func (c *container) EndRequest(ctx context.Context) {
 	if !ok {
 		return
 	}
+	c.mu.Lock()
