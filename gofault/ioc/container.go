@@ -78,3 +78,5 @@ func (c *container) BeginRequest(ctx context.Context) context.Context {
 func (c *container) EndRequest(ctx context.Context) {
 	key, ok := ctx.Value(requestCtxKey).(contextKey)
 	if !ok {
+		return
+	}
