@@ -81,3 +81,6 @@ func (c *container) EndRequest(ctx context.Context) {
 		return
 	}
 	c.mu.Lock()
+	delete(c.requestScope, key)
+	c.mu.Unlock()
+}
