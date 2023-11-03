@@ -92,3 +92,6 @@ func (c *container) Register(ctor any) error {
 }
 
 // RegisterScoped registers a request-scoped constructor.
+func (c *container) RegisterScoped(ctor any) error {
+	return c.register(ctor, ScopeRequest)
+}
