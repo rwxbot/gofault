@@ -84,3 +84,5 @@ func (c *container) EndRequest(ctx context.Context) {
 	delete(c.requestScope, key)
 	c.mu.Unlock()
 }
+
+// Register registers a singleton constructor. The constructor must be a function
