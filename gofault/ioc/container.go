@@ -81,3 +81,6 @@ func (c *container) EndRequest(ctx context.Context) {
 
 // Register registers a singleton constructor. The constructor must be a function
 // that returns a single value.
+func (c *container) Register(ctor any) error {
+	return c.register(ctor, ScopeSingleton)
+}
