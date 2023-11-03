@@ -90,3 +90,5 @@ func (c *container) EndRequest(ctx context.Context) {
 func (c *container) Register(ctor any) error {
 	return c.register(ctor, ScopeSingleton)
 }
+
+// RegisterScoped registers a request-scoped constructor.
