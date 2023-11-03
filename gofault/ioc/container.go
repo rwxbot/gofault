@@ -86,3 +86,4 @@ func (c *container) EndRequest(ctx context.Context) {
 }
 
 // Register registers a singleton constructor. The constructor must be a function
+// that returns a single value.
