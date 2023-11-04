@@ -102,3 +102,4 @@ func (c *container) RegisterTransient(ctor any) error {
 }
 
 func (c *container) register(ctor any, scope Scope) error {
+	fn := reflect.ValueOf(ctor)
