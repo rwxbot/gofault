@@ -100,3 +100,5 @@ func (c *container) RegisterScoped(ctor any) error {
 func (c *container) RegisterTransient(ctor any) error {
 	return c.register(ctor, ScopeTransient)
 }
+
+func (c *container) register(ctor any, scope Scope) error {
