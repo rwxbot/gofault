@@ -97,3 +97,6 @@ func (c *container) RegisterScoped(ctor any) error {
 }
 
 // RegisterTransient registers a transient (every-resolve) constructor.
+func (c *container) RegisterTransient(ctor any) error {
+	return c.register(ctor, ScopeTransient)
+}
