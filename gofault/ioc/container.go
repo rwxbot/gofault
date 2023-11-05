@@ -105,3 +105,6 @@ func (c *container) register(ctor any, scope Scope) error {
 	fn := reflect.ValueOf(ctor)
 	if fn.Kind() != reflect.Func {
 		return fmt.Errorf("ctor must be a function, got %T", ctor)
+	}
+	t := fn.Type()
+	if t.NumOut() != 1 {
