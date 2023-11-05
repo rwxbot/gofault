@@ -111,3 +111,4 @@ func (c *container) register(ctor any, scope Scope) error {
 		return fmt.Errorf("ctor must return exactly one value, got %d", t.NumOut())
 	}
 	key := t.Out(0)
+	c.mu.Lock()
