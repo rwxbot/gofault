@@ -102,3 +102,4 @@ func (c *container) register(ctor any, scope Scope) error {
 	}
 	t := fn.Type()
 	if t.NumOut() != 1 {
+		return fmt.Errorf("ctor must return exactly one value, got %d", t.NumOut())
