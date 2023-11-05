@@ -103,3 +103,5 @@ func (c *container) RegisterTransient(ctor any) error {
 
 func (c *container) register(ctor any, scope Scope) error {
 	fn := reflect.ValueOf(ctor)
+	if fn.Kind() != reflect.Func {
+		return fmt.Errorf("ctor must be a function, got %T", ctor)
