@@ -111,15 +111,29 @@ func (c *container) register(ctor any, scope Scope) error {
 		return fmt.Errorf("ctor must return exactly one value, got %d", t.NumOut())
 	}
 	key := t.Out(0)
+
 	c.mu.Lock()
 	defer c.mu.Unlock()
+
+	var target map[reflect.Type]*entry
 	switch scope {
 	case ScopeSingleton:
-		c.singletons[key] = &entry{ctor: ctor}
+		target = c.singletons
 	case ScopeTransient:
-		c.transients[key] = &entry{ctor: ctor}
+		target = c.transients
 	case ScopeRequest:
-		c.request[key] = &entry{ctor: ctor}
+		target = c.request
+	default:
+		return fmt.Errorf("unknown scope %d", scope)
 	}
+
+	// Registering two constructors for the same type used to silently replace
+	// the first, so a typo in a later Register left the earlier binding in
+	// place with no indication that anything was wrong.
+	if _, dup := target[key]; dup {
+		return fmt.Errorf("%w: %s is already registered", ErrDuplicateRegistration, key)
+	}
+
+	target[key] = &entry{ctor: ctor}
 	return nil
 }
