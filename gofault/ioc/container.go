@@ -118,3 +118,5 @@ func (c *container) register(ctor any, scope Scope) error {
 		c.singletons[key] = &entry{ctor: ctor}
 	case ScopeTransient:
 		c.transients[key] = &entry{ctor: ctor}
+	case ScopeRequest:
+		c.request[key] = &entry{ctor: ctor}
