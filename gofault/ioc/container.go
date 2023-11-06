@@ -114,3 +114,4 @@ func (c *container) register(ctor any, scope Scope) error {
 		c.transients[key] = &entry{ctor: ctor}
 	case ScopeRequest:
 		c.request[key] = &entry{ctor: ctor}
+	}
