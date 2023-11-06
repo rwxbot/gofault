@@ -115,3 +115,5 @@ func (c *container) register(ctor any, scope Scope) error {
 	case ScopeRequest:
 		c.request[key] = &entry{ctor: ctor}
 	}
+	return nil
+}
