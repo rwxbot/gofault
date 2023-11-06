@@ -106,3 +106,5 @@ func (c *container) register(ctor any, scope Scope) error {
 	}
 	key := t.Out(0)
 	c.mu.Lock()
+	defer c.mu.Unlock()
+	switch scope {
