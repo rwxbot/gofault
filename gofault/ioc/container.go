@@ -114,3 +114,6 @@ func (c *container) register(ctor any, scope Scope) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	switch scope {
+	case ScopeSingleton:
+		c.singletons[key] = &entry{ctor: ctor}
+	case ScopeTransient:
