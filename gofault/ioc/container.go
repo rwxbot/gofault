@@ -121,3 +121,6 @@ func (c *container) register(ctor any, scope Scope) error {
 // Resolve instantiates or returns the cached instance for the given type.
 // target must be a pointer to the desired type (e.g., &MyService{}).
 // This method uses a background context and is suitable for singleton/transient resolution.
+func (c *container) Resolve(target any) (any, error) {
+	return c.ResolveFromCtx(context.Background(), target)
+}
