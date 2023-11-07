@@ -137,3 +137,5 @@ func (c *container) register(ctor any, scope Scope) error {
 	target[key] = &entry{ctor: ctor}
 	return nil
 }
+
+// Resolve instantiates or returns the cached instance for the given type.
