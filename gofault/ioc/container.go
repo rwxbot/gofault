@@ -144,3 +144,5 @@ func (c *container) register(ctor any, scope Scope) error {
 func (c *container) Resolve(target any) (any, error) {
 	return c.ResolveFromCtx(context.Background(), target)
 }
+
+// ResolveFromCtx is like Resolve but resolves request-scoped instances
