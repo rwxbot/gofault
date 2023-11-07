@@ -139,3 +139,4 @@ func (c *container) register(ctor any, scope Scope) error {
 }
 
 // Resolve instantiates or returns the cached instance for the given type.
+// target must be a pointer to the desired type (e.g., &MyService{}).
