@@ -160,3 +160,5 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	// Check singleton.
 	c.mu.RLock()
 	e, isSingleton := c.singletons[t]
+	c.mu.RUnlock()
+	if isSingleton {
