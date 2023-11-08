@@ -151,3 +151,6 @@ func (c *container) Resolve(target any) (any, error) {
 func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error) {
 	t := reflect.TypeOf(target)
 	if t == nil {
+		return nil, fmt.Errorf("nil type")
+	}
+	if t.Kind() != reflect.Ptr {
