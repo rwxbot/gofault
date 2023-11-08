@@ -134,3 +134,5 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 		return nil, fmt.Errorf("nil type")
 	}
 	if t.Kind() != reflect.Ptr {
+		return nil, fmt.Errorf("target must be a pointer, got %T", target)
+	}
