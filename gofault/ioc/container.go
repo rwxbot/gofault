@@ -147,3 +147,4 @@ func (c *container) Resolve(target any) (any, error) {
 
 // ResolveFromCtx is like Resolve but resolves request-scoped instances
 // within the given context. Request-scoped instances are shared across
+// all ResolveFromCtx calls within the same request context.
