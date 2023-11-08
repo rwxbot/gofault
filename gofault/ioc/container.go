@@ -156,3 +156,7 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	if t.Kind() != reflect.Ptr {
 		return nil, fmt.Errorf("target must be a pointer, got %T", target)
 	}
+
+	// Check singleton.
+	c.mu.RLock()
+	e, isSingleton := c.singletons[t]
