@@ -147,3 +147,4 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 
 	// Check transient.
 	c.mu.RLock()
+	e, ok := c.transients[t]
