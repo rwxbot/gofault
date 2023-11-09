@@ -162,5 +162,8 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	e, isSingleton := c.singletons[t]
 	c.mu.RUnlock()
 	if isSingleton {
-		return c.resolveSingleton(e, t)
+		return c.resolveSingleton(e)
 	}
+
+	// Check transient.
+	c.mu.RLock()
