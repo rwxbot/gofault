@@ -150,3 +150,5 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	e, ok := c.transients[t]
 	c.mu.RUnlock()
 	if ok {
+		return c.callCtor(e.ctor)
+	}
