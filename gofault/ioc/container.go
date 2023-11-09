@@ -144,3 +144,6 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	if isSingleton {
 		return c.resolveSingleton(e, t)
 	}
+
+	// Check transient.
+	c.mu.RLock()
