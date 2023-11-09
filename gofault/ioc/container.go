@@ -152,3 +152,6 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	if ok {
 		return c.callCtor(e.ctor)
 	}
+
+	// Check request.
+	c.mu.RLock()
