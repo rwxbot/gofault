@@ -180,3 +180,5 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	if ok {
 		return c.resolveRequestScoped(ctx, e, t)
 	}
+
+	return nil, fmt.Errorf("no registered service for type %v", t)
