@@ -163,3 +163,5 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 
 	return nil, fmt.Errorf("no registered service for type %v", t)
 }
+
+// resolveRequestScoped resolves or creates a request-scoped instance.
