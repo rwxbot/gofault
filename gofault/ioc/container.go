@@ -159,3 +159,4 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	c.mu.RUnlock()
 	if ok {
 		return c.resolveRequestScoped(ctx, e, t)
+	}
