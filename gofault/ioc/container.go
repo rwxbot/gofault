@@ -156,3 +156,4 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	// Check request.
 	c.mu.RLock()
 	e, ok = c.request[t]
+	c.mu.RUnlock()
