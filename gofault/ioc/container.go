@@ -166,3 +166,5 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 
 // resolveRequestScoped resolves or creates a request-scoped instance.
 func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflect.Type) (any, error) {
+	key, ok := ctx.Value(requestCtxKey).(contextKey)
+	if !ok {
