@@ -193,3 +193,5 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflect.Type) (any, error) {
 	key, ok := ctx.Value(requestCtxKey).(contextKey)
 	if !ok {
+		// No request context: fall back to creating a new instance each time.
+		return c.callCtor(e.ctor)
