@@ -179,3 +179,6 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 	if scope == nil {
 		scope = make(map[reflect.Type]any)
 		c.requestScope[key] = scope
+	}
+
+	if inst, exists := scope[t]; exists {
