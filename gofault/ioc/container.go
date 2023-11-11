@@ -174,3 +174,6 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 
 	c.mu.Lock()
 	defer c.mu.Unlock()
+
+	scope := c.requestScope[key]
+	if scope == nil {
