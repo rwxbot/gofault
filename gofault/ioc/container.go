@@ -185,4 +185,11 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 }
 
 // resolveRequestScoped resolves or creates a request-scoped instance.
+//
+// The constructor runs outside the lock. callCtor resolves its arguments through
+// this same container, and sync.RWMutex is not reentrant, so calling it while
+// holding the write lock deadlocked any request-scoped service that had a
+// dependency. resolveSingleton builds outside its lock for the same reason.
 func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflect.Type) (any, error) {
+	key, ok := ctx.Value(requestCtxKey).(contextKey)
+	if !ok {
