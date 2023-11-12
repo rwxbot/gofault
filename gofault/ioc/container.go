@@ -211,3 +211,6 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 	}
 
 	inst, err := c.callCtor(e.ctor)
+	if err != nil {
+		return nil, err
+	}
