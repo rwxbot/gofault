@@ -189,3 +189,6 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 	if err != nil {
 		return nil, err
 	}
+	scope[t] = inst
+	return inst, nil
+}
