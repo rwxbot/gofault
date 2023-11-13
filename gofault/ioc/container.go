@@ -206,3 +206,4 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	// Solution: create instance outside the lock, then atomically swap.
 	created, err := c.callCtor(e.ctor)
 	if err != nil {
+		return nil, err
