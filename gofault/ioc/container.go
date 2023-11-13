@@ -200,3 +200,5 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	if inst != nil {
 		return inst, nil
 	}
+
+	// Slow path: lazily create the singleton instance.
