@@ -221,3 +221,6 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 // resolveSingleton returns the singleton instance, creating it lazily if needed.
 func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	// Fast path: already instantiated (no lock needed for read of e.inst).
+	inst := e.inst
+	if inst != nil {
+		return inst, nil
