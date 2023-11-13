@@ -207,3 +207,6 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	created, err := c.callCtor(e.ctor)
 	if err != nil {
 		return nil, err
+	}
+
+	c.mu.Lock()
