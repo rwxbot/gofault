@@ -194,40 +194,61 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 	key, ok := ctx.Value(requestCtxKey).(contextKey)
 	if !ok {
 		// No request context: fall back to creating a new instance each time.
-		return c.callCtor(e.ctor)
+		return c.callCtor(ctx, e.ctor)
+	}
+
+	c.mu.RLock()
+	scope, exists := c.requestScope[key]
+	var inst any
+	if exists {
+		inst, exists = scope[t]
+	}
+	c.mu.RUnlock()
+
+	if exists {
+		return inst, nil
+	}
+
+	// Built outside the lock so nested resolution can take it.
+	created, err := c.callCtor(ctx, e.ctor)
+	if err != nil {
+		return nil, err
 	}
 
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	scope := c.requestScope[key]
-	if scope == nil {
+	// Another goroutine may have created it first, and it must win, otherwise
+	// the one instance per request contract is broken under concurrency.
+	if scope = c.requestScope[key]; scope == nil {
 		scope = make(map[reflect.Type]any)
 		c.requestScope[key] = scope
 	}
-
-	if inst, exists := scope[t]; exists {
-		return inst, nil
+	if existing, ok := scope[t]; ok {
+		return existing, nil
 	}
-
-	inst, err := c.callCtor(e.ctor)
-	if err != nil {
-		return nil, err
-	}
-	scope[t] = inst
-	return inst, nil
+	scope[t] = created
+	return created, nil
 }
 
 // resolveSingleton returns the singleton instance, creating it lazily if needed.
-func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
-	// Fast path: already instantiated (no lock needed for read of e.inst).
+//
+// e.inst is written under c.mu, so it must also be read under c.mu. Reading it
+// lock-free was a data race: concurrent resolves of the same not-yet-created
+// singleton raced on the field, and the fast path could observe a partially
+// written interface value.
+func (c *container) resolveSingleton(e *entry) (any, error) {
+	// Fast path: already instantiated.
+	c.mu.RLock()
 	inst := e.inst
+	c.mu.RUnlock()
 	if inst != nil {
 		return inst, nil
 	}
 
-	// Slow path: lazily create the singleton instance.
-	// We need a write lock but must avoid deadlock with nested callCtor calls.
-	// Solution: create instance outside the lock, then atomically swap.
+	// Slow path. Build the instance outside the lock so nested callCtor calls
+	// can take the lock themselves without deadlocking, then publish it under
+	// the lock with a double-check.
 	created, err := c.callCtor(e.ctor)
 	if err != nil {
+		return nil, err
