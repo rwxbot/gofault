@@ -249,6 +249,14 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 	// Slow path. Build the instance outside the lock so nested callCtor calls
 	// can take the lock themselves without deadlocking, then publish it under
 	// the lock with a double-check.
-	created, err := c.callCtor(e.ctor)
+	//
+	// A singleton is process-lifetime, so its constructor arguments are resolved
+	// with a background context: a request-scoped dependency must never be
+	// captured into the singleton, or one request's instance would leak into
+	// every later one. Such a dependency falls back to a fresh instance here.
+	created, err := c.callCtor(context.Background(), e.ctor)
 	if err != nil {
 		return nil, err
+	}
+
+	c.mu.Lock()
