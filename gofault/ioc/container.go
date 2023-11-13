@@ -230,3 +230,4 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	// We need a write lock but must avoid deadlock with nested callCtor calls.
 	// Solution: create instance outside the lock, then atomically swap.
 	created, err := c.callCtor(e.ctor)
+	if err != nil {
