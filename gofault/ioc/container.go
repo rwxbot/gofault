@@ -217,3 +217,5 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 	scope[t] = inst
 	return inst, nil
 }
+
+// resolveSingleton returns the singleton instance, creating it lazily if needed.
