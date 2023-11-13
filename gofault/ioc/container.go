@@ -227,3 +227,6 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	}
 
 	// Slow path: lazily create the singleton instance.
+	// We need a write lock but must avoid deadlock with nested callCtor calls.
+	// Solution: create instance outside the lock, then atomically swap.
+	created, err := c.callCtor(e.ctor)
