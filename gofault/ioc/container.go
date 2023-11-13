@@ -224,3 +224,4 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	inst := e.inst
 	if inst != nil {
 		return inst, nil
+	}
