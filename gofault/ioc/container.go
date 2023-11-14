@@ -260,3 +260,5 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 	}
 
 	c.mu.Lock()
+	defer c.mu.Unlock()
+	// Double-check: another goroutine may have created it.
