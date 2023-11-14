@@ -221,3 +221,5 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 
 func (c *container) callCtor(ctor any) (any, error) {
 	fn := reflect.ValueOf(ctor)
+	in := make([]reflect.Value, fn.Type().NumIn())
+	for i := range in {
