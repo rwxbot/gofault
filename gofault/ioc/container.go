@@ -268,3 +268,6 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 	e.inst = created
 	return created, nil
 }
+
+func (c *container) callCtor(ctor any) (any, error) {
+	fn := reflect.ValueOf(ctor)
