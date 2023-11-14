@@ -216,3 +216,4 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 		return e.inst, nil
 	}
 	e.inst = created
+	return created, nil
