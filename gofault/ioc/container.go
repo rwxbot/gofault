@@ -265,3 +265,4 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 	if e.inst != nil {
 		return e.inst, nil
 	}
+	e.inst = created
