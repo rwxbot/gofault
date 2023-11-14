@@ -212,3 +212,6 @@ func (c *container) resolveSingleton(e *entry, t reflect.Type) (any, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	// Double-check: another goroutine may have created it.
+	if e.inst != nil {
+		return e.inst, nil
+	}
