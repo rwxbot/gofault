@@ -261,13 +261,17 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	// Double-check: another goroutine may have created it.
 	if e.inst != nil {
+		// Another goroutine created it first; discard ours.
 		return e.inst, nil
 	}
 	e.inst = created
 	return created, nil
 }
 
+// callCtor invokes a constructor, resolving each argument through the
+// container.
 func (c *container) callCtor(ctor any) (any, error) {
 	fn := reflect.ValueOf(ctor)
+	in := make([]reflect.Value, fn.Type().NumIn())
+	for i := range in {
