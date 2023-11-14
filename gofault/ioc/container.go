@@ -267,3 +267,4 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 	}
 	e.inst = created
 	return created, nil
+}
