@@ -275,3 +275,4 @@ func (c *container) callCtor(ctor any) (any, error) {
 	fn := reflect.ValueOf(ctor)
 	in := make([]reflect.Value, fn.Type().NumIn())
 	for i := range in {
+		argType := fn.Type().In(i)
