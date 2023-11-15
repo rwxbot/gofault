@@ -286,3 +286,4 @@ func (c *container) callCtor(ctx context.Context, ctor any) (any, error) {
 	out := fn.Call(in)
 	if len(out) == 2 && !out[1].IsNil() {
 		return out[0].Interface(), out[1].Interface().(error)
+	}
