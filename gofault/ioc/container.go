@@ -270,12 +270,15 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 }
 
 // callCtor invokes a constructor, resolving each argument through the
-// container.
-func (c *container) callCtor(ctor any) (any, error) {
+// container. The ctx is threaded into argument resolution so a request-scoped
+// parameter reuses the per-request instance instead of getting a fresh one.
+func (c *container) callCtor(ctx context.Context, ctor any) (any, error) {
 	fn := reflect.ValueOf(ctor)
 	in := make([]reflect.Value, fn.Type().NumIn())
 	for i := range in {
 		argType := fn.Type().In(i)
-		arg, err := c.resolveType(argType)
+		arg, err := c.resolveType(ctx, argType)
 		if err != nil {
 			return nil, fmt.Errorf("cannot resolve arg %d (%v): %w", i, argType, err)
+		}
+		in[i] = reflect.ValueOf(arg)
