@@ -276,3 +276,6 @@ func (c *container) callCtor(ctor any) (any, error) {
 	in := make([]reflect.Value, fn.Type().NumIn())
 	for i := range in {
 		argType := fn.Type().In(i)
+		arg, err := c.resolveType(argType)
+		if err != nil {
+			return nil, fmt.Errorf("cannot resolve arg %d (%v): %w", i, argType, err)
