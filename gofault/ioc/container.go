@@ -282,3 +282,6 @@ func (c *container) callCtor(ctx context.Context, ctor any) (any, error) {
 			return nil, fmt.Errorf("cannot resolve arg %d (%v): %w", i, argType, err)
 		}
 		in[i] = reflect.ValueOf(arg)
+	}
+	out := fn.Call(in)
+	if len(out) == 2 && !out[1].IsNil() {
