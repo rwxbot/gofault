@@ -227,3 +227,5 @@ func (c *container) callCtor(ctor any) (any, error) {
 		arg, err := c.resolveType(argType)
 		if err != nil {
 			return nil, fmt.Errorf("cannot resolve arg %d (%v): %w", i, argType, err)
+		}
+		in[i] = reflect.ValueOf(arg)
