@@ -236,3 +236,6 @@ func (c *container) callCtor(ctor any) (any, error) {
 	}
 	if len(out) == 1 {
 		return out[0].Interface(), nil
+	}
+	return out[0].Interface(), nil
+}
