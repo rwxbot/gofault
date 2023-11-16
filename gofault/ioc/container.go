@@ -234,3 +234,4 @@ func (c *container) callCtor(ctor any) (any, error) {
 	if len(out) == 2 && !out[1].IsNil() {
 		return out[0].Interface(), out[1].Interface().(error)
 	}
+	if len(out) == 1 {
