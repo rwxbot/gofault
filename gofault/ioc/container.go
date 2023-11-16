@@ -243,3 +243,5 @@ func (c *container) callCtor(ctor any) (any, error) {
 func (c *container) resolveType(t reflect.Type) (any, error) {
 	// Check if it's a registered singleton.
 	c.mu.RLock()
+	e, isSingleton := c.singletons[t]
+	c.mu.RUnlock()
