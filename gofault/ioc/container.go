@@ -239,3 +239,7 @@ func (c *container) callCtor(ctor any) (any, error) {
 	}
 	return out[0].Interface(), nil
 }
+
+func (c *container) resolveType(t reflect.Type) (any, error) {
+	// Check if it's a registered singleton.
+	c.mu.RLock()
