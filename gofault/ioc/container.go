@@ -284,11 +284,7 @@ func (c *container) callCtor(ctx context.Context, ctor any) (any, error) {
 		in[i] = reflect.ValueOf(arg)
 	}
 	out := fn.Call(in)
-	if len(out) == 2 && !out[1].IsNil() {
-		return out[0].Interface(), out[1].Interface().(error)
-	}
-	if len(out) == 1 {
-		return out[0].Interface(), nil
-	}
+	// register rejects any constructor that does not return exactly one value,
+	// so there is no error return to inspect here.
 	return out[0].Interface(), nil
 }
