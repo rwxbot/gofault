@@ -288,3 +288,4 @@ func (c *container) callCtor(ctx context.Context, ctor any) (any, error) {
 		return out[0].Interface(), out[1].Interface().(error)
 	}
 	if len(out) == 1 {
+		return out[0].Interface(), nil
