@@ -259,3 +259,6 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 		c.mu.Lock()
 		if e.inst != nil {
 			// Another goroutine beat us to it.
+			c.mu.Unlock()
+			return e.inst, nil
+		}
