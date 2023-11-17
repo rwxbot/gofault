@@ -247,3 +247,4 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 	c.mu.RUnlock()
 	if isSingleton {
 		inst := e.inst
+		if inst != nil {
