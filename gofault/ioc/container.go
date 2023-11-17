@@ -255,3 +255,6 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 		created, err := c.callCtor(e.ctor)
 		if err != nil {
 			return nil, err
+		}
+		c.mu.Lock()
+		if e.inst != nil {
