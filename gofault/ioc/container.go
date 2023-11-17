@@ -307,3 +307,4 @@ func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error
 		}
 		c.mu.Lock()
 		if e.inst != nil {
+			// Another goroutine beat us to it.
