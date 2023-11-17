@@ -251,3 +251,5 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 			return inst, nil
 		}
 		// Not yet instantiated - need to create it but avoid deadlock.
+		// Create outside the lock, then atomically set via the singleton path.
+		created, err := c.callCtor(e.ctor)
