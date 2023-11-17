@@ -297,3 +297,6 @@ func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error
 	if isSingleton {
 		inst := e.inst
 		if inst != nil {
+			return inst, nil
+		}
+		// Not yet instantiated - need to create it but avoid deadlock.
