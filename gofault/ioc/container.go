@@ -295,23 +295,11 @@ func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error
 	e, isSingleton := c.singletons[t]
 	c.mu.RUnlock()
 	if isSingleton {
-		inst := e.inst
-		if inst != nil {
-			return inst, nil
-		}
-		// Not yet instantiated - need to create it but avoid deadlock.
-		// Create outside the lock, then atomically set via the singleton path.
-		created, err := c.callCtor(e.ctor)
-		if err != nil {
-			return nil, err
-		}
-		c.mu.Lock()
-		if e.inst != nil {
-			// Another goroutine beat us to it.
-			c.mu.Unlock()
-			return e.inst, nil
-		}
-		e.inst = created
-		c.mu.Unlock()
-		return created, nil
+		// Same path as ResolveFromCtx, so both entry points share one
+		// implementation and one locking discipline.
+		return c.resolveSingleton(e)
 	}
+
+	// Check transients.
+	c.mu.RLock()
+	e, ok := c.transients[t]
