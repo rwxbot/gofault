@@ -304,3 +304,5 @@ func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error
 	c.mu.RLock()
 	e, ok := c.transients[t]
 	c.mu.RUnlock()
+	if ok {
+		return c.callCtor(e.ctor)
