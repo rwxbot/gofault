@@ -262,3 +262,6 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 			c.mu.Unlock()
 			return e.inst, nil
 		}
+		e.inst = created
+		c.mu.Unlock()
+		return created, nil
