@@ -270,3 +270,4 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 	// Check transients.
 	c.mu.RLock()
 	e, ok := c.transients[t]
+	c.mu.RUnlock()
