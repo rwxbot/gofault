@@ -311,3 +311,6 @@ func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error
 			c.mu.Unlock()
 			return e.inst, nil
 		}
+		e.inst = created
+		c.mu.Unlock()
+		return created, nil
