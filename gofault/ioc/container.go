@@ -265,3 +265,4 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 		e.inst = created
 		c.mu.Unlock()
 		return created, nil
+	}
