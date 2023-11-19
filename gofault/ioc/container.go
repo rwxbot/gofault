@@ -277,3 +277,5 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 
 	// Check request-scoped.
 	c.mu.RLock()
+	e, ok = c.request[t]
+	c.mu.RUnlock()
