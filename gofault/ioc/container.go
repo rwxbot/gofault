@@ -305,13 +305,19 @@ func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error
 	e, ok := c.transients[t]
 	c.mu.RUnlock()
 	if ok {
-		return c.callCtor(e.ctor)
+		return c.callCtor(ctx, e.ctor)
 	}
 
-	// Check request-scoped.
+	// Check request-scoped. This must go through resolveRequestScoped, not
+	// callCtor directly: bypassing it gave every constructor a *fresh* copy of
+	// a request-scoped dependency, silently breaking the one-instance-per-request
+	// contract the moment any request-scoped service took another as a parameter.
 	c.mu.RLock()
 	e, ok = c.request[t]
 	c.mu.RUnlock()
 	if ok {
-		return c.callCtor(e.ctor)
+		return c.resolveRequestScoped(ctx, e, t)
 	}
+
+	return nil, fmt.Errorf("cannot resolve %v", t)
+}
