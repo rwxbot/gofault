@@ -309,3 +309,4 @@ func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error
 	}
 
 	// Check request-scoped.
+	c.mu.RLock()
