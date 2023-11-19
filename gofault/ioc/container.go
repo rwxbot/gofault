@@ -282,3 +282,6 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 	if ok {
 		return c.callCtor(e.ctor)
 	}
+
+	return nil, fmt.Errorf("cannot resolve %v", t)
+}
