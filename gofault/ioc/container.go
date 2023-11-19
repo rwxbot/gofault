@@ -279,3 +279,5 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 	c.mu.RLock()
 	e, ok = c.request[t]
 	c.mu.RUnlock()
+	if ok {
+		return c.callCtor(e.ctor)
