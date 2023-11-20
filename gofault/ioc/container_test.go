@@ -4,3 +4,5 @@ import (
 	"context"
 	"testing"
 )
+
+type dummyService struct {
