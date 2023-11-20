@@ -5,3 +5,5 @@ import (
 	"sync"
 	"testing"
 )
+
+type dummyService struct {
