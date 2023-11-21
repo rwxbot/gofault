@@ -9,3 +9,5 @@ import (
 type dummyService struct {
 	msg string
 }
+
+func newDummyService() *dummyService {
