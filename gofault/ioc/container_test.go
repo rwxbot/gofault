@@ -12,3 +12,4 @@ type dummyService struct {
 
 func newDummyService() *dummyService {
 	return &dummyService{msg: "hello"}
+}
