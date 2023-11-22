@@ -22,3 +22,5 @@ type dependentService struct {
 }
 
 func newDependentService(dep *dummyService) *dependentService {
+	return &dependentService{dep: dep}
+}
