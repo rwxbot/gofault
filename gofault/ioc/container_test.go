@@ -25,3 +25,7 @@ type dependentService struct {
 func newDependentService(dep *dummyService) *dependentService {
 	return &dependentService{dep: dep}
 }
+
+func TestContainer_RegisterAndResolve(t *testing.T) {
+	c := New()
+	err := c.Register(newDummyService)
