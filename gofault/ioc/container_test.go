@@ -13,3 +13,7 @@ type dummyService struct {
 func newDummyService() *dummyService {
 	return &dummyService{msg: "hello"}
 }
+
+func (s *dummyService) SomeMethod() string {
+	return s.msg
+}
