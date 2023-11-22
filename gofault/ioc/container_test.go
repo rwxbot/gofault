@@ -21,3 +21,5 @@ func (s *dummyService) SomeMethod() string {
 type dependentService struct {
 	dep *dummyService
 }
+
+func newDependentService(dep *dummyService) *dependentService {
