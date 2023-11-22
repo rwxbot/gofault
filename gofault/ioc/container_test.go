@@ -16,3 +16,5 @@ func newDummyService() *dummyService {
 func (s *dummyService) SomeMethod() string {
 	return s.msg
 }
+
+type dependentService struct {
