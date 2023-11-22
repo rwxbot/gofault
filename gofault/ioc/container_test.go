@@ -18,3 +18,4 @@ func (s *dummyService) SomeMethod() string {
 }
 
 type dependentService struct {
+	dep *dummyService
