@@ -29,3 +29,6 @@ func TestContainer_RegisterAndResolve(t *testing.T) {
 	c := New()
 	err := c.Register(newDummyService)
 	if err != nil {
+		t.Fatalf("Register failed: %v", err)
+	}
+	svc, err := c.Resolve(&dummyService{})
