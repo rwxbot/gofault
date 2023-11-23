@@ -39,3 +39,4 @@ func TestContainer_RegisterAndResolve(t *testing.T) {
 	if svc.(*dummyService).msg != "hello" {
 		t.Fatalf("expected 'hello', got %s", svc.(*dummyService).msg)
 	}
+}
