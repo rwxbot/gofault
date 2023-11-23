@@ -39,3 +39,6 @@ func TestContainer_RegisterAndResolve(t *testing.T) {
 		t.Fatalf("expected 'hello', got %s", svc.(*dummyService).msg)
 	}
 }
+
+func TestContainer_SingletonScope(t *testing.T) {
+	c := New()
