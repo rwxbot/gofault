@@ -35,3 +35,6 @@ func TestContainer_RegisterAndResolve(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Resolve failed: %v", err)
 	}
+	if svc.(*dummyService).msg != "hello" {
+		t.Fatalf("expected 'hello', got %s", svc.(*dummyService).msg)
+	}
