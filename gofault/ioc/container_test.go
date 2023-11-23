@@ -32,3 +32,5 @@ func TestContainer_RegisterAndResolve(t *testing.T) {
 		t.Fatalf("Register failed: %v", err)
 	}
 	svc, err := c.Resolve(&dummyService{})
+	if err != nil {
+		t.Fatalf("Resolve failed: %v", err)
