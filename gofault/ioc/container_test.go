@@ -49,3 +49,6 @@ func TestContainer_SingletonScope(t *testing.T) {
 		t.Fatal("singleton instances must be identical")
 	}
 }
+
+func TestContainer_TransientScope(t *testing.T) {
+	c := New()
