@@ -42,3 +42,4 @@ func TestContainer_RegisterAndResolve(t *testing.T) {
 
 func TestContainer_SingletonScope(t *testing.T) {
 	c := New()
+	c.Register(newDummyService)
