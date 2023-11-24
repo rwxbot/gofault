@@ -53,3 +53,4 @@ func TestContainer_SingletonScope(t *testing.T) {
 
 func TestContainer_TransientScope(t *testing.T) {
 	c := New()
+	c.RegisterTransient(newDummyService)
