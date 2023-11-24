@@ -44,3 +44,6 @@ func TestContainer_SingletonScope(t *testing.T) {
 	c := New()
 	c.Register(newDummyService)
 	a, _ := c.Resolve(&dummyService{})
+	b, _ := c.Resolve(&dummyService{})
+	if a != b {
+		t.Fatal("singleton instances must be identical")
