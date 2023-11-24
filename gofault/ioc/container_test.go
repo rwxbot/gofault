@@ -56,3 +56,5 @@ func TestContainer_TransientScope(t *testing.T) {
 	a, _ := c.Resolve(&dummyService{})
 	b, _ := c.Resolve(&dummyService{})
 	if a == b {
+		t.Fatal("transient instances must be different")
+	}
