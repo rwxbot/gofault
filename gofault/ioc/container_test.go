@@ -59,3 +59,7 @@ func TestContainer_TransientScope(t *testing.T) {
 		t.Fatal("transient instances must be different")
 	}
 }
+
+func TestContainer_ResolveUnknown(t *testing.T) {
+	c := New()
+	_, err := c.Resolve(&dummyService{})
