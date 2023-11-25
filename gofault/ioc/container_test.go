@@ -66,3 +66,5 @@ func TestContainer_ResolveUnknown(t *testing.T) {
 	_, err := c.Resolve(&dummyService{})
 	if err == nil {
 		t.Fatal("expected error for unregistered type")
+	}
+}
