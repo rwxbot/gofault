@@ -64,3 +64,5 @@ func TestContainer_TransientScope(t *testing.T) {
 func TestContainer_ResolveUnknown(t *testing.T) {
 	c := New()
 	_, err := c.Resolve(&dummyService{})
+	if err == nil {
+		t.Fatal("expected error for unregistered type")
