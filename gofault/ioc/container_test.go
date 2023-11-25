@@ -59,3 +59,4 @@ func TestContainer_TransientScope(t *testing.T) {
 	if a == b {
 		t.Fatal("transient instances must be different")
 	}
+}
