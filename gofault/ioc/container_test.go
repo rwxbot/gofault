@@ -72,3 +72,6 @@ func TestContainer_ResolveUnknown(t *testing.T) {
 func TestContainer_ResolveFromCtx(t *testing.T) {
 	c := New()
 	c.Register(newDummyService)
+
+	ctx1 := c.BeginRequest(context.Background())
+	ctx2 := c.BeginRequest(context.Background())
