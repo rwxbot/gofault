@@ -67,3 +67,5 @@ func TestContainer_ResolveUnknown(t *testing.T) {
 		t.Fatal("expected error for unregistered type")
 	}
 }
+
+func TestContainer_ResolveFromCtx(t *testing.T) {
