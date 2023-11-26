@@ -75,3 +75,6 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 
 	ctx1 := c.BeginRequest(context.Background())
 	ctx2 := c.BeginRequest(context.Background())
+
+	inst1, err := c.ResolveFromCtx(ctx1, &dummyService{})
+	if err != nil {
