@@ -80,3 +80,6 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ResolveFromCtx failed: %v", err)
 	}
+
+	inst2, err := c.ResolveFromCtx(ctx2, &dummyService{})
+	if err != nil {
