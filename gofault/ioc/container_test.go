@@ -91,3 +91,6 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 	if inst1 != same {
 		t.Fatal("same context should return same request-scoped instance")
 	}
+
+	// Different context should return different instance (since it's registered as singleton,
+	// but BeginRequest doesn't change singleton behavior unless registered as request scope).
