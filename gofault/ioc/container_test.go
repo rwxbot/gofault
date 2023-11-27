@@ -87,3 +87,5 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 	}
 
 	// Same context should return same instance.
+	same, _ := c.ResolveFromCtx(ctx1, &dummyService{})
+	if inst1 != same {
