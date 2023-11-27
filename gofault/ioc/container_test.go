@@ -85,3 +85,5 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ResolveFromCtx failed: %v", err)
 	}
+
+	// Same context should return same instance.
