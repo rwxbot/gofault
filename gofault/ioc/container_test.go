@@ -99,3 +99,5 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 }
 
 func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
+	c := New()
+	c.RegisterScoped(newDummyService)
