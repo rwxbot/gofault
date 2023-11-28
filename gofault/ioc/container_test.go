@@ -98,3 +98,5 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 	_ = inst2
 	_ = ctx2
 }
+
+func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
