@@ -94,3 +94,6 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 
 	// Different context should return different instance (since it's registered as singleton,
 	// but BeginRequest doesn't change singleton behavior unless registered as request scope).
+	// However, ResolveFromCtx with a non-request-scoped type uses regular Resolve behavior.
+	_ = inst2
+	_ = ctx2
