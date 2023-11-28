@@ -96,3 +96,4 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 	// However, ResolveFromCtx with a non-request-scoped type uses regular Resolve behavior.
 	_ = inst2
 	_ = ctx2
+}
