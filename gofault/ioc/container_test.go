@@ -111,3 +111,4 @@ func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
 	// Different contexts should get different request-scoped instances.
 	if inst1 == inst2 {
 		t.Fatal("different request contexts should get different instances")
+	}
