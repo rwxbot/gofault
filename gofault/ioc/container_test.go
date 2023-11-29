@@ -105,3 +105,5 @@ func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
 
 	ctx1 := c.BeginRequest(context.Background())
 	ctx2 := c.BeginRequest(context.Background())
+
+	inst1, _ := c.ResolveFromCtx(ctx1, &dummyService{})
