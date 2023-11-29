@@ -109,3 +109,5 @@ func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
 	inst2, _ := c.ResolveFromCtx(ctx2, &dummyService{})
 
 	// Different contexts should get different request-scoped instances.
+	if inst1 == inst2 {
+		t.Fatal("different request contexts should get different instances")
