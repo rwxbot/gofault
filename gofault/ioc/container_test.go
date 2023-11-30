@@ -123,3 +123,6 @@ func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
 
 func TestContainer_EndRequest_ClearsScope(t *testing.T) {
 	c := New()
+	c.RegisterScoped(newDummyService)
+
+	ctx := c.BeginRequest(context.Background())
