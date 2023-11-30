@@ -120,3 +120,6 @@ func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
 		t.Fatal("same context should return same request-scoped instance")
 	}
 }
+
+func TestContainer_EndRequest_ClearsScope(t *testing.T) {
+	c := New()
