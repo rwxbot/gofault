@@ -126,3 +126,4 @@ func TestContainer_EndRequest_ClearsScope(t *testing.T) {
 	c.RegisterScoped(newDummyService)
 
 	ctx := c.BeginRequest(context.Background())
+	inst1, _ := c.ResolveFromCtx(ctx, &dummyService{})
