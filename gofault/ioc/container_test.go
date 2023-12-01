@@ -129,3 +129,5 @@ func TestContainer_EndRequest_ClearsScope(t *testing.T) {
 	inst1, _ := c.ResolveFromCtx(ctx, &dummyService{})
 
 	c.EndRequest(ctx)
+
+	// After EndRequest, resolving with same context should get a new instance.
