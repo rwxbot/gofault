@@ -138,3 +138,5 @@ func TestContainer_EndRequest_ClearsScope(t *testing.T) {
 }
 
 func TestContainer_ResolveWithDependency(t *testing.T) {
+	c := New()
+	c.Register(newDummyService)
