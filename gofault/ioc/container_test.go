@@ -135,3 +135,5 @@ func TestContainer_EndRequest_ClearsScope(t *testing.T) {
 		t.Fatal("after EndRequest, context should get fresh request-scoped instance")
 	}
 }
+
+func TestContainer_ResolveWithDependency(t *testing.T) {
