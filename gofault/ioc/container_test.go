@@ -145,3 +145,4 @@ func TestContainer_ResolveWithDependency(t *testing.T) {
 	dep, err := c.ResolveFromCtx(context.Background(), &dependentService{})
 	if err != nil {
 		t.Fatalf("ResolveWithDependency failed: %v", err)
+	}
