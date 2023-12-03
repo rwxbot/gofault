@@ -146,3 +146,6 @@ func TestContainer_ResolveWithDependency(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ResolveWithDependency failed: %v", err)
 	}
+
+	ds := dep.(*dependentService)
+	if ds.dep == nil {
