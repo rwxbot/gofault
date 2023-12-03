@@ -151,3 +151,5 @@ func TestContainer_ResolveWithDependency(t *testing.T) {
 		t.Fatal("dependency was not injected")
 	}
 	if ds.dep.msg != "hello" {
+		t.Fatalf("expected 'hello', got %s", ds.dep.msg)
+	}
