@@ -158,3 +158,5 @@ func TestContainer_ResolveWithDependency(t *testing.T) {
 
 func TestContainer_ScopedProviderInterface(t *testing.T) {
 	// A provider can implement ScopedProvider to declare its own scope.
+	// Currently this is a marker interface; the container reads it via reflection.
+	c := New()
