@@ -153,3 +153,4 @@ func TestContainer_ResolveWithDependency(t *testing.T) {
 	if ds.dep.msg != "hello" {
 		t.Fatalf("expected 'hello', got %s", ds.dep.msg)
 	}
+}
