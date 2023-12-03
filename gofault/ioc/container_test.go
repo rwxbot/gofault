@@ -148,3 +148,6 @@ func TestContainer_ResolveWithDependency(t *testing.T) {
 
 	ds := dep.(*dependentService)
 	if ds.dep == nil {
+		t.Fatal("dependency was not injected")
+	}
+	if ds.dep.msg != "hello" {
