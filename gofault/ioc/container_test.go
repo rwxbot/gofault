@@ -155,3 +155,6 @@ func TestContainer_ResolveWithDependency(t *testing.T) {
 		t.Fatalf("expected 'hello', got %s", ds.dep.msg)
 	}
 }
+
+func TestContainer_ScopedProviderInterface(t *testing.T) {
+	// A provider can implement ScopedProvider to declare its own scope.
