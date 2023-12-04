@@ -168,3 +168,125 @@ func TestContainer_ScopedProviderInterface(t *testing.T) {
 
 	if inst1 != inst2 {
 		t.Fatal("request-scoped should be same within same context")
+	}
+}
+
+// e.inst is written under the container mutex, so reading it lock-free was a
+// data race. Concurrent first-resolves of one singleton raced on the field and
+// the fast path could observe a partially written interface value.
+func TestContainer_ConcurrentSingletonResolve(t *testing.T) {
+	c := New()
+	if err := c.Register(func() *dummyService { return &dummyService{msg: "x"} }); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
+
+	const goroutines = 64
+	var wg sync.WaitGroup
+	results := make([]any, goroutines)
+
+	for i := 0; i < goroutines; i++ {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			inst, err := c.Resolve((*dummyService)(nil))
+			if err != nil {
+				t.Errorf("Resolve: %v", err)
+				return
+			}
+			results[i] = inst
+		}(i)
+	}
+	wg.Wait()
+
+	// Every goroutine must observe the same singleton instance.
+	first := results[0]
+	for i, got := range results {
+		if got != first {
+			t.Fatalf("goroutine %d got a different singleton instance", i)
+		}
+	}
+	if first == nil {
+		t.Fatal("no instance resolved")
+	}
+}
+
+// The same must hold when a singleton is reached indirectly, as a constructor
+// argument, which goes through resolveType rather than Resolve.
+func TestContainer_ConcurrentNestedSingletonResolve(t *testing.T) {
+	c := New()
+	if err := c.Register(func() *dummyService { return &dummyService{msg: "nested"} }); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
+	if err := c.Register(func(d *dummyService) *dependentService {
+		return &dependentService{dep: d}
+	}); err != nil {
+		t.Fatalf("Register dependent: %v", err)
+	}
+
+	const goroutines = 64
+	var wg sync.WaitGroup
+	results := make([]*dependentService, goroutines)
+
+	for i := 0; i < goroutines; i++ {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			inst, err := c.Resolve((*dependentService)(nil))
+			if err != nil {
+				t.Errorf("Resolve: %v", err)
+				return
+			}
+			results[i] = inst.(*dependentService)
+		}(i)
+	}
+	wg.Wait()
+
+	for i, got := range results {
+		if got == nil {
+			t.Fatalf("goroutine %d resolved nothing", i)
+		}
+		if got != results[0] {
+			t.Fatalf("goroutine %d got a different singleton", i)
+		}
+	}
+}
+
+// TestContainer_NestedRequestScopedSharedInstance locks the contract that a
+// request-scoped service whose constructor takes another request-scoped service
+// receives the SAME per-request instance, not a fresh copy. resolveType used to
+// call callCtor directly for request-scoped args, bypassing the per-request
+// cache, so every outer instance got its own inner instance and the documented
+// one-instance-per-request contract was silently broken.
+func TestContainer_NestedRequestScopedSharedInstance(t *testing.T) {
+	c := New()
+	if err := c.RegisterScoped(newDummyService); err != nil {
+		t.Fatal(err)
+	}
+	if err := c.RegisterScoped(newDependentService); err != nil {
+		t.Fatal(err)
+	}
+
+	ctx := c.BeginRequest(context.Background())
+
+	outer, err := c.ResolveFromCtx(ctx, &dependentService{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	inner, err := c.ResolveFromCtx(ctx, &dummyService{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if outer.(*dependentService).dep != inner.(*dummyService) {
+		t.Fatal("nested request-scoped arg must be the same per-request instance")
+	}
+
+	// A second request must get its own pair, distinct from the first.
+	ctx2 := c.BeginRequest(context.Background())
+	outer2, err := c.ResolveFromCtx(ctx2, &dependentService{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if outer2.(*dependentService).dep == outer.(*dependentService).dep {
+		t.Fatal("different requests must not share request-scoped instances")
+	}
+}
