@@ -160,3 +160,7 @@ func TestContainer_ScopedProviderInterface(t *testing.T) {
 	// Currently this is a marker interface; the container reads it via reflection.
 	c := New()
 	c.RegisterScoped(newDummyService)
+
+	ctx := c.BeginRequest(context.Background())
+	inst1, _ := c.ResolveFromCtx(ctx, &dummyService{})
+	inst2, _ := c.ResolveFromCtx(ctx, &dummyService{})
