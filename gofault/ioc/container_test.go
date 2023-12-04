@@ -167,3 +167,5 @@ func TestContainer_ScopedProviderInterface(t *testing.T) {
 
 	if inst1 != inst2 {
 		t.Fatal("request-scoped should be same within same context")
+	}
+}
