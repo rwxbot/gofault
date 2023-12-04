@@ -164,3 +164,6 @@ func TestContainer_ScopedProviderInterface(t *testing.T) {
 	ctx := c.BeginRequest(context.Background())
 	inst1, _ := c.ResolveFromCtx(ctx, &dummyService{})
 	inst2, _ := c.ResolveFromCtx(ctx, &dummyService{})
+
+	if inst1 != inst2 {
+		t.Fatal("request-scoped should be same within same context")
