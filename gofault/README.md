@@ -28,3 +28,9 @@ type Controller interface {
 type Route struct {
     Method  string
     Path    string
+    Handler string // name of the controller method, e.g. "Greet"
+}
+
+type Handler func(ctx *Ctx) error
+type MiddlewareFunc func(ctx *Ctx, next Handler) error
+```
