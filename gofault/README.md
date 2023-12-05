@@ -11,3 +11,11 @@ explicit composition.
 ```bash
 go get github.com/gofault/gofault
 ```
+
+## Core interfaces
+
+`core` is the contract package. It imports nothing else in the framework, so
+every other package can depend on it without creating a cycle:
+
+```go
+type Provider interface{ Provide() any }
