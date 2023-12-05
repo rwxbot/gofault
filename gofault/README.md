@@ -42,3 +42,12 @@ mod := core.NewModule("hello")
 mod.RegisterControllers(ctrl)
 mod.RegisterProviders(svc)
 ```
+
+## The container
+
+`ioc` resolves constructors by type, which keeps wiring explicit and testable.
+`Resolve` takes a pointer to a zero value of the type you want:
+
+```go
+c := ioc.New()
+c.Register(NewGreetingService)
