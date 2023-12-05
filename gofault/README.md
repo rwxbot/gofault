@@ -19,3 +19,12 @@ every other package can depend on it without creating a cycle:
 
 ```go
 type Provider interface{ Provide() any }
+
+type Controller interface {
+    Routes() []Route
+    Prefix() string
+}
+
+type Route struct {
+    Method  string
+    Path    string
