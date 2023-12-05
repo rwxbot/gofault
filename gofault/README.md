@@ -34,3 +34,11 @@ type Route struct {
 type Handler func(ctx *Ctx) error
 type MiddlewareFunc func(ctx *Ctx, next Handler) error
 ```
+
+A module is a plain struct rather than an interface to implement:
+
+```go
+mod := core.NewModule("hello")
+mod.RegisterControllers(ctrl)
+mod.RegisterProviders(svc)
+```
