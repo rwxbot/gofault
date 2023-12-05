@@ -54,3 +54,11 @@ c.Register(NewGreetingService)
 
 svc, err := c.Resolve(&GreetingService{})
 ```
+
+
+## What's new in v0.1.0
+
+The first cut of the framework: the `core` contracts, the IoC container and the
+module primitives.
+
+### Contracts
