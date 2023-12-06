@@ -91,3 +91,13 @@ type Ctx struct {
 
 ```go
 mod := core.NewModule("hello")
+mod.RegisterControllers(ctrl).RegisterProviders(svc)
+```
+
+### Container
+
+```go
+c := ioc.New()
+c.Register(NewGreetingService)
+
+svc, err := c.Resolve(&GreetingService{})
