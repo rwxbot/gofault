@@ -76,3 +76,8 @@ type Controller interface {
 ```
 
 `Ctx` wraps the request/response pair plus the params extracted from the route:
+
+```go
+type Ctx struct {
+    Request    *http.Request
+    Response   http.ResponseWriter
