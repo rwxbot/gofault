@@ -81,3 +81,13 @@ type Controller interface {
 type Ctx struct {
     Request    *http.Request
     Response   http.ResponseWriter
+    Params     map[string]string
+    StatusCode int
+    Locals     map[string]any
+}
+```
+
+### Modules
+
+```go
+mod := core.NewModule("hello")
