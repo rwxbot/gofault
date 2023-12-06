@@ -66,3 +66,13 @@ module primitives.
 ```go
 type Handler func(ctx *Ctx) error
 type MiddlewareFunc func(ctx *Ctx, next Handler) error
+
+type Provider interface{ Provide() any }
+
+type Controller interface {
+    Routes() []Route
+    Prefix() string
+}
+```
+
+`Ctx` wraps the request/response pair plus the params extracted from the route:
