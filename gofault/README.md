@@ -62,3 +62,7 @@ The first cut of the framework: the `core` contracts, the IoC container and the
 module primitives.
 
 ### Contracts
+
+```go
+type Handler func(ctx *Ctx) error
+type MiddlewareFunc func(ctx *Ctx, next Handler) error
