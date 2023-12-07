@@ -101,3 +101,4 @@ c := ioc.New()
 c.Register(NewGreetingService)
 
 svc, err := c.Resolve(&GreetingService{})
+```
