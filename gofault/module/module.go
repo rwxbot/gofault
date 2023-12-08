@@ -10,3 +10,4 @@ import (
 	"github.com/gofault/gofault/core"
 	"github.com/gofault/gofault/ioc"
 	"github.com/gofault/gofault/provider"
+	"github.com/gofault/gofault/router"
