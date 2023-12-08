@@ -3,3 +3,8 @@ package module
 
 import (
 	"fmt"
+	"reflect"
+	"sync"
+
+	"github.com/gofault/gofault/controller"
+	"github.com/gofault/gofault/core"
