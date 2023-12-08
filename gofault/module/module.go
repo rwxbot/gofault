@@ -3,3 +3,6 @@ package module
 
 import (
 	"fmt"
+
+	"github.com/gofault/gofault/controller"
+	"github.com/gofault/gofault/core"
