@@ -9,3 +9,4 @@ import (
 	"github.com/gofault/gofault/controller"
 	"github.com/gofault/gofault/core"
 	"github.com/gofault/gofault/ioc"
+	"github.com/gofault/gofault/provider"
