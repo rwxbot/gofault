@@ -15,3 +15,4 @@ import (
 )
 
 // App is the root application structure that ties everything together.
+type App struct {
