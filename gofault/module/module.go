@@ -11,3 +11,5 @@ import (
 	"github.com/gofault/gofault/router"
 	"github.com/gofault/gofault/server"
 )
+
+// App is the root application structure that ties everything together.
