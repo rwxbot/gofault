@@ -33,3 +33,5 @@ type App struct {
 func New() *App {
 	return &App{
 		container: ioc.New(),
+		rtr:       router.New(),
+		modules:   make([]*core.Module, 0),
