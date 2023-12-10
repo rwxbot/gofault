@@ -20,6 +20,13 @@ type App struct {
 	rtr       *router.Router
 	modules   []*core.Module // sorted by dependency order
 	moduleMap map[string]*core.Module
-	server    *server.HTTP
-	booted    bool
+
+	// mu guards server, booted and the router wiring below them. Start runs on
+	// the caller's goroutine while Stop is conventionally invoked from a
+	// signal handler, so those fields are written and read concurrently.
+	mu     sync.Mutex
+	server *server.HTTP
+	booted bool
 }
+
+// New creates a new application instance.
