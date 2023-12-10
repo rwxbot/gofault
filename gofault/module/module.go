@@ -18,3 +18,4 @@ type App struct {
 	rtr       *router.Router
 	modules   []*core.Module // sorted by dependency order
 	moduleMap map[string]*core.Module
+	server    *server.HTTP
