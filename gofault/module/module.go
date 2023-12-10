@@ -30,3 +30,5 @@ type App struct {
 }
 
 // New creates a new application instance.
+func New() *App {
+	return &App{
