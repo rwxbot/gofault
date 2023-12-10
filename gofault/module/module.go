@@ -19,3 +19,5 @@ type App struct {
 	modules   []*core.Module // sorted by dependency order
 	moduleMap map[string]*core.Module
 	server    *server.HTTP
+	booted    bool
+}
