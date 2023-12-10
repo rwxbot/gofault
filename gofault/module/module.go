@@ -21,3 +21,5 @@ type App struct {
 	server    *server.HTTP
 	booted    bool
 }
+
+// New creates a new application instance.
