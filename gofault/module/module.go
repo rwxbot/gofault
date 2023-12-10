@@ -28,3 +28,6 @@ func New() *App {
 		container: ioc.New(),
 		rtr:       router.New(),
 		modules:   make([]*core.Module, 0),
+		moduleMap: make(map[string]*core.Module),
+	}
+}
