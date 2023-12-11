@@ -36,3 +36,5 @@ func New() *App {
 func (a *App) SetRouter(r *router.Router) {
 	a.rtr = r
 }
+
+// RegisterModules registers one or more application modules.
