@@ -40,3 +40,6 @@ func New() *App {
 }
 
 // SetRouter replaces the default router with a custom one (e.g., to add filters).
+func (a *App) SetRouter(r *router.Router) {
+	a.rtr = r
+}
