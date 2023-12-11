@@ -31,3 +31,5 @@ func New() *App {
 		moduleMap: make(map[string]*core.Module),
 	}
 }
+
+// SetRouter replaces the default router with a custom one (e.g., to add filters).
