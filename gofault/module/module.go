@@ -39,3 +39,4 @@ func (a *App) SetRouter(r *router.Router) {
 
 // RegisterModules registers one or more application modules.
 func (a *App) RegisterModules(mods ...*core.Module) error {
+	for _, m := range mods {
