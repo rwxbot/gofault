@@ -40,11 +40,22 @@ func New() *App {
 }
 
 // SetRouter replaces the default router with a custom one (e.g., to add filters).
+// The write takes a.mu: Stop and bootstrapLocked read a.rtr under the same lock,
+// and Stop may run concurrently from a signal handler.
 func (a *App) SetRouter(r *router.Router) {
+	a.mu.Lock()
+	defer a.mu.Unlock()
 	a.rtr = r
 }
 
 // RegisterModules registers one or more application modules.
+// The mutation takes a.mu: a.modules and a.moduleMap are read under the same
+// lock by bootstrapLocked and by Stop (which may run from a signal handler).
 func (a *App) RegisterModules(mods ...*core.Module) error {
+	a.mu.Lock()
+	defer a.mu.Unlock()
 	for _, m := range mods {
 		if m.Name == "" {
+			return fmt.Errorf("module name cannot be empty")
+		}
+		if _, exists := a.moduleMap[m.Name]; exists {
