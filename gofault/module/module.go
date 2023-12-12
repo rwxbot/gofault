@@ -41,3 +41,6 @@ func (a *App) SetRouter(r *router.Router) {
 func (a *App) RegisterModules(mods ...*core.Module) error {
 	for _, m := range mods {
 		if m.Name == "" {
+			return fmt.Errorf("module name cannot be empty")
+		}
+		if _, exists := a.moduleMap[m.Name]; exists {
