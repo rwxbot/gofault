@@ -62,3 +62,4 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 			return fmt.Errorf("duplicate module name: %q", m.Name)
 		}
 		a.moduleMap[m.Name] = m
+		for _, ctrl := range m.Controllers {
