@@ -59,3 +59,6 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 			return fmt.Errorf("module name cannot be empty")
 		}
 		if _, exists := a.moduleMap[m.Name]; exists {
+			return fmt.Errorf("duplicate module name: %q", m.Name)
+		}
+		a.moduleMap[m.Name] = m
