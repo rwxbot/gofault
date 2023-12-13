@@ -53,3 +53,5 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 		for _, prov := range m.Providers {
 			a.container.Register(func() provider.Provider { return prov })
 		}
+		a.modules = append(a.modules, m)
+	}
