@@ -70,3 +70,5 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 		}
 		a.modules = append(a.modules, m)
 	}
+	return nil
+}
