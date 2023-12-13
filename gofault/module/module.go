@@ -65,3 +65,6 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 		for _, ctrl := range m.Controllers {
 			a.container.Register(func() core.Controller { return ctrl })
 		}
+		for _, prov := range m.Providers {
+			a.container.Register(func() provider.Provider { return prov })
+		}
