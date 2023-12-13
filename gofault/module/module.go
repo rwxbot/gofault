@@ -63,3 +63,5 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 		}
 		a.moduleMap[m.Name] = m
 		for _, ctrl := range m.Controllers {
+			a.container.Register(func() core.Controller { return ctrl })
+		}
