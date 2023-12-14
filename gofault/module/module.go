@@ -66,3 +66,5 @@ func makeHandler(ctrl core.Controller, route core.Route) core.Handler {
 		return controller.InvokeHandler(ctrl, route.Method, route.Path, route.Handler, ctx)
 	}
 }
+
+// sortModules topological sorts modules by their Depends declarations.
