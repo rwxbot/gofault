@@ -61,3 +61,5 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 // makeHandler creates a handler closure that properly captures route values,
 // avoiding the classic Go closure capture bug where loop variables are
 // captured by reference instead of by value.
+func makeHandler(ctrl core.Controller, route core.Route) core.Handler {
+	return func(ctx *core.Ctx) error {
