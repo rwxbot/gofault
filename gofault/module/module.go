@@ -72,3 +72,5 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 	}
 	return nil
 }
+
+// makeHandler creates a handler closure that properly captures route values,
