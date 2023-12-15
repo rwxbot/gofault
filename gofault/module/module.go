@@ -66,11 +66,62 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 			a.container.Register(func() core.Controller { return ctrl })
 		}
 		for _, prov := range m.Providers {
-			a.container.Register(func() provider.Provider { return prov })
+			if err := a.registerProvider(prov); err != nil {
+				return fmt.Errorf("module %q: %w", m.Name, err)
+			}
 		}
 		a.modules = append(a.modules, m)
 	}
 	return nil
+}
+
+// registerProvider makes a provider's supplied value resolvable by its
+// concrete type. The old registration — Register(func() provider.Provider
+// { return prov }) — only ever exposed the wrapper type, so the container
+// never saw what Provide() actually supplies and Resolve(&Service{}) always
+// failed: the whole Provider mechanism was dead code.
+//
+// Provide() must run once at registration to learn the concrete type, which
+// is the container's only key. Singletons reuse that first value (Provide
+// runs exactly once); request/transient providers re-Provide per resolution
+// (1+N calls). A ScopedProvider can pick its lifecycle scope.
+func (a *App) registerProvider(prov provider.Provider) error {
+	value := prov.Provide()
+	if value == nil {
+		return fmt.Errorf("provider %T supplied a nil value", prov)
+	}
+	t := reflect.TypeOf(value)
+
+	scope := ioc.ScopeSingleton
+	if sp, ok := prov.(provider.ScopedProvider); ok {
+		scope = sp.Scope()
+	}
+
+	ctor := reflect.MakeFunc(
+		reflect.FuncOf(nil, []reflect.Type{t}, false),
+		func([]reflect.Value) []reflect.Value {
+			v := value
+			if scope != ioc.ScopeSingleton {
+				v = prov.Provide()
+			}
+			vv := reflect.ValueOf(v)
+			if !vv.IsValid() || vv.Type() != t {
+				panic(fmt.Sprintf("provider %T changed supplied type: %v -> %v", prov, t, vv.Type()))
+			}
+			return []reflect.Value{vv}
+		},
+	).Interface()
+
+	switch scope {
+	case ioc.ScopeSingleton:
+		return a.container.Register(ctor)
+	case ioc.ScopeRequest:
+		return a.container.RegisterScoped(ctor)
+	case ioc.ScopeTransient:
+		return a.container.RegisterTransient(ctor)
+	default:
+		return fmt.Errorf("provider %T declared unknown scope %d", prov, scope)
+	}
 }
 
 // makeHandler creates a handler closure that properly captures route values,
@@ -78,11 +129,16 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 // captured by reference instead of by value.
 func makeHandler(ctrl core.Controller, route core.Route) core.Handler {
 	return func(ctx *core.Ctx) error {
-		return controller.InvokeHandler(ctrl, route.Method, route.Path, route.Handler, ctx)
+		return controller.InvokeHandler(ctrl, route.Handler, ctx)
 	}
 }
 
 // sortModules topological sorts modules by their Depends declarations.
-// Modules with no dependencies or only resolved dependencies come first.
+//
+// The result is deterministic: modules keep their registration order among
+// themselves, so the same dependency graph always produces the same start
+// order. Iterating a map here leaked Go's randomised iteration into observable
+// behaviour, so modules booted in a different order on every run.
 func (a *App) sortModules() error {
 	// Build dependency graph and check for missing dependencies.
+	for _, m := range a.modules {
