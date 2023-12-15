@@ -72,3 +72,6 @@ func makeHandler(ctrl core.Controller, route core.Route) core.Handler {
 func (a *App) sortModules() error {
 	// Build dependency graph and check for missing dependencies.
 	for _, m := range a.modules {
+		for _, dep := range m.Depends {
+			if _, exists := a.moduleMap[dep]; !exists {
+				return fmt.Errorf("module %q depends on unknown module %q", m.Name, dep)
