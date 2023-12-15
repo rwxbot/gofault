@@ -68,3 +68,4 @@ func makeHandler(ctrl core.Controller, route core.Route) core.Handler {
 }
 
 // sortModules topological sorts modules by their Depends declarations.
+// Modules with no dependencies or only resolved dependencies come first.
