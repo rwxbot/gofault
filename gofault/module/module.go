@@ -75,3 +75,4 @@ func (a *App) sortModules() error {
 		for _, dep := range m.Depends {
 			if _, exists := a.moduleMap[dep]; !exists {
 				return fmt.Errorf("module %q depends on unknown module %q", m.Name, dep)
+			}
