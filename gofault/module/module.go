@@ -71,3 +71,4 @@ func makeHandler(ctrl core.Controller, route core.Route) core.Handler {
 // Modules with no dependencies or only resolved dependencies come first.
 func (a *App) sortModules() error {
 	// Build dependency graph and check for missing dependencies.
+	for _, m := range a.modules {
