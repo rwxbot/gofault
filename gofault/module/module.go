@@ -78,3 +78,6 @@ func (a *App) sortModules() error {
 			}
 		}
 	}
+
+	// Kahn's algorithm for topological sort.
+	var sorted []*core.Module
