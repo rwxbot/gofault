@@ -93,3 +93,4 @@ func (a *App) sortModules() error {
 			allResolved := true
 			for _, dep := range m.Depends {
 				if !resolved[dep] {
+					allResolved = false
