@@ -84,3 +84,5 @@ func (a *App) sortModules() error {
 	resolved := make(map[string]bool)
 	remaining := make(map[string]*core.Module)
 	for _, m := range a.modules {
+		remaining[m.Name] = m
+	}
