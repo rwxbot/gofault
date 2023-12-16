@@ -149,15 +149,21 @@ func (a *App) sortModules() error {
 		}
 	}
 
-	// Kahn's algorithm for topological sort.
+	// Kahn's algorithm for topological sort, walking the registration-ordered
+	// slice rather than a map so the output is stable.
 	var sorted []*core.Module
-	resolved := make(map[string]bool)
-	remaining := make(map[string]*core.Module)
+	resolved := make(map[string]bool, len(a.modules))
+	remaining := make(map[string]*core.Module, len(a.modules))
 	for _, m := range a.modules {
 		remaining[m.Name] = m
 	}
 
 	for len(remaining) > 0 {
 		progress := false
-		for name, m := range remaining {
+		for _, m := range a.modules {
+			if resolved[m.Name] {
+				continue
+			}
 			allResolved := true
+			for _, dep := range m.Depends {
+				if !resolved[dep] {
