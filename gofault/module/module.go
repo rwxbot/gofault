@@ -86,3 +86,6 @@ func (a *App) sortModules() error {
 	for _, m := range a.modules {
 		remaining[m.Name] = m
 	}
+
+	for len(remaining) > 0 {
+		progress := false
