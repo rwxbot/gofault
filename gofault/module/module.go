@@ -89,3 +89,5 @@ func (a *App) sortModules() error {
 
 	for len(remaining) > 0 {
 		progress := false
+		for name, m := range remaining {
+			allResolved := true
