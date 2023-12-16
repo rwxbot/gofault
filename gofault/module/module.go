@@ -151,3 +151,5 @@ func (a *App) sortModules() error {
 
 	// Kahn's algorithm for topological sort.
 	var sorted []*core.Module
+	resolved := make(map[string]bool)
+	remaining := make(map[string]*core.Module)
