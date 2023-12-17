@@ -109,3 +109,5 @@ func (a *App) sortModules() error {
 			var cycle []string
 			for name := range remaining {
 				cycle = append(cycle, name)
+			}
+			return fmt.Errorf("circular dependency detected among modules: %v", cycle)
