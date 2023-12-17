@@ -180,3 +180,5 @@ func (a *App) sortModules() error {
 		}
 		if !progress && len(remaining) > 0 {
 			// Circular dependency detected.
+			var cycle []string
+			for name := range remaining {
