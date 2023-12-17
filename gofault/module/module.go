@@ -101,3 +101,4 @@ func (a *App) sortModules() error {
 				sorted = append(sorted, m)
 				resolved[name] = true
 				delete(remaining, name)
+				progress = true
