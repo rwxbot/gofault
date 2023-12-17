@@ -172,3 +172,6 @@ func (a *App) sortModules() error {
 				}
 			}
 			if allResolved {
+				sorted = append(sorted, m)
+				resolved[name] = true
+				delete(remaining, name)
