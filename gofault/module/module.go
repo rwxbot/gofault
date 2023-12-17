@@ -108,3 +108,4 @@ func (a *App) sortModules() error {
 			// Circular dependency detected.
 			var cycle []string
 			for name := range remaining {
+				cycle = append(cycle, name)
