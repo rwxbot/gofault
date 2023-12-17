@@ -176,3 +176,4 @@ func (a *App) sortModules() error {
 				resolved[name] = true
 				delete(remaining, name)
 				progress = true
+			}
