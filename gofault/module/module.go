@@ -171,3 +171,4 @@ func (a *App) sortModules() error {
 					break
 				}
 			}
+			if allResolved {
