@@ -103,3 +103,6 @@ func (a *App) sortModules() error {
 				delete(remaining, name)
 				progress = true
 			}
+		}
+		if !progress && len(remaining) > 0 {
+			// Circular dependency detected.
