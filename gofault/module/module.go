@@ -173,15 +173,19 @@ func (a *App) sortModules() error {
 			}
 			if allResolved {
 				sorted = append(sorted, m)
-				resolved[name] = true
-				delete(remaining, name)
+				resolved[m.Name] = true
+				delete(remaining, m.Name)
 				progress = true
 			}
 		}
 		if !progress && len(remaining) > 0 {
-			// Circular dependency detected.
+			// Circular dependency detected. Report the cycle in registration
+			// order so the message is reproducible too.
 			var cycle []string
-			for name := range remaining {
-				cycle = append(cycle, name)
+			for _, m := range a.modules {
+				if !resolved[m.Name] {
+					cycle = append(cycle, m.Name)
+				}
 			}
 			return fmt.Errorf("circular dependency detected among modules: %v", cycle)
+		}
