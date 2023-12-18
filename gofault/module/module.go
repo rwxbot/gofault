@@ -112,3 +112,4 @@ func (a *App) sortModules() error {
 			}
 			return fmt.Errorf("circular dependency detected among modules: %v", cycle)
 		}
+	}
