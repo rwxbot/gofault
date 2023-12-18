@@ -115,3 +115,4 @@ func (a *App) sortModules() error {
 	}
 
 	a.modules = sorted
+	return nil
