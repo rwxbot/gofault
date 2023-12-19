@@ -119,3 +119,4 @@ func (a *App) sortModules() error {
 }
 
 // Init initializes all modules in dependency order, calling OnInit hooks.
+// It is called automatically by Bootstrap, but can be called explicitly for testing.
