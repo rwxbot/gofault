@@ -117,3 +117,5 @@ func (a *App) sortModules() error {
 	a.modules = sorted
 	return nil
 }
+
+// Init initializes all modules in dependency order, calling OnInit hooks.
