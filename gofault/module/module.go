@@ -122,3 +122,4 @@ func (a *App) sortModules() error {
 // It is called automatically by Bootstrap, but can be called explicitly for testing.
 func (a *App) Init() error {
 	if err := a.sortModules(); err != nil {
+		return fmt.Errorf("module initialization failed: %w", err)
