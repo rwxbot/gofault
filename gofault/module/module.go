@@ -215,3 +215,5 @@ func (a *App) Init() error {
 				return fmt.Errorf("module %q OnInit failed: %w", mod.Name, err)
 			}
 		}
+	}
+	return nil
