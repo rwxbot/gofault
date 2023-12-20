@@ -128,3 +128,6 @@ func (a *App) Init() error {
 	for _, mod := range a.modules {
 		for _, hook := range mod.OnInitHooks {
 			if err := hook.OnInit(); err != nil {
+				return fmt.Errorf("module %q OnInit failed: %w", mod.Name, err)
+			}
+		}
