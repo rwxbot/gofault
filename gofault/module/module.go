@@ -200,3 +200,4 @@ func (a *App) sortModules() error {
 func (a *App) Init() error {
 	if err := a.sortModules(); err != nil {
 		return fmt.Errorf("module initialization failed: %w", err)
+	}
