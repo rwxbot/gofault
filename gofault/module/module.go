@@ -198,10 +198,20 @@ func (a *App) sortModules() error {
 // Init initializes all modules in dependency order, calling OnInit hooks.
 // It is called automatically by Bootstrap, but can be called explicitly for testing.
 func (a *App) Init() error {
-	if err := a.sortModules(); err != nil {
+	// sortModules reads a.modules and a.moduleMap, so it must run under the
+	// lock: a concurrent RegisterModules writes the map, and a concurrent map
+	// read/write is undefined behaviour, not just nondeterminism.
+	a.mu.Lock()
+	err := a.sortModules()
+	mods := append([]*core.Module(nil), a.modules...)
+	a.mu.Unlock()
+	if err != nil {
 		return fmt.Errorf("module initialization failed: %w", err)
 	}
 
-	for _, mod := range a.modules {
+	for _, mod := range mods {
 		for _, hook := range mod.OnInitHooks {
 			if err := hook.OnInit(); err != nil {
+				return fmt.Errorf("module %q OnInit failed: %w", mod.Name, err)
+			}
+		}
