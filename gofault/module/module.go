@@ -201,3 +201,5 @@ func (a *App) Init() error {
 	if err := a.sortModules(); err != nil {
 		return fmt.Errorf("module initialization failed: %w", err)
 	}
+
+	for _, mod := range a.modules {
