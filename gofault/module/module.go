@@ -134,3 +134,5 @@ func (a *App) Init() error {
 	}
 	return nil
 }
+
+// Bootstrap finalizes the application setup, registering all routes.
