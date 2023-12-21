@@ -152,3 +152,5 @@ func (a *App) Bootstrap() error {
 	a.booted = true
 	return nil
 }
+
+// Start launches the HTTP server on the given port.
