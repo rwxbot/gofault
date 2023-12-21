@@ -136,3 +136,6 @@ func (a *App) Init() error {
 }
 
 // Bootstrap finalizes the application setup, registering all routes.
+func (a *App) Bootstrap() error {
+	if err := a.Init(); err != nil {
+		return err
