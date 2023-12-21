@@ -148,3 +148,5 @@ func (a *App) Bootstrap() error {
 				a.rtr.Handle(route.Method, fullPath, makeHandler(ctrl, route), mod.Middleware...)
 			}
 		}
+	}
+	a.booted = true
