@@ -229,3 +229,5 @@ func (a *App) Bootstrap() error {
 			for _, route := range ctrl.Routes() {
 				fullPath := ctrl.Prefix() + route.Path
 				// Pass route as parameter to avoid classic Go closure capture bug.
+				a.rtr.Handle(route.Method, fullPath, makeHandler(ctrl, route), mod.Middleware...)
+			}
