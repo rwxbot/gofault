@@ -226,3 +226,6 @@ func (a *App) Bootstrap() error {
 	}
 	for _, mod := range a.modules {
 		for _, ctrl := range mod.Controllers {
+			for _, route := range ctrl.Routes() {
+				fullPath := ctrl.Prefix() + route.Path
+				// Pass route as parameter to avoid classic Go closure capture bug.
