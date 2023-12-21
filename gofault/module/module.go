@@ -231,3 +231,4 @@ func (a *App) Bootstrap() error {
 				// Pass route as parameter to avoid classic Go closure capture bug.
 				a.rtr.Handle(route.Method, fullPath, makeHandler(ctrl, route), mod.Middleware...)
 			}
+		}
