@@ -150,3 +150,5 @@ func (a *App) Bootstrap() error {
 		}
 	}
 	a.booted = true
+	return nil
+}
