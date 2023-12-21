@@ -139,3 +139,6 @@ func (a *App) Init() error {
 func (a *App) Bootstrap() error {
 	if err := a.Init(); err != nil {
 		return err
+	}
+	for _, mod := range a.modules {
+		for _, ctrl := range mod.Controllers {
