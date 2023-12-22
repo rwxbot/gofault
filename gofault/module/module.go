@@ -157,3 +157,4 @@ func (a *App) Bootstrap() error {
 func (a *App) Start(port int) error {
 	if !a.booted {
 		if err := a.Bootstrap(); err != nil {
+			return fmt.Errorf("bootstrap failed: %w", err)
