@@ -166,3 +166,4 @@ func (a *App) Start(port int) error {
 		if r, ok := any(a.rtr).(*router.Router); ok {
 			r.SetContainer(a.container)
 		}
+	}
