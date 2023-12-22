@@ -164,3 +164,5 @@ func (a *App) Start(port int) error {
 	// Wire container into router for request-scoped dependency injection.
 	if a.rtr != nil {
 		if r, ok := any(a.rtr).(*router.Router); ok {
+			r.SetContainer(a.container)
+		}
