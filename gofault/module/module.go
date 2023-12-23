@@ -251,3 +251,7 @@ func (a *App) Start(port int) error {
 			r.SetContainer(a.container)
 		}
 	}
+
+	// Run OnBoot hooks.
+	for _, mod := range a.modules {
+		for _, hook := range mod.OnBootHooks {
