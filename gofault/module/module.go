@@ -173,3 +173,6 @@ func (a *App) Start(port int) error {
 		for _, hook := range mod.OnBootHooks {
 			if err := hook.OnBoot(); err != nil {
 				return fmt.Errorf("OnBoot hook failed: %w", err)
+			}
+		}
+	}
