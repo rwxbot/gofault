@@ -220,38 +220,87 @@ func (a *App) Init() error {
 }
 
 // Bootstrap finalizes the application setup, registering all routes.
+//
+// The mutex is held across the whole operation because Stop, which a signal
+// handler may run while Start is still bootstrapping, reads a.modules to run the
+// shutdown hooks. It was read without the lock, so a shutdown arriving during
+// bootstrap raced on that slice.
 func (a *App) Bootstrap() error {
-	if err := a.Init(); err != nil {
-		return err
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	return a.bootstrapLocked()
+}
+
+// bootstrapLocked requires a.mu to be held, so Start can bootstrap without
+// re-entering the lock.
+func (a *App) bootstrapLocked() error {
+	if err := a.sortModules(); err != nil {
+		return fmt.Errorf("module initialization failed: %w", err)
 	}
-	for _, mod := range a.modules {
+
+	mods := append([]*core.Module(nil), a.modules...)
+	rtr := a.rtr
+
+	for _, mod := range mods {
+		for _, hook := range mod.OnInitHooks {
+			a.mu.Unlock()
+			err := hook.OnInit()
+			a.mu.Lock()
+			if err != nil {
+				return fmt.Errorf("module %q OnInit failed: %w", mod.Name, err)
+			}
+		}
+	}
+
+	if rtr == nil {
+		return nil
+	}
+	// Wire the container into the router here, not only in Start: the
+	// documented Bootstrap()-then-serve-yourself flow never calls Start, and
+	// without this the router's container stayed nil, so ServeHTTP skipped
+	// BeginRequest and every request-scoped provider silently got a brand-new
+	// instance per resolution.
+	rtr.SetContainer(a.container)
+	for _, mod := range mods {
 		for _, ctrl := range mod.Controllers {
 			for _, route := range ctrl.Routes() {
 				fullPath := ctrl.Prefix() + route.Path
 				// Pass route as parameter to avoid classic Go closure capture bug.
-				a.rtr.Handle(route.Method, fullPath, makeHandler(ctrl, route), mod.Middleware...)
+				rtr.Handle(route.Method, fullPath, makeHandler(ctrl, route), mod.Middleware...)
 			}
 		}
 	}
+
 	a.booted = true
 	return nil
 }
 
 // Start launches the HTTP server on the given port.
+//
+// The mutex spans bootstrap, router wiring, hook execution and the server
+// install, because Stop may be called concurrently from a signal handler. Hooks
+// run with the lock released, since a hook may call back into the app.
 func (a *App) Start(port int) error {
+	a.mu.Lock()
+
 	if !a.booted {
-		if err := a.Bootstrap(); err != nil {
+		if err := a.bootstrapLocked(); err != nil {
+			a.mu.Unlock()
 			return fmt.Errorf("bootstrap failed: %w", err)
 		}
 	}
 
 	// Wire container into router for request-scoped dependency injection.
 	if a.rtr != nil {
-		if r, ok := any(a.rtr).(*router.Router); ok {
-			r.SetContainer(a.container)
-		}
+		a.rtr.SetContainer(a.container)
 	}
 
+	mods := append([]*core.Module(nil), a.modules...)
+	rtr := a.rtr
+	a.mu.Unlock()
+
 	// Run OnBoot hooks.
-	for _, mod := range a.modules {
+	for _, mod := range mods {
 		for _, hook := range mod.OnBootHooks {
+			if err := hook.OnBoot(); err != nil {
+				return fmt.Errorf("OnBoot hook failed: %w", err)
