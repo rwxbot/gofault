@@ -176,3 +176,7 @@ func (a *App) Start(port int) error {
 			}
 		}
 	}
+
+	a.server = server.New(a.rtr, port)
+	return a.server.Start()
+}
