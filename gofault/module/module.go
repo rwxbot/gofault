@@ -318,3 +318,5 @@ func (a *App) Stop() error {
 
 	// Call OnShutdown hooks in reverse order.
 	for i := len(a.modules) - 1; i >= 0; i-- {
+		mod := a.modules[i]
+		for j := len(mod.OnShutdownHooks) - 1; j >= 0; j-- {
