@@ -193,3 +193,5 @@ func (a *App) Stop() error {
 			if err := hook.OnShutdown(); err != nil {
 				errs = append(errs, err)
 			}
+		}
+	}
