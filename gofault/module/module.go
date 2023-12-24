@@ -308,15 +308,30 @@ func (a *App) Start(port int) error {
 		}
 	}
 
-	a.server = server.New(a.rtr, port)
-	return a.server.Start()
+	srv := server.New(rtr, port)
+
+	a.mu.Lock()
+	a.server = srv
+	a.mu.Unlock()
+
+	return srv.Start()
 }
 
 // Stop gracefully shuts down the server and calls OnShutdown hooks.
+//
+// The module slice is read under the lock, because Bootstrap writes it while
+// sorting and Stop may be called concurrently from a signal handler.
 func (a *App) Stop() error {
 	var errs []error
 
+	a.mu.Lock()
+	mods := append([]*core.Module(nil), a.modules...)
+	srv := a.server
+	a.mu.Unlock()
+
 	// Call OnShutdown hooks in reverse order.
-	for i := len(a.modules) - 1; i >= 0; i-- {
-		mod := a.modules[i]
+	for i := len(mods) - 1; i >= 0; i-- {
+		mod := mods[i]
 		for j := len(mod.OnShutdownHooks) - 1; j >= 0; j-- {
+			hook := mod.OnShutdownHooks[j]
+			if err := hook.OnShutdown(); err != nil {
