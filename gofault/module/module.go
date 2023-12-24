@@ -184,3 +184,6 @@ func (a *App) Start(port int) error {
 // Stop gracefully shuts down the server and calls OnShutdown hooks.
 func (a *App) Stop() error {
 	var errs []error
+
+	// Call OnShutdown hooks in reverse order.
+	for i := len(a.modules) - 1; i >= 0; i-- {
