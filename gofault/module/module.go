@@ -335,3 +335,5 @@ func (a *App) Stop() error {
 		for j := len(mod.OnShutdownHooks) - 1; j >= 0; j-- {
 			hook := mod.OnShutdownHooks[j]
 			if err := hook.OnShutdown(); err != nil {
+				errs = append(errs, err)
+			}
