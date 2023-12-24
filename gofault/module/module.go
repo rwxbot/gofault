@@ -189,3 +189,5 @@ func (a *App) Stop() error {
 	for i := len(a.modules) - 1; i >= 0; i-- {
 		mod := a.modules[i]
 		for j := len(mod.OnShutdownHooks) - 1; j >= 0; j-- {
+			hook := mod.OnShutdownHooks[j]
+			if err := hook.OnShutdown(); err != nil {
