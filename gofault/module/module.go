@@ -195,3 +195,6 @@ func (a *App) Stop() error {
 			}
 		}
 	}
+
+	if a.server != nil {
+		if err := a.server.Stop(); err != nil {
