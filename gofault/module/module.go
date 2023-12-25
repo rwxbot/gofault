@@ -207,3 +207,5 @@ func (a *App) Stop() error {
 	}
 	return nil
 }
+
+// Container returns the IoC container (exposed for testing).
