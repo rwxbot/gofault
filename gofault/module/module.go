@@ -345,3 +345,6 @@ func (a *App) Stop() error {
 			errs = append(errs, err)
 		}
 	}
+
+	if len(errs) > 0 {
+		return fmt.Errorf("shutdown errors: %v", errs)
