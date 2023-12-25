@@ -340,6 +340,8 @@ func (a *App) Stop() error {
 		}
 	}
 
-	if a.server != nil {
-		if err := a.server.Stop(); err != nil {
+	if srv != nil {
+		if err := srv.Stop(); err != nil {
 			errs = append(errs, err)
+		}
+	}
