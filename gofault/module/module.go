@@ -355,3 +355,19 @@ func (a *App) Stop() error {
 // Container returns the IoC container (exposed for testing).
 func (a *App) Container() *ioc.Container {
 	return a.container
+}
+
+// Router returns the router the app serves, for tests that need to issue
+// requests without going through a listening socket.
+func (a *App) Router() *router.Router {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	return a.rtr
+}
+
+// serverReady reports whether Start has installed the HTTP server.
+func (a *App) serverReady() bool {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	return a.server != nil
+}
