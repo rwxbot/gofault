@@ -211,3 +211,4 @@ func (a *App) Stop() error {
 // Container returns the IoC container (exposed for testing).
 func (a *App) Container() *ioc.Container {
 	return a.container
+}
