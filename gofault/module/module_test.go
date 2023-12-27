@@ -14,3 +14,5 @@ import (
 	"github.com/gofault/gofault/ioc"
 	"github.com/gofault/gofault/router"
 )
+
+// dummyController is a test controller.
