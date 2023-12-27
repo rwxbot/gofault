@@ -9,3 +9,5 @@ import (
 	"github.com/gofault/gofault/core"
 	"github.com/gofault/gofault/router"
 )
+
+// dummyController is a test controller.
