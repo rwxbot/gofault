@@ -19,3 +19,4 @@ import (
 type dummyController struct {
 	controller.BaseController
 	calledMethod string
+}
