@@ -16,3 +16,6 @@ import (
 )
 
 // dummyController is a test controller.
+type dummyController struct {
+	controller.BaseController
+	calledMethod string
