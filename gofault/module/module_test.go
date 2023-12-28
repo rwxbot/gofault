@@ -24,3 +24,6 @@ type dummyController struct {
 func (c *dummyController) Routes() []core.Route {
 	return []core.Route{
 		{Method: "GET", Path: "/", Handler: "Index"},
+		{Method: "GET", Path: "/greet/:name", Handler: "Greet"},
+	}
+}
