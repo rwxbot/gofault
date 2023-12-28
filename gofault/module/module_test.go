@@ -20,3 +20,7 @@ type dummyController struct {
 	controller.BaseController
 	calledMethod string
 }
+
+func (c *dummyController) Routes() []core.Route {
+	return []core.Route{
+		{Method: "GET", Path: "/", Handler: "Index"},
