@@ -29,3 +29,6 @@ func (c *dummyController) Routes() []core.Route {
 }
 
 func (c *dummyController) Prefix() string { return "/test" }
+
+func (c *dummyController) Index(ctx *core.Ctx) error {
+	return controller.OK(ctx.Response, map[string]string{"message": "index"})
