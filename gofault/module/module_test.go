@@ -27,3 +27,5 @@ func (c *dummyController) Routes() []core.Route {
 		{Method: "GET", Path: "/greet/:name", Handler: "Greet"},
 	}
 }
+
+func (c *dummyController) Prefix() string { return "/test" }
