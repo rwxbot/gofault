@@ -37,3 +37,4 @@ func (c *dummyController) Index(ctx *core.Ctx) error {
 func (c *dummyController) Greet(ctx *core.Ctx) error {
 	name := controller.Param(ctx, "name")
 	return controller.OK(ctx.Response, map[string]string{"message": "Hello, " + name})
+}
