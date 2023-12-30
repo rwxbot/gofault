@@ -50,3 +50,4 @@ type dummyHook struct {
 func (h *dummyHook) OnBoot() error {
 	h.bootCalled = true
 	return h.bootErr
+}
