@@ -46,3 +46,7 @@ type dummyHook struct {
 	bootErr        error
 	shutdownErr    error
 }
+
+func (h *dummyHook) OnBoot() error {
+	h.bootCalled = true
+	return h.bootErr
