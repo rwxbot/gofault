@@ -35,3 +35,6 @@ func (c *dummyController) Greet(ctx *core.Ctx) error {
 }
 
 // dummyHook tracks boot/shutdown calls.
+type dummyHook struct {
+	bootCalled     bool
+	shutdownCalled bool
