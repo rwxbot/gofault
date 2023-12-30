@@ -38,3 +38,6 @@ func (c *dummyController) Greet(ctx *core.Ctx) error {
 type dummyHook struct {
 	bootCalled     bool
 	shutdownCalled bool
+	bootErr        error
+	shutdownErr    error
+}
