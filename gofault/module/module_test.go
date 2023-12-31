@@ -60,3 +60,4 @@ func (h *dummyHook) OnShutdown() error {
 func TestApp_New(t *testing.T) {
 	app := New()
 	if app == nil {
+		t.Fatal("New() returned nil")
