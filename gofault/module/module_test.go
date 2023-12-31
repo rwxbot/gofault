@@ -51,3 +51,6 @@ func (h *dummyHook) OnBoot() error {
 	h.bootCalled = true
 	return h.bootErr
 }
+
+func (h *dummyHook) OnShutdown() error {
+	h.shutdownCalled = true
