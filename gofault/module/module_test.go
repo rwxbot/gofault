@@ -55,3 +55,4 @@ func (h *dummyHook) OnBoot() error {
 func (h *dummyHook) OnShutdown() error {
 	h.shutdownCalled = true
 	return h.shutdownErr
+}
