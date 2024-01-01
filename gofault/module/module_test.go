@@ -63,3 +63,6 @@ func TestApp_New(t *testing.T) {
 		t.Fatal("New() returned nil")
 	}
 	if app.Container() == nil {
+		t.Fatal("Container() returned nil")
+	}
+}
