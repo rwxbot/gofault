@@ -64,3 +64,5 @@ func TestApp_New(t *testing.T) {
 
 func TestApp_RegisterModules(t *testing.T) {
 	app := New()
+	mod := core.NewModule("test")
+	mod.RegisterControllers(&dummyController{})
