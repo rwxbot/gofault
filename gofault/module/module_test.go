@@ -68,3 +68,5 @@ func TestApp_RegisterModules(t *testing.T) {
 	mod.RegisterControllers(&dummyController{})
 
 	app.RegisterModules(mod)
+
+	if len(app.modules) != 1 {
