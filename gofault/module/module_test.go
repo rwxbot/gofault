@@ -61,3 +61,6 @@ func TestApp_New(t *testing.T) {
 		t.Fatal("Container() returned nil")
 	}
 }
+
+func TestApp_RegisterModules(t *testing.T) {
+	app := New()
