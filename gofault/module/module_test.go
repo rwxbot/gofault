@@ -80,3 +80,5 @@ func TestApp_RegisterModules(t *testing.T) {
 }
 
 func TestApp_Bootstrap_DoesNotPanic(t *testing.T) {
+	app := New()
+	mod := core.NewModule("test")
