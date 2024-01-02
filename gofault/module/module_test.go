@@ -84,3 +84,6 @@ func TestApp_Bootstrap_DoesNotPanic(t *testing.T) {
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
 	app.RegisterModules(mod)
+
+	err := app.Bootstrap()
+	if err != nil {
