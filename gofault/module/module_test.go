@@ -78,3 +78,5 @@ func TestApp_RegisterModules(t *testing.T) {
 		t.Fatalf("expected 1 module, got %d", len(app.modules))
 	}
 }
+
+func TestApp_Bootstrap_DoesNotPanic(t *testing.T) {
