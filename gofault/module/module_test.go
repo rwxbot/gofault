@@ -77,3 +77,4 @@ func TestApp_RegisterModules(t *testing.T) {
 	if len(app.modules) != 1 {
 		t.Fatalf("expected 1 module, got %d", len(app.modules))
 	}
+}
