@@ -90,3 +90,6 @@ func TestApp_Bootstrap_DoesNotPanic(t *testing.T) {
 		t.Fatalf("Bootstrap failed: %v", err)
 	}
 }
+
+func TestApp_SetRouter(t *testing.T) {
+	app := New()
