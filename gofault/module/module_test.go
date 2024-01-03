@@ -88,3 +88,4 @@ func TestApp_Bootstrap_DoesNotPanic(t *testing.T) {
 
 func TestApp_SetRouter(t *testing.T) {
 	app := New()
+	app.SetRouter(nil) // nil router is allowed, just not used
