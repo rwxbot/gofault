@@ -90,3 +90,5 @@ func TestApp_SetRouter(t *testing.T) {
 	app := New()
 	app.SetRouter(nil) // nil router is allowed, just not used
 }
+
+func TestApp_LifecycleHooks(t *testing.T) {
