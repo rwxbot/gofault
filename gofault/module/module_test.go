@@ -82,3 +82,6 @@ func TestApp_Bootstrap_DoesNotPanic(t *testing.T) {
 
 	err := app.Bootstrap()
 	if err != nil {
+		t.Fatalf("Bootstrap failed: %v", err)
+	}
+}
