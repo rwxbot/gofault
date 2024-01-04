@@ -102,3 +102,6 @@ func TestApp_LifecycleHooks(t *testing.T) {
 
 	hook1 := &dummyHook{}
 	hook2 := &dummyHook{}
+
+	mod.RegisterOnBoot(hook1)
+	mod.RegisterOnShutdown(hook2)
