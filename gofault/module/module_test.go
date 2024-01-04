@@ -92,3 +92,5 @@ func TestApp_SetRouter(t *testing.T) {
 }
 
 func TestApp_LifecycleHooks(t *testing.T) {
+	app := New()
+	mod := core.NewModule("test")
