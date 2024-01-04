@@ -100,3 +100,6 @@ func TestApp_LifecycleHooks(t *testing.T) {
 
 	mod.RegisterOnBoot(hook1)
 	mod.RegisterOnShutdown(hook2)
+
+	app.RegisterModules(mod)
+	app.Bootstrap()
