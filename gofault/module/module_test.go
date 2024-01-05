@@ -110,3 +110,4 @@ func TestApp_LifecycleHooks(t *testing.T) {
 			if err := h.OnBoot(); err != nil {
 				t.Fatalf("OnBoot failed: %v", err)
 			}
+		}
