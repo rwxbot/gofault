@@ -111,3 +111,6 @@ func TestApp_LifecycleHooks(t *testing.T) {
 				t.Fatalf("OnBoot failed: %v", err)
 			}
 		}
+	}
+
+	if !hook1.bootCalled {
