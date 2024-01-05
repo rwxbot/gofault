@@ -107,3 +107,6 @@ func TestApp_LifecycleHooks(t *testing.T) {
 	// Run boot hooks manually (normally called by Start).
 	for _, m := range app.modules {
 		for _, h := range m.OnBootHooks {
+			if err := h.OnBoot(); err != nil {
+				t.Fatalf("OnBoot failed: %v", err)
+			}
