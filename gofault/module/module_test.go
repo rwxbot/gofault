@@ -103,3 +103,5 @@ func TestApp_LifecycleHooks(t *testing.T) {
 
 	app.RegisterModules(mod)
 	app.Bootstrap()
+
+	// Run boot hooks manually (normally called by Start).
