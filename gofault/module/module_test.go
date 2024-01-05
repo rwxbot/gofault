@@ -110,3 +110,5 @@ func TestApp_LifecycleHooks(t *testing.T) {
 	app.Bootstrap()
 
 	// Run boot hooks manually (normally called by Start).
+	for _, m := range app.modules {
+		for _, h := range m.OnBootHooks {
