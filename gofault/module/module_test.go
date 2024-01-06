@@ -120,3 +120,4 @@ func TestApp_LifecycleHooks(t *testing.T) {
 
 	if !hook1.bootCalled {
 		t.Fatal("boot hook was not called")
+	}
