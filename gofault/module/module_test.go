@@ -126,3 +126,6 @@ func TestApp_LifecycleHooks(t *testing.T) {
 	for i := len(app.modules) - 1; i >= 0; i-- {
 		m := app.modules[i]
 		for j := len(m.OnShutdownHooks) - 1; j >= 0; j-- {
+			h := m.OnShutdownHooks[j]
+			if err := h.OnShutdown(); err != nil {
+				t.Fatalf("OnShutdown failed: %v", err)
