@@ -124,3 +124,4 @@ func TestApp_LifecycleHooks(t *testing.T) {
 			h := m.OnShutdownHooks[j]
 			if err := h.OnShutdown(); err != nil {
 				t.Fatalf("OnShutdown failed: %v", err)
+			}
