@@ -127,3 +127,5 @@ func TestApp_LifecycleHooks(t *testing.T) {
 			}
 		}
 	}
+
+	if !hook2.shutdownCalled {
