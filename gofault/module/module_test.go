@@ -131,3 +131,4 @@ func TestApp_LifecycleHooks(t *testing.T) {
 	if !hook2.shutdownCalled {
 		t.Fatal("shutdown hook was not called")
 	}
+}
