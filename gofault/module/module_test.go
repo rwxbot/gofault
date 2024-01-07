@@ -139,3 +139,5 @@ func TestApp_LifecycleHooks(t *testing.T) {
 }
 
 func TestApp_Bootstrap_MultipleControllers(t *testing.T) {
+	app := New()
+	mod := core.NewModule("test")
