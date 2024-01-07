@@ -132,3 +132,5 @@ func TestApp_LifecycleHooks(t *testing.T) {
 		t.Fatal("shutdown hook was not called")
 	}
 }
+
+func TestApp_Bootstrap_MultipleControllers(t *testing.T) {
