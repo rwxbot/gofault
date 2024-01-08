@@ -146,3 +146,6 @@ func TestApp_Bootstrap_MultipleControllers(t *testing.T) {
 
 	err := app.Bootstrap()
 	if err != nil {
+		t.Fatalf("Bootstrap failed: %v", err)
+	}
+}
