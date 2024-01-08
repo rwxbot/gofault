@@ -137,3 +137,4 @@ func TestApp_Bootstrap_MultipleControllers(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{}, &dummyController{})
+	app.RegisterModules(mod)
