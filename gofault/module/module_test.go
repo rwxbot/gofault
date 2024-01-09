@@ -155,3 +155,6 @@ func TestApp_MultipleModules(t *testing.T) {
 
 	mod1 := core.NewModule("mod1")
 	mod1.RegisterControllers(&dummyController{})
+
+	mod2 := core.NewModule("mod2")
+	mod2.RegisterControllers(&dummyController{})
