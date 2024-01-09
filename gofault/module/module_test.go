@@ -144,3 +144,6 @@ func TestApp_Bootstrap_MultipleControllers(t *testing.T) {
 		t.Fatalf("Bootstrap failed: %v", err)
 	}
 }
+
+func TestApp_MultipleModules(t *testing.T) {
+	app := New()
