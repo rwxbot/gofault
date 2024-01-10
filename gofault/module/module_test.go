@@ -160,3 +160,7 @@ func TestApp_MultipleModules(t *testing.T) {
 		t.Fatalf("expected 2 modules, got %d", len(app.modules))
 	}
 }
+
+func TestApp_Start_WithoutBootstrap_DoesBootstrap(t *testing.T) {
+	app := New()
+	mod := core.NewModule("test")
