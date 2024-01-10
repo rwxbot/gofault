@@ -155,3 +155,6 @@ func TestApp_MultipleModules(t *testing.T) {
 	mod2.RegisterControllers(&dummyController{})
 
 	app.RegisterModules(mod1, mod2)
+
+	if len(app.modules) != 2 {
+		t.Fatalf("expected 2 modules, got %d", len(app.modules))
