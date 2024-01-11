@@ -164,3 +164,5 @@ func TestApp_MultipleModules(t *testing.T) {
 func TestApp_Start_WithoutBootstrap_DoesBootstrap(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
+	mod.RegisterControllers(&dummyController{})
+	app.RegisterModules(mod)
