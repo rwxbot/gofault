@@ -178,3 +178,5 @@ func TestApp_Start_WithoutBootstrap_DoesBootstrap(t *testing.T) {
 	}
 
 	// Calling Bootstrap directly.
+	err := app.Bootstrap()
+	if err != nil {
