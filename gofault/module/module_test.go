@@ -166,3 +166,6 @@ func TestApp_Start_WithoutBootstrap_DoesBootstrap(t *testing.T) {
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
 	app.RegisterModules(mod)
+
+	// Verify not booted yet.
+	if app.booted {
