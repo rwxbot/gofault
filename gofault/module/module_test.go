@@ -179,3 +179,5 @@ func TestApp_Start_WithoutBootstrap_DoesBootstrap(t *testing.T) {
 	}
 	if !app.booted {
 		t.Fatal("app should be booted after Bootstrap")
+	}
+}
