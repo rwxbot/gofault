@@ -183,3 +183,6 @@ func TestApp_Start_WithoutBootstrap_DoesBootstrap(t *testing.T) {
 }
 
 func TestApp_RouteHandlerDispatch(t *testing.T) {
+	rtr := router.New()
+	app := New()
+	app.SetRouter(rtr)
