@@ -195,3 +195,4 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
 	app.RegisterModules(mod)
+	app.Bootstrap()
