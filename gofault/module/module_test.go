@@ -191,3 +191,7 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 	mod.RegisterControllers(&dummyController{})
 	app.RegisterModules(mod)
 	app.Bootstrap()
+
+	// Test index route.
+	req := httptest.NewRequest("GET", "/test/", nil)
+	w := httptest.NewRecorder()
