@@ -191,3 +191,6 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 	rtr := router.New()
 	app := New()
 	app.SetRouter(rtr)
+
+	mod := core.NewModule("test")
+	mod.RegisterControllers(&dummyController{})
