@@ -207,3 +207,6 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 	}
 
 	// Test greet route.
+	req = httptest.NewRequest("GET", "/test/greet/alice", nil)
+	w = httptest.NewRecorder()
+	rtr.ServeHTTP(w, req)
