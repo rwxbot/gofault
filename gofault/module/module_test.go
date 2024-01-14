@@ -200,3 +200,6 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 	// Test index route.
 	req := httptest.NewRequest("GET", "/test/", nil)
 	w := httptest.NewRecorder()
+	rtr.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
