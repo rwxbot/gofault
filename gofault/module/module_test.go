@@ -210,3 +210,7 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 		t.Fatalf("expected 200, got %d, body: %s", w.Code, w.Body.String())
 	}
 }
+
+func TestApp_ProvidersRegistered(t *testing.T) {
+	app := New()
+	mod := core.NewModule("test")
