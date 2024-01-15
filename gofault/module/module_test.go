@@ -210,3 +210,7 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 	req = httptest.NewRequest("GET", "/test/greet/alice", nil)
 	w = httptest.NewRecorder()
 	rtr.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Fatalf("expected 200, got %d, body: %s", w.Code, w.Body.String())
+	}
