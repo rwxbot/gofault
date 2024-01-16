@@ -2,5 +2,7 @@
 package exception
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
+)
