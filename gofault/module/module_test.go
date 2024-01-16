@@ -215,3 +215,6 @@ func TestApp_ProvidersRegistered(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	app.RegisterModules(mod)
+
+	// Just verify that registration doesn't panic.
+}
