@@ -5,3 +5,5 @@ import (
 	"fmt"
 	"net/http"
 )
+
+// HTTPException is the base error type for HTTP-related exceptions.
