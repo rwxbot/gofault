@@ -9,3 +9,4 @@ import (
 
 // HTTPException is the base error type for HTTP-related exceptions.
 type HTTPException interface {
+	error
