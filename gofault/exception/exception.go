@@ -13,3 +13,4 @@ type HTTPException interface {
 	GetStatusCode() int
 	GetMessage() string
 	GetCode() int
+}
