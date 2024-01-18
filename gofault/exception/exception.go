@@ -13,3 +13,5 @@ type HTTPException interface {
 	GetMessage() string
 	GetCode() int
 }
+
+// baseException implements HTTPException.
