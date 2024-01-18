@@ -18,3 +18,5 @@ type HTTPException interface {
 type baseException struct {
 	statusCode int
 	code       int
+	message    string
+}
