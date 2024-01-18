@@ -16,3 +16,5 @@ type HTTPException interface {
 }
 
 // baseException implements HTTPException.
+type baseException struct {
+	statusCode int
