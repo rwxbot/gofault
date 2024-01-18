@@ -24,3 +24,4 @@ type baseException struct {
 
 func (e *baseException) Error() string {
 	return e.message
+}
