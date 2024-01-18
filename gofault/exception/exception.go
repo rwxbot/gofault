@@ -24,3 +24,5 @@ type baseException struct {
 func (e *baseException) Error() string {
 	return e.message
 }
+
+func (e *baseException) GetStatusCode() int { return e.statusCode }
