@@ -21,3 +21,5 @@ type baseException struct {
 	code       int
 	message    string
 }
+
+func (e *baseException) Error() string {
