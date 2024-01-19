@@ -29,3 +29,5 @@ func (e *baseException) Error() string {
 func (e *baseException) GetStatusCode() int { return e.statusCode }
 func (e *baseException) GetMessage() string { return e.message }
 func (e *baseException) GetCode() int       { return e.code }
+
+// ExceptionFilter is the interface for exception handling.
