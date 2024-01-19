@@ -30,3 +30,6 @@ func (e *baseException) GetMessage() string { return e.message }
 func (e *baseException) GetCode() int       { return e.code }
 
 // ExceptionFilter is the interface for exception handling.
+type ExceptionFilter interface {
+	// ExceptionCapture is called when an exception occurs.
+	// Return true if the exception was handled (and should not propagate).
