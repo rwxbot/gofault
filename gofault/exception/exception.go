@@ -38,3 +38,4 @@ type ExceptionFilter interface {
 }
 
 // ExceptionHandler is the function-based form of ExceptionFilter.
+type ExceptionHandler func(ctx any, err error) bool
