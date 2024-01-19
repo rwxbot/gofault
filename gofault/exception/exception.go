@@ -36,3 +36,5 @@ type ExceptionFilter interface {
 	// Return false to let the exception propagate to the next filter.
 	Capture(ctx any, err error) bool
 }
+
+// ExceptionHandler is the function-based form of ExceptionFilter.
