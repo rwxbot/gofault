@@ -44,3 +44,5 @@ type ExceptionHandler func(ctx any, err error) bool
 func (h ExceptionHandler) Capture(ctx any, err error) bool {
 	return h(ctx, err)
 }
+
+// ExceptionFilterChain holds multiple filters and executes them in order.
