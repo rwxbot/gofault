@@ -51,3 +51,5 @@ type ExceptionFilterChain struct {
 }
 
 func NewExceptionFilterChain(filters ...ExceptionFilter) *ExceptionFilterChain {
+	return &ExceptionFilterChain{filters: filters}
+}
