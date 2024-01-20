@@ -46,3 +46,6 @@ func (h ExceptionHandler) Capture(ctx any, err error) bool {
 }
 
 // ExceptionFilterChain holds multiple filters and executes them in order.
+type ExceptionFilterChain struct {
+	filters []ExceptionFilter
+}
