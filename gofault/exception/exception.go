@@ -48,3 +48,5 @@ func (h ExceptionHandler) Capture(ctx any, err error) bool {
 type ExceptionFilterChain struct {
 	filters []ExceptionFilter
 }
+
+func NewExceptionFilterChain(filters ...ExceptionFilter) *ExceptionFilterChain {
