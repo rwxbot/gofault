@@ -55,3 +55,4 @@ func NewExceptionFilterChain(filters ...ExceptionFilter) *ExceptionFilterChain {
 
 func (c *ExceptionFilterChain) Add(filters ...ExceptionFilter) {
 	c.filters = append(c.filters, filters...)
+}
