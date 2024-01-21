@@ -52,3 +52,6 @@ type ExceptionFilterChain struct {
 func NewExceptionFilterChain(filters ...ExceptionFilter) *ExceptionFilterChain {
 	return &ExceptionFilterChain{filters: filters}
 }
+
+func (c *ExceptionFilterChain) Add(filters ...ExceptionFilter) {
+	c.filters = append(c.filters, filters...)
