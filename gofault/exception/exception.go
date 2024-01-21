@@ -57,3 +57,5 @@ func NewExceptionFilterChain(filters ...ExceptionFilter) *ExceptionFilterChain {
 func (c *ExceptionFilterChain) Add(filters ...ExceptionFilter) {
 	c.filters = append(c.filters, filters...)
 }
+
+// Capture runs all filters until one handles the exception.
