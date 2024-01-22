@@ -66,3 +66,5 @@ func (c *ExceptionFilterChain) Capture(ctx any, err error) bool {
 	}
 	return false
 }
+
+// CaptureException runs the chain and returns the exception if unhandled.
