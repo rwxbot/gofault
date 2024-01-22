@@ -59,3 +59,6 @@ func (c *ExceptionFilterChain) Add(filters ...ExceptionFilter) {
 }
 
 // Capture runs all filters until one handles the exception.
+func (c *ExceptionFilterChain) Capture(ctx any, err error) bool {
+	for _, f := range c.filters {
+		if f.Capture(ctx, err) {
