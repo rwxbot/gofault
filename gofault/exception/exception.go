@@ -65,3 +65,5 @@ func (c *ExceptionFilterChain) Capture(ctx any, err error) bool {
 			return true
 		}
 	}
+	return false
+}
