@@ -70,3 +70,4 @@ func (c *ExceptionFilterChain) Capture(ctx any, err error) bool {
 
 // CaptureException runs the chain and returns the exception if unhandled.
 func (c *ExceptionFilterChain) CaptureException(ctx any, err error) error {
+	handled := c.Capture(ctx, err)
