@@ -77,3 +77,4 @@ func (c *ExceptionFilterChain) CaptureException(ctx any, err error) error {
 }
 
 // BadRequest creates a 400 Bad Request exception.
+func BadRequest(message string) error {
