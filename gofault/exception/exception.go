@@ -73,3 +73,6 @@ func (c *ExceptionFilterChain) CaptureException(ctx any, err error) error {
 	handled := c.Capture(ctx, err)
 	if !handled {
 		return err
+	}
+	return nil
+}
