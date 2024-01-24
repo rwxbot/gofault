@@ -81,3 +81,5 @@ func (c *ExceptionFilterChain) CaptureException(ctx any, err error) error {
 func BadRequest(message string) error {
 	return &baseException{statusCode: http.StatusBadRequest, code: 400, message: message}
 }
+
+// Unauthorized creates a 401 Unauthorized exception.
