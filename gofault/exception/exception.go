@@ -78,3 +78,4 @@ func (c *ExceptionFilterChain) CaptureException(ctx any, err error) error {
 
 // BadRequest creates a 400 Bad Request exception.
 func BadRequest(message string) error {
+	return &baseException{statusCode: http.StatusBadRequest, code: 400, message: message}
