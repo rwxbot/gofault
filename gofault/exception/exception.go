@@ -82,3 +82,4 @@ func BadRequest(message string) error {
 }
 
 // Unauthorized creates a 401 Unauthorized exception.
+func Unauthorized(message string) error {
