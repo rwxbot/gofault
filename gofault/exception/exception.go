@@ -85,3 +85,5 @@ func BadRequest(message string) error {
 func Unauthorized(message string) error {
 	return &baseException{statusCode: http.StatusUnauthorized, code: 401, message: message}
 }
+
+// Forbidden creates a 403 Forbidden exception.
