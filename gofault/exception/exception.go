@@ -92,3 +92,6 @@ func Forbidden(message string) error {
 }
 
 // NotFound creates a 404 Not Found exception.
+func NotFound(message string) error {
+	return &baseException{statusCode: http.StatusNotFound, code: 404, message: message}
+}
