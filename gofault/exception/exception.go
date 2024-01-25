@@ -97,3 +97,4 @@ func NotFound(message string) error {
 }
 
 // InternalServerError creates a 500 Internal Server Error exception.
+func InternalServerError(message string) error {
