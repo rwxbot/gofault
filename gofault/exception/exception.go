@@ -88,3 +88,4 @@ func Unauthorized(message string) error {
 }
 
 // Forbidden creates a 403 Forbidden exception.
+func Forbidden(message string) error {
