@@ -95,3 +95,5 @@ func Forbidden(message string) error {
 func NotFound(message string) error {
 	return &baseException{statusCode: http.StatusNotFound, code: 404, message: message}
 }
+
+// InternalServerError creates a 500 Internal Server Error exception.
