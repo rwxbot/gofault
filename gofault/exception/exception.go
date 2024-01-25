@@ -91,3 +91,5 @@ func Unauthorized(message string) error {
 func Forbidden(message string) error {
 	return &baseException{statusCode: http.StatusForbidden, code: 403, message: message}
 }
+
+// NotFound creates a 404 Not Found exception.
