@@ -105,3 +105,4 @@ func InternalServerError(message string) error {
 // Conflict creates a 409 Conflict exception.
 func Conflict(message string) error {
 	return &baseException{statusCode: http.StatusConflict, code: 409, message: message}
+}
