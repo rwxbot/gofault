@@ -101,3 +101,5 @@ func NotFound(message string) error {
 func InternalServerError(message string) error {
 	return &baseException{statusCode: http.StatusInternalServerError, code: 500, message: message}
 }
+
+// Conflict creates a 409 Conflict exception.
