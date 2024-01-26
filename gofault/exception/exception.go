@@ -105,3 +105,5 @@ func InternalServerError(message string) error {
 func Conflict(message string) error {
 	return &baseException{statusCode: http.StatusConflict, code: 409, message: message}
 }
+
+// MethodNotAllowed creates a 405 Method Not Allowed exception.
