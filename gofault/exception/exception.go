@@ -99,3 +99,4 @@ func NotFound(message string) error {
 // InternalServerError creates a 500 Internal Server Error exception.
 func InternalServerError(message string) error {
 	return &baseException{statusCode: http.StatusInternalServerError, code: 500, message: message}
+}
