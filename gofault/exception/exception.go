@@ -110,3 +110,5 @@ func Conflict(message string) error {
 func MethodNotAllowed(message string) error {
 	return &baseException{statusCode: http.StatusMethodNotAllowed, code: 405, message: message}
 }
+
+// PayloadTooLarge creates a 413 Payload Too Large exception.
