@@ -109,3 +109,4 @@ func Conflict(message string) error {
 // MethodNotAllowed creates a 405 Method Not Allowed exception.
 func MethodNotAllowed(message string) error {
 	return &baseException{statusCode: http.StatusMethodNotAllowed, code: 405, message: message}
+}
