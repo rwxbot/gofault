@@ -114,3 +114,4 @@ func MethodNotAllowed(message string) error {
 // PayloadTooLarge creates a 413 Payload Too Large exception.
 func PayloadTooLarge(message string) error {
 	return &baseException{statusCode: http.StatusRequestEntityTooLarge, code: 413, message: message}
+}
