@@ -122,3 +122,6 @@ func UnsupportedMediaType(message string) error {
 }
 
 // TooManyRequests creates a 429 Too Many Requests exception.
+func TooManyRequests(message string) error {
+	return &baseException{statusCode: http.StatusTooManyRequests, code: 429, message: message}
+}
