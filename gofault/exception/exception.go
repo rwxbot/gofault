@@ -120,3 +120,5 @@ func PayloadTooLarge(message string) error {
 func UnsupportedMediaType(message string) error {
 	return &baseException{statusCode: http.StatusUnsupportedMediaType, code: 415, message: message}
 }
+
+// TooManyRequests creates a 429 Too Many Requests exception.
