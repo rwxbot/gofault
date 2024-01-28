@@ -125,3 +125,5 @@ func UnsupportedMediaType(message string) error {
 func TooManyRequests(message string) error {
 	return &baseException{statusCode: http.StatusTooManyRequests, code: 429, message: message}
 }
+
+// ServiceUnavailable creates a 503 Service Unavailable exception.
