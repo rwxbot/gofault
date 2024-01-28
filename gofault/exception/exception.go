@@ -115,3 +115,5 @@ func MethodNotAllowed(message string) error {
 func PayloadTooLarge(message string) error {
 	return &baseException{statusCode: http.StatusRequestEntityTooLarge, code: 413, message: message}
 }
+
+// UnsupportedMediaType creates a 415 Unsupported Media Type exception.
