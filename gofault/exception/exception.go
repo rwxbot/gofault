@@ -134,3 +134,5 @@ func ServiceUnavailable(message string) error {
 // IsHTTPException checks if an error is an HTTPException.
 func IsHTTPException(err error) bool {
 	_, ok := err.(HTTPException)
+	return ok
+}
