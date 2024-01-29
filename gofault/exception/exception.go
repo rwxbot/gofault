@@ -129,3 +129,4 @@ func TooManyRequests(message string) error {
 // ServiceUnavailable creates a 503 Service Unavailable exception.
 func ServiceUnavailable(message string) error {
 	return &baseException{statusCode: http.StatusServiceUnavailable, code: 503, message: message}
+}
