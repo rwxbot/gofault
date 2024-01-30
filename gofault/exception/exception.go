@@ -137,3 +137,5 @@ func IsHTTPException(err error) bool {
 	_, ok := err.(HTTPException)
 	return ok
 }
+
+// HTTPExceptionOf tries to cast an error to HTTPException.
