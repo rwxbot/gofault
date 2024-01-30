@@ -142,3 +142,5 @@ func HTTPExceptionOf(err error) (HTTPException, bool) {
 	httpErr, ok := err.(HTTPException)
 	return httpErr, ok
 }
+
+// New creates a generic HTTP exception with custom status, code, and message.
