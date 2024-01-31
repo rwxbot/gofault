@@ -149,3 +149,6 @@ func New(statusCode, code int, message string) error {
 }
 
 // Wrap wraps a message with formatting.
+func Wrap(err error, message string) error {
+	if err == nil {
+		return nil
