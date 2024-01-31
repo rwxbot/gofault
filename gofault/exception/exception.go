@@ -152,3 +152,4 @@ func New(statusCode, code int, message string) error {
 func Wrap(err error, message string) error {
 	if err == nil {
 		return nil
+	}
