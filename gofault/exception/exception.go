@@ -146,3 +146,4 @@ func HTTPExceptionOf(err error) (HTTPException, bool) {
 // New creates a generic HTTP exception with custom status, code, and message.
 func New(statusCode, code int, message string) error {
 	return &baseException{statusCode: statusCode, code: code, message: message}
+}
