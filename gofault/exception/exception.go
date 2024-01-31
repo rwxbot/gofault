@@ -154,3 +154,4 @@ func Wrap(err error, message string) error {
 		return nil
 	}
 	return fmt.Errorf("%s: %w", message, err)
+}
