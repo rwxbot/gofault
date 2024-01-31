@@ -156,3 +156,5 @@ func HTTPExceptionOf(err error) (HTTPException, bool) {
 func New(statusCode, code int, message string) error {
 	return &baseException{statusCode: statusCode, code: code, message: message}
 }
+
+// Wrap wraps a message with formatting.
