@@ -9,3 +9,5 @@ import (
 )
 
 func TestHTTPException(t *testing.T) {
+	tests := []struct {
+		name     string
