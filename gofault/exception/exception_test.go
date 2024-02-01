@@ -7,3 +7,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestHTTPException(t *testing.T) {
