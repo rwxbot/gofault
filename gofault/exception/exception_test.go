@@ -9,3 +9,4 @@ import (
 	"testing"
 
 	"github.com/gofault/gofault/core"
+)
