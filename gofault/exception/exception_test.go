@@ -12,3 +12,6 @@ func TestHTTPException(t *testing.T) {
 	tests := []struct {
 		name     string
 		err      error
+		wantCode int
+		wantHTTP int
+		wantMsg  string
