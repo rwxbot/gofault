@@ -21,3 +21,4 @@ func TestHTTPException(t *testing.T) {
 	}{
 		{"BadRequest", BadRequest("invalid input"), 400, http.StatusBadRequest, "invalid input"},
 		{"Unauthorized", Unauthorized("no token"), 401, http.StatusUnauthorized, "no token"},
+		{"Forbidden", Forbidden("access denied"), 403, http.StatusForbidden, "access denied"},
