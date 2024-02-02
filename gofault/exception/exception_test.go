@@ -17,3 +17,4 @@ func TestHTTPException(t *testing.T) {
 		wantMsg  string
 	}{
 		{"BadRequest", BadRequest("invalid input"), 400, http.StatusBadRequest, "invalid input"},
+		{"Unauthorized", Unauthorized("no token"), 401, http.StatusUnauthorized, "no token"},
