@@ -35,3 +35,5 @@ func TestHTTPException(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.err == nil {
+				t.Fatal("err should not be nil")
+			}
