@@ -28,3 +28,7 @@ func TestHTTPException(t *testing.T) {
 		{"TooManyRequests", TooManyRequests("rate limited"), 429, http.StatusTooManyRequests, "rate limited"},
 		{"ServiceUnavailable", ServiceUnavailable("maintenance"), 503, http.StatusServiceUnavailable, "maintenance"},
 	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.err == nil {
