@@ -23,3 +23,5 @@ func TestHTTPException(t *testing.T) {
 		{"Unauthorized", Unauthorized("no token"), 401, http.StatusUnauthorized, "no token"},
 		{"Forbidden", Forbidden("access denied"), 403, http.StatusForbidden, "access denied"},
 		{"NotFound", NotFound("user not found"), 404, http.StatusNotFound, "user not found"},
+		{"InternalServerError", InternalServerError("db error"), 500, http.StatusInternalServerError, "db error"},
+		{"Conflict", Conflict("duplicate entry"), 409, http.StatusConflict, "duplicate entry"},
