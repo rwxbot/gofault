@@ -25,3 +25,4 @@ func TestHTTPException(t *testing.T) {
 		{"MethodNotAllowed", MethodNotAllowed("POST not allowed"), 405, http.StatusMethodNotAllowed, "POST not allowed"},
 		{"PayloadTooLarge", PayloadTooLarge("file too large"), 413, http.StatusRequestEntityTooLarge, "file too large"},
 		{"UnsupportedMediaType", UnsupportedMediaType("application/xml not supported"), 415, http.StatusUnsupportedMediaType, "application/xml not supported"},
+		{"TooManyRequests", TooManyRequests("rate limited"), 429, http.StatusTooManyRequests, "rate limited"},
