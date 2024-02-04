@@ -45,3 +45,6 @@ func TestHTTPException(t *testing.T) {
 			}
 			if httpErr.GetStatusCode() != tt.wantHTTP {
 				t.Errorf("GetStatusCode() = %d, want %d", httpErr.GetStatusCode(), tt.wantHTTP)
+			}
+			if httpErr.GetMessage() != tt.wantMsg {
+				t.Errorf("GetMessage() = %s, want %s", httpErr.GetMessage(), tt.wantMsg)
