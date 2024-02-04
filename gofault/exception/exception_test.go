@@ -37,3 +37,5 @@ func TestHTTPException(t *testing.T) {
 			if tt.err == nil {
 				t.Fatal("err should not be nil")
 			}
+
+			httpErr, ok := HTTPExceptionOf(tt.err)
