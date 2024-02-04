@@ -42,3 +42,5 @@ func TestHTTPException(t *testing.T) {
 			if !ok {
 				t.Fatalf("expected HTTPException, got %T", tt.err)
 			}
+
+			if httpErr.GetCode() != tt.wantCode {
