@@ -41,3 +41,6 @@ func TestHTTPException(t *testing.T) {
 			}
 
 			if httpErr.GetCode() != tt.wantCode {
+				t.Errorf("GetCode() = %d, want %d", httpErr.GetCode(), tt.wantCode)
+			}
+			if httpErr.GetStatusCode() != tt.wantHTTP {
