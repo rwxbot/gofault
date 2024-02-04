@@ -36,3 +36,6 @@ func TestHTTPException(t *testing.T) {
 			}
 
 			httpErr, ok := HTTPExceptionOf(tt.err)
+			if !ok {
+				t.Fatalf("expected HTTPException, got %T", tt.err)
+			}
