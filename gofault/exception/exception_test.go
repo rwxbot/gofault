@@ -49,3 +49,4 @@ func TestHTTPException(t *testing.T) {
 			if httpErr.GetMessage() != tt.wantMsg {
 				t.Errorf("GetMessage() = %s, want %s", httpErr.GetMessage(), tt.wantMsg)
 			}
+		})
