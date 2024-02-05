@@ -55,3 +55,5 @@ func TestHTTPException(t *testing.T) {
 		})
 	}
 }
+
+func TestIsHTTPException(t *testing.T) {
