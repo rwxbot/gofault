@@ -53,3 +53,5 @@ func TestHTTPException(t *testing.T) {
 				t.Errorf("GetMessage() = %s, want %s", httpErr.GetMessage(), tt.wantMsg)
 			}
 		})
+	}
+}
