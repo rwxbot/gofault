@@ -63,3 +63,4 @@ func TestIsHTTPException(t *testing.T) {
 	if IsHTTPException(nil) {
 		t.Error("nil should not be HTTPException")
 	}
+	if IsHTTPException(InternalServerError("test")) {
