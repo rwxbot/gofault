@@ -66,3 +66,6 @@ func TestIsHTTPException(t *testing.T) {
 }
 
 func TestHTTPExceptionFilter_Capture(t *testing.T) {
+	filter := NewHTTPExceptionFilter()
+
+	t.Run("captures HTTPException", func(t *testing.T) {
