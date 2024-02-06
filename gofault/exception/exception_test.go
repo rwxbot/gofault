@@ -56,3 +56,4 @@ func TestHTTPException(t *testing.T) {
 func TestIsHTTPException(t *testing.T) {
 	if !IsHTTPException(BadRequest("test")) {
 		t.Error("BadRequest should be HTTPException")
+	}
