@@ -67,3 +67,5 @@ func TestIsHTTPException(t *testing.T) {
 		// This should pass since InternalServerError is also HTTPException
 	}
 }
+
+func TestHTTPExceptionFilter_Capture(t *testing.T) {
