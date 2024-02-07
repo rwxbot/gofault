@@ -78,3 +78,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 
 		err := BadRequest("invalid param")
 		handled := filter.Capture(ctx, err)
+
+		if !handled {
+			t.Fatal("expected filter to capture the exception")
