@@ -75,3 +75,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		req := httptest.NewRequest("GET", "/", nil)
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
+
+		err := BadRequest("invalid param")
+		handled := filter.Capture(ctx, err)
