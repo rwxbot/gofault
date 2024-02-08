@@ -100,3 +100,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 
 		err := InternalServerError("db error")
 		handled := filter.Capture(ctx, err)
+
+		// InternalServerError IS an HTTPException, so it should be captured.
+		if !handled {
