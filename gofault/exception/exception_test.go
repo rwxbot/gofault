@@ -84,3 +84,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		}
 		if rec.Code != http.StatusBadRequest {
 			t.Errorf("status code = %d, want %d", rec.Code, http.StatusBadRequest)
+		}
+		// Content-Type must be set before WriteHeader. Asserting on Result()
+		// reads the header snapshot taken when the status line was written, so
