@@ -84,3 +84,5 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		}
 		// Content-Type must be set before WriteHeader. Asserting on Result()
 		// reads the header snapshot taken when the status line was written, so
+		// it catches a Set that happens too late.
+		if ct := rec.Result().Header.Get("Content-Type"); ct != "application/json" {
