@@ -97,3 +97,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		req := httptest.NewRequest("GET", "/", nil)
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
+
+		err := InternalServerError("db error")
+		handled := filter.Capture(ctx, err)
