@@ -78,3 +78,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 
 		if !handled {
 			t.Fatal("expected filter to capture the exception")
+		}
+		if rec.Code != http.StatusBadRequest {
+			t.Errorf("status code = %d, want %d", rec.Code, http.StatusBadRequest)
