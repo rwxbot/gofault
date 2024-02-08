@@ -86,3 +86,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		// reads the header snapshot taken when the status line was written, so
 		// it catches a Set that happens too late.
 		if ct := rec.Result().Header.Get("Content-Type"); ct != "application/json" {
+			t.Errorf("Content-Type = %s, want application/json", ct)
+		}
+	})
