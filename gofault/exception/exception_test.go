@@ -89,3 +89,5 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 			t.Errorf("Content-Type = %s, want application/json", ct)
 		}
 	})
+
+	t.Run("does not capture non-HTTPException", func(t *testing.T) {
