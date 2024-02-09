@@ -113,3 +113,5 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		handled := filter.Capture(ctx, err)
 
 		if handled {
+			t.Error("expected filter to not capture generic error")
+		}
