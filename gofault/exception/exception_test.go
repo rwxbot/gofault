@@ -103,3 +103,4 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 
 		// InternalServerError IS an HTTPException, so it should be captured.
 		if !handled {
+			t.Fatal("expected filter to capture the exception")
