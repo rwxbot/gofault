@@ -113,3 +113,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		ctx := core.NewCtx(rec, req)
 
 		err := &genericError{msg: "something went wrong"}
+		handled := filter.Capture(ctx, err)
+
+		if handled {
