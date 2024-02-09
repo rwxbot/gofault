@@ -105,3 +105,5 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 	})
 
 	t.Run("does not capture generic error", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/", nil)
+		rec := httptest.NewRecorder()
