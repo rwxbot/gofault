@@ -106,3 +106,5 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 			t.Fatal("expected filter to capture the exception")
 		}
 	})
+
+	t.Run("does not capture generic error", func(t *testing.T) {
