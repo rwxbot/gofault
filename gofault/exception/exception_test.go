@@ -125,3 +125,6 @@ func TestExceptionFilterChain(t *testing.T) {
 		if handled {
 			t.Error("empty chain should not handle exception")
 		}
+	})
+
+	t.Run("first filter handles", func(t *testing.T) {
