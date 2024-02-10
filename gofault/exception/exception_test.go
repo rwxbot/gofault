@@ -120,3 +120,5 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 		}
 	})
 }
+
+func TestExceptionFilterChain(t *testing.T) {
