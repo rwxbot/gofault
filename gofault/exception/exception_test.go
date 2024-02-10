@@ -120,3 +120,6 @@ func TestHTTPExceptionFilter_Capture(t *testing.T) {
 
 func TestExceptionFilterChain(t *testing.T) {
 	t.Run("chain handles exception", func(t *testing.T) {
+		chain := NewExceptionFilterChain()
+		handled := chain.Capture(nil, BadRequest("test"))
+		if handled {
