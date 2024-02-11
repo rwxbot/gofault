@@ -137,3 +137,4 @@ func TestExceptionFilterChain(t *testing.T) {
 		filter2 := ExceptionHandler(func(ctx any, err error) bool {
 			t.Error("filter2 should not be called")
 			return false
+		})
