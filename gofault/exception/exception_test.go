@@ -133,3 +133,5 @@ func TestExceptionFilterChain(t *testing.T) {
 	t.Run("first filter handles", func(t *testing.T) {
 		filter1 := ExceptionHandler(func(ctx any, err error) bool {
 			return true
+		})
+		filter2 := ExceptionHandler(func(ctx any, err error) bool {
