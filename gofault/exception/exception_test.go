@@ -152,3 +152,5 @@ func TestExceptionFilterChain(t *testing.T) {
 			return false
 		})
 		filter2 := ExceptionHandler(func(ctx any, err error) bool {
+			return true
+		})
