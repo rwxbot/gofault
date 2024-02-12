@@ -143,3 +143,5 @@ func TestExceptionFilterChain(t *testing.T) {
 			t.Error("expected chain to handle exception")
 		}
 	})
+
+	t.Run("second filter handles", func(t *testing.T) {
