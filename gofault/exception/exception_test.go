@@ -138,3 +138,7 @@ func TestExceptionFilterChain(t *testing.T) {
 
 		chain := NewExceptionFilterChain(filter1, filter2)
 		handled := chain.Capture(nil, BadRequest("test"))
+
+		if !handled {
+			t.Error("expected chain to handle exception")
+		}
