@@ -163,3 +163,4 @@ func TestExceptionFilterChain(t *testing.T) {
 
 func TestNew(t *testing.T) {
 	err := New(http.StatusTeapot, 418, "I'm a teapot")
+	if err == nil {
