@@ -166,3 +166,6 @@ func TestNew(t *testing.T) {
 	if err == nil {
 		t.Fatal("err should not be nil")
 	}
+
+	httpErr, ok := HTTPExceptionOf(err)
+	if !ok {
