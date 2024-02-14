@@ -179,3 +179,5 @@ func TestNew(t *testing.T) {
 		t.Errorf("GetCode() = %d, want 418", httpErr.GetCode())
 	}
 }
+
+// genericError is a plain error for testing.
