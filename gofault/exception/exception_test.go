@@ -171,3 +171,7 @@ func TestNew(t *testing.T) {
 	if !ok {
 		t.Fatalf("expected HTTPException, got %T", err)
 	}
+
+	if httpErr.GetStatusCode() != http.StatusTeapot {
+		t.Errorf("GetStatusCode() = %d, want %d", httpErr.GetStatusCode(), http.StatusTeapot)
+	}
