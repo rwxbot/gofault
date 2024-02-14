@@ -178,3 +178,4 @@ func TestNew(t *testing.T) {
 	if httpErr.GetCode() != 418 {
 		t.Errorf("GetCode() = %d, want 418", httpErr.GetCode())
 	}
+}
