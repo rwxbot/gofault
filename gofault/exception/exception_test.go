@@ -170,3 +170,4 @@ func TestNew(t *testing.T) {
 	httpErr, ok := HTTPExceptionOf(err)
 	if !ok {
 		t.Fatalf("expected HTTPException, got %T", err)
+	}
