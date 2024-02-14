@@ -181,3 +181,5 @@ func TestNew(t *testing.T) {
 }
 
 // genericError is a plain error for testing.
+type genericError struct {
+	msg string
