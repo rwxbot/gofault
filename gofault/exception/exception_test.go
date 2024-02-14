@@ -178,3 +178,4 @@ func TestNew(t *testing.T) {
 	if httpErr.GetStatusCode() != http.StatusTeapot {
 		t.Errorf("GetStatusCode() = %d, want %d", httpErr.GetStatusCode(), http.StatusTeapot)
 	}
+	if httpErr.GetCode() != 418 {
