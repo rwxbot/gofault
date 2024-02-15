@@ -124,3 +124,14 @@ func loggingMiddleware(ctx *core.Ctx, next core.Handler) error {
 
 Three small interfaces let a type participate in startup and shutdown. They are
 optional: implement whichever you need.
+
+```go
+type OnInit interface{ OnInit() error }
+type OnBoot interface{ OnBoot() error }
+type OnShutdown interface{ OnShutdown() error }
+```
+
+Hooks are registered on the module and run in dependency order, with shutdown
+running in reverse:
+
+```go
