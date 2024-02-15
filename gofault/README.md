@@ -102,3 +102,8 @@ c.Register(NewGreetingService)
 
 svc, err := c.Resolve(&GreetingService{})
 ```
+
+
+## What's new in v0.5.0
+
+Middleware chains, lifecycle hooks and a filter for error handling.
