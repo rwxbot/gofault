@@ -107,3 +107,14 @@ svc, err := c.Resolve(&GreetingService{})
 ## What's new in v0.5.0
 
 Middleware chains, lifecycle hooks and a filter for error handling.
+
+### Middleware
+
+A middleware wraps the next handler; returning an error stops the chain and
+hands the error to the router's exception filter:
+
+```go
+func loggingMiddleware(ctx *core.Ctx, next core.Handler) error {
+    log.Printf("%s %s", ctx.Request.Method, ctx.Request.URL.Path)
+    return next(ctx)
+}
