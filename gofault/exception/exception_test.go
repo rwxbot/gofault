@@ -186,3 +186,5 @@ type genericError struct {
 }
 
 func (e *genericError) Error() string {
+	return e.msg
+}
