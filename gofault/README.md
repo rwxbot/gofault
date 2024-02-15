@@ -135,3 +135,13 @@ Hooks are registered on the module and run in dependency order, with shutdown
 running in reverse:
 
 ```go
+mod.RegisterOnBoot(hook)
+mod.RegisterOnShutdown(hook)
+```
+
+### Exceptions
+
+`exception` carries the HTTP status alongside the message, so handlers can
+return an error and let the filter turn it into a response:
+
+```go
