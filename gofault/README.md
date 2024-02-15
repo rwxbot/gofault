@@ -118,3 +118,9 @@ func loggingMiddleware(ctx *core.Ctx, next core.Handler) error {
     log.Printf("%s %s", ctx.Request.Method, ctx.Request.URL.Path)
     return next(ctx)
 }
+```
+
+### Lifecycle hooks
+
+Three small interfaces let a type participate in startup and shutdown. They are
+optional: implement whichever you need.
