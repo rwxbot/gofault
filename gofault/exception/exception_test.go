@@ -187,3 +187,5 @@ func TestNew(t *testing.T) {
 type genericError struct {
 	msg string
 }
+
+func (e *genericError) Error() string {
