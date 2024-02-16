@@ -10,3 +10,6 @@
 # OS
 .DS_Store
 
+# Local agent workspace state
+.workbuddy/
+reports/
