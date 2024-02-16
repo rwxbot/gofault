@@ -145,3 +145,5 @@ mod.RegisterOnShutdown(hook)
 return an error and let the filter turn it into a response:
 
 ```go
+return exception.BadRequest("invalid payload")
+```
