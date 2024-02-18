@@ -13,3 +13,4 @@ import (
 )
 
 // HTTP wraps the standard library HTTP server.
+type HTTP struct {
