@@ -17,3 +17,4 @@ type HTTP struct {
 	server  *http.Server
 	hooks   []func()
 	mu      sync.RWMutex
+	stopped bool
