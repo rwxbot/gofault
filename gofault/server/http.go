@@ -11,3 +11,5 @@ import (
 	"syscall"
 	"time"
 )
+
+// HTTP wraps the standard library HTTP server.
