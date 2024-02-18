@@ -18,3 +18,4 @@ type HTTP struct {
 	hooks   []func()
 	mu      sync.RWMutex
 	stopped bool
+}
