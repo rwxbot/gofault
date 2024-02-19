@@ -21,3 +21,6 @@ type HTTP struct {
 }
 
 // New creates a new HTTP server that will listen on the given port.
+func New(handler http.Handler, port int) *HTTP {
+	return &HTTP{
+		server: &http.Server{
