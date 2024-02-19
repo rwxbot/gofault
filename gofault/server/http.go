@@ -24,3 +24,5 @@ type HTTP struct {
 func New(handler http.Handler, port int) *HTTP {
 	return &HTTP{
 		server: &http.Server{
+			Addr:    fmt.Sprintf(":%d", port),
+			Handler: handler,
