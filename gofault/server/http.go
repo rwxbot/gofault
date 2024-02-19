@@ -19,3 +19,5 @@ type HTTP struct {
 	mu      sync.RWMutex
 	stopped bool
 }
+
+// New creates a new HTTP server that will listen on the given port.
