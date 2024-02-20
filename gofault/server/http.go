@@ -31,3 +31,5 @@ func New(handler http.Handler, port int) *HTTP {
 }
 
 // NewWithConfig creates a new HTTP server with custom configuration.
+func NewWithConfig(handler http.Handler, addr string) *HTTP {
+	return &HTTP{
