@@ -34,3 +34,4 @@ func New(handler http.Handler, port int) *HTTP {
 func NewWithConfig(handler http.Handler, addr string) *HTTP {
 	return &HTTP{
 		server: &http.Server{
+			Addr:    addr,
