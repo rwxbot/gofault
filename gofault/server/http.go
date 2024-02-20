@@ -27,3 +27,5 @@ func New(handler http.Handler, port int) *HTTP {
 			Addr:    fmt.Sprintf(":%d", port),
 			Handler: handler,
 		},
+	}
+}
