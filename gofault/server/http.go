@@ -46,3 +46,5 @@ func (s *HTTP) RegisterShutdownHook(hook func()) {
 	defer s.mu.Unlock()
 	s.hooks = append(s.hooks, hook)
 }
+
+// Start launches the server and blocks.
