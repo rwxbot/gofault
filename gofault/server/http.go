@@ -35,3 +35,5 @@ func NewWithConfig(handler http.Handler, addr string) *HTTP {
 	return &HTTP{
 		server: &http.Server{
 			Addr:    addr,
+			Handler: handler,
+		},
