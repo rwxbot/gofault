@@ -39,3 +39,5 @@ func NewWithConfig(handler http.Handler, addr string) *HTTP {
 		},
 	}
 }
+
+// RegisterShutdownHook registers a function to be called during graceful shutdown.
