@@ -37,3 +37,5 @@ func NewWithConfig(handler http.Handler, addr string) *HTTP {
 			Addr:    addr,
 			Handler: handler,
 		},
+	}
+}
