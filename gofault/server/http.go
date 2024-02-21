@@ -43,3 +43,6 @@ func NewWithConfig(handler http.Handler, addr string) *HTTP {
 // RegisterShutdownHook registers a function to be called during graceful shutdown.
 func (s *HTTP) RegisterShutdownHook(hook func()) {
 	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.hooks = append(s.hooks, hook)
+}
