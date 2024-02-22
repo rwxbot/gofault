@@ -53,3 +53,5 @@ func (s *HTTP) Start() error {
 }
 
 // StartWithGracefulShutdown starts the server and waits for shutdown signals.
+func (s *HTTP) StartWithGracefulShutdown(timeout time.Duration) error {
+	// Start server in goroutine
