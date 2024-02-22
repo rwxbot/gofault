@@ -55,3 +55,6 @@ func (s *HTTP) Start() error {
 // StartWithGracefulShutdown starts the server and waits for shutdown signals.
 func (s *HTTP) StartWithGracefulShutdown(timeout time.Duration) error {
 	// Start server in goroutine
+	errChan := make(chan error, 1)
+	go func() {
+		if err := s.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
