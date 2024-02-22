@@ -51,3 +51,5 @@ func (s *HTTP) RegisterShutdownHook(hook func()) {
 func (s *HTTP) Start() error {
 	return s.server.ListenAndServe()
 }
+
+// StartWithGracefulShutdown starts the server and waits for shutdown signals.
