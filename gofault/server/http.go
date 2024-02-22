@@ -58,3 +58,6 @@ func (s *HTTP) StartWithGracefulShutdown(timeout time.Duration) error {
 	errChan := make(chan error, 1)
 	go func() {
 		if err := s.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			errChan <- err
+		}
+	}()
