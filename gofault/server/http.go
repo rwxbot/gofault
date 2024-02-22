@@ -48,3 +48,6 @@ func (s *HTTP) RegisterShutdownHook(hook func()) {
 }
 
 // Start launches the server and blocks.
+func (s *HTTP) Start() error {
+	return s.server.ListenAndServe()
+}
