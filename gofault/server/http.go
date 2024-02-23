@@ -74,3 +74,5 @@ func (s *HTTP) StartWithGracefulShutdown(timeout time.Duration) error {
 func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
 	s.mu.Lock()
 	if s.stopped {
+		s.mu.Unlock()
+		return nil
