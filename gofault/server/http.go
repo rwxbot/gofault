@@ -71,3 +71,6 @@ func (s *HTTP) StartWithGracefulShutdown(timeout time.Duration) error {
 }
 
 // GracefulShutdown shuts down the server gracefully with a timeout.
+func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
+	s.mu.Lock()
+	if s.stopped {
