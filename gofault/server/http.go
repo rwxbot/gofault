@@ -68,3 +68,4 @@ func (s *HTTP) StartWithGracefulShutdown(timeout time.Duration) error {
 	<-quit
 
 	return s.GracefulShutdown(timeout)
+}
