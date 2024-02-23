@@ -61,3 +61,6 @@ func (s *HTTP) StartWithGracefulShutdown(timeout time.Duration) error {
 			errChan <- err
 		}
 	}()
+
+	// Wait for interrupt signal
+	quit := make(chan os.Signal, 1)
