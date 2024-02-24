@@ -79,3 +79,5 @@ func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
 	}
 	s.stopped = true
 	s.mu.Unlock()
+
+	// Execute shutdown hooks
