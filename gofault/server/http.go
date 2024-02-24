@@ -85,3 +85,4 @@ func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
 	hooks := s.hooks
 	s.mu.RUnlock()
 	for _, hook := range hooks {
+		hook()
