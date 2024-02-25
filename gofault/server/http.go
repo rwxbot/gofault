@@ -100,3 +100,5 @@ func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
 func (s *HTTP) Stop() error {
 	return s.GracefulShutdown(30 * time.Second)
 }
+
+// IsStopped returns whether the server has been stopped.
