@@ -89,3 +89,4 @@ func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
 	}
 
 	// Create shutdown context with timeout
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
