@@ -95,3 +95,5 @@ func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
 	// Shutdown server
 	return s.server.Shutdown(ctx)
 }
+
+// Stop gracefully shuts down the server with a default 30 second timeout.
