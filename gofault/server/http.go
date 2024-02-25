@@ -93,3 +93,5 @@ func (s *HTTP) GracefulShutdown(timeout time.Duration) error {
 	defer cancel()
 
 	// Shutdown server
+	return s.server.Shutdown(ctx)
+}
