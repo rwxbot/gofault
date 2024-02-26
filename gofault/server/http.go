@@ -106,3 +106,4 @@ func (s *HTTP) IsStopped() bool {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	return s.stopped
+}
