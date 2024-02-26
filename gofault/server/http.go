@@ -103,3 +103,6 @@ func (s *HTTP) Stop() error {
 
 // IsStopped returns whether the server has been stopped.
 func (s *HTTP) IsStopped() bool {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.stopped
