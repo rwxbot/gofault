@@ -12,3 +12,4 @@ func TestNew(t *testing.T) {
 
 	if srv == nil {
 		t.Fatal("server should not be nil")
+	}
