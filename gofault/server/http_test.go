@@ -9,3 +9,5 @@ import (
 func TestNew(t *testing.T) {
 	handler := http.NewServeMux()
 	srv := New(handler, 8080)
+
+	if srv == nil {
