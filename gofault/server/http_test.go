@@ -5,3 +5,6 @@ import (
 	"testing"
 	"time"
 )
+
+func TestNew(t *testing.T) {
+	handler := http.NewServeMux()
