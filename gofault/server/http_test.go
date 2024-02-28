@@ -11,3 +11,4 @@ func TestNew(t *testing.T) {
 	srv := New(handler, 8080)
 
 	if srv == nil {
+		t.Fatal("server should not be nil")
