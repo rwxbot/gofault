@@ -22,3 +22,5 @@ func TestNew(t *testing.T) {
 }
 
 func TestNewWithConfig(t *testing.T) {
+	handler := http.NewServeMux()
+	srv := NewWithConfig(handler, "localhost:9090")
