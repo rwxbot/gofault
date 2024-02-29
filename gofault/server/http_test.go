@@ -20,3 +20,5 @@ func TestNew(t *testing.T) {
 		t.Errorf("Addr = %s, want :8080", srv.server.Addr)
 	}
 }
+
+func TestNewWithConfig(t *testing.T) {
