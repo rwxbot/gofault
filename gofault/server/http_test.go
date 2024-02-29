@@ -15,3 +15,6 @@ func TestNew(t *testing.T) {
 	}
 	if srv.server == nil {
 		t.Error("http.Server should not be nil")
+	}
+	if srv.server.Addr != ":8080" {
+		t.Errorf("Addr = %s, want :8080", srv.server.Addr)
