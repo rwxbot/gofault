@@ -13,3 +13,5 @@ func TestNew(t *testing.T) {
 	if srv == nil {
 		t.Fatal("server should not be nil")
 	}
+	if srv.server == nil {
+		t.Error("http.Server should not be nil")
