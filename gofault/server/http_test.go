@@ -29,3 +29,5 @@ func TestNewWithConfig(t *testing.T) {
 		t.Errorf("Addr = %s, want localhost:9090", srv.server.Addr)
 	}
 }
+
+func TestRegisterShutdownHook(t *testing.T) {
