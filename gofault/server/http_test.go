@@ -34,3 +34,5 @@ func TestRegisterShutdownHook(t *testing.T) {
 	srv := New(nil, 8080)
 
 	srv.RegisterShutdownHook(func() {
+		// hook registration test
+	})
