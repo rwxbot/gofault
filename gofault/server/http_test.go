@@ -24,3 +24,6 @@ func TestNew(t *testing.T) {
 func TestNewWithConfig(t *testing.T) {
 	handler := http.NewServeMux()
 	srv := NewWithConfig(handler, "localhost:9090")
+
+	if srv.server.Addr != "localhost:9090" {
+		t.Errorf("Addr = %s, want localhost:9090", srv.server.Addr)
