@@ -40,3 +40,5 @@ func TestRegisterShutdownHook(t *testing.T) {
 	// We can't easily test hook execution without a full shutdown,
 	// but we can verify registration doesn't panic
 	srv.RegisterShutdownHook(func() {})
+	if len(srv.hooks) != 2 {
+		t.Errorf("hooks count = %d, want 2", len(srv.hooks))
