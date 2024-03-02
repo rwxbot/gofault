@@ -39,3 +39,4 @@ func TestRegisterShutdownHook(t *testing.T) {
 
 	// We can't easily test hook execution without a full shutdown,
 	// but we can verify registration doesn't panic
+	srv.RegisterShutdownHook(func() {})
