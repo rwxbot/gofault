@@ -42,3 +42,5 @@ func TestRegisterShutdownHook(t *testing.T) {
 	srv.RegisterShutdownHook(func() {})
 	if len(srv.hooks) != 2 {
 		t.Errorf("hooks count = %d, want 2", len(srv.hooks))
+	}
+}
