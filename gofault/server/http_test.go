@@ -51,3 +51,5 @@ func TestGracefulShutdown(t *testing.T) {
 		w.WriteHeader(200)
 		w.Write([]byte("OK"))
 	})
+
+	srv := New(handler, 0) // port 0 = random available port
