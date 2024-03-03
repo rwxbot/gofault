@@ -48,3 +48,6 @@ func TestRegisterShutdownHook(t *testing.T) {
 func TestGracefulShutdown(t *testing.T) {
 	handler := http.NewServeMux()
 	handler.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(200)
+		w.Write([]byte("OK"))
+	})
