@@ -44,3 +44,7 @@ func TestRegisterShutdownHook(t *testing.T) {
 		t.Errorf("hooks count = %d, want 2", len(srv.hooks))
 	}
 }
+
+func TestGracefulShutdown(t *testing.T) {
+	handler := http.NewServeMux()
+	handler.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
