@@ -53,3 +53,6 @@ func TestGracefulShutdown(t *testing.T) {
 	})
 
 	srv := New(handler, 0) // port 0 = random available port
+
+	// Start server
+	go func() {
