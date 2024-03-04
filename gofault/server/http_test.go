@@ -60,3 +60,6 @@ func TestGracefulShutdown(t *testing.T) {
 			t.Logf("server error: %v", err)
 		}
 	}()
+
+	// Wait for server to start
+	time.Sleep(10 * time.Millisecond)
