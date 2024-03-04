@@ -59,3 +59,4 @@ func TestGracefulShutdown(t *testing.T) {
 		if err := srv.Start(); err != nil && err != http.ErrServerClosed {
 			t.Logf("server error: %v", err)
 		}
+	}()
