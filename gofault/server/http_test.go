@@ -65,3 +65,6 @@ func TestGracefulShutdown(t *testing.T) {
 	time.Sleep(10 * time.Millisecond)
 
 	// Verify server is running
+	if srv.IsStopped() {
+		t.Error("server should not be stopped yet")
+	}
