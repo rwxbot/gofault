@@ -63,3 +63,5 @@ func TestGracefulShutdown(t *testing.T) {
 
 	// Wait for server to start
 	time.Sleep(10 * time.Millisecond)
+
+	// Verify server is running
