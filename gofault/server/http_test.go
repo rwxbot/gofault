@@ -68,3 +68,6 @@ func TestGracefulShutdown(t *testing.T) {
 	if srv.IsStopped() {
 		t.Error("server should not be stopped yet")
 	}
+
+	// Trigger graceful shutdown
+	err := srv.GracefulShutdown(5 * time.Second)
