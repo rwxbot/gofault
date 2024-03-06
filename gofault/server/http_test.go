@@ -78,3 +78,4 @@ func TestGracefulShutdown(t *testing.T) {
 	// Verify server is stopped
 	if !srv.IsStopped() {
 		t.Error("server should be stopped")
+	}
