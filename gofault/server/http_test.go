@@ -74,3 +74,7 @@ func TestGracefulShutdown(t *testing.T) {
 	if err != nil {
 		t.Errorf("GracefulShutdown() error = %v", err)
 	}
+
+	// Verify server is stopped
+	if !srv.IsStopped() {
+		t.Error("server should be stopped")
