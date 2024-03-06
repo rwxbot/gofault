@@ -73,3 +73,4 @@ func TestGracefulShutdown(t *testing.T) {
 	err := srv.GracefulShutdown(5 * time.Second)
 	if err != nil {
 		t.Errorf("GracefulShutdown() error = %v", err)
+	}
