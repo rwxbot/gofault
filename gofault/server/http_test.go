@@ -80,3 +80,6 @@ func TestGracefulShutdown(t *testing.T) {
 		t.Error("server should be stopped")
 	}
 }
+
+func TestGracefulShutdown_Hooks(t *testing.T) {
+	handler := http.NewServeMux()
