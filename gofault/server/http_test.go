@@ -84,3 +84,5 @@ func TestGracefulShutdown(t *testing.T) {
 func TestGracefulShutdown_Hooks(t *testing.T) {
 	handler := http.NewServeMux()
 	srv := New(handler, 0)
+
+	hook1Called := false
