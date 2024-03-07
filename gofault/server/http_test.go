@@ -87,3 +87,7 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 
 	hook1Called := false
 	hook2Called := false
+
+	srv.RegisterShutdownHook(func() {
+		hook1Called = true
+	})
