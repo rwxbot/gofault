@@ -86,3 +86,4 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 	srv := New(handler, 0)
 
 	hook1Called := false
+	hook2Called := false
