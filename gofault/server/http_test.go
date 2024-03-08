@@ -99,3 +99,4 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 	go func() {
 		srv.Start()
 	}()
+	time.Sleep(10 * time.Millisecond)
