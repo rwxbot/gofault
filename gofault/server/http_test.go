@@ -98,3 +98,4 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 	// Start and immediately shutdown
 	go func() {
 		srv.Start()
+	}()
