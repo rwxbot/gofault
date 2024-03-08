@@ -94,3 +94,7 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 	srv.RegisterShutdownHook(func() {
 		hook2Called = true
 	})
+
+	// Start and immediately shutdown
+	go func() {
+		srv.Start()
