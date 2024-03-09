@@ -113,3 +113,5 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 
 func TestGracefulShutdown_Idempotent(t *testing.T) {
 	srv := New(nil, 0)
+
+	// First shutdown
