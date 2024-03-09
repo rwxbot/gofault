@@ -107,3 +107,6 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 		t.Error("hook1 should be called")
 	}
 	if !hook2Called {
+		t.Error("hook2 should be called")
+	}
+}
