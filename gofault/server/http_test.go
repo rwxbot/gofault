@@ -110,3 +110,6 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 		t.Error("hook2 should be called")
 	}
 }
+
+func TestGracefulShutdown_Idempotent(t *testing.T) {
+	srv := New(nil, 0)
