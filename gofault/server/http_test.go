@@ -100,3 +100,7 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 		srv.Start()
 	}()
 	time.Sleep(10 * time.Millisecond)
+
+	srv.GracefulShutdown(5 * time.Second)
+
+	if !hook1Called {
