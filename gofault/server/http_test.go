@@ -115,3 +115,6 @@ func TestGracefulShutdown_Idempotent(t *testing.T) {
 	srv := New(nil, 0)
 
 	// First shutdown
+	srv.GracefulShutdown(5 * time.Second)
+
+	// Second shutdown should be no-op
