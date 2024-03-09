@@ -104,3 +104,6 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 	srv.GracefulShutdown(5 * time.Second)
 
 	if !hook1Called {
+		t.Error("hook1 should be called")
+	}
+	if !hook2Called {
