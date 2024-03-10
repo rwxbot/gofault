@@ -127,3 +127,5 @@ func TestGracefulShutdown_Idempotent(t *testing.T) {
 func TestStop(t *testing.T) {
 	handler := http.NewServeMux()
 	srv := New(handler, 0)
+
+	// Start server
