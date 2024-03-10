@@ -123,3 +123,7 @@ func TestGracefulShutdown_Idempotent(t *testing.T) {
 		t.Errorf("second GracefulShutdown() error = %v", err)
 	}
 }
+
+func TestStop(t *testing.T) {
+	handler := http.NewServeMux()
+	srv := New(handler, 0)
