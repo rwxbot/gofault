@@ -129,3 +129,6 @@ func TestStop(t *testing.T) {
 	srv := New(handler, 0)
 
 	// Start server
+	go func() {
+		srv.Start()
+	}()
