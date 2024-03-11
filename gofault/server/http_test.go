@@ -136,3 +136,4 @@ func TestStop(t *testing.T) {
 
 	// Stop (uses default 30s timeout)
 	err := srv.Stop()
+	if err != nil {
