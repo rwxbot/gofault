@@ -141,3 +141,6 @@ func TestStop(t *testing.T) {
 	}
 
 	if !srv.IsStopped() {
+		t.Error("server should be stopped")
+	}
+}
