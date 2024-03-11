@@ -139,3 +139,5 @@ func TestStop(t *testing.T) {
 	if err != nil {
 		t.Errorf("Stop() error = %v", err)
 	}
+
+	if !srv.IsStopped() {
