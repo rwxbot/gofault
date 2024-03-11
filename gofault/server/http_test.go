@@ -135,3 +135,4 @@ func TestStop(t *testing.T) {
 	time.Sleep(10 * time.Millisecond)
 
 	// Stop (uses default 30s timeout)
+	err := srv.Stop()
