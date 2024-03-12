@@ -144,3 +144,6 @@ func TestStop(t *testing.T) {
 		t.Error("server should be stopped")
 	}
 }
+
+func TestHTTP_ServerState(t *testing.T) {
+	srv := New(nil, 8080)
