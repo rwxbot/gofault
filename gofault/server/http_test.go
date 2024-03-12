@@ -147,3 +147,5 @@ func TestStop(t *testing.T) {
 
 func TestHTTP_ServerState(t *testing.T) {
 	srv := New(nil, 8080)
+
+	if srv.IsStopped() {
