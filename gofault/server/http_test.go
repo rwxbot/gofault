@@ -151,3 +151,4 @@ func TestHTTP_ServerState(t *testing.T) {
 	if srv.IsStopped() {
 		t.Error("new server should not be stopped")
 	}
+}
