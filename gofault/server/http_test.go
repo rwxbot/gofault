@@ -149,3 +149,5 @@ func TestHTTP_ServerState(t *testing.T) {
 	srv := New(nil, 8080)
 
 	if srv.IsStopped() {
+		t.Error("new server should not be stopped")
+	}
