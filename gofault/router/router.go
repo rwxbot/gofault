@@ -11,3 +11,5 @@ import (
 	"github.com/gofault/gofault/exception"
 	"github.com/gofault/gofault/ioc"
 )
+
+// Router matches incoming requests against registered routes and executes the middleware chain.
