@@ -13,3 +13,5 @@ import (
 )
 
 // Router matches incoming requests against registered routes and executes the middleware chain.
+type Router struct {
+	middleware      []core.MiddlewareFunc
