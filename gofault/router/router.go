@@ -19,3 +19,5 @@ type Router struct {
 	exceptionFilter exception.ExceptionFilter
 	container       *ioc.Container
 }
+
+type routeEntry struct {
