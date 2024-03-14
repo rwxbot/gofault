@@ -26,3 +26,4 @@ type routeEntry struct {
 	paramNames []string
 	handler    core.Handler
 	middleware []core.MiddlewareFunc
+}
