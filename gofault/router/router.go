@@ -31,3 +31,6 @@ type routeEntry struct {
 var _ RouterInterface = (*Router)(nil)
 
 // RouterInterface defines the routing operations exposed to the server.
+type RouterInterface interface {
+	Handle(method, path string, handler core.Handler, mw ...core.MiddlewareFunc)
+	Middleware(mw ...core.MiddlewareFunc)
