@@ -29,3 +29,5 @@ type routeEntry struct {
 }
 
 var _ RouterInterface = (*Router)(nil)
+
+// RouterInterface defines the routing operations exposed to the server.
