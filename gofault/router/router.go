@@ -27,3 +27,5 @@ type routeEntry struct {
 	handler    core.Handler
 	middleware []core.MiddlewareFunc
 }
+
+var _ RouterInterface = (*Router)(nil)
