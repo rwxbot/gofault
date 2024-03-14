@@ -24,3 +24,5 @@ type routeEntry struct {
 	method     string
 	pattern    *regexp.Regexp
 	paramNames []string
+	handler    core.Handler
+	middleware []core.MiddlewareFunc
