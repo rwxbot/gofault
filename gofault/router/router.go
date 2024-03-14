@@ -17,3 +17,5 @@ type Router struct {
 	middleware      []core.MiddlewareFunc
 	routes          []routeEntry
 	exceptionFilter exception.ExceptionFilter
+	container       *ioc.Container
+}
