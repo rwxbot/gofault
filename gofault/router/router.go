@@ -23,3 +23,4 @@ type Router struct {
 type routeEntry struct {
 	method     string
 	pattern    *regexp.Regexp
+	paramNames []string
