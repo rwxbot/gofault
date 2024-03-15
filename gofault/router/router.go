@@ -39,3 +39,5 @@ type RouterInterface interface {
 }
 
 // New creates a new Router.
+func New() *Router {
+	return &Router{routes: make([]routeEntry, 0)}
