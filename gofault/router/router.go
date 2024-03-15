@@ -34,3 +34,6 @@ var _ RouterInterface = (*Router)(nil)
 type RouterInterface interface {
 	Handle(method, path string, handler core.Handler, mw ...core.MiddlewareFunc)
 	Middleware(mw ...core.MiddlewareFunc)
+	ExceptionFilter(f exception.ExceptionFilter)
+	ServeHTTP(w http.ResponseWriter, r *http.Request)
+}
