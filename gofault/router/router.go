@@ -37,3 +37,5 @@ type RouterInterface interface {
 	ExceptionFilter(f exception.ExceptionFilter)
 	ServeHTTP(w http.ResponseWriter, r *http.Request)
 }
+
+// New creates a new Router.
