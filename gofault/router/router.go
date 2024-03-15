@@ -42,3 +42,5 @@ type RouterInterface interface {
 func New() *Router {
 	return &Router{routes: make([]routeEntry, 0)}
 }
+
+// SetContainer binds an IoC container to the router for request scope management.
