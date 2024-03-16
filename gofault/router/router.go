@@ -49,3 +49,4 @@ func (r *Router) SetContainer(c *ioc.Container) {
 }
 
 // Middleware appends global middleware to the router.
+func (r *Router) Middleware(mw ...core.MiddlewareFunc) {
