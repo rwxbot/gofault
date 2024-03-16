@@ -45,3 +45,5 @@ func New() *Router {
 
 // SetContainer binds an IoC container to the router for request scope management.
 func (r *Router) SetContainer(c *ioc.Container) {
+	r.container = c
+}
