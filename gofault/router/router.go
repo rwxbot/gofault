@@ -54,3 +54,6 @@ func (r *Router) Middleware(mw ...core.MiddlewareFunc) {
 }
 
 // ExceptionFilter sets the exception filter for the router.
+func (r *Router) ExceptionFilter(f exception.ExceptionFilter) {
+	r.exceptionFilter = f
+}
