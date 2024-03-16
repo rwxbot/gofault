@@ -47,3 +47,5 @@ func New() *Router {
 func (r *Router) SetContainer(c *ioc.Container) {
 	r.container = c
 }
+
+// Middleware appends global middleware to the router.
