@@ -52,3 +52,5 @@ func (r *Router) SetContainer(c *ioc.Container) {
 func (r *Router) Middleware(mw ...core.MiddlewareFunc) {
 	r.middleware = append(r.middleware, mw...)
 }
+
+// ExceptionFilter sets the exception filter for the router.
