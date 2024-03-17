@@ -57,3 +57,5 @@ func (r *Router) Middleware(mw ...core.MiddlewareFunc) {
 func (r *Router) ExceptionFilter(f exception.ExceptionFilter) {
 	r.exceptionFilter = f
 }
+
+// Handle registers a route with the given method, path pattern, handler, and optional middleware.
