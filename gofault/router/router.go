@@ -67,3 +67,6 @@ func (r *Router) Handle(method, path string, handler core.Handler, mw ...core.Mi
 		paramNames: names,
 		handler:    handler,
 		middleware: mw,
+	}
+	r.routes = append(r.routes, entry)
+}
