@@ -64,3 +64,6 @@ func (r *Router) Handle(method, path string, handler core.Handler, mw ...core.Mi
 	entry := routeEntry{
 		method:     method,
 		pattern:    pattern,
+		paramNames: names,
+		handler:    handler,
+		middleware: mw,
