@@ -62,3 +62,5 @@ func (r *Router) ExceptionFilter(f exception.ExceptionFilter) {
 func (r *Router) Handle(method, path string, handler core.Handler, mw ...core.MiddlewareFunc) {
 	pattern, names := buildPattern(path)
 	entry := routeEntry{
+		method:     method,
+		pattern:    pattern,
