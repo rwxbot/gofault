@@ -80,3 +80,5 @@ func buildPattern(path string) (*regexp.Regexp, []string) {
 		if strings.HasPrefix(part, ":") {
 			paramNames = append(paramNames, part[1:])
 			patternParts = append(patternParts, "([^/]+)")
+		} else {
+			patternParts = append(patternParts, regexp.QuoteMeta(part))
