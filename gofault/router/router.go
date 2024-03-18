@@ -84,3 +84,5 @@ func buildPattern(path string) (*regexp.Regexp, []string) {
 			patternParts = append(patternParts, regexp.QuoteMeta(part))
 		}
 	}
+
+	full := strings.Join(patternParts, "/")
