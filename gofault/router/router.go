@@ -70,3 +70,7 @@ func (r *Router) Handle(method, path string, handler core.Handler, mw ...core.Mi
 	}
 	r.routes = append(r.routes, entry)
 }
+
+func buildPattern(path string) (*regexp.Regexp, []string) {
+	parts := strings.Split(path, "/")
+	paramNames := []string{}
