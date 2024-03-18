@@ -74,3 +74,6 @@ func (r *Router) Handle(method, path string, handler core.Handler, mw ...core.Mi
 func buildPattern(path string) (*regexp.Regexp, []string) {
 	parts := strings.Split(path, "/")
 	paramNames := []string{}
+	patternParts := []string{""}
+
+	for _, part := range parts[1:] {
