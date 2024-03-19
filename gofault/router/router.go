@@ -86,3 +86,5 @@ func buildPattern(path string) (*regexp.Regexp, []string) {
 	}
 
 	full := strings.Join(patternParts, "/")
+	if !strings.HasSuffix(full, "$") {
+		full += "$"
