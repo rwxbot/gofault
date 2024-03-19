@@ -94,3 +94,4 @@ func buildPattern(path string) (*regexp.Regexp, []string) {
 
 // ServeHTTP dispatches to the matching route or returns 404.
 func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	// Begin request scope if a container is attached.
