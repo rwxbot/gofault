@@ -91,3 +91,5 @@ func buildPattern(path string) (*regexp.Regexp, []string) {
 	}
 	return regexp.MustCompile("^" + full), paramNames
 }
+
+// ServeHTTP dispatches to the matching route or returns 404.
