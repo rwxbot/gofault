@@ -97,3 +97,6 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	// Begin request scope if a container is attached.
 	var reqCtx context.Context
 	if r.container != nil {
+		reqCtx = r.container.BeginRequest(req.Context())
+		req = req.WithContext(reqCtx)
+		defer r.container.EndRequest(reqCtx)
