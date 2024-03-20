@@ -112,3 +112,5 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		}
 
 		ctx := core.NewCtx(w, req)
+		for i, name := range route.paramNames {
+			if i+1 < len(matches) {
