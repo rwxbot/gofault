@@ -100,3 +100,4 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		reqCtx = r.container.BeginRequest(req.Context())
 		req = req.WithContext(reqCtx)
 		defer r.container.EndRequest(reqCtx)
+	}
