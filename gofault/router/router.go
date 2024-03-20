@@ -109,3 +109,6 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		matches := route.pattern.FindStringSubmatch(req.URL.Path)
 		if matches == nil {
 			continue
+		}
+
+		ctx := core.NewCtx(w, req)
