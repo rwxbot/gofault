@@ -106,3 +106,6 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		if route.method != "" && route.method != req.Method {
 			continue
 		}
+		matches := route.pattern.FindStringSubmatch(req.URL.Path)
+		if matches == nil {
+			continue
