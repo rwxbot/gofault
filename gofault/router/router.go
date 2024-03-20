@@ -115,3 +115,5 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		for i, name := range route.paramNames {
 			if i+1 < len(matches) {
 				ctx.Params[name] = matches[i+1]
+			}
+		}
