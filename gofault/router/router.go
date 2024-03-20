@@ -103,3 +103,6 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 
 	for _, route := range r.routes {
+		if route.method != "" && route.method != req.Method {
+			continue
+		}
