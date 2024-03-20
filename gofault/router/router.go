@@ -101,3 +101,5 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		req = req.WithContext(reqCtx)
 		defer r.container.EndRequest(reqCtx)
 	}
+
+	for _, route := range r.routes {
