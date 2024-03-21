@@ -124,3 +124,4 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		}))
 		err := runChain(ctx, chain, 0)
 		if err != nil {
+			if r.exceptionFilter != nil {
