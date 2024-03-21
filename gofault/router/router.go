@@ -117,3 +117,5 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 				ctx.Params[name] = matches[i+1]
 			}
 		}
+
+		chain := append(r.middleware, route.middleware...)
