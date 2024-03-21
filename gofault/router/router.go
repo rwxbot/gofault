@@ -121,3 +121,5 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		chain := append(r.middleware, route.middleware...)
 		chain = append(chain, core.MiddlewareFunc(func(ctx *core.Ctx, next core.Handler) error {
 			return route.handler(ctx)
+		}))
+		err := runChain(ctx, chain, 0)
