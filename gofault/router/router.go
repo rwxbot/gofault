@@ -138,3 +138,4 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 func runChain(ctx *core.Ctx, chain []core.MiddlewareFunc, index int) error {
 	if index >= len(chain) {
 		return nil
+	}
