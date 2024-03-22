@@ -139,3 +139,6 @@ func runChain(ctx *core.Ctx, chain []core.MiddlewareFunc, index int) error {
 	if index >= len(chain) {
 		return nil
 	}
+	return chain[index](ctx, func(c *core.Ctx) error {
+		return runChain(c, chain, index+1)
+	})
