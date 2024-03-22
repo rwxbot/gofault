@@ -128,3 +128,5 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 				r.exceptionFilter.Capture(ctx, err)
 			} else {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		}
