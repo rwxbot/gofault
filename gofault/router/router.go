@@ -132,3 +132,5 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		}
 		return
 	}
+	http.NotFound(w, req)
+}
