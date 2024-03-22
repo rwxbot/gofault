@@ -134,3 +134,7 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 	http.NotFound(w, req)
 }
+
+func runChain(ctx *core.Ctx, chain []core.MiddlewareFunc, index int) error {
+	if index >= len(chain) {
+		return nil
