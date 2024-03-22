@@ -125,3 +125,6 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		err := runChain(ctx, chain, 0)
 		if err != nil {
 			if r.exceptionFilter != nil {
+				r.exceptionFilter.Capture(ctx, err)
+			} else {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
