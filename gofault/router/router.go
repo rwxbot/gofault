@@ -142,3 +142,4 @@ func runChain(ctx *core.Ctx, chain []core.MiddlewareFunc, index int) error {
 	return chain[index](ctx, func(c *core.Ctx) error {
 		return runChain(c, chain, index+1)
 	})
+}
