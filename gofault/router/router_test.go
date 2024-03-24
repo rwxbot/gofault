@@ -14,3 +14,5 @@ func dummyHandler(ctx *core.Ctx) error {
 }
 
 func TestRouter_HandleAndServe(t *testing.T) {
+	r := New()
+	r.Handle("GET", "/hello/:name", dummyHandler)
