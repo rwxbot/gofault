@@ -13,3 +13,5 @@ import (
 func dummyHandler(ctx *core.Ctx) error {
 	return nil
 }
+
+func TestRouter_HandleAndServe(t *testing.T) {
