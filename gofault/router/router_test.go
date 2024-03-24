@@ -11,3 +11,4 @@ import (
 
 func dummyHandler(ctx *core.Ctx) error {
 	return nil
+}
