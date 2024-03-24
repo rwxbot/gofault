@@ -19,3 +19,4 @@ func TestRouter_HandleAndServe(t *testing.T) {
 	r.Handle("GET", "/hello/:name", dummyHandler)
 
 	req := httptest.NewRequest("GET", "/hello/world", nil)
+	w := httptest.NewRecorder()
