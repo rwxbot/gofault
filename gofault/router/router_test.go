@@ -25,3 +25,6 @@ func TestRouter_HandleAndServe(t *testing.T) {
 		t.Fatalf("expected 200, got %d", w.Code)
 	}
 }
+
+func TestRouter_NotFound(t *testing.T) {
+	r := New()
