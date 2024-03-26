@@ -29,3 +29,5 @@ func TestRouter_HandleAndServe(t *testing.T) {
 func TestRouter_NotFound(t *testing.T) {
 	r := New()
 	r.Handle("GET", "/hello/:name", dummyHandler)
+
+	req := httptest.NewRequest("GET", "/nonexistent", nil)
