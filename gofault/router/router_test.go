@@ -47,3 +47,4 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 		called = true
 		return next(ctx)
 	})
+	r.Handle("GET", "/test", dummyHandler)
