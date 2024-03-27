@@ -47,3 +47,6 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 		return next(ctx)
 	})
 	r.Handle("GET", "/test", dummyHandler)
+
+	req := httptest.NewRequest("GET", "/test", nil)
+	w := httptest.NewRecorder()
