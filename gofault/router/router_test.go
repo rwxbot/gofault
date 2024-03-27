@@ -39,3 +39,6 @@ func TestRouter_NotFound(t *testing.T) {
 		t.Fatalf("expected 404, got %d", w.Code)
 	}
 }
+
+func TestRouter_MiddlewareChain(t *testing.T) {
+	r := New()
