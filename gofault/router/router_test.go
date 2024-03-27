@@ -50,3 +50,4 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/test", nil)
 	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
