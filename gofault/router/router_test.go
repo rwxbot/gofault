@@ -44,3 +44,5 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 	r := New()
 	called := false
 	r.Middleware(func(ctx *core.Ctx, next core.Handler) error {
+		called = true
+		return next(ctx)
