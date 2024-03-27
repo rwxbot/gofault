@@ -41,3 +41,5 @@ func TestRouter_NotFound(t *testing.T) {
 
 func TestRouter_MiddlewareChain(t *testing.T) {
 	r := New()
+	called := false
+	r.Middleware(func(ctx *core.Ctx, next core.Handler) error {
