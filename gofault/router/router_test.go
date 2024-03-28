@@ -56,3 +56,6 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 		t.Fatal("middleware was not called")
 	}
 }
+
+func TestRouter_ExceptionFilter(t *testing.T) {
+	r := New()
