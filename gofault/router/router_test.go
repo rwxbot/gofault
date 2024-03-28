@@ -53,3 +53,4 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 	r.ServeHTTP(w, req)
 
 	if !called {
+		t.Fatal("middleware was not called")
