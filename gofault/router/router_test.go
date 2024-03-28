@@ -55,3 +55,5 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 
 	if !called {
 		t.Fatal("middleware was not called")
+	}
+}
