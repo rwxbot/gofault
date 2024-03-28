@@ -60,3 +60,6 @@ func TestRouter_MiddlewareChain(t *testing.T) {
 
 func TestRouter_ExceptionFilter(t *testing.T) {
 	r := New()
+
+	errHandler := func(ctx *core.Ctx) error {
+		return exception.BadRequest("invalid input")
