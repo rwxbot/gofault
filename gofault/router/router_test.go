@@ -74,3 +74,4 @@ func TestRouter_ExceptionFilter(t *testing.T) {
 	if w.Code != http.StatusBadRequest {
 		t.Fatalf("expected 400, got %d", w.Code)
 	}
+}
