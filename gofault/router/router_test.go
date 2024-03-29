@@ -63,3 +63,6 @@ func TestRouter_ExceptionFilter(t *testing.T) {
 	errHandler := func(ctx *core.Ctx) error {
 		return exception.BadRequest("invalid input")
 	}
+
+	r.Handle("GET", "/error", errHandler)
+	r.ExceptionFilter(exception.NewHTTPExceptionFilter())
