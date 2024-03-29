@@ -67,3 +67,6 @@ func TestRouter_ExceptionFilter(t *testing.T) {
 
 	r.Handle("GET", "/error", errHandler)
 	r.ExceptionFilter(exception.NewHTTPExceptionFilter())
+
+	req := httptest.NewRequest("GET", "/error", nil)
+	w := httptest.NewRecorder()
