@@ -69,3 +69,6 @@ func TestRouter_ExceptionFilter(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/error", nil)
 	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	if w.Code != http.StatusBadRequest {
