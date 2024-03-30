@@ -6,3 +6,5 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+
+	"github.com/gofault/gofault/core"
