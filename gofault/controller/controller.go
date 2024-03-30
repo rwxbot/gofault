@@ -8,3 +8,4 @@ import (
 	"reflect"
 
 	"github.com/gofault/gofault/core"
+)
