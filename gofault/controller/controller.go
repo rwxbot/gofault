@@ -12,3 +12,5 @@ import (
 
 // BaseController provides helper methods for writing HTTP handlers.
 type BaseController struct{}
+
+// JSON writes a JSON response with the given status code.
