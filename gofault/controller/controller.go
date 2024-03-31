@@ -11,3 +11,4 @@ import (
 )
 
 // BaseController provides helper methods for writing HTTP handlers.
+type BaseController struct{}
