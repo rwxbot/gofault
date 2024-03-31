@@ -9,3 +9,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// BaseController provides helper methods for writing HTTP handlers.
