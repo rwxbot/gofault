@@ -19,3 +19,5 @@ func (c *BaseController) JSON(w http.ResponseWriter, status int, v any) error {
 	w.WriteHeader(status)
 	return json.NewEncoder(w).Encode(v)
 }
+
+// Text writes a plain text response.
