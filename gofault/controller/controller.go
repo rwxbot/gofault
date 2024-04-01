@@ -21,3 +21,6 @@ func (c *BaseController) JSON(w http.ResponseWriter, status int, v any) error {
 }
 
 // Text writes a plain text response.
+func (c *BaseController) Text(w http.ResponseWriter, status int, msg string) error {
+	w.WriteHeader(status)
+	_, err := w.Write([]byte(msg))
