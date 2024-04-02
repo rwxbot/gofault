@@ -26,3 +26,5 @@ func (c *BaseController) Text(w http.ResponseWriter, status int, msg string) err
 	_, err := w.Write([]byte(msg))
 	return err
 }
+
+// Param extracts a path parameter from the context.
