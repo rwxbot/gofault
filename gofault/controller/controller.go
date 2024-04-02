@@ -28,3 +28,5 @@ func (c *BaseController) Text(w http.ResponseWriter, status int, msg string) err
 }
 
 // Param extracts a path parameter from the context.
+func Param(ctx *core.Ctx, name string) string {
+	return ctx.Params[name]
