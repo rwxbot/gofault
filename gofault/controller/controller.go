@@ -25,3 +25,4 @@ func (c *BaseController) Text(w http.ResponseWriter, status int, msg string) err
 	w.WriteHeader(status)
 	_, err := w.Write([]byte(msg))
 	return err
+}
