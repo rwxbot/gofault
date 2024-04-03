@@ -31,3 +31,5 @@ func (c *BaseController) Text(w http.ResponseWriter, status int, msg string) err
 func Param(ctx *core.Ctx, name string) string {
 	return ctx.Params[name]
 }
+
+// Query extracts a query string parameter.
