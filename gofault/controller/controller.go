@@ -36,3 +36,5 @@ func Param(ctx *core.Ctx, name string) string {
 func Query(ctx *core.Ctx, name string) string {
 	return ctx.Request.URL.Query().Get(name)
 }
+
+// InvokeHandler dispatches to the appropriate controller method based on HTTP method and path.
