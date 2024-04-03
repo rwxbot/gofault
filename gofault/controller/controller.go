@@ -33,3 +33,5 @@ func Param(ctx *core.Ctx, name string) string {
 }
 
 // Query extracts a query string parameter.
+func Query(ctx *core.Ctx, name string) string {
+	return ctx.Request.URL.Query().Get(name)
