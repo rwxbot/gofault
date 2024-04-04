@@ -38,3 +38,5 @@ func Query(ctx *core.Ctx, name string) string {
 }
 
 // InvokeHandler dispatches to the appropriate controller method based on HTTP method and path.
+func InvokeHandler(ctrl core.Controller, method, path, handlerName string, ctx *core.Ctx) error {
+	v := reflect.ValueOf(ctrl)
