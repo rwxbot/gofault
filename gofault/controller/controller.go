@@ -43,3 +43,4 @@ func InvokeHandler(ctrl core.Controller, method, path, handlerName string, ctx *
 	methodVal := v.MethodByName(handlerName)
 	if !methodVal.IsValid() {
 		return fmt.Errorf("handler method %q not found on controller", handlerName)
+	}
