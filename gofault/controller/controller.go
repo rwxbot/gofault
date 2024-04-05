@@ -50,3 +50,5 @@ func InvokeHandler(ctrl core.Controller, method, path, handlerName string, ctx *
 
 // ControllerMethod is the signature for controller action methods.
 type ControllerMethod func(ctx *core.Ctx) error
+
+// Response represents a standard API response.
