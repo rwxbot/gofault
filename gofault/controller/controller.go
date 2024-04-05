@@ -47,3 +47,5 @@ func InvokeHandler(ctrl core.Controller, method, path, handlerName string, ctx *
 	fn := methodVal.Interface().(func(ctx *core.Ctx) error)
 	return fn(ctx)
 }
+
+// ControllerMethod is the signature for controller action methods.
