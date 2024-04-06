@@ -59,3 +59,4 @@ type Response struct {
 }
 
 // OK sends a 200 JSON response.
+func OK(w http.ResponseWriter, data any) error {
