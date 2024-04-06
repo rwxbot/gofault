@@ -68,3 +68,5 @@ func OK(w http.ResponseWriter, data any) error {
 func Error(w http.ResponseWriter, status int, msg string) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
+	return json.NewEncoder(w).Encode(Response{Code: status, Message: msg})
+}
