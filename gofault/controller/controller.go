@@ -57,3 +57,5 @@ type Response struct {
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`
 }
+
+// OK sends a 200 JSON response.
