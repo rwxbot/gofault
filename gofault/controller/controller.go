@@ -65,3 +65,6 @@ func OK(w http.ResponseWriter, data any) error {
 }
 
 // Error sends an error JSON response.
+func Error(w http.ResponseWriter, status int, msg string) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
