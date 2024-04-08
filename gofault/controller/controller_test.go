@@ -10,3 +10,4 @@ import (
 )
 
 func TestBaseController_JSON(t *testing.T) {
+	ctrl := BaseController{}
