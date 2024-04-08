@@ -8,3 +8,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestBaseController_JSON(t *testing.T) {
