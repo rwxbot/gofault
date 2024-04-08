@@ -14,3 +14,6 @@ func TestBaseController_JSON(t *testing.T) {
 	w := httptest.NewRecorder()
 	err := ctrl.JSON(w, http.StatusOK, map[string]string{"key": "value"})
 	if err != nil {
+		t.Fatalf("JSON failed: %v", err)
+	}
+	var resp map[string]string
