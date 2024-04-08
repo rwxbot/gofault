@@ -13,3 +13,4 @@ func TestBaseController_JSON(t *testing.T) {
 	ctrl := BaseController{}
 	w := httptest.NewRecorder()
 	err := ctrl.JSON(w, http.StatusOK, map[string]string{"key": "value"})
+	if err != nil {
