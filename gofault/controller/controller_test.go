@@ -17,3 +17,6 @@ func TestBaseController_JSON(t *testing.T) {
 		t.Fatalf("JSON failed: %v", err)
 	}
 	var resp map[string]string
+	json.Unmarshal(w.Body.Bytes(), &resp)
+	if resp["key"] != "value" {
+		t.Fatalf("expected 'value', got %s", resp["key"])
