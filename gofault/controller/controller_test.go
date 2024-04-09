@@ -25,3 +25,5 @@ func TestBaseController_JSON(t *testing.T) {
 
 func TestOK(t *testing.T) {
 	w := httptest.NewRecorder()
+	err := OK(w, map[string]string{"msg": "test"})
+	if err != nil {
