@@ -29,3 +29,4 @@ func TestOK(t *testing.T) {
 	if err != nil {
 		t.Fatalf("OK failed: %v", err)
 	}
+	var r Response
