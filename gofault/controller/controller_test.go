@@ -30,3 +30,5 @@ func TestOK(t *testing.T) {
 		t.Fatalf("OK failed: %v", err)
 	}
 	var r Response
+	json.Unmarshal(w.Body.Bytes(), &r)
+	if r.Code != 0 || r.Message != "success" {
