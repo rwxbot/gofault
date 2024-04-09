@@ -27,3 +27,5 @@ func TestOK(t *testing.T) {
 	w := httptest.NewRecorder()
 	err := OK(w, map[string]string{"msg": "test"})
 	if err != nil {
+		t.Fatalf("OK failed: %v", err)
+	}
