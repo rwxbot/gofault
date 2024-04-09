@@ -32,3 +32,4 @@ func TestOK(t *testing.T) {
 	var r Response
 	json.Unmarshal(w.Body.Bytes(), &r)
 	if r.Code != 0 || r.Message != "success" {
+		t.Fatalf("unexpected response: %+v", r)
