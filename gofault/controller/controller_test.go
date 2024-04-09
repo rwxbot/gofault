@@ -22,3 +22,6 @@ func TestBaseController_JSON(t *testing.T) {
 		t.Fatalf("expected 'value', got %s", resp["key"])
 	}
 }
+
+func TestOK(t *testing.T) {
+	w := httptest.NewRecorder()
