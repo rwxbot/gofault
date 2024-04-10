@@ -42,3 +42,5 @@ func TestOK(t *testing.T) {
 		t.Errorf("Content-Type = %s, want application/json", ct)
 	}
 }
+
+func TestParamExtraction(t *testing.T) {
