@@ -33,3 +33,5 @@ func TestOK(t *testing.T) {
 	json.Unmarshal(w.Body.Bytes(), &r)
 	if r.Code != 0 || r.Message != "success" {
 		t.Fatalf("unexpected response: %+v", r)
+	}
+	// Assert on Result() (the header snapshot taken at WriteHeader) rather than
