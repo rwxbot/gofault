@@ -35,3 +35,6 @@ func TestOK(t *testing.T) {
 		t.Fatalf("unexpected response: %+v", r)
 	}
 	// Assert on Result() (the header snapshot taken at WriteHeader) rather than
+	// Header(): a recorder keeps accepting Set calls after the status line is
+	// written, whereas a real server commits the headers and would serve this
+	// body as text/plain.
