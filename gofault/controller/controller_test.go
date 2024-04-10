@@ -41,3 +41,4 @@ func TestOK(t *testing.T) {
 	if ct := w.Result().Header.Get("Content-Type"); ct != "application/json" {
 		t.Errorf("Content-Type = %s, want application/json", ct)
 	}
+}
