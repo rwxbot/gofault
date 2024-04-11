@@ -47,3 +47,5 @@ func TestParamExtraction(t *testing.T) {
 	ctx := &core.Ctx{Params: map[string]string{"name": "alice"}}
 	if Param(ctx, "name") != "alice" {
 		t.Fatal("param extraction failed")
+	}
+}
