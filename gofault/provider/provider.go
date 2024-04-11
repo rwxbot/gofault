@@ -1,1 +1,2 @@
 // Package provider provides utilities for defining injectable providers.
+package provider
