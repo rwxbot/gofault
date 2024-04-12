@@ -14,3 +14,4 @@ type ProviderFunc func() any
 // Provide returns the result of calling the underlying function.
 func (f ProviderFunc) Provide() any {
 	return f()
+}
