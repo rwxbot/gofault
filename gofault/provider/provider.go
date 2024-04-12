@@ -7,3 +7,5 @@ import "github.com/gofault/gofault/ioc"
 type Provider interface {
 	Provide() any
 }
+
+// ProviderFunc is an adapter that turns a function into a Provider.
