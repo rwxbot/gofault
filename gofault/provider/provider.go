@@ -9,3 +9,4 @@ type Provider interface {
 }
 
 // ProviderFunc is an adapter that turns a function into a Provider.
+type ProviderFunc func() any
