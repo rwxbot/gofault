@@ -15,3 +15,5 @@ type ProviderFunc func() any
 func (f ProviderFunc) Provide() any {
 	return f()
 }
+
+// ValueProvider wraps a concrete value so it can be registered in the container.
