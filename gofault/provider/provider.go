@@ -18,3 +18,4 @@ func (f ProviderFunc) Provide() any {
 
 // ValueProvider wraps a concrete value so it can be registered in the container.
 type ValueProvider struct {
+	Value any
