@@ -20,3 +20,5 @@ func (f ProviderFunc) Provide() any {
 type ValueProvider struct {
 	Value any
 }
+
+// Provide returns the stored value.
