@@ -22,3 +22,6 @@ type ValueProvider struct {
 }
 
 // Provide returns the stored value.
+func (v ValueProvider) Provide() any {
+	return v.Value
+}
