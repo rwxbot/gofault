@@ -25,3 +25,5 @@ type ValueProvider struct {
 func (v ValueProvider) Provide() any {
 	return v.Value
 }
+
+// ScopedProvider is implemented by providers that declare their own lifecycle scope.
