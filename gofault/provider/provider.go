@@ -31,3 +31,5 @@ func (v ValueProvider) Provide() any {
 // over the registration method used (Register/RegisterScoped/RegisterTransient).
 type ScopedProvider interface {
 	Provider
+	// Scope returns the lifecycle scope for this provider.
+	Scope() ioc.Scope
