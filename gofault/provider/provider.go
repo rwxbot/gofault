@@ -29,3 +29,5 @@ func (v ValueProvider) Provide() any {
 // ScopedProvider is implemented by providers that declare their own lifecycle scope.
 // If a provider implements this interface, its declared scope takes precedence
 // over the registration method used (Register/RegisterScoped/RegisterTransient).
+type ScopedProvider interface {
+	Provider
