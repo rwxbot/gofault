@@ -33,3 +33,4 @@ type ScopedProvider interface {
 	Provider
 	// Scope returns the lifecycle scope for this provider.
 	Scope() ioc.Scope
+}
