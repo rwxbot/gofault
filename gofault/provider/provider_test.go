@@ -8,3 +8,4 @@ import (
 
 func TestProviderFunc(t *testing.T) {
 	val := "not-called"
+	pf := ProviderFunc(func() any {
