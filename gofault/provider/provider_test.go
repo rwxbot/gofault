@@ -12,3 +12,6 @@ func TestProviderFunc(t *testing.T) {
 		val = "called"
 		return "hello"
 	})
+
+	// Function body should not run at construction time
+	if val != "not-called" {
