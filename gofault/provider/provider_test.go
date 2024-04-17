@@ -21,3 +21,5 @@ func TestProviderFunc(t *testing.T) {
 	// Function body runs on Provide()
 	pf.Provide()
 	if val != "called" {
+		t.Error("ProviderFunc not called on Provide()")
+	}
