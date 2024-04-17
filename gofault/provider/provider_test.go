@@ -25,3 +25,4 @@ func TestProviderFunc(t *testing.T) {
 	}
 
 	result := pf.Provide()
+	if result != "hello" {
