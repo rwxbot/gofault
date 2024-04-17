@@ -15,3 +15,5 @@ func TestProviderFunc(t *testing.T) {
 
 	// Function body should not run at construction time
 	if val != "not-called" {
+		t.Error("ProviderFunc should not run at construction")
+	}
