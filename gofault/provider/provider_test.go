@@ -26,3 +26,6 @@ func TestProviderFunc(t *testing.T) {
 
 	result := pf.Provide()
 	if result != "hello" {
+		t.Errorf("expected 'hello', got '%v'", result)
+	}
+}
