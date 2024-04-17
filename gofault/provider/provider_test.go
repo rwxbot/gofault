@@ -23,3 +23,5 @@ func TestProviderFunc(t *testing.T) {
 	if val != "called" {
 		t.Error("ProviderFunc not called on Provide()")
 	}
+
+	result := pf.Provide()
