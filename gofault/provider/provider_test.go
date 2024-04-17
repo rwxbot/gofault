@@ -17,3 +17,7 @@ func TestProviderFunc(t *testing.T) {
 	if val != "not-called" {
 		t.Error("ProviderFunc should not run at construction")
 	}
+
+	// Function body runs on Provide()
+	pf.Provide()
+	if val != "called" {
