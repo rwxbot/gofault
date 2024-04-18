@@ -29,3 +29,7 @@ func TestProviderFunc(t *testing.T) {
 		t.Errorf("expected 'hello', got '%v'", result)
 	}
 }
+
+func TestProviderFunc_ReturnsNil(t *testing.T) {
+	pf := ProviderFunc(func() any {
+		return nil
