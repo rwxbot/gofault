@@ -33,3 +33,4 @@ func TestProviderFunc(t *testing.T) {
 func TestProviderFunc_ReturnsNil(t *testing.T) {
 	pf := ProviderFunc(func() any {
 		return nil
+	})
