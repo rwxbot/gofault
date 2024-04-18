@@ -37,3 +37,5 @@ func TestProviderFunc_ReturnsNil(t *testing.T) {
 
 	val := pf.Provide()
 	if val != nil {
+		t.Errorf("expected nil, got '%v'", val)
+	}
