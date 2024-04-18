@@ -34,3 +34,6 @@ func TestProviderFunc_ReturnsNil(t *testing.T) {
 	pf := ProviderFunc(func() any {
 		return nil
 	})
+
+	val := pf.Provide()
+	if val != nil {
