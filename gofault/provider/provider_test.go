@@ -39,3 +39,4 @@ func TestProviderFunc_ReturnsNil(t *testing.T) {
 	if val != nil {
 		t.Errorf("expected nil, got '%v'", val)
 	}
+}
