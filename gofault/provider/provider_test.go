@@ -57,3 +57,5 @@ func TestValueProvider_Struct(t *testing.T) {
 		t.Errorf("expected 'custom-value', got '%v'", pv.Value)
 	}
 }
+
+// testScopedProvider implements both Provider and ScopedProvider for testing
