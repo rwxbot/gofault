@@ -40,3 +40,6 @@ func TestProviderFunc_ReturnsNil(t *testing.T) {
 		t.Errorf("expected nil, got '%v'", val)
 	}
 }
+
+func TestValueProvider(t *testing.T) {
+	pv := ValueProvider{Value: 42}
