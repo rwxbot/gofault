@@ -49,3 +49,6 @@ func TestValueProvider(t *testing.T) {
 		t.Errorf("expected 42, got %v", val)
 	}
 }
+
+func TestValueProvider_Struct(t *testing.T) {
+	pv := ValueProvider{Value: "custom-value"}
