@@ -52,3 +52,7 @@ func TestValueProvider(t *testing.T) {
 
 func TestValueProvider_Struct(t *testing.T) {
 	pv := ValueProvider{Value: "custom-value"}
+
+	if pv.Value != "custom-value" {
+		t.Errorf("expected 'custom-value', got '%v'", pv.Value)
+	}
