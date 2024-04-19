@@ -47,3 +47,5 @@ func TestValueProvider(t *testing.T) {
 	val := pv.Provide()
 	if val != 42 {
 		t.Errorf("expected 42, got %v", val)
+	}
+}
