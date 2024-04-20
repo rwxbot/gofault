@@ -62,3 +62,5 @@ func TestValueProvider_Struct(t *testing.T) {
 type testScopedProvider struct {
 	scope ioc.Scope
 }
+
+func (p *testScopedProvider) Provide() any     { return nil }
