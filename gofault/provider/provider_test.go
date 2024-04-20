@@ -64,3 +64,4 @@ type testScopedProvider struct {
 }
 
 func (p *testScopedProvider) Provide() any     { return nil }
+func (p *testScopedProvider) Scope() ioc.Scope { return p.scope }
