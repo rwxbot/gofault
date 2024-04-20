@@ -60,3 +60,4 @@ func TestValueProvider_Struct(t *testing.T) {
 
 // testScopedProvider implements both Provider and ScopedProvider for testing
 type testScopedProvider struct {
+	scope ioc.Scope
