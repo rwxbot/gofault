@@ -68,3 +68,5 @@ func (p *testScopedProvider) Scope() ioc.Scope { return p.scope }
 
 func TestScopedProvider(t *testing.T) {
 	pv := &testScopedProvider{scope: ioc.ScopeSingleton}
+
+	val := pv.Provide()
