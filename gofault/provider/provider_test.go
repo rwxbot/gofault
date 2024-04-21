@@ -81,3 +81,6 @@ func TestScopedProvider(t *testing.T) {
 
 func TestProviderFunc_WithInterface(t *testing.T) {
 	// ProviderFunc implements Provider interface
+	var p Provider = ProviderFunc(func() any {
+		return "interface-test"
+	})
