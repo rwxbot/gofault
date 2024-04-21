@@ -78,3 +78,6 @@ func TestScopedProvider(t *testing.T) {
 		t.Errorf("expected ScopeSingleton, got %v", pv.Scope())
 	}
 }
+
+func TestProviderFunc_WithInterface(t *testing.T) {
+	// ProviderFunc implements Provider interface
