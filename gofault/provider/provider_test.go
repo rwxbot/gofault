@@ -77,3 +77,4 @@ func TestScopedProvider(t *testing.T) {
 	if pv.Scope() != ioc.ScopeSingleton {
 		t.Errorf("expected ScopeSingleton, got %v", pv.Scope())
 	}
+}
