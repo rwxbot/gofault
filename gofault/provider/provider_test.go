@@ -72,3 +72,6 @@ func TestScopedProvider(t *testing.T) {
 	val := pv.Provide()
 	if val != nil {
 		t.Errorf("expected nil, got %v", val)
+	}
+
+	if pv.Scope() != ioc.ScopeSingleton {
