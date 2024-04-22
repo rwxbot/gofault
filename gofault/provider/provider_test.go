@@ -90,3 +90,6 @@ func TestProviderFunc_WithInterface(t *testing.T) {
 		t.Errorf("expected 'interface-test', got '%v'", val)
 	}
 }
+
+func TestValueProvider_WithInterface(t *testing.T) {
+	var p Provider = ValueProvider{Value: float64(3.14)}
