@@ -84,3 +84,6 @@ func TestProviderFunc_WithInterface(t *testing.T) {
 	var p Provider = ProviderFunc(func() any {
 		return "interface-test"
 	})
+
+	val := p.Provide()
+	if val != "interface-test" {
