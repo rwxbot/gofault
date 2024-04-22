@@ -87,3 +87,5 @@ func TestProviderFunc_WithInterface(t *testing.T) {
 
 	val := p.Provide()
 	if val != "interface-test" {
+		t.Errorf("expected 'interface-test', got '%v'", val)
+	}
