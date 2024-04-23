@@ -1,1 +1,2 @@
 // Package logger provides logging middleware for gofault.
+package logger
