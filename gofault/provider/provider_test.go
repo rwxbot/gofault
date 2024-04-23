@@ -95,3 +95,4 @@ func TestValueProvider_WithInterface(t *testing.T) {
 	var p Provider = ValueProvider{Value: float64(3.14)}
 
 	val := p.Provide()
+	if val != float64(3.14) {
