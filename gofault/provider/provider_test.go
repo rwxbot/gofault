@@ -97,3 +97,5 @@ func TestValueProvider_WithInterface(t *testing.T) {
 	val := p.Provide()
 	if val != float64(3.14) {
 		t.Errorf("expected 3.14, got %v", val)
+	}
+}
