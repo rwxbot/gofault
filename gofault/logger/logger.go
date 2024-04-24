@@ -6,3 +6,5 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/gofault/gofault/core"
