@@ -11,3 +11,6 @@ import (
 )
 
 // Logger defines the logging interface.
+type Logger interface {
+	Debug(msg string, args ...any)
+	Info(msg string, args ...any)
