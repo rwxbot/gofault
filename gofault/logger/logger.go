@@ -9,3 +9,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// Logger defines the logging interface.
