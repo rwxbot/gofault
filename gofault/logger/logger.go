@@ -27,3 +27,5 @@ type defaultLogger struct {
 const (
 	LevelDebug = 0
 	LevelInfo  = 1
+	LevelWarn  = 2
+	LevelError = 3
