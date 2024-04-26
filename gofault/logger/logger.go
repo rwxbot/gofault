@@ -20,3 +20,6 @@ type Logger interface {
 
 // defaultLogger is a simple logger implementation.
 type defaultLogger struct {
+	logger *log.Logger
+	level  int
+}
