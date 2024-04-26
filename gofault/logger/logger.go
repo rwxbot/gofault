@@ -19,3 +19,4 @@ type Logger interface {
 }
 
 // defaultLogger is a simple logger implementation.
+type defaultLogger struct {
