@@ -23,3 +23,7 @@ type defaultLogger struct {
 	logger *log.Logger
 	level  int
 }
+
+const (
+	LevelDebug = 0
+	LevelInfo  = 1
