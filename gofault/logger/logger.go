@@ -29,3 +29,4 @@ const (
 	LevelInfo  = 1
 	LevelWarn  = 2
 	LevelError = 3
+)
