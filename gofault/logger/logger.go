@@ -42,3 +42,5 @@ func New(prefix string, level int) Logger {
 func (l *defaultLogger) log(level int, msg string, args ...any) {
 	if level < l.level {
 		return
+	}
+	formatted := msg
