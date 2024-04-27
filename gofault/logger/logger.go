@@ -30,3 +30,5 @@ const (
 	LevelWarn  = 2
 	LevelError = 3
 )
+
+// New creates a new logger instance.
