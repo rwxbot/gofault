@@ -38,3 +38,7 @@ func New(prefix string, level int) Logger {
 		level:  level,
 	}
 }
+
+func (l *defaultLogger) log(level int, msg string, args ...any) {
+	if level < l.level {
+		return
