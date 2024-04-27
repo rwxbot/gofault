@@ -37,3 +37,4 @@ func New(prefix string, level int) Logger {
 		logger: log.New(os.Stdout, prefix, log.LstdFlags),
 		level:  level,
 	}
+}
