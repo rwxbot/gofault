@@ -32,3 +32,5 @@ const (
 )
 
 // New creates a new logger instance.
+func New(prefix string, level int) Logger {
+	return &defaultLogger{
