@@ -34,3 +34,6 @@ const (
 // New creates a new logger instance.
 func New(prefix string, level int) Logger {
 	return &defaultLogger{
+		logger: log.New(os.Stdout, prefix, log.LstdFlags),
+		level:  level,
+	}
