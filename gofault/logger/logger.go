@@ -44,3 +44,4 @@ func (l *defaultLogger) log(level int, msg string, args ...any) {
 		return
 	}
 	formatted := msg
+	if len(args) > 0 {
