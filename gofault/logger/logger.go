@@ -53,3 +53,5 @@ func (l *defaultLogger) log(level int, msg string, args ...any) {
 func levelString(level int) string {
 	switch level {
 	case LevelDebug:
+		return "DEBUG"
+	case LevelInfo:
