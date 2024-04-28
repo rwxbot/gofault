@@ -45,3 +45,4 @@ func (l *defaultLogger) log(level int, msg string, args ...any) {
 	}
 	formatted := msg
 	if len(args) > 0 {
+		formatted = fmt.Sprintf(msg, args...)
