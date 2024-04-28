@@ -48,3 +48,4 @@ func (l *defaultLogger) log(level int, msg string, args ...any) {
 		formatted = fmt.Sprintf(msg, args...)
 	}
 	l.logger.Printf("[%s] %s", levelString(level), formatted)
+}
