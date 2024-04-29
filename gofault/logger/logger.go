@@ -55,3 +55,5 @@ func levelString(level int) string {
 	case LevelDebug:
 		return "DEBUG"
 	case LevelInfo:
+		return "INFO"
+	case LevelWarn:
