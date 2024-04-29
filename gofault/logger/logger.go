@@ -60,3 +60,4 @@ func levelString(level int) string {
 		return "WARN"
 	case LevelError:
 		return "ERROR"
+	default:
