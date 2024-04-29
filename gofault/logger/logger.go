@@ -61,3 +61,4 @@ func levelString(level int) string {
 	case LevelError:
 		return "ERROR"
 	default:
+		return "UNKNOWN"
