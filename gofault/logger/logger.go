@@ -62,3 +62,5 @@ func levelString(level int) string {
 		return "ERROR"
 	default:
 		return "UNKNOWN"
+	}
+}
