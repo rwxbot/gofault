@@ -64,3 +64,5 @@ func levelString(level int) string {
 		return "UNKNOWN"
 	}
 }
+
+func (l *defaultLogger) Debug(msg string, args ...any) { l.log(LevelDebug, msg, args...) }
