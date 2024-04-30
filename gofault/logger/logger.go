@@ -71,3 +71,6 @@ func (l *defaultLogger) Warn(msg string, args ...any)  { l.log(LevelWarn, msg, a
 func (l *defaultLogger) Error(msg string, args ...any) { l.log(LevelError, msg, args...) }
 
 // LoggingMiddleware creates a middleware that logs HTTP requests.
+func LoggingMiddleware(logger Logger) core.MiddlewareFunc {
+	return func(ctx *core.Ctx, next core.Handler) error {
+		start := time.Now()
