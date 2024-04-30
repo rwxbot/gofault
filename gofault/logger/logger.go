@@ -68,3 +68,4 @@ func levelString(level int) string {
 func (l *defaultLogger) Debug(msg string, args ...any) { l.log(LevelDebug, msg, args...) }
 func (l *defaultLogger) Info(msg string, args ...any)  { l.log(LevelInfo, msg, args...) }
 func (l *defaultLogger) Warn(msg string, args ...any)  { l.log(LevelWarn, msg, args...) }
+func (l *defaultLogger) Error(msg string, args ...any) { l.log(LevelError, msg, args...) }
