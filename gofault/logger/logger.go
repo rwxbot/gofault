@@ -74,3 +74,5 @@ func (l *defaultLogger) Error(msg string, args ...any) { l.log(LevelError, msg, 
 func LoggingMiddleware(logger Logger) core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
 		start := time.Now()
+
+		err := next(ctx)
