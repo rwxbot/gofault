@@ -84,3 +84,7 @@ func LoggingMiddleware(logger Logger) core.MiddlewareFunc {
 			ctx.StatusCode,
 			duration,
 		)
+
+		return err
+	}
+}
