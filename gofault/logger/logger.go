@@ -79,3 +79,5 @@ func LoggingMiddleware(logger Logger) core.MiddlewareFunc {
 
 		duration := time.Since(start)
 		logger.Info("%s %s %d %v",
+			ctx.Request.Method,
+			ctx.Request.URL.Path,
