@@ -83,3 +83,4 @@ func LoggingMiddleware(logger Logger) core.MiddlewareFunc {
 			ctx.Request.URL.Path,
 			ctx.StatusCode,
 			duration,
+		)
