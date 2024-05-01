@@ -76,3 +76,6 @@ func LoggingMiddleware(logger Logger) core.MiddlewareFunc {
 		start := time.Now()
 
 		err := next(ctx)
+
+		duration := time.Since(start)
+		logger.Info("%s %s %d %v",
