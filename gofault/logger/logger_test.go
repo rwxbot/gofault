@@ -13,3 +13,4 @@ import (
 )
 
 // mockLogger captures log output for testing.
+type mockLogger struct {
