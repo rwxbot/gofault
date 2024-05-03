@@ -11,3 +11,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// mockLogger captures log output for testing.
