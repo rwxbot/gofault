@@ -16,3 +16,5 @@ import (
 type mockLogger struct {
 	*bytes.Buffer
 }
+
+func (m *mockLogger) Debug(msg string, args ...any) {
