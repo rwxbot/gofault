@@ -20,3 +20,5 @@ type mockLogger struct {
 func (m *mockLogger) Debug(msg string, args ...any) {
 	m.Write([]byte(fmt.Sprintf("DEBUG: "+msg+"\n", args...)))
 }
+func (m *mockLogger) Info(msg string, args ...any) {
+	m.Write([]byte(fmt.Sprintf("INFO: "+msg+"\n", args...)))
