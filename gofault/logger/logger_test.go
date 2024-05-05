@@ -25,3 +25,4 @@ func (m *mockLogger) Info(msg string, args ...any) {
 }
 func (m *mockLogger) Warn(msg string, args ...any) {
 	m.Write([]byte(fmt.Sprintf("WARN: "+msg+"\n", args...)))
+}
