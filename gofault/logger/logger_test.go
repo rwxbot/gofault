@@ -36,3 +36,4 @@ func TestNew(t *testing.T) {
 		t.Fatal("expected non-nil logger")
 	}
 	// Should not panic
+	l.Debug("debug")
