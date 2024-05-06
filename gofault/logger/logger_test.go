@@ -31,3 +31,5 @@ func (m *mockLogger) Error(msg string, args ...any) {
 }
 
 func TestNew(t *testing.T) {
+	l := New("[TEST] ", LevelInfo)
+	if l == nil {
