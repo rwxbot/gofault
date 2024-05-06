@@ -38,3 +38,6 @@ func TestNew(t *testing.T) {
 	// Should not panic
 	l.Debug("debug")
 	l.Info("info")
+	l.Warn("warn")
+	l.Error("error")
+}
