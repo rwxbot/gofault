@@ -50,3 +50,4 @@ func TestDefaultLogger_LevelFiltering(t *testing.T) {
 	}
 
 	l.Debug("should not appear")
+	l.Info("should not appear")
