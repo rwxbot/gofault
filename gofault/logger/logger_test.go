@@ -55,3 +55,4 @@ func TestDefaultLogger_LevelFiltering(t *testing.T) {
 	l.Error("should appear")
 
 	output := buf.String()
+	if strings.Contains(output, "DEBUG") {
