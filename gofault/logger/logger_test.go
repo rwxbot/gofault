@@ -53,3 +53,5 @@ func TestDefaultLogger_LevelFiltering(t *testing.T) {
 	l.Info("should not appear")
 	l.Warn("should appear")
 	l.Error("should appear")
+
+	output := buf.String()
