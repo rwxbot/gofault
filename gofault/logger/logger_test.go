@@ -44,3 +44,4 @@ func TestNew(t *testing.T) {
 
 func TestDefaultLogger_LevelFiltering(t *testing.T) {
 	var buf bytes.Buffer
+	l := &defaultLogger{
