@@ -41,3 +41,6 @@ func TestNew(t *testing.T) {
 	l.Warn("warn")
 	l.Error("error")
 }
+
+func TestDefaultLogger_LevelFiltering(t *testing.T) {
+	var buf bytes.Buffer
