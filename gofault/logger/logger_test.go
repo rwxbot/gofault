@@ -48,3 +48,5 @@ func TestDefaultLogger_LevelFiltering(t *testing.T) {
 		logger: log.New(&buf, "", 0),
 		level:  LevelWarn,
 	}
+
+	l.Debug("should not appear")
