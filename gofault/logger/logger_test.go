@@ -59,3 +59,6 @@ func TestDefaultLogger_LevelFiltering(t *testing.T) {
 		t.Error("DEBUG should be filtered")
 	}
 	if strings.Contains(output, "INFO") {
+		t.Error("INFO should be filtered")
+	}
+	if !strings.Contains(output, "WARN") {
