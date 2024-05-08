@@ -68,3 +68,5 @@ func TestDefaultLogger_LevelFiltering(t *testing.T) {
 		t.Error("ERROR should appear")
 	}
 }
+
+func TestDefaultLogger_FormattedMessage(t *testing.T) {
