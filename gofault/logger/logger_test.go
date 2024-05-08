@@ -65,3 +65,6 @@ func TestDefaultLogger_LevelFiltering(t *testing.T) {
 		t.Error("WARN should appear")
 	}
 	if !strings.Contains(output, "ERROR") {
+		t.Error("ERROR should appear")
+	}
+}
