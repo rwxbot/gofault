@@ -75,3 +75,5 @@ func TestDefaultLogger_FormattedMessage(t *testing.T) {
 		logger: log.New(&buf, "", 0),
 		level:  LevelDebug,
 	}
+
+	l.Info("user=%s id=%d", "alice", 42)
