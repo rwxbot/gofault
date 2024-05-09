@@ -77,3 +77,6 @@ func TestDefaultLogger_FormattedMessage(t *testing.T) {
 	}
 
 	l.Info("user=%s id=%d", "alice", 42)
+
+	output := buf.String()
+	if !strings.Contains(output, "user=alice") {
