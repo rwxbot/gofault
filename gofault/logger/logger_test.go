@@ -73,3 +73,5 @@ func TestDefaultLogger_FormattedMessage(t *testing.T) {
 	var buf bytes.Buffer
 	l := &defaultLogger{
 		logger: log.New(&buf, "", 0),
+		level:  LevelDebug,
+	}
