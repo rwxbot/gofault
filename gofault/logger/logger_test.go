@@ -94,3 +94,4 @@ func TestLevelString(t *testing.T) {
 	}{
 		{LevelDebug, "DEBUG"},
 		{LevelInfo, "INFO"},
+		{LevelWarn, "WARN"},
