@@ -89,3 +89,5 @@ func TestDefaultLogger_FormattedMessage(t *testing.T) {
 
 func TestLevelString(t *testing.T) {
 	tests := []struct {
+		level    int
+		expected string
