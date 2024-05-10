@@ -85,3 +85,4 @@ func TestDefaultLogger_FormattedMessage(t *testing.T) {
 	if !strings.Contains(output, "id=42") {
 		t.Errorf("expected formatted output, got: %s", output)
 	}
+}
