@@ -86,3 +86,6 @@ func TestDefaultLogger_FormattedMessage(t *testing.T) {
 		t.Errorf("expected formatted output, got: %s", output)
 	}
 }
+
+func TestLevelString(t *testing.T) {
+	tests := []struct {
