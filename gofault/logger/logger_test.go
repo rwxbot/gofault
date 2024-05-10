@@ -91,3 +91,6 @@ func TestLevelString(t *testing.T) {
 	tests := []struct {
 		level    int
 		expected string
+	}{
+		{LevelDebug, "DEBUG"},
+		{LevelInfo, "INFO"},
