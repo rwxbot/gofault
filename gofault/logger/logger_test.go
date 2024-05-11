@@ -106,3 +106,5 @@ func TestLevelString(t *testing.T) {
 		}
 	}
 }
+
+func TestLoggingMiddleware(t *testing.T) {
