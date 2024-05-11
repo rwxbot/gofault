@@ -105,3 +105,4 @@ func TestLevelString(t *testing.T) {
 			t.Errorf("levelString(%d) = %s, want %s", tt.level, got, tt.expected)
 		}
 	}
+}
