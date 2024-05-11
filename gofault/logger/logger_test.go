@@ -98,3 +98,6 @@ func TestLevelString(t *testing.T) {
 		{LevelError, "ERROR"},
 		{99, "UNKNOWN"},
 	}
+
+	for _, tt := range tests {
+		got := levelString(tt.level)
