@@ -117,3 +117,5 @@ func TestLoggingMiddleware(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		nextCalled = true
 		ctx.StatusCode = http.StatusCreated
+		return nil
+	}
