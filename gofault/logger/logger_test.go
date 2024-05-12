@@ -114,3 +114,6 @@ func TestLoggingMiddleware(t *testing.T) {
 	middleware := LoggingMiddleware(ml)
 
 	var nextCalled bool
+	next := func(ctx *core.Ctx) error {
+		nextCalled = true
+		ctx.StatusCode = http.StatusCreated
