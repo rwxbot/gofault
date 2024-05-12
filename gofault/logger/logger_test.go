@@ -110,3 +110,7 @@ func TestLevelString(t *testing.T) {
 func TestLoggingMiddleware(t *testing.T) {
 	var buf bytes.Buffer
 	ml := &mockLogger{Buffer: &buf}
+
+	middleware := LoggingMiddleware(ml)
+
+	var nextCalled bool
