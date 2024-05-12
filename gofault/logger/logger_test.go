@@ -119,3 +119,5 @@ func TestLoggingMiddleware(t *testing.T) {
 		ctx.StatusCode = http.StatusCreated
 		return nil
 	}
+
+	req := httptest.NewRequest("POST", "/api/users/123", nil)
