@@ -124,3 +124,5 @@ func TestLoggingMiddleware(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 	ctx.Request = req
+
+	err := middleware(ctx, next)
