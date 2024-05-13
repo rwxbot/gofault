@@ -126,3 +126,4 @@ func TestLoggingMiddleware(t *testing.T) {
 	ctx.Request = req
 
 	err := middleware(ctx, next)
+	if err != nil {
