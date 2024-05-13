@@ -122,3 +122,4 @@ func TestLoggingMiddleware(t *testing.T) {
 
 	req := httptest.NewRequest("POST", "/api/users/123", nil)
 	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
