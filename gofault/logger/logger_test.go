@@ -133,3 +133,5 @@ func TestLoggingMiddleware(t *testing.T) {
 		t.Error("next handler was not called")
 	}
 	if ctx.StatusCode != http.StatusCreated {
+		t.Errorf("StatusCode = %d, want %d", ctx.StatusCode, http.StatusCreated)
+	}
