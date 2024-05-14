@@ -137,3 +137,4 @@ func TestLoggingMiddleware(t *testing.T) {
 	}
 
 	output := buf.String()
+	if !strings.Contains(output, "POST") {
