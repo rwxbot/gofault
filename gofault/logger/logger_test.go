@@ -132,3 +132,4 @@ func TestLoggingMiddleware(t *testing.T) {
 	if !nextCalled {
 		t.Error("next handler was not called")
 	}
+	if ctx.StatusCode != http.StatusCreated {
