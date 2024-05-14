@@ -129,3 +129,6 @@ func TestLoggingMiddleware(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
+	if !nextCalled {
+		t.Error("next handler was not called")
+	}
