@@ -138,3 +138,6 @@ func TestLoggingMiddleware(t *testing.T) {
 
 	output := buf.String()
 	if !strings.Contains(output, "POST") {
+		t.Errorf("expected POST method in log, got: %s", output)
+	}
+	if !strings.Contains(output, "/api/users/123") {
