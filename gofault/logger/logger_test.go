@@ -141,3 +141,5 @@ func TestLoggingMiddleware(t *testing.T) {
 		t.Errorf("expected POST method in log, got: %s", output)
 	}
 	if !strings.Contains(output, "/api/users/123") {
+		t.Errorf("expected path in log, got: %s", output)
+	}
