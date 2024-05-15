@@ -146,3 +146,4 @@ func TestLoggingMiddleware(t *testing.T) {
 	if !strings.Contains(output, "201") {
 		t.Errorf("expected status code 201 in log, got: %s", output)
 	}
+}
