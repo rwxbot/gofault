@@ -147,3 +147,7 @@ func TestLoggingMiddleware(t *testing.T) {
 		t.Errorf("expected status code 201 in log, got: %s", output)
 	}
 }
+
+func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
+	var buf bytes.Buffer
+	ml := &mockLogger{Buffer: &buf}
