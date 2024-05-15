@@ -143,3 +143,5 @@ func TestLoggingMiddleware(t *testing.T) {
 	if !strings.Contains(output, "/api/users/123") {
 		t.Errorf("expected path in log, got: %s", output)
 	}
+	if !strings.Contains(output, "201") {
+		t.Errorf("expected status code 201 in log, got: %s", output)
