@@ -151,3 +151,5 @@ func TestLoggingMiddleware(t *testing.T) {
 func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 	var buf bytes.Buffer
 	ml := &mockLogger{Buffer: &buf}
+
+	middleware := LoggingMiddleware(ml)
