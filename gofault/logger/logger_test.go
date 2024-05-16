@@ -153,3 +153,6 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 	ml := &mockLogger{Buffer: &buf}
 
 	middleware := LoggingMiddleware(ml)
+
+	expectedErr := fmt.Errorf("handler error")
+	next := func(ctx *core.Ctx) error {
