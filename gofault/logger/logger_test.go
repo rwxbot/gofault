@@ -158,3 +158,7 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		return expectedErr
 	}
+
+	req := httptest.NewRequest("GET", "/error", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
