@@ -156,3 +156,4 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 
 	expectedErr := fmt.Errorf("handler error")
 	next := func(ctx *core.Ctx) error {
+		return expectedErr
