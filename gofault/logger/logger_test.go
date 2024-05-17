@@ -167,3 +167,4 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 	if err != expectedErr {
 		t.Errorf("expected error %v, got %v", expectedErr, err)
 	}
+}
