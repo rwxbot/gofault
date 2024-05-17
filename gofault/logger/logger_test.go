@@ -164,3 +164,6 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	err := middleware(ctx, next)
+	if err != expectedErr {
+		t.Errorf("expected error %v, got %v", expectedErr, err)
+	}
