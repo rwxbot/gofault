@@ -162,3 +162,5 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 	req := httptest.NewRequest("GET", "/error", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := middleware(ctx, next)
