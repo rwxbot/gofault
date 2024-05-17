@@ -171,3 +171,4 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 
 func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 	var buf bytes.Buffer
+	ml := &mockLogger{Buffer: &buf}
