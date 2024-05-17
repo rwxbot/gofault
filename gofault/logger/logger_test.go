@@ -168,3 +168,6 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 		t.Errorf("expected error %v, got %v", expectedErr, err)
 	}
 }
+
+func TestLoggingMiddleware_LogsDuration(t *testing.T) {
+	var buf bytes.Buffer
