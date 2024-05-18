@@ -172,3 +172,7 @@ func TestLoggingMiddleware_ErrorPropagation(t *testing.T) {
 func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 	var buf bytes.Buffer
 	ml := &mockLogger{Buffer: &buf}
+
+	middleware := LoggingMiddleware(ml)
+
+	next := func(ctx *core.Ctx) error {
