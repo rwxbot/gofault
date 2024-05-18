@@ -182,3 +182,5 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
