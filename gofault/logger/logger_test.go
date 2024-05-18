@@ -186,3 +186,5 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 	middleware(ctx, next)
 
 	output := buf.String()
+	// Duration should be logged (format: "POST /path status duration")
+	if !strings.Contains(output, "0s") && !strings.Contains(output, "ns") {
