@@ -184,3 +184,5 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	output := buf.String()
