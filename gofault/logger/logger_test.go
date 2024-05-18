@@ -177,3 +177,6 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		return nil
+	}
+
+	req := httptest.NewRequest("GET", "/test", nil)
