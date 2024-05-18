@@ -176,3 +176,4 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 	middleware := LoggingMiddleware(ml)
 
 	next := func(ctx *core.Ctx) error {
+		return nil
