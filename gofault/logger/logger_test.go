@@ -191,3 +191,7 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 		t.Errorf("expected duration in log output, got: %s", output)
 	}
 }
+
+func TestLoggerInterface(t *testing.T) {
+	// Verify Logger interface is implemented correctly
+	var _ Logger = New("[TEST] ", LevelInfo)
