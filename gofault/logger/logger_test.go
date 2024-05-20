@@ -195,3 +195,4 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 func TestLoggerInterface(t *testing.T) {
 	// Verify Logger interface is implemented correctly
 	var _ Logger = New("[TEST] ", LevelInfo)
+}
