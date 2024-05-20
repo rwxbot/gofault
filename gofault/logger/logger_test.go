@@ -199,3 +199,6 @@ func TestLoggerInterface(t *testing.T) {
 
 func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 	var buf bytes.Buffer
+	customLogger := &defaultLogger{
+		logger: log.New(&buf, "", 0),
+		level:  LevelInfo,
