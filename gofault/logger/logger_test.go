@@ -196,3 +196,6 @@ func TestLoggerInterface(t *testing.T) {
 	// Verify Logger interface is implemented correctly
 	var _ Logger = New("[TEST] ", LevelInfo)
 }
+
+func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
+	var buf bytes.Buffer
