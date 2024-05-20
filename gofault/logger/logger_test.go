@@ -203,3 +203,5 @@ func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 		logger: log.New(&buf, "", 0),
 		level:  LevelInfo,
 	}
+
+	middleware := LoggingMiddleware(customLogger)
