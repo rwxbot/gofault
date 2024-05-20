@@ -205,3 +205,5 @@ func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 	}
 
 	middleware := LoggingMiddleware(customLogger)
+
+	next := func(ctx *core.Ctx) error {
