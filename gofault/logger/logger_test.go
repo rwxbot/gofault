@@ -215,3 +215,7 @@ func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	output := buf.String()
+	if !strings.Contains(output, "INFO") {
+		t.Errorf("expected INFO level in log, got: %s", output)
