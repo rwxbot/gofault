@@ -209,3 +209,7 @@ func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		return nil
 	}
+
+	req := httptest.NewRequest("GET", "/health", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
