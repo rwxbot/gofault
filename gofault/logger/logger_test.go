@@ -219,3 +219,6 @@ func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 	output := buf.String()
 	if !strings.Contains(output, "INFO") {
 		t.Errorf("expected INFO level in log, got: %s", output)
+	}
+	if !strings.Contains(output, "GET") {
+		t.Errorf("expected GET method in log, got: %s", output)
