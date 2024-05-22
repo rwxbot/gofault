@@ -223,3 +223,4 @@ func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 	if !strings.Contains(output, "GET") {
 		t.Errorf("expected GET method in log, got: %s", output)
 	}
+}
