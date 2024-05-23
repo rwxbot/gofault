@@ -48,3 +48,6 @@ func (e *FieldError) Unwrap() error {
 // Config holds application configuration.
 type Config struct {
 	App      AppConfig      `yaml:"app"`
+	Server   ServerConfig   `yaml:"server"`
+	Database DatabaseConfig `yaml:"database"`
+	Log      LogConfig      `yaml:"log"`
