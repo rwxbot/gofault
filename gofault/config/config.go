@@ -9,3 +9,5 @@ import (
 )
 
 // Config holds application configuration.
+type Config struct {
+	App      AppConfig      `yaml:"app"`
