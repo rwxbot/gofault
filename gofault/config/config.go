@@ -54,3 +54,5 @@ type Config struct {
 }
 
 // AppConfig holds general application settings.
+type AppConfig struct {
+	Name        string `yaml:"name"`
