@@ -52,3 +52,5 @@ type Config struct {
 	Database DatabaseConfig `yaml:"database"`
 	Log      LogConfig      `yaml:"log"`
 }
+
+// AppConfig holds general application settings.
