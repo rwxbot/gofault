@@ -7,3 +7,5 @@ import (
 
 	"gopkg.in/yaml.v3"
 )
+
+// Config holds application configuration.
