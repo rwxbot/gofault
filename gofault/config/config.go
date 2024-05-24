@@ -61,3 +61,6 @@ type AppConfig struct {
 }
 
 // ServerConfig holds HTTP server settings.
+type ServerConfig struct {
+	Host string `yaml:"host"`
+	Port int    `yaml:"port"`
