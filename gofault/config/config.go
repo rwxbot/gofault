@@ -22,3 +22,5 @@ type AppConfig struct {
 	Environment string `yaml:"environment"`
 	Version     string `yaml:"version"`
 }
+
+// ServerConfig holds HTTP server settings.
