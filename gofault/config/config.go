@@ -28,3 +28,5 @@ type ServerConfig struct {
 	Host string `yaml:"host"`
 	Port int    `yaml:"port"`
 }
+
+// DatabaseConfig holds database connection settings.
