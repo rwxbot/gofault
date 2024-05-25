@@ -30,3 +30,4 @@ type ServerConfig struct {
 }
 
 // DatabaseConfig holds database connection settings.
+type DatabaseConfig struct {
