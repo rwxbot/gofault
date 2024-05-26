@@ -37,3 +37,5 @@ type DatabaseConfig struct {
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
 }
+
+// LogConfig holds logging settings.
