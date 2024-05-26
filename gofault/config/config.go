@@ -43,3 +43,5 @@ type LogConfig struct {
 	Level  string `yaml:"level"`
 	Format string `yaml:"format"`
 }
+
+// Load reads and parses a YAML configuration file.
