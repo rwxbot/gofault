@@ -45,3 +45,5 @@ type LogConfig struct {
 }
 
 // Load reads and parses a YAML configuration file.
+func Load(path string) (*Config, error) {
+	data, err := os.ReadFile(path)
