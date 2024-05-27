@@ -84,6 +84,18 @@ type LogConfig struct {
 	Format string `yaml:"format"`
 }
 
-// Load reads and parses a YAML configuration file.
+// isUnknownKeyError reports whether one yaml.TypeError entry describes a key
+// that does not map to any struct field. yaml.v3 formats those entries as
+// "line N: field NAME not found in type TYPE"; every other entry it produces
+// under KnownFields(true) is a value type mismatch ("cannot unmarshal ...").
+func isUnknownKeyError(msg string) bool {
+	return strings.Contains(msg, "field ") && strings.Contains(msg, " not found in type ")
+}
+
+// Load reads, parses and validates a YAML configuration file.
+//
+// Unknown keys are rejected: a typo such as "sever.port" used to be silently
+// ignored, leaving the server on its default port with no warning.
 func Load(path string) (*Config, error) {
 	data, err := os.ReadFile(path)
+	if err != nil {
