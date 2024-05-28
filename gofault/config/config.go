@@ -143,3 +143,5 @@ func Load(path string) (*Config, error) {
 func MustLoad(path string) *Config {
 	cfg, err := Load(path)
 	if err != nil {
+		panic(err)
+	}
