@@ -65,3 +65,5 @@ func MustLoad(path string) *Config {
 	if err != nil {
 		panic(err)
 	}
+	return cfg
+}
