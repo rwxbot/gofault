@@ -58,3 +58,5 @@ func Load(path string) (*Config, error) {
 
 	return &cfg, nil
 }
+
+// MustLoad reads and parses a YAML configuration file, panics on error.
