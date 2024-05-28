@@ -103,8 +103,37 @@ func Load(path string) (*Config, error) {
 	}
 
 	var cfg Config
-	if err := yaml.Unmarshal(data, &cfg); err != nil {
+
+	// KnownFields makes the decoder report keys that do not match any field.
+	dec := yaml.NewDecoder(strings.NewReader(string(data)))
+	dec.KnownFields(true)
+
+	if err := dec.Decode(&cfg); err != nil {
+		var typeErr *yaml.TypeError
+		if errors.As(err, &typeErr) {
+			// yaml.v3 reports both unknown keys (with KnownFields(true)) and
+			// value type mismatches through the same *yaml.TypeError. Only the
+			// unknown-key entries carry "field ... not found in type ...";
+			// labelling a plain type mismatch as unknown would make
+			// errors.Is(err, ErrUnknownField) match a bad-value failure.
+			unknown := false
+			for _, e := range typeErr.Errors {
+				if isUnknownKeyError(e) {
+					unknown = true
+					break
+				}
+			}
+			return nil, &FieldError{
+				Field:   "config",
+				Message: strings.Join(typeErr.Errors, "; "),
+				Unknown: unknown,
+			}
+		}
 		return nil, fmt.Errorf("failed to parse config file: %w", err)
+	}
+
+	if err := cfg.Validate(); err != nil {
+		return nil, err
 	}
 
 	return &cfg, nil
