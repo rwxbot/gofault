@@ -142,3 +142,4 @@ func Load(path string) (*Config, error) {
 // MustLoad reads and parses a YAML configuration file, panics on error.
 func MustLoad(path string) *Config {
 	cfg, err := Load(path)
+	if err != nil {
