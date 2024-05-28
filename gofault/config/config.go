@@ -67,3 +67,5 @@ func MustLoad(path string) *Config {
 	}
 	return cfg
 }
+
+// GetAddress returns the server address in host:port format.
