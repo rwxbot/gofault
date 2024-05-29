@@ -69,3 +69,4 @@ func MustLoad(path string) *Config {
 }
 
 // GetAddress returns the server address in host:port format.
+func (c *ServerConfig) GetAddress() string {
