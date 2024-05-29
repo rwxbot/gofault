@@ -72,3 +72,5 @@ func MustLoad(path string) *Config {
 func (c *ServerConfig) GetAddress() string {
 	return fmt.Sprintf("%s:%d", c.Host, c.Port)
 }
+
+// GetDSN returns the database connection string.
