@@ -154,3 +154,5 @@ func (c *ServerConfig) GetAddress() string {
 }
 
 // GetDSN returns the database connection string.
+func (c *DatabaseConfig) GetDSN() string {
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4",
