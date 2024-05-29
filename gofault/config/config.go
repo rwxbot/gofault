@@ -148,11 +148,174 @@ func MustLoad(path string) *Config {
 	return cfg
 }
 
-// GetAddress returns the server address in host:port format.
-func (c *ServerConfig) GetAddress() string {
-	return fmt.Sprintf("%s:%d", c.Host, c.Port)
+// Validate checks the configuration for values that cannot work.
+//
+// It catches mistakes at startup rather than at first use: a zero or negative
+// port, a negative database port, an unknown driver, or an empty database name
+// all produce errors here instead of a confusing failure later.
+func (c *Config) Validate() error {
+	var errs []error
+
+	if c.Server.Port < 0 || c.Server.Port > 65535 {
+		errs = append(errs, &FieldError{
+			Field:   "server.port",
+			Message: "must be between 0 and 65535",
+			Value:   c.Server.Port,
+		})
+	}
+
+	if c.Database.Driver != "" {
+		if err := validateDriver(c.Database.Driver); err != nil {
+			errs = append(errs, err)
+		}
+	}
+	if c.Database.Port < 0 || c.Database.Port > 65535 {
+		errs = append(errs, &FieldError{
+			Field:   "database.port",
+			Message: "must be between 0 and 65535",
+			Value:   c.Database.Port,
+		})
+	}
+
+	switch c.Log.Level {
+	case "", "debug", "info", "warn", "error":
+	default:
+		errs = append(errs, &FieldError{
+			Field:   "log.level",
+			Message: "must be one of debug, info, warn, error",
+			Value:   c.Log.Level,
+		})
+	}
+
+	switch c.Log.Format {
+	case "", "json", "text":
+	default:
+		errs = append(errs, &FieldError{
+			Field:   "log.format",
+			Message: "must be json or text",
+			Value:   c.Log.Format,
+		})
+	}
+
+	return errors.Join(errs...)
 }
 
-// GetDSN returns the database connection string.
-func (c *DatabaseConfig) GetDSN() string {
+func validateDriver(driver string) error {
+	switch strings.ToLower(driver) {
+	case "mysql", "postgres", "postgresql", "sqlite", "sqlite3":
+		return nil
+	}
+	return &FieldError{
+		Field:   "database.driver",
+		Message: "must be mysql, postgres or sqlite",
+		Value:   driver,
+	}
+}
+
+// GetAddress returns the server address in host:port format.
+func (c *ServerConfig) GetAddress() string {
+	return net.JoinHostPort(c.Host, fmt.Sprintf("%d", c.Port))
+}
+
+// GetDSN returns the database connection string for the configured driver.
+//
+// The format depends on Driver; it used to always emit the MySQL form, so a
+// PostgreSQL or SQLite deployment produced a DSN its driver could not parse.
+//
+// Credentials and names are escaped for the target format. The MySQL DSN
+// percent-encodes the database name, which go-sql-driver/mysql decodes back;
+// a username containing ':' is rejected because the driver splits the
+// userinfo at the first colon and does not decode escapes there. The
+// PostgreSQL URL encodes the userinfo and the path per RFC 3986.
+func (c *DatabaseConfig) GetDSN() (string, error) {
+	driver := strings.ToLower(c.Driver)
+	if driver == "" {
+		driver = "mysql"
+	}
+
+	switch driver {
+	case "sqlite", "sqlite3":
+		// SQLite takes a file path, not a network address.
+		if c.Name == "" {
+			return "", &FieldError{
+				Field:   "database.name",
+				Message: "must be the database file path for sqlite",
+			}
+		}
+		return c.Name, nil
+
+	case "mysql":
+		return c.mysqlDSN()
+
+	case "postgres", "postgresql":
+		// PostgreSQL uses a URL DSN rather than the mysql user:pass@tcp form.
+		// UserPassword escapes both fields; RawPath keeps an encoded '/' in
+		// the database name from being read as a path separator.
+		u := &url.URL{
+			Scheme:   "postgres",
+			User:     url.UserPassword(c.User, c.Password),
+			Host:     net.JoinHostPort(c.Host, strconv.Itoa(c.Port)),
+			Path:     "/" + c.Name,
+			RawPath:  "/" + url.PathEscape(c.Name),
+			RawQuery: "sslmode=disable",
+		}
+		return u.String(), nil
+	}
+
+	return "", &FieldError{
+		Field:   "database.driver",
+		Message: "must be mysql, postgres or sqlite",
+		Value:   c.Driver,
+	}
+}
+
+// GetMySQLDSN returns the MySQL connection string regardless of the configured
+// driver. It is kept for callers that specifically target MySQL. It applies
+// the same escaping as the mysql branch of GetDSN, but cannot report the one
+// unrepresentable case — a username containing ':' — and returns an empty
+// string for it; GetDSN rejects that configuration with an error.
+func (c *DatabaseConfig) GetMySQLDSN() string {
+	dsn, err := c.mysqlDSN()
+	if err != nil {
+		return ""
+	}
+	return dsn
+}
+
+// mysqlDSN builds the go-sql-driver/mysql DSN form.
+func (c *DatabaseConfig) mysqlDSN() (string, error) {
+	if strings.ContainsRune(c.User, ':') {
+		return "", &FieldError{
+			Field:   "database.user",
+			Message: "must not contain ':' for the MySQL DSN format",
+			Value:   c.User,
+		}
+	}
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4",
+		c.User, c.Password, c.Host, c.Port, escapeMySQLName(c.Name)), nil
+}
+
+// escapeMySQLName percent-encodes the characters go-sql-driver/mysql treats
+// as DSN structure inside the database name. The driver decodes %XX escapes
+// in the name, so '?', '/' and '%' itself must be encoded; other characters
+// pass through unchanged.
+func escapeMySQLName(name string) string {
+	if !strings.ContainsAny(name, "%?/") {
+		return name
+	}
+	var b strings.Builder
+	b.Grow(len(name) + 8)
+	for i := 0; i < len(name); i++ {
+		switch name[i] {
+		case '%':
+			b.WriteString("%25")
+		case '?':
+			b.WriteString("%3F")
+		case '/':
+			b.WriteString("%2F")
+		default:
+			b.WriteByte(name[i])
+		}
+	}
+	return b.String()
+}
