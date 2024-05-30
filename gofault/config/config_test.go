@@ -8,3 +8,4 @@ import (
 
 func TestLoad(t *testing.T) {
 	content := `
+app:
