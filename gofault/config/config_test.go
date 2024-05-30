@@ -9,3 +9,6 @@ import (
 func TestLoad(t *testing.T) {
 	content := `
 app:
+  name: testapp
+  environment: testing
+  version: 1.0.0
