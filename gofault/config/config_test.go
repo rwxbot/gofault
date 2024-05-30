@@ -5,3 +5,6 @@ import (
 	"path/filepath"
 	"testing"
 )
+
+func TestLoad(t *testing.T) {
+	content := `
