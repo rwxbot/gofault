@@ -15,3 +15,5 @@ app:
 server:
   host: localhost
   port: 8080
+database:
+  host: 127.0.0.1
