@@ -12,3 +12,6 @@ app:
   name: testapp
   environment: testing
   version: 1.0.0
+server:
+  host: localhost
+  port: 8080
