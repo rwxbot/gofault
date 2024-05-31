@@ -21,3 +21,5 @@ database:
   name: testdb
   user: root
   password: secret
+log:
+  level: debug
