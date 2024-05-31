@@ -24,3 +24,5 @@ database:
 log:
   level: debug
   format: json
+`
+	tmpDir := t.TempDir()
