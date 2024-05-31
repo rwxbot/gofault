@@ -23,3 +23,4 @@ database:
   password: secret
 log:
   level: debug
+  format: json
