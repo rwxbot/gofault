@@ -29,3 +29,4 @@ log:
 	configPath := filepath.Join(tmpDir, "config.yaml")
 	if err := os.WriteFile(configPath, []byte(content), 0644); err != nil {
 		t.Fatalf("failed to write temp config: %v", err)
+	}
