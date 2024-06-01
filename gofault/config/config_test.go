@@ -26,3 +26,4 @@ log:
   format: json
 `
 	tmpDir := t.TempDir()
+	configPath := filepath.Join(tmpDir, "config.yaml")
