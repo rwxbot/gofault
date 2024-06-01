@@ -32,3 +32,6 @@ log:
 	}
 
 	cfg, err := Load(configPath)
+	if err != nil {
+		t.Fatalf("Load() error = %v", err)
+	}
