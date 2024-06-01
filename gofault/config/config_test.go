@@ -30,3 +30,5 @@ log:
 	if err := os.WriteFile(configPath, []byte(content), 0644); err != nil {
 		t.Fatalf("failed to write temp config: %v", err)
 	}
+
+	cfg, err := Load(configPath)
