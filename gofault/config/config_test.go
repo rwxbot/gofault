@@ -40,3 +40,4 @@ log:
 		t.Errorf("App.Name = %s, want testapp", cfg.App.Name)
 	}
 	if cfg.App.Environment != "testing" {
+		t.Errorf("App.Environment = %s, want testing", cfg.App.Environment)
