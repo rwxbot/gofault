@@ -43,3 +43,4 @@ log:
 		t.Errorf("App.Environment = %s, want testing", cfg.App.Environment)
 	}
 	if cfg.Server.Port != 8080 {
+		t.Errorf("Server.Port = %d, want 8080", cfg.Server.Port)
