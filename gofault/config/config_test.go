@@ -48,3 +48,4 @@ log:
 	if cfg.Database.Host != "127.0.0.1" {
 		t.Errorf("Database.Host = %s, want 127.0.0.1", cfg.Database.Host)
 	}
+	if cfg.Log.Level != "debug" {
