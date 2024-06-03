@@ -49,3 +49,6 @@ log:
 		t.Errorf("Database.Host = %s, want 127.0.0.1", cfg.Database.Host)
 	}
 	if cfg.Log.Level != "debug" {
+		t.Errorf("Log.Level = %s, want debug", cfg.Log.Level)
+	}
+}
