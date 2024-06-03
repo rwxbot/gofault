@@ -52,3 +52,7 @@ log:
 		t.Errorf("Log.Level = %s, want debug", cfg.Log.Level)
 	}
 }
+
+func TestLoad_FileNotFound(t *testing.T) {
+	_, err := Load("/nonexistent/path/config.yaml")
+	if err == nil {
