@@ -56,3 +56,4 @@ log:
 func TestLoad_FileNotFound(t *testing.T) {
 	_, err := Load("/nonexistent/path/config.yaml")
 	if err == nil {
+		t.Error("Load() expected error for nonexistent file")
