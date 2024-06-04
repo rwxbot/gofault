@@ -59,3 +59,7 @@ func TestLoad_FileNotFound(t *testing.T) {
 		t.Error("Load() expected error for nonexistent file")
 	}
 }
+
+func TestLoad_InvalidYAML(t *testing.T) {
+	tmpDir := t.TempDir()
+	configPath := filepath.Join(tmpDir, "invalid.yaml")
