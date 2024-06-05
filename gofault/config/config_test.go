@@ -70,3 +70,4 @@ func TestLoad_InvalidYAML(t *testing.T) {
 	_, err := Load(configPath)
 	if err == nil {
 		t.Error("Load() expected error for invalid YAML")
+	}
