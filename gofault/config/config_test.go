@@ -72,3 +72,6 @@ func TestLoad_InvalidYAML(t *testing.T) {
 		t.Error("Load() expected error for invalid YAML")
 	}
 }
+
+func TestMustLoad_Panic(t *testing.T) {
+	defer func() {
