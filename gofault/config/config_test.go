@@ -66,3 +66,6 @@ func TestLoad_InvalidYAML(t *testing.T) {
 	if err := os.WriteFile(configPath, []byte("invalid: yaml: content:"), 0644); err != nil {
 		t.Fatalf("failed to write temp config: %v", err)
 	}
+
+	_, err := Load(configPath)
+	if err == nil {
