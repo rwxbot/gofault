@@ -82,3 +82,5 @@ func TestMustLoad_Panic(t *testing.T) {
 
 	MustLoad("/nonexistent/path/config.yaml")
 }
+
+func TestServerConfig_GetAddress(t *testing.T) {
