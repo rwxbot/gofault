@@ -79,3 +79,6 @@ func TestMustLoad_Panic(t *testing.T) {
 			t.Error("MustLoad() should panic on error")
 		}
 	}()
+
+	MustLoad("/nonexistent/path/config.yaml")
+}
