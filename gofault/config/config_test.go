@@ -75,3 +75,4 @@ func TestLoad_InvalidYAML(t *testing.T) {
 
 func TestMustLoad_Panic(t *testing.T) {
 	defer func() {
+		if r := recover(); r == nil {
