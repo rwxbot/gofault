@@ -93,3 +93,6 @@ func TestServerConfig_GetAddress(t *testing.T) {
 func TestDatabaseConfig_GetDSN(t *testing.T) {
 	db := DatabaseConfig{
 		Host:     "localhost",
+		Port:     3306,
+		Name:     "mydb",
+		User:     "user",
