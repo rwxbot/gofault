@@ -89,3 +89,7 @@ func TestServerConfig_GetAddress(t *testing.T) {
 		t.Errorf("GetAddress() = %s, want localhost:3000", got)
 	}
 }
+
+func TestDatabaseConfig_GetDSN(t *testing.T) {
+	db := DatabaseConfig{
+		Host:     "localhost",
