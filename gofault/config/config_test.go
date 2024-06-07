@@ -86,3 +86,5 @@ func TestMustLoad_Panic(t *testing.T) {
 func TestServerConfig_GetAddress(t *testing.T) {
 	s := ServerConfig{Host: "localhost", Port: 3000}
 	if got := s.GetAddress(); got != "localhost:3000" {
+		t.Errorf("GetAddress() = %s, want localhost:3000", got)
+	}
