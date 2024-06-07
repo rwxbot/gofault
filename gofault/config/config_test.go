@@ -88,3 +88,4 @@ func TestServerConfig_GetAddress(t *testing.T) {
 	if got := s.GetAddress(); got != "localhost:3000" {
 		t.Errorf("GetAddress() = %s, want localhost:3000", got)
 	}
+}
