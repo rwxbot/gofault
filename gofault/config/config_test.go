@@ -102,3 +102,4 @@ func TestDatabaseConfig_GetDSN(t *testing.T) {
 	if got := db.GetDSN(); got != expected {
 		t.Errorf("GetDSN() = %s, want %s", got, expected)
 	}
+}
