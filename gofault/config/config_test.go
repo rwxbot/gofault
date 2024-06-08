@@ -98,3 +98,4 @@ func TestDatabaseConfig_GetDSN(t *testing.T) {
 		User:     "user",
 		Password: "pass",
 	}
+	expected := "user:pass@tcp(localhost:3306)/mydb?charset=utf8mb4"
