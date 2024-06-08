@@ -96,3 +96,5 @@ func TestDatabaseConfig_GetDSN(t *testing.T) {
 		Port:     3306,
 		Name:     "mydb",
 		User:     "user",
+		Password: "pass",
+	}
