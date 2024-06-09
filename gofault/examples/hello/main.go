@@ -9,3 +9,4 @@ import (
 	"github.com/gofault/gofault/exception"
 	"github.com/gofault/gofault/module"
 	"github.com/gofault/gofault/router"
+)
