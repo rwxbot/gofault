@@ -2,3 +2,6 @@
 package main
 
 import (
+	"log"
+
+	"github.com/gofault/gofault/controller"
