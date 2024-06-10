@@ -10,3 +10,5 @@ import (
 	"github.com/gofault/gofault/module"
 	"github.com/gofault/gofault/router"
 )
+
+// GreetingService is a simple injectable provider.
