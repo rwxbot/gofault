@@ -15,3 +15,7 @@ import (
 type GreetingService struct {
 	prefix string
 }
+
+func NewGreetingService(prefix string) *GreetingService {
+	return &GreetingService{prefix: prefix}
+}
