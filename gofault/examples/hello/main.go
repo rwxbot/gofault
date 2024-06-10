@@ -14,3 +14,4 @@ import (
 // GreetingService is a simple injectable provider.
 type GreetingService struct {
 	prefix string
+}
