@@ -19,3 +19,5 @@ type GreetingService struct {
 func NewGreetingService(prefix string) *GreetingService {
 	return &GreetingService{prefix: prefix}
 }
+
+func (s *GreetingService) Provide() any { return s }
