@@ -25,3 +25,5 @@ func (s *GreetingService) Provide() any { return s }
 func (s *GreetingService) Greet(name string) string {
 	return s.prefix + ", " + name + "!"
 }
+
+// LifecycleHook demonstrates OnBoot/OnShutdown lifecycle.
