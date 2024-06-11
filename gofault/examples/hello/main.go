@@ -21,3 +21,5 @@ func NewGreetingService(prefix string) *GreetingService {
 }
 
 func (s *GreetingService) Provide() any { return s }
+
+func (s *GreetingService) Greet(name string) string {
