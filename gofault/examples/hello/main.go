@@ -27,3 +27,6 @@ func (s *GreetingService) Greet(name string) string {
 }
 
 // LifecycleHook demonstrates OnBoot/OnShutdown lifecycle.
+type LifecycleHook struct {
+	name string
+}
