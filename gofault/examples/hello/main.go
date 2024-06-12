@@ -30,3 +30,5 @@ func (s *GreetingService) Greet(name string) string {
 type LifecycleHook struct {
 	name string
 }
+
+func NewLifecycleHook(name string) *LifecycleHook {
