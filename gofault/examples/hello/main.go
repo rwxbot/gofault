@@ -34,3 +34,5 @@ type LifecycleHook struct {
 func NewLifecycleHook(name string) *LifecycleHook {
 	return &LifecycleHook{name: name}
 }
+
+func (h *LifecycleHook) OnBoot() error {
