@@ -44,3 +44,5 @@ func (h *LifecycleHook) OnShutdown() error {
 	log.Printf("[Lifecycle] OnShutdown: %s stopped", h.name)
 	return nil
 }
+
+// GreetingController is the HTTP entry point for greeting endpoints.
