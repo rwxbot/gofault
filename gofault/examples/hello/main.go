@@ -42,3 +42,5 @@ func (h *LifecycleHook) OnBoot() error {
 
 func (h *LifecycleHook) OnShutdown() error {
 	log.Printf("[Lifecycle] OnShutdown: %s stopped", h.name)
+	return nil
+}
