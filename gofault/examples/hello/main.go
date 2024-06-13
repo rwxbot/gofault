@@ -50,3 +50,7 @@ type GreetingController struct {
 	controller.BaseController
 	svc *GreetingService
 }
+
+func NewGreetingController(svc *GreetingService) *GreetingController {
+	return &GreetingController{svc: svc}
+}
