@@ -39,3 +39,5 @@ func (h *LifecycleHook) OnBoot() error {
 	log.Printf("[Lifecycle] OnBoot: %s started", h.name)
 	return nil
 }
+
+func (h *LifecycleHook) OnShutdown() error {
