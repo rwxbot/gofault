@@ -46,3 +46,6 @@ func (h *LifecycleHook) OnShutdown() error {
 }
 
 // GreetingController is the HTTP entry point for greeting endpoints.
+type GreetingController struct {
+	controller.BaseController
+	svc *GreetingService
