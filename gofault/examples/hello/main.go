@@ -49,3 +49,4 @@ func (h *LifecycleHook) OnShutdown() error {
 type GreetingController struct {
 	controller.BaseController
 	svc *GreetingService
+}
