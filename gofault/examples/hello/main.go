@@ -59,3 +59,5 @@ func (c *GreetingController) Prefix() string { return "/hello" }
 
 func (c *GreetingController) Routes() []core.Route {
 	return []core.Route{
+		{Method: "GET", Path: "/greet/:name", Handler: "Greet"},
+		{Method: "GET", Path: "/", Handler: "Index"},
