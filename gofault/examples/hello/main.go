@@ -61,3 +61,4 @@ func (c *GreetingController) Routes() []core.Route {
 	return []core.Route{
 		{Method: "GET", Path: "/greet/:name", Handler: "Greet"},
 		{Method: "GET", Path: "/", Handler: "Index"},
+		{Method: "GET", Path: "/error", Handler: "Error"},
