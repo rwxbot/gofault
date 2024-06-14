@@ -56,3 +56,6 @@ func NewGreetingController(svc *GreetingService) *GreetingController {
 }
 
 func (c *GreetingController) Prefix() string { return "/hello" }
+
+func (c *GreetingController) Routes() []core.Route {
+	return []core.Route{
