@@ -54,3 +54,5 @@ type GreetingController struct {
 func NewGreetingController(svc *GreetingService) *GreetingController {
 	return &GreetingController{svc: svc}
 }
+
+func (c *GreetingController) Prefix() string { return "/hello" }
