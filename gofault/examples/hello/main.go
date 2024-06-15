@@ -70,3 +70,7 @@ func (c *GreetingController) Greet(ctx *core.Ctx) error {
 	msg := c.svc.Greet(name)
 	return controller.OK(ctx.Response, map[string]string{"message": msg})
 }
+
+func (c *GreetingController) Index(ctx *core.Ctx) error {
+	return controller.OK(ctx.Response, map[string]string{"message": "gofault is running"})
+}
