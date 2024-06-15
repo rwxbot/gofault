@@ -68,3 +68,5 @@ func (c *GreetingController) Routes() []core.Route {
 func (c *GreetingController) Greet(ctx *core.Ctx) error {
 	name := controller.Param(ctx, "name")
 	msg := c.svc.Greet(name)
+	return controller.OK(ctx.Response, map[string]string{"message": msg})
+}
