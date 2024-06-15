@@ -64,3 +64,7 @@ func (c *GreetingController) Routes() []core.Route {
 		{Method: "GET", Path: "/error", Handler: "Error"},
 	}
 }
+
+func (c *GreetingController) Greet(ctx *core.Ctx) error {
+	name := controller.Param(ctx, "name")
+	msg := c.svc.Greet(name)
