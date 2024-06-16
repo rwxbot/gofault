@@ -74,3 +74,7 @@ func (c *GreetingController) Greet(ctx *core.Ctx) error {
 func (c *GreetingController) Index(ctx *core.Ctx) error {
 	return controller.OK(ctx.Response, map[string]string{"message": "gofault is running"})
 }
+
+func (c *GreetingController) Error(ctx *core.Ctx) error {
+	return exception.BadRequest("this is a test error")
+}
