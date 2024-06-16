@@ -78,3 +78,5 @@ func (c *GreetingController) Index(ctx *core.Ctx) error {
 func (c *GreetingController) Error(ctx *core.Ctx) error {
 	return exception.BadRequest("this is a test error")
 }
+
+// loggingMiddleware demonstrates a custom middleware.
