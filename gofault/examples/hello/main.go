@@ -83,3 +83,4 @@ func (c *GreetingController) Error(ctx *core.Ctx) error {
 func loggingMiddleware(ctx *core.Ctx, next core.Handler) error {
 	log.Printf("[Middleware] %s %s", ctx.Request.Method, ctx.Request.URL.Path)
 	return next(ctx)
+}
