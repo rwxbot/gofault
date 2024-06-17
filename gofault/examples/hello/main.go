@@ -87,3 +87,6 @@ func loggingMiddleware(ctx *core.Ctx, next core.Handler) error {
 
 func main() {
 	// Create service and controller
+	svc := NewGreetingService("Hello")
+	ctrl := NewGreetingController(svc)
+	hook := NewLifecycleHook("gofault-hello")
