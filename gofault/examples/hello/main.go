@@ -105,3 +105,4 @@ func main() {
 
 	// Create and configure router with exception filter
 	rtr := router.New()
+	rtr.Middleware(loggingMiddleware)
