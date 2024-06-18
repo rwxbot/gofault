@@ -95,3 +95,5 @@ func main() {
 	mod := core.NewModule("hello")
 	mod.RegisterControllers(ctrl)
 	mod.RegisterProviders(svc)
+	mod.RegisterOnBoot(hook)
+	mod.RegisterOnShutdown(hook)
