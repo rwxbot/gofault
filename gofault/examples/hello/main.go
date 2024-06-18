@@ -100,3 +100,4 @@ func main() {
 	mod.RegisterMiddleware(loggingMiddleware)
 
 	// Create application
+	app := module.New()
