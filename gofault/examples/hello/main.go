@@ -101,3 +101,4 @@ func main() {
 
 	// Create application
 	app := module.New()
+	app.RegisterModules(mod)
