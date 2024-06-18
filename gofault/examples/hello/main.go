@@ -90,3 +90,7 @@ func main() {
 	svc := NewGreetingService("Hello")
 	ctrl := NewGreetingController(svc)
 	hook := NewLifecycleHook("gofault-hello")
+
+	// Create module with controller, provider, middleware, and lifecycle hooks
+	mod := core.NewModule("hello")
+	mod.RegisterControllers(ctrl)
