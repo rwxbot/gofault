@@ -94,3 +94,4 @@ func main() {
 	// Create module with controller, provider, middleware, and lifecycle hooks
 	mod := core.NewModule("hello")
 	mod.RegisterControllers(ctrl)
+	mod.RegisterProviders(svc)
