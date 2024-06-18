@@ -97,3 +97,6 @@ func main() {
 	mod.RegisterProviders(svc)
 	mod.RegisterOnBoot(hook)
 	mod.RegisterOnShutdown(hook)
+	mod.RegisterMiddleware(loggingMiddleware)
+
+	// Create application
