@@ -102,3 +102,6 @@ func main() {
 	// Create application
 	app := module.New()
 	app.RegisterModules(mod)
+
+	// Create and configure router with exception filter
+	rtr := router.New()
