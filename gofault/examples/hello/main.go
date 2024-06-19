@@ -108,3 +108,5 @@ func main() {
 	rtr.Middleware(loggingMiddleware)
 	rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
 	app.SetRouter(rtr)
+
+	// Bootstrap and run
