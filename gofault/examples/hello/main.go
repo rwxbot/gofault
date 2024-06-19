@@ -111,3 +111,4 @@ func main() {
 	app.SetRouter(rtr)
 
 	// Bootstrap and run
+	app.Bootstrap()
