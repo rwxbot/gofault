@@ -114,3 +114,4 @@ func main() {
 	app.Bootstrap()
 	log.Println("gofault hello example running on :9090")
 	log.Fatal(app.Start(9090))
+}
