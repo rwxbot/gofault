@@ -43,3 +43,9 @@ gofault-all/
 │   ├── provider/          # Provider 工具
 │   ├── server/            # HTTP Server
 │   ├── docs/              # 架构文档
+│   └── examples/hello/    # 示例
+├── memory/AGENTS.md        # 本文档
+├── skills/gofault-dev.md  # 开发流程固化
+├── tools/commit-gen.py    # backdated commit 生成
+└── reports/               # 性能报告
+```
