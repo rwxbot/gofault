@@ -28,3 +28,18 @@ main.ts
 | v1.5.0 – v2.9.0 | ✅ 完成 | 18 个内置中间件（Validator 到 Upload） |
 | v3.0.0 – v3.2.0 | ✅ 完成 | GORM 数据库、Redis、静态文件 |
 | v3.3.0 – v3.4.0 | ✅ 完成 | gRPC 集成、API 版本控制 |
+
+## 目录结构
+
+```
+gofault-all/
+├── .git/
+├── gofault/               # 框架代码
+│   ├── core/module.go     # 核心接口定义
+│   ├── ioc/container.go   # IoC 容器
+│   ├── router/router.go   # HTTP 路由器
+│   ├── module/module.go   # App 引导
+│   ├── controller/        # Controller 基类
+│   ├── provider/          # Provider 工具
+│   ├── server/            # HTTP Server
+│   ├── docs/              # 架构文档
