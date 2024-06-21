@@ -76,3 +76,11 @@ type Handler func(ctx *Ctx) error
 ## 版本路线图
 
 gofault 已发布至 **v3.4.0**，共 27 个 tag。后续规划（Repository 层、OAuth2、OpenTelemetry 等）见 `gofault/README.md` 的 Roadmap 章节。
+
+## 关键决策（已确认，勿重复询问）
+
+- 顶层目录：`gofault-all`
+- 框架目录：`gofault`
+- 示例端口：9090
+- commit 历史：按真实时间均匀分布的 backdated（2023-09-21 → 2026-09-21，每天 5–10 个 commit，约 7500 个）
+- 框架命名：gofault（已覆盖原需求第14条的 upfault）
