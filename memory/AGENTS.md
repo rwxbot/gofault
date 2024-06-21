@@ -72,3 +72,7 @@ type Provider interface {
 type MiddlewareFunc func(ctx *Ctx, next Handler) error
 type Handler func(ctx *Ctx) error
 ```
+
+## 版本路线图
+
+gofault 已发布至 **v3.4.0**，共 27 个 tag。后续规划（Repository 层、OAuth2、OpenTelemetry 等）见 `gofault/README.md` 的 Roadmap 章节。
