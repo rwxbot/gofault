@@ -88,3 +88,9 @@ gofault 已发布至 **v3.4.0**，共 27 个 tag。后续规划（Repository 层
 ## 已知问题
 
 - v0.5.0 路由匹配 `/hello/greet/:name` 与 `/hello/` 共存时，需注意路由注册顺序（fixed by specific route ordering）
+
+## 外部化约定
+
+- 所有决策立即写入 `memory/AGENTS.md` 或 `skills/gofault-dev.md`
+- 进度日志追加 `memory/YYYY-MM-DD.md`
+- 任何外部动作（推送远端、发布）前须显式确认
