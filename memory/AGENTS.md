@@ -64,3 +64,11 @@ type Controller interface {
     Routes() []Route    // 返回路由列表
     Prefix() string     // 路由前缀
 }
+
+type Provider interface {
+    Provide() any
+}
+
+type MiddlewareFunc func(ctx *Ctx, next Handler) error
+type Handler func(ctx *Ctx) error
+```
