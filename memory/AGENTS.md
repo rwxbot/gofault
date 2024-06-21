@@ -84,3 +84,7 @@ gofault 已发布至 **v3.4.0**，共 27 个 tag。后续规划（Repository 层
 - 示例端口：9090
 - commit 历史：按真实时间均匀分布的 backdated（2023-09-21 → 2026-09-21，每天 5–10 个 commit，约 7500 个）
 - 框架命名：gofault（已覆盖原需求第14条的 upfault）
+
+## 已知问题
+
+- v0.5.0 路由匹配 `/hello/greet/:name` 与 `/hello/` 共存时，需注意路由注册顺序（fixed by specific route ordering）
