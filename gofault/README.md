@@ -1,10 +1,25 @@
 # gofault
 
-A modular backend framework for Go, built around dependency injection and
-explicit composition.
+A modular backend framework for Go: modules, dependency injection and an HTTP
+layer that stays out of the way.
 
-> Status: prototype. The container and the module primitives are in place; the
-> HTTP layer is still landing.
+- **Modules** compose the application and declare their dependencies
+- **Controllers** expose HTTP endpoints through a prefix and a route table
+- **Providers** supply dependencies through the IoC container
+- **Middleware** wraps the request pipeline and can short-circuit it
+
+## Features
+
+| Area | Package |
+|------|---------|
+| IoC container (singleton, request and transient scope) | `ioc` |
+| Module registry with topological ordering | `module`, `core` |
+| Router with `:param` matching | `router` |
+| Controller prefix routing and JSON helpers | `controller` |
+| Lifecycle hooks (`OnInit`, `OnBoot`, `OnShutdown`) | `core` |
+| Exception filter | `exception` |
+| Structured logging | `logger` |
+| YAML/JSON config loading | `config` |
 
 ## Install
 
@@ -12,49 +27,93 @@ explicit composition.
 go get github.com/gofault/gofault
 ```
 
-## Core interfaces
-
-`core` is the contract package. It imports nothing else in the framework, so
-every other package can depend on it without creating a cycle:
+## Quick start
 
 ```go
-type Provider interface{ Provide() any }
+package main
 
-type Controller interface {
-    Routes() []Route
-    Prefix() string
+import (
+    "log"
+
+    "github.com/gofault/gofault/controller"
+    "github.com/gofault/gofault/core"
+    "github.com/gofault/gofault/module"
+)
+
+type GreetingController struct {
+    controller.BaseController
+    prefix string
 }
 
-type Route struct {
-    Method  string
-    Path    string
-    Handler string // name of the controller method, e.g. "Greet"
+func (c *GreetingController) Prefix() string { return "/hello" }
+
+func (c *GreetingController) Routes() []core.Route {
+    return []core.Route{
+        {Method: "GET", Path: "/greet/:name", Handler: "Greet"},
+    }
 }
 
-type Handler func(ctx *Ctx) error
-type MiddlewareFunc func(ctx *Ctx, next Handler) error
+func (c *GreetingController) Greet(ctx *core.Ctx) error {
+    return controller.OK(ctx.Response, map[string]string{
+        "message": c.prefix + ", " + controller.Param(ctx, "name") + "!",
+    })
+}
+
+func main() {
+    mod := core.NewModule("hello")
+    mod.RegisterControllers(&GreetingController{prefix: "Hello"})
+
+    app := module.New()
+    if err := app.RegisterModules(mod); err != nil {
+        log.Fatal(err)
+    }
+    log.Fatal(app.Start(9090))
+}
 ```
 
-A module is a plain struct rather than an interface to implement:
+```
+$ curl localhost:9090/hello/greet/World
+{"code":0,"message":"success","data":{"message":"Hello, World!"}}
+```
+
+## Architecture
+
+Dependencies point in one direction: every package imports `core`, and `core`
+imports nothing.
+
+```
+core          contracts only (Ctx, Module, Route, Provider, Controller, hooks)
+ ├── ioc      container: singleton / request / transient scopes
+ ├── provider injectable values, including request-scoped ones
+ ├── router   method + path dispatch, middleware chain, exception filter
+ ├── server   net/http listener and graceful shutdown
+ └── module   composition root: orders modules, wires routes, starts the server
+      ├── middleware   cross-cutting handlers (logging, recovery, timeout, ...)
+      └── controller   prefix routing plus response helpers
+```
+
+`module.App` is the composition root. It topologically sorts the registered
+modules by their `Depends` list, rejects unknown or circular dependencies, then
+wires every controller route onto the router with that module's middleware:
 
 ```go
-mod := core.NewModule("hello")
-mod.RegisterControllers(ctrl)
-mod.RegisterProviders(svc)
+app := module.New()
+app.SetRouter(rtr)
+
+if err := app.RegisterModules(modA, modB); err != nil {
+    log.Fatal(err)
+}
+log.Fatal(app.Start(9090))
 ```
 
-## The container
+## Testing
 
-`ioc` resolves constructors by type, which keeps wiring explicit and testable.
-`Resolve` takes a pointer to a zero value of the type you want:
-
-```go
-c := ioc.New()
-c.Register(NewGreetingService)
-
-svc, err := c.Resolve(&GreetingService{})
+```bash
+go test ./... -race
 ```
 
+Integration tests that need an external service skip themselves when it is not
+reachable, so the suite stays green on a bare checkout.
 
 ## What's new in v0.1.0
 
@@ -102,7 +161,6 @@ c.Register(NewGreetingService)
 
 svc, err := c.Resolve(&GreetingService{})
 ```
-
 
 ## What's new in v0.5.0
 
