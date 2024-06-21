@@ -94,3 +94,7 @@ gofault 已发布至 **v3.4.0**，共 27 个 tag。后续规划（Repository 层
 - 所有决策立即写入 `memory/AGENTS.md` 或 `skills/gofault-dev.md`
 - 进度日志追加 `memory/YYYY-MM-DD.md`
 - 任何外部动作（推送远端、发布）前须显式确认
+
+## 下一步
+
+当前 v3.4.0 已涵盖从 IoC 内核到 gRPC、数据库、缓存、API 版本控制的完整能力。后续方向见 `gofault/README.md` Roadmap。
