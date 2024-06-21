@@ -49,3 +49,18 @@ gofault-all/
 ├── tools/commit-gen.py    # backdated commit 生成
 └── reports/               # 性能报告
 ```
+
+## 核心接口
+
+```go
+type Module interface {
+    Name() string
+    Controllers() []Controller
+    Providers() []Provider
+    Middleware() []MiddlewareFunc
+}
+
+type Controller interface {
+    Routes() []Route    // 返回路由列表
+    Prefix() string     // 路由前缀
+}
