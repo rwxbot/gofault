@@ -239,3 +239,8 @@ return controller.OK(ctx.Response, map[string]string{"message": "gofault is runn
 ```
 
 ### Module dependencies
+
+`Depends` orders initialisation without constraining registration order:
+
+```go
+mod.Depends = []string{"config"}
