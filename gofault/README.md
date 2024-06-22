@@ -214,3 +214,7 @@ return exception.BadRequest("invalid payload")
 `module.App` is the composition root. It sorts modules by their `Depends`
 declarations, rejects unknown and circular dependencies, wires every controller
 route onto the router, and then starts the server:
+
+```go
+app := module.New()
+app.SetRouter(rtr)
