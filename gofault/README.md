@@ -205,3 +205,12 @@ return an error and let the filter turn it into a response:
 ```go
 return exception.BadRequest("invalid payload")
 ```
+
+
+## What's new in v1.0.0
+
+### Application bootstrap
+
+`module.App` is the composition root. It sorts modules by their `Depends`
+declarations, rejects unknown and circular dependencies, wires every controller
+route onto the router, and then starts the server:
