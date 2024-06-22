@@ -231,3 +231,11 @@ log.Fatal(app.Start(9090))
 `controller` provides the response helpers:
 
 ```go
+rtr := router.New()
+rtr.Middleware(loggingMiddleware)
+rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
+
+return controller.OK(ctx.Response, map[string]string{"message": "gofault is running"})
+```
+
+### Module dependencies
