@@ -7,3 +7,8 @@
 
 ### Added
 - Middleware chain, lifecycle hooks and exception filtering
+
+## [v1.0.0]
+
+### Added
+- Complete framework: server, router, controller, provider
