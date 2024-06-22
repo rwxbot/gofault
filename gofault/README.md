@@ -218,3 +218,9 @@ route onto the router, and then starts the server:
 ```go
 app := module.New()
 app.SetRouter(rtr)
+
+if err := app.RegisterModules(mod); err != nil {
+    log.Fatal(err)
+}
+log.Fatal(app.Start(9090))
+```
