@@ -224,3 +224,10 @@ if err := app.RegisterModules(mod); err != nil {
 }
 log.Fatal(app.Start(9090))
 ```
+
+### Server, router and controller
+
+`server.HTTP` owns the listener, `router` dispatches on method and path, and
+`controller` provides the response helpers:
+
+```go
