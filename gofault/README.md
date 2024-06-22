@@ -244,3 +244,10 @@ return controller.OK(ctx.Response, map[string]string{"message": "gofault is runn
 
 ```go
 mod.Depends = []string{"config"}
+```
+
+### Injectable providers
+
+```go
+mod.RegisterProviders(provider.ProviderFunc(func() any { return svc }))
+```
