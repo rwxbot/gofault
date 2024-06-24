@@ -19,3 +19,5 @@ type HTTPExceptionFilter struct {
 }
 
 // NewHTTPExceptionFilter creates an HTTPExceptionFilter with default settings.
+func NewHTTPExceptionFilter() *HTTPExceptionFilter {
+	return &HTTPExceptionFilter{}
