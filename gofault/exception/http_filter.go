@@ -7,3 +7,5 @@ import (
 )
 
 // HTTPExceptionResponse is the JSON structure returned on HTTP exceptions.
+type HTTPExceptionResponse struct {
+	Code    int    `json:"code"`
