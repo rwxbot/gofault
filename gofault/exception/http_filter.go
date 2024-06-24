@@ -16,3 +16,4 @@ type HTTPExceptionResponse struct {
 type HTTPExceptionFilter struct {
 	// IncludeStackTrace includes error stack in response (for debugging).
 	IncludeStackTrace bool
+}
