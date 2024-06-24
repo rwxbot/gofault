@@ -11,3 +11,5 @@ type HTTPExceptionResponse struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
+
+// HTTPExceptionFilter is a filter that handles HTTPException errors.
