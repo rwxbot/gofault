@@ -17,3 +17,5 @@ type HTTPExceptionFilter struct {
 	// IncludeStackTrace includes error stack in response (for debugging).
 	IncludeStackTrace bool
 }
+
+// NewHTTPExceptionFilter creates an HTTPExceptionFilter with default settings.
