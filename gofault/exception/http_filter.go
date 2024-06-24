@@ -14,3 +14,5 @@ type HTTPExceptionResponse struct {
 
 // HTTPExceptionFilter is a filter that handles HTTPException errors.
 type HTTPExceptionFilter struct {
+	// IncludeStackTrace includes error stack in response (for debugging).
+	IncludeStackTrace bool
