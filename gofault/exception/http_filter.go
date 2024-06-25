@@ -33,3 +33,5 @@ func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
 	httpErr, ok := HTTPExceptionOf(err)
 	if !ok {
 		// Not an HTTPException, let it propagate.
+		return false
+	}
