@@ -22,3 +22,5 @@ type HTTPExceptionFilter struct {
 func NewHTTPExceptionFilter() *HTTPExceptionFilter {
 	return &HTTPExceptionFilter{}
 }
+
+// Capture handles HTTPException errors and writes the appropriate response.
