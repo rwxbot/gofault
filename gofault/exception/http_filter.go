@@ -35,3 +35,5 @@ func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
 		// Not an HTTPException, let it propagate.
 		return false
 	}
+
+	resp := HTTPExceptionResponse{
