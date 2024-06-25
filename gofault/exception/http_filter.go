@@ -24,3 +24,5 @@ func NewHTTPExceptionFilter() *HTTPExceptionFilter {
 }
 
 // Capture handles HTTPException errors and writes the appropriate response.
+func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
+	ctx, ok := ctxAny.(*core.Ctx)
