@@ -40,3 +40,5 @@ func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
 		Code:    httpErr.GetCode(),
 		Message: httpErr.GetMessage(),
 	}
+
+	w := ctx.Response
