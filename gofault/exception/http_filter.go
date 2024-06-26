@@ -45,3 +45,4 @@ func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
 	// Content-Type must be set before WriteHeader: once the status line is
 	// written the header map is committed and further Set calls are ignored,
 	// which would leave the JSON body sniffed as text/plain.
+	w.Header().Set("Content-Type", "application/json")
