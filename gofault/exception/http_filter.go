@@ -50,3 +50,6 @@ func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
 	json.NewEncoder(w).Encode(map[string]any{
 		"code":    resp.Code,
 		"message": resp.Message,
+	})
+	return true
+}
