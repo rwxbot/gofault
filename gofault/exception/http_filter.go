@@ -53,3 +53,5 @@ func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
 	})
 	return true
 }
+
+// DefaultFilter returns the global default HTTP exception filter.
