@@ -49,3 +49,4 @@ func (f *HTTPExceptionFilter) Capture(ctxAny any, err error) bool {
 	w.WriteHeader(httpErr.GetStatusCode())
 	json.NewEncoder(w).Encode(map[string]any{
 		"code":    resp.Code,
+		"message": resp.Message,
