@@ -251,3 +251,13 @@ mod.Depends = []string{"config"}
 ```go
 mod.RegisterProviders(provider.ProviderFunc(func() any { return svc }))
 ```
+
+
+## What's new in v1.1.0
+
+### Configuration
+
+`config.Load` reads a YAML document into typed sections; `MustLoad` panics
+instead of returning an error:
+
+```go
