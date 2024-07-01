@@ -12,3 +12,7 @@
 
 ### Added
 - Complete framework: server, router, controller, provider
+
+## [v1.1.0]
+
+### Added
