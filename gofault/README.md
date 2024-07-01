@@ -261,3 +261,8 @@ mod.RegisterProviders(provider.ProviderFunc(func() any { return svc }))
 instead of returning an error:
 
 ```go
+cfg, err := config.Load("config.yaml")
+if err != nil {
+    return err
+}
+addr := cfg.Server.GetAddress()
