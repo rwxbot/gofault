@@ -273,3 +273,14 @@ dsn := cfg.Database.GetDSN()
 
 `exception.NewHTTPExceptionFilter` maps an `exception.HTTPException` back to its
 status code. Wire it onto the router so handler errors become responses:
+
+```go
+rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
+```
+
+Filters compose — build a chain when you need more than one:
+
+```go
+chain := exception.NewExceptionFilterChain(
+    exception.NewHTTPExceptionFilter(),
+)
