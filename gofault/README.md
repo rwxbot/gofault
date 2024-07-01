@@ -266,3 +266,10 @@ if err != nil {
     return err
 }
 addr := cfg.Server.GetAddress()
+dsn := cfg.Database.GetDSN()
+```
+
+### HTTP exception filter
+
+`exception.NewHTTPExceptionFilter` maps an `exception.HTTPException` back to its
+status code. Wire it onto the router so handler errors become responses:
