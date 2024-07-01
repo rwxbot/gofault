@@ -284,3 +284,4 @@ Filters compose — build a chain when you need more than one:
 chain := exception.NewExceptionFilterChain(
     exception.NewHTTPExceptionFilter(),
 )
+```
