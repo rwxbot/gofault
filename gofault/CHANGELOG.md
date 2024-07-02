@@ -16,3 +16,4 @@
 ## [v1.1.0]
 
 ### Added
+- Configuration layer and HTTP exception mapping
