@@ -16,3 +16,5 @@ func main() {
 	// Create module
 	mod := core.NewModule("testapp3")
 	mod.RegisterControllers(controllers.NewHelloController())
+
+	// Register module
