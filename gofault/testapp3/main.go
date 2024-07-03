@@ -21,3 +21,7 @@ func main() {
 	if err := app.RegisterModules(mod); err != nil {
 		log.Fatalf("Failed to register module: %v", err)
 	}
+
+	// Start server
+	fmt.Println("Server starting on :8080...")
+	if err := app.Start(8080); err != nil {
