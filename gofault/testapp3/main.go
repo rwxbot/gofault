@@ -18,3 +18,4 @@ func main() {
 	mod.RegisterControllers(controllers.NewHelloController())
 
 	// Register module
+	if err := app.RegisterModules(mod); err != nil {
