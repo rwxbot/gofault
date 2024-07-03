@@ -8,3 +8,6 @@ import (
 	"github.com/gofault/gofault/module"
 	"github.com/gofault/gofault/testapp3/controllers"
 )
+
+func main() {
+	// Create application
