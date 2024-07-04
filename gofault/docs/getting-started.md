@@ -52,3 +52,16 @@ func (c *GreetingController) Prefix() string { return "/hello" }
 func (c *GreetingController) Routes() []core.Route {
     return []core.Route{
         {Method: "GET", Path: "/", Handler: "Index"},
+        {Method: "GET", Path: "/greet/:name", Handler: "Greet"},
+    }
+}
+
+func (c *GreetingController) Index(ctx *core.Ctx) error {
+    return controller.OK(ctx.Response, map[string]string{"message": "gofault is running"})
+}
+
+func (c *GreetingController) Greet(ctx *core.Ctx) error {
+    return controller.OK(ctx.Response, map[string]string{
+        "message": c.svc.Greet(controller.Param(ctx, "name")),
+    })
+}
