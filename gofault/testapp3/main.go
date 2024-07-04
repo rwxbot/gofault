@@ -25,3 +25,6 @@ func main() {
 	// Start server
 	fmt.Println("Server starting on :8080...")
 	if err := app.Start(8080); err != nil {
+		log.Fatalf("Server failed: %v", err)
+	}
+}
