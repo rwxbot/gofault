@@ -37,3 +37,18 @@ func (s *GreetingService) Provide() any { return s }
 func (s *GreetingService) Greet(name string) string {
     return s.prefix + ", " + name + "!"
 }
+
+type GreetingController struct {
+    controller.BaseController
+    svc *GreetingService
+}
+
+func NewGreetingController(svc *GreetingService) *GreetingController {
+    return &GreetingController{svc: svc}
+}
+
+func (c *GreetingController) Prefix() string { return "/hello" }
+
+func (c *GreetingController) Routes() []core.Route {
+    return []core.Route{
+        {Method: "GET", Path: "/", Handler: "Index"},
