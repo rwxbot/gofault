@@ -26,3 +26,14 @@ import (
     "github.com/gofault/gofault/core"
     "github.com/gofault/gofault/module"
 )
+
+// GreetingService is an injectable provider.
+type GreetingService struct {
+    prefix string
+}
+
+func (s *GreetingService) Provide() any { return s }
+
+func (s *GreetingService) Greet(name string) string {
+    return s.prefix + ", " + name + "!"
+}
