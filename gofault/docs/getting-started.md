@@ -75,3 +75,15 @@ func main() {
     mod.RegisterProviders(svc)
 
     app := module.New()
+    if err := app.RegisterModules(mod); err != nil {
+        log.Fatal(err)
+    }
+    log.Fatal(app.Start(9090))
+}
+```
+
+Run it and call the routes:
+
+```bash
+go run .
+curl localhost:9090/hello/
