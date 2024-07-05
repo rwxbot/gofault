@@ -91,3 +91,19 @@ curl localhost:9090/hello/
 curl localhost:9090/hello/greet/World
 # {"code":0,"message":"success","data":{"message":"Hello, World!"}}
 ```
+
+## Adding middleware and error handling
+
+Middleware lives on the module, so it only applies to that module's routes. The
+exception filter lives on the router, because it has to catch errors from every
+route:
+
+```go
+import (
+    "github.com/gofault/gofault/exception"
+    "github.com/gofault/gofault/middleware"
+    "github.com/gofault/gofault/router"
+)
+
+func loggingMiddleware(ctx *core.Ctx, next core.Handler) error {
+    log.Printf("%s %s", ctx.Request.Method, ctx.Request.URL.Path)
