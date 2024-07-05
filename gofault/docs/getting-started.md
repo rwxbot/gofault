@@ -150,3 +150,6 @@ app.RegisterModules(api, db)
 Unknown or circular dependencies are rejected at boot rather than at runtime:
 
 ```
+module "api" depends on unknown module "databse"
+circular dependency detected among modules: [a b]
+```
