@@ -87,3 +87,5 @@ Run it and call the routes:
 ```bash
 go run .
 curl localhost:9090/hello/
+# {"code":0,"message":"success","data":{"message":"gofault is running"}}
+curl localhost:9090/hello/greet/World
