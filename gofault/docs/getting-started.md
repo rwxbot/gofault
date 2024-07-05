@@ -107,3 +107,15 @@ import (
 
 func loggingMiddleware(ctx *core.Ctx, next core.Handler) error {
     log.Printf("%s %s", ctx.Request.Method, ctx.Request.URL.Path)
+    return next(ctx)
+}
+
+mod.RegisterMiddleware(
+    middleware.RecoveryMiddleware(middleware.DefaultRecoveryConfig()),
+    loggingMiddleware,
+)
+
+rtr := router.New()
+rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
+app.SetRouter(rtr)
+```
