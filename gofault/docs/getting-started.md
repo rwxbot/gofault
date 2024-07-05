@@ -65,3 +65,13 @@ func (c *GreetingController) Greet(ctx *core.Ctx) error {
         "message": c.svc.Greet(controller.Param(ctx, "name")),
     })
 }
+
+func main() {
+    svc := &GreetingService{prefix: "Hello"}
+    ctrl := NewGreetingController(svc)
+
+    mod := core.NewModule("hello")
+    mod.RegisterControllers(ctrl)
+    mod.RegisterProviders(svc)
+
+    app := module.New()
