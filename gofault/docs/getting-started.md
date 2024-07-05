@@ -132,3 +132,21 @@ func (c *GreetingController) Greet(ctx *core.Ctx) error {
     return controller.OK(ctx.Response, map[string]string{"message": c.svc.Greet(name)})
 }
 ```
+
+## Declaring module dependencies
+
+`Depends` orders initialisation without constraining the order you register
+modules in:
+
+```go
+db := core.NewModule("database")
+api := core.NewModule("api")
+api.Depends = []string{"database"}
+
+// Registration order does not matter; "database" still initialises first.
+app.RegisterModules(api, db)
+```
+
+Unknown or circular dependencies are rejected at boot rather than at runtime:
+
+```
