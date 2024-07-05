@@ -89,3 +89,5 @@ go run .
 curl localhost:9090/hello/
 # {"code":0,"message":"success","data":{"message":"gofault is running"}}
 curl localhost:9090/hello/greet/World
+# {"code":0,"message":"success","data":{"message":"Hello, World!"}}
+```
