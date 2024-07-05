@@ -119,3 +119,16 @@ rtr := router.New()
 rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
 app.SetRouter(rtr)
 ```
+
+Handlers now report failures by returning an error rather than writing a
+response themselves:
+
+```go
+func (c *GreetingController) Greet(ctx *core.Ctx) error {
+    name := controller.Param(ctx, "name")
+    if name == "" {
+        return exception.BadRequest("name is required")
+    }
+    return controller.OK(ctx.Response, map[string]string{"message": c.svc.Greet(name)})
+}
+```
