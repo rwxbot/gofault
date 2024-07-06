@@ -207,3 +207,15 @@ Techniques that keep the suite honest:
   ctx := core.NewCtx(rec, httptest.NewRequest("GET", "/hello/", nil))
   if err := ctrl.Index(ctx); err != nil {
       t.Fatal(err)
+  }
+  ```
+* **Assert on `Result()`, not `Header()`.** `httptest.ResponseRecorder` keeps
+  accepting header writes after the status line, while a real server commits
+  them. A test that reads `rec.Result().Header` reproduces production behaviour
+  and catches a `Content-Type` set too late.
+* **Always run `-race`.** Concurrency bugs in middleware surface as a race
+  report rather than a flaky assertion.
+
+Integration tests that need an external service skip themselves when it is not
+reachable, so a bare checkout stays green. Point them at a real one when you
+have it:
