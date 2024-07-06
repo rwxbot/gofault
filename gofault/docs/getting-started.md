@@ -187,3 +187,5 @@ if err != nil {
 }
 
 log.Printf("listening on %s", cfg.Server.GetAddress())
+log.Printf("dsn %s", cfg.Database.GetDSN())
+```
