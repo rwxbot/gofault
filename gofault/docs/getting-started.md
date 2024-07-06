@@ -171,3 +171,7 @@ func (s *GreetingService) OnShutdown() error {
 
 mod.RegisterOnBoot(svc)
 mod.RegisterOnShutdown(svc)
+```
+
+Shutdown hooks run in reverse order, and `App.Stop` drains the HTTP server after
+they finish, so a hook that flushes a buffer or closes a pool is safe.
