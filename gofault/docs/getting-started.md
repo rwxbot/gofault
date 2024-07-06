@@ -223,3 +223,15 @@ have it:
 ```bash
 GOFAULT_REDIS_ADDR=127.0.0.1:6379 go test ./...
 ```
+
+## Project layout
+
+```
+core/         contracts shared by everything else
+ioc/          dependency injection container
+provider/     injectable values, including request-scoped ones
+router/       method and path dispatch, middleware chain, exception filter
+server/       net/http listener and graceful shutdown
+module/       composition root
+controller/   controller base type and response helpers
+middleware/   cross-cutting handlers
