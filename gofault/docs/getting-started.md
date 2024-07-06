@@ -175,3 +175,15 @@ mod.RegisterOnShutdown(svc)
 
 Shutdown hooks run in reverse order, and `App.Stop` drains the HTTP server after
 they finish, so a hook that flushes a buffer or closes a pool is safe.
+
+## Configuration
+
+`config.Load` reads YAML into typed sections:
+
+```go
+cfg, err := config.Load("config.yaml")
+if err != nil {
+    return err
+}
+
+log.Printf("listening on %s", cfg.Server.GetAddress())
