@@ -153,3 +153,21 @@ Unknown or circular dependencies are rejected at boot rather than at runtime:
 module "api" depends on unknown module "databse"
 circular dependency detected among modules: [a b]
 ```
+
+## Lifecycle hooks
+
+Implement any of these on a provider to take part in startup and shutdown:
+
+```go
+func (s *GreetingService) OnBoot() error {
+    log.Println("greeting service ready")
+    return nil
+}
+
+func (s *GreetingService) OnShutdown() error {
+    log.Println("greeting service stopped")
+    return nil
+}
+
+mod.RegisterOnBoot(svc)
+mod.RegisterOnShutdown(svc)
