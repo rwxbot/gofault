@@ -235,3 +235,9 @@ server/       net/http listener and graceful shutdown
 module/       composition root
 controller/   controller base type and response helpers
 middleware/   cross-cutting handlers
+exception/    HTTP errors and the filter that maps them to responses
+config/       YAML configuration
+logger/       structured logging
+versioning/   API version negotiation
+gorm/ redis/ grpc/   optional integrations
+```
