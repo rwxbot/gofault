@@ -219,3 +219,7 @@ Techniques that keep the suite honest:
 Integration tests that need an external service skip themselves when it is not
 reachable, so a bare checkout stays green. Point them at a real one when you
 have it:
+
+```bash
+GOFAULT_REDIS_ADDR=127.0.0.1:6379 go test ./...
+```
