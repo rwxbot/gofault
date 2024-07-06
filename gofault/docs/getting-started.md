@@ -189,3 +189,21 @@ if err != nil {
 log.Printf("listening on %s", cfg.Server.GetAddress())
 log.Printf("dsn %s", cfg.Database.GetDSN())
 ```
+
+## Testing
+
+```bash
+go test ./...
+go test ./... -race      # what CI runs
+```
+
+Techniques that keep the suite honest:
+
+* **Write against the interfaces.** `core.Handler` and `core.MiddlewareFunc` are
+  plain function types, so a test can call a handler with a `httptest`
+  recorder and no server:
+  ```go
+  rec := httptest.NewRecorder()
+  ctx := core.NewCtx(rec, httptest.NewRequest("GET", "/hello/", nil))
+  if err := ctrl.Index(ctx); err != nil {
+      t.Fatal(err)
