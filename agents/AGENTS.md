@@ -11,3 +11,16 @@ gofault-all/                    # Git 仓库根（管理 agents 配置、skills�
 │   ├── router/                 # 路由引擎
 │   ├── server/                 # HTTP Server
 │   ├── controller/             # Controller 基类
+│   ├── middleware/             # 中间件集合
+│   ├── provider/               # Provider 工具
+│   ├── ioc/                    # IoC 容器
+│   ├── logger/                 # 日志封装
+│   ├── exception/              # 异常类型
+│   ├── config/                 # 配置加载
+│   ├── module/                 # Module 辅助函数
+│   ├── gorm/                   # GORM 集成
+│   ├── redis/                  # Redis 集成
+│   ├── grpc/                   # gRPC 集成
+│   ├── versioning/             # API 版本控制
+│   ├── docs/                  # 架构文档
+│   ├── examples/               # 示例
