@@ -241,3 +241,9 @@ logger/       structured logging
 versioning/   API version negotiation
 gorm/ redis/ grpc/   optional integrations
 ```
+
+## Where to go next
+
+* `docs/architecture.md` for how the pieces fit together and why.
+* `examples/hello` for a runnable application with a provider, middleware and
+  both lifecycle hooks.
