@@ -35,3 +35,7 @@ gofault-all/                    # Git 仓库根（管理 agents 配置、skills�
 │   └── commit-gen.py           # backdated commit 生成
 └── reports/                    # 性能报告
 ```
+
+## 仓库
+
+单一 Git 仓库 `gofault-all`（远程: `rwx-robot-home/gofault-home`）。框架源码位于 `gofault/` 子目录，Agent 工作区配置位于 `agents/`、`skills/`、`tools/`。
