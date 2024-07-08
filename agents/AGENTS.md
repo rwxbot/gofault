@@ -65,3 +65,6 @@ gofault-all/                    # Git 仓库根（管理 agents 配置、skills�
 ```bash
 # 进入框架目录
 cd gofault
+
+# 运行测试
+go test ./...
