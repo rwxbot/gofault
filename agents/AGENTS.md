@@ -63,3 +63,5 @@ gofault-all/                    # Git 仓库根（管理 agents 配置、skills�
 ## 快速开始
 
 ```bash
+# 进入框架目录
+cd gofault
