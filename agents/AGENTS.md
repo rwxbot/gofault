@@ -24,3 +24,14 @@ gofault-all/                    # Git 仓库根（管理 agents 配置、skills�
 │   ├── versioning/             # API 版本控制
 │   ├── docs/                  # 架构文档
 │   ├── examples/               # 示例
+│   ├── testapp3/               # 测试应用
+│   ├── cmd/                    # CLI 命令
+│   ├── go.mod
+│   └── .github/workflows/     # CI/CD
+├── agents/                     # Agent 配置和记忆
+│   ├── memory/                 # 项目记忆
+│   └── skills/                 # 技能定义
+├── tools/                      # 工具脚本
+│   └── commit-gen.py           # backdated commit 生成
+└── reports/                    # 性能报告
+```
