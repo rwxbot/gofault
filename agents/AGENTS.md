@@ -68,3 +68,8 @@ cd gofault
 
 # 运行测试
 go test ./...
+
+# 构建示例
+cd examples/hello
+go run main.go
+```
