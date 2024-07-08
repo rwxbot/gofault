@@ -53,3 +53,9 @@ gofault-all/                    # Git 仓库根（管理 agents 配置、skills�
 | v3.2.0 | ✅ 完成 | Static Files |
 | v3.3.0 | ✅ 完成 | gRPC |
 | v3.4.0 | ✅ 完成 | API Versioning |
+
+## 开发约束
+
+- **零 Node 生态痕迹**：框架代码禁止出现 `@`、`require`、`module.exports` 等
+- **Go 惯用法**：使用 interface、组合、struct tag、functional options
+- **测试要求**：所有版本 `go test ./...` 必须通过
