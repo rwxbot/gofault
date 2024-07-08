@@ -59,3 +59,7 @@ gofault-all/                    # Git 仓库根（管理 agents 配置、skills�
 - **零 Node 生态痕迹**：框架代码禁止出现 `@`、`require`、`module.exports` 等
 - **Go 惯用法**：使用 interface、组合、struct tag、functional options
 - **测试要求**：所有版本 `go test ./...` 必须通过
+
+## 快速开始
+
+```bash
