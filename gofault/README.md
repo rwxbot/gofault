@@ -299,3 +299,10 @@ defer app.Stop()
 ```
 
 `server.HTTP` owns the listener and exposes the same behaviour directly:
+
+```go
+srv := server.New(rtr, 9090)
+go srv.Start()
+
+server.RegisterShutdownHook(func() error { return srv.Stop() })
+```
