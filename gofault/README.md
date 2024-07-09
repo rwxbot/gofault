@@ -292,3 +292,10 @@ chain := exception.NewExceptionFilterChain(
 ### Graceful shutdown
 
 `App.Stop` runs every `OnShutdown` hook in reverse module order and then drains
+the server, so in-flight requests are not cut off:
+
+```go
+defer app.Stop()
+```
+
+`server.HTTP` owns the listener and exposes the same behaviour directly:
