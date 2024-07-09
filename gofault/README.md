@@ -285,3 +285,10 @@ chain := exception.NewExceptionFilterChain(
     exception.NewHTTPExceptionFilter(),
 )
 ```
+
+
+## What's new in v1.2.0
+
+### Graceful shutdown
+
+`App.Stop` runs every `OnShutdown` hook in reverse module order and then drains
