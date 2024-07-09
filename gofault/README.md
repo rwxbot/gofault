@@ -306,3 +306,8 @@ go srv.Start()
 
 server.RegisterShutdownHook(func() error { return srv.Stop() })
 ```
+
+### Example application
+
+`examples/hello` is a runnable application that exercises a provider, a
+controller with a path parameter, module middleware and both lifecycle hooks.
