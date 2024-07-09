@@ -17,3 +17,8 @@
 
 ### Added
 - Configuration layer and HTTP exception mapping
+
+## [v1.2.0]
+
+### Added
+- Graceful shutdown and example application
