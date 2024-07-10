@@ -9,3 +9,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    # The redis package holds integration tests that assert against real server
+    # semantics (Lua scripts, key expiry). Without a server they skip, so CI
+    # provisions one in order to actually exercise them.
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
