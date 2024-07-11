@@ -85,3 +85,14 @@ jobs:
           GOOS=darwin GOARCH=amd64 go build -o gofault-darwin-amd64 ./cmd/gofault
           GOOS=darwin GOARCH=arm64 go build -o gofault-darwin-arm64 ./cmd/gofault
           GOOS=windows GOARCH=amd64 go build -o gofault-windows-amd64.exe ./cmd/gofault
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            gofault-linux-amd64
+            gofault-darwin-amd64
+            gofault-darwin-arm64
+            gofault-windows-amd64.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
