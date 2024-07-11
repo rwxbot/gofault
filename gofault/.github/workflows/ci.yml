@@ -72,3 +72,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+
+      - name: Build
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o gofault-linux-amd64 ./cmd/gofault
+          GOOS=darwin GOARCH=amd64 go build -o gofault-darwin-amd64 ./cmd/gofault
+          GOOS=darwin GOARCH=arm64 go build -o gofault-darwin-arm64 ./cmd/gofault
+          GOOS=windows GOARCH=amd64 go build -o gofault-windows-amd64.exe ./cmd/gofault
