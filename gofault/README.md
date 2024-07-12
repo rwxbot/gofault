@@ -311,3 +311,11 @@ server.RegisterShutdownHook(func() error { return srv.Stop() })
 
 `examples/hello` is a runnable application that exercises a provider, a
 controller with a path parameter, module middleware and both lifecycle hooks.
+
+
+## What's new in v1.3.0
+
+### Route grouping and parameter binding
+
+A controller owns a prefix and a route table; `:name` segments become request
+params:
