@@ -343,3 +343,4 @@ filter := controller.Query(ctx, "filter")
 `.github/workflows/ci.yml` runs the test suite with the race detector, lints
 with `golangci-lint`, and publishes release binaries for Linux, macOS and
 Windows when a `v*` tag is pushed. The workflow pins the Go version that
+`go.mod` declares.
