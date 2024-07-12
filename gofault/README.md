@@ -335,3 +335,11 @@ Handlers read them through the `controller` helpers:
 
 ```go
 id := controller.Param(ctx, "id")
+filter := controller.Query(ctx, "filter")
+```
+
+### Continuous integration
+
+`.github/workflows/ci.yml` runs the test suite with the race detector, lints
+with `golangci-lint`, and publishes release binaries for Linux, macOS and
+Windows when a `v*` tag is pushed. The workflow pins the Go version that
