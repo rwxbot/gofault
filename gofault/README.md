@@ -326,3 +326,12 @@ func (c *AdminController) Prefix() string { return "/admin" }
 func (c *AdminController) Routes() []core.Route {
     return []core.Route{
         {Method: "GET", Path: "/users", Handler: "ListUsers"},
+        {Method: "POST", Path: "/users/:id", Handler: "UpdateUser"},
+    }
+}
+```
+
+Handlers read them through the `controller` helpers:
+
+```go
+id := controller.Param(ctx, "id")
