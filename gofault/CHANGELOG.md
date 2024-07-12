@@ -26,3 +26,4 @@
 ## [v1.3.0]
 
 ### Added
+- Route grouping, parameter binding and CI
