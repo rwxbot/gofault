@@ -319,3 +319,10 @@ controller with a path parameter, module middleware and both lifecycle hooks.
 
 A controller owns a prefix and a route table; `:name` segments become request
 params:
+
+```go
+func (c *AdminController) Prefix() string { return "/admin" }
+
+func (c *AdminController) Routes() []core.Route {
+    return []core.Route{
+        {Method: "GET", Path: "/users", Handler: "ListUsers"},
