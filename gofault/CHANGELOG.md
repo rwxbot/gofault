@@ -22,3 +22,7 @@
 
 ### Added
 - Graceful shutdown and example application
+
+## [v1.3.0]
+
+### Added
