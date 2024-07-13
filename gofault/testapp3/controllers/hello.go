@@ -5,3 +5,4 @@ import (
 )
 
 // HelloController handles hello-related routes.
+type HelloController struct{}
