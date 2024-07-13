@@ -9,3 +9,4 @@ type HelloController struct{}
 
 func NewHelloController() *HelloController {
 	return &HelloController{}
+}
