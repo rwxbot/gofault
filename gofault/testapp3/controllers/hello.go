@@ -20,3 +20,5 @@ func (c *HelloController) Routes() []core.Route {
 }
 
 // Prefix returns the route prefix for this controller.
+func (c *HelloController) Prefix() string {
+	return "/api/v1"
