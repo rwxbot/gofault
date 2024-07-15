@@ -23,3 +23,5 @@ func (c *HelloController) Routes() []core.Route {
 func (c *HelloController) Prefix() string {
 	return "/api/v1"
 }
+
+// Index handles GET /
