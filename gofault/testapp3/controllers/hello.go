@@ -33,3 +33,4 @@ func (c *HelloController) Index(ctx *core.Ctx) error {
 func (c *HelloController) Greet(ctx *core.Ctx) error {
 	name := ctx.Params["name"]
 	return ctx.Response.Write([]byte("Hello, " + name + "!"))
+}
