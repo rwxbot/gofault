@@ -20,3 +20,8 @@ type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
 ### 模块生命周期
 - 所有实现 `core.Module` 的类型，必须在 `OnBoot` 中初始化资源，在 `OnShutdown` 中释放资源
 - 使用 `RegisterOnBoot(fn)` / `RegisterOnShutdown(fn)` 注册钩子
+
+### 错误处理
+- 优先返回标准错误类型（`errors.New`, `fmt.Errorf` with `%w`）
+- 业务异常使用 `exception.Throw*` 系列
+- 中间件中的 panic 必须被 recover，避免进程崩溃
