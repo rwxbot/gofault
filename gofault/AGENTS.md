@@ -9,3 +9,10 @@
 ### Go 格式
 - 所有代码必须通过 `go fmt` 格式化后再提交
 - 运行 `go vet ./...` 确保无编译警告
+
+### 中间件签名
+```go
+type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
+```
+- 必须严格遵循此签名，不可改变
+- 返回 `core.ErrAbort` 表示中断链而不调用 `next`
