@@ -25,3 +25,9 @@ type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
 - 优先返回标准错误类型（`errors.New`, `fmt.Errorf` with `%w`）
 - 业务异常使用 `exception.Throw*` 系列
 - 中间件中的 panic 必须被 recover，避免进程崩溃
+
+### 日志
+- 使用 `log.Default()` 获取 `*slog.Logger`
+- 结构化日志优先于 fmt.Print
+
+---
