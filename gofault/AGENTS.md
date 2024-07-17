@@ -16,3 +16,7 @@ type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
 ```
 - 必须严格遵循此签名，不可改变
 - 返回 `core.ErrAbort` 表示中断链而不调用 `next`
+
+### 模块生命周期
+- 所有实现 `core.Module` 的类型，必须在 `OnBoot` 中初始化资源，在 `OnShutdown` 中释放资源
+- 使用 `RegisterOnBoot(fn)` / `RegisterOnShutdown(fn)` 注册钩子
