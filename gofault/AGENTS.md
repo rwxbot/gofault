@@ -31,3 +31,5 @@ type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
 - 结构化日志优先于 fmt.Print
 
 ---
+
+## Commit 规范
