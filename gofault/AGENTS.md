@@ -33,3 +33,10 @@ type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
 ---
 
 ## Commit 规范
+
+### 格式
+```
+<type>: <简短描述>
+
+- <详细变更（可选）>
+```
