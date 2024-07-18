@@ -68,3 +68,8 @@ feat: v3.4.0 add API Versioning middleware
 ```
 v<major>.<minor>.<patch>
 ```
+
+### 打标签时机
+1. 完成一个版本的所有功能开发
+2. 所有测试通过（除明确标记为环境依赖的，如 Redis）
+3. README 文档同步更新
