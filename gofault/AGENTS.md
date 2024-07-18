@@ -40,3 +40,13 @@ type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
 
 - <详细变更（可选）>
 ```
+
+### Type 前缀
+| 前缀 | 含义 |
+|------|------|
+| `feat:` | 新功能 |
+| `fix:` | Bug 修复 |
+| `test:` | 测试添加/修复 |
+| `docs:` | 文档更新 |
+| `refactor:` | 代码重构（不改变功能）|
+| `chore:` | 构建、CI、依赖更新 |
