@@ -63,3 +63,8 @@ feat: v3.4.0 add API Versioning middleware
 ---
 
 ## 版本标签规范
+
+### 标签格式
+```
+v<major>.<minor>.<patch>
+```
