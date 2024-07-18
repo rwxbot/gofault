@@ -50,3 +50,14 @@ type MiddlewareFunc func(ctx *core.Ctx, next core.Handler) error
 | `docs:` | 文档更新 |
 | `refactor:` | 代码重构（不改变功能）|
 | `chore:` | 构建、CI、依赖更新 |
+
+### 示例
+```bash
+feat: v3.4.0 add API Versioning middleware
+
+- Header/PathPrefix/Query three strategies
+- VersionSet lifecycle management (Active/Deprecated/EOL)
+- 17 tests pass
+```
+
+---
