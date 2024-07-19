@@ -104,3 +104,20 @@ git tag -v v3.4.0
 - 示例：`StorageBackend` 接口，测试时用 `MemoryStorage`
 
 ---
+
+## 目录结构
+
+```
+gofault/               # 主包
+├── core/              # 核心接口（Ctx, Handler, MiddlewareFunc, Module）
+├── router/            # 路由引擎
+├── server/             # HTTP Server
+├── controller/         # Controller 基类
+├── middleware/         # 中间件集合
+├── provider/          # IoC Provider
+├── ioc/               # IoC 容器
+├── logger/            # 日志封装
+├── exception/         # 异常类型
+├── config/            # 配置加载
+├── module/            # Module 辅助函数
+├── gorm/              # GORM 集成
