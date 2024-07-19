@@ -98,3 +98,9 @@ git tag -v v3.4.0
 ### 环境依赖测试
 - 需要外部服务（Redis, MySQL 等）的测试使用 `t.Skip()` 跳过
 - 跳过格式：`t.Skip("requires Redis: " + err.Error())`
+
+### Mock 策略
+- 优先使用接口抽象，不直接 mock 外部库
+- 示例：`StorageBackend` 接口，测试时用 `MemoryStorage`
+
+---
