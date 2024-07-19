@@ -76,3 +76,5 @@ v<major>.<minor>.<patch>
 
 ### 打标签步骤
 ```bash
+# 1. 确保 clean
+git status
