@@ -78,3 +78,6 @@ v<major>.<minor>.<patch>
 ```bash
 # 1. 确保 clean
 git status
+
+# 2. 打标签
+git tag -a v3.4.0 -m "v3.4.0: API Versioning with Header/PathPrefix/Query strategies"
