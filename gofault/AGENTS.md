@@ -81,3 +81,9 @@ git status
 
 # 2. 打标签
 git tag -a v3.4.0 -m "v3.4.0: API Versioning with Header/PathPrefix/Query strategies"
+
+# 3. 验证
+git tag -v v3.4.0
+```
+
+---
