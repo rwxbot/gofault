@@ -94,3 +94,7 @@ git tag -v v3.4.0
 - 核心接口行为（Router, Module, Controller, Middleware）
 - 边界条件（空输入、非法参数、路径遍历尝试）
 - 错误路径（404, 401, 500 等）
+
+### 环境依赖测试
+- 需要外部服务（Redis, MySQL 等）的测试使用 `t.Skip()` 跳过
+- 跳过格式：`t.Skip("requires Redis: " + err.Error())`
