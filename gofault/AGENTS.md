@@ -150,3 +150,11 @@ gofault/               # 主包
 5. Push：`git push origin --tags`
 
 ---
+
+## 依赖管理
+
+- 使用 Go modules（`go.mod`）
+- 禁止在代码中硬编码版本号，统一在 `go.mod` 管理
+- 新增依赖需要说明用途
+
+---
