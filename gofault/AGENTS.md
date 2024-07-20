@@ -121,3 +121,14 @@ gofault/               # 主包
 ├── config/            # 配置加载
 ├── module/            # Module 辅助函数
 ├── gorm/              # GORM 集成
+├── redis/             # Redis 集成
+├── grpc/              # gRPC 集成
+├── versioning/        # API 版本控制
+├── docs/              # 架构文档
+├── cmd/               # CLI 命令
+├── examples/          # 示例
+├── testapp3/          # 测试应用
+└── .github/workflows/ # CI/CD
+```
+
+---
