@@ -141,3 +141,12 @@ gofault/               # 主包
 1. `go test ./...` — 所有测试
 2. `go vet ./...` — 静态检查
 3. `go fmt ./...` — 格式检查
+
+### 发布流程
+1. 所有测试通过
+2. 更新 `CHANGELOG.md`
+3. 更新 `README.md`（版本文档）
+4. 打 tag：`git tag v<x>.<y>.<z>`
+5. Push：`git push origin --tags`
+
+---
