@@ -134,3 +134,10 @@ gofault/               # 主包
 ---
 
 ## CI/CD 要求
+
+### GitHub Actions（`.github/workflows/ci.yml`）
+
+每个 PR 和 push 必须通过：
+1. `go test ./...` — 所有测试
+2. `go vet ./...` — 静态检查
+3. `go fmt ./...` — 格式检查
