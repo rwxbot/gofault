@@ -365,3 +365,11 @@ type Response struct {
 return controller.OK(ctx.Response, user)                      // 200
 return controller.Error(ctx.Response, 422, "invalid payload") // 422
 ```
+
+`BaseController` exposes the same helpers as methods, plus a plain-text variant
+for non-JSON endpoints:
+
+```go
+c.JSON(ctx.Response, http.StatusOK, user)
+c.Text(ctx.Response, http.StatusOK, "pong")
+```
