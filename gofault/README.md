@@ -344,3 +344,14 @@ filter := controller.Query(ctx, "filter")
 with `golangci-lint`, and publishes release binaries for Linux, macOS and
 Windows when a `v*` tag is pushed. The workflow pins the Go version that
 `go.mod` declares.
+
+
+## What's new in v1.4.0
+
+### Unified response encoding
+
+Every JSON response goes through the same envelope, and every helper sets
+`Content-Type: application/json` before the status line:
+
+```go
+type Response struct {
