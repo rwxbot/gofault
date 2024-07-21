@@ -355,3 +355,13 @@ Every JSON response goes through the same envelope, and every helper sets
 
 ```go
 type Response struct {
+    Code    int         `json:"code"`
+    Message string      `json:"message"`
+    Data    interface{} `json:"data,omitempty"`
+}
+```
+
+```go
+return controller.OK(ctx.Response, user)                      // 200
+return controller.Error(ctx.Response, 422, "invalid payload") // 422
+```
