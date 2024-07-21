@@ -172,3 +172,12 @@ gofault/               # 主包
 - 在 `CHANGELOG.md` 记录
 
 ---
+
+## 重启检查清单
+
+新 agent 或新会话开始时：
+- [ ] `go fmt ./... && go vet ./...` 确认无警告
+- [ ] `go test ./...` 确认无 regression
+- [ ] `git status` 确认工作区 clean
+- [ ] 阅读 `README.md` 了解当前版本状态
+- [ ] 阅读 `CHANGELOG.md` 了解变更历史
