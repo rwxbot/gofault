@@ -27,3 +27,8 @@
 
 ### Added
 - Route grouping, parameter binding and CI
+
+## [v1.4.0]
+
+### Added
+- Unified response encoding and error handling
