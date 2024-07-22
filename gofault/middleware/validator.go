@@ -10,3 +10,4 @@ import (
 )
 
 // ValidationError represents a single validation error.
+type ValidationError struct {
