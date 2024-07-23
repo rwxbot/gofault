@@ -11,3 +11,6 @@ import (
 
 // ValidationError represents a single validation error.
 type ValidationError struct {
+	Field   string `json:"field"`
+	Message string `json:"message"`
+}
