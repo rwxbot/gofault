@@ -16,3 +16,5 @@ type ValidationError struct {
 	Field   string `json:"field"`
 	Message string `json:"message"`
 }
+
+// ValidationErrors is a collection of validation errors.
