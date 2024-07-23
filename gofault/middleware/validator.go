@@ -18,3 +18,4 @@ type ValidationError struct {
 }
 
 // ValidationErrors is a collection of validation errors.
+type ValidationErrors []ValidationError
