@@ -25,3 +25,5 @@ func (ve ValidationErrors) Error() string {
 	for _, e := range ve {
 		msgs = append(msgs, e.Field+": "+e.Message)
 	}
+	return strings.Join(msgs, "; ")
+}
