@@ -21,3 +21,4 @@ type ValidationErrors []ValidationError
 func (ve ValidationErrors) Error() string {
 	var msgs []string
 	for _, e := range ve {
+		msgs = append(msgs, e.Field+": "+e.Message)
