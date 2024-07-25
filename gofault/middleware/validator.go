@@ -28,12 +28,6 @@ func (ve ValidationErrors) Error() string {
 	return strings.Join(msgs, "; ")
 }
 
-// ValidatorConfig holds configuration for the validator middleware.
-type ValidatorConfig struct {
-	// BindTarget is the target struct type to bind and validate.
-	BindTarget interface{}
-	// SkipMissing causes missing query/path params to be skipped instead of causing errors.
-	SkipMissing bool
-}
-
 // ValidationRule defines a single validation rule.
+type ValidationRule interface {
+	Validate(field string, value interface{}) *ValidationError
