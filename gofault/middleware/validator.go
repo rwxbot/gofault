@@ -35,3 +35,5 @@ type ValidatorConfig struct {
 	// SkipMissing causes missing query/path params to be skipped instead of causing errors.
 	SkipMissing bool
 }
+
+// ValidationRule defines a single validation rule.
