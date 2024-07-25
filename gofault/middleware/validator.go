@@ -27,3 +27,5 @@ func (ve ValidationErrors) Error() string {
 	}
 	return strings.Join(msgs, "; ")
 }
+
+// ValidatorConfig holds configuration for the validator middleware.
