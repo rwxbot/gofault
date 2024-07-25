@@ -35,3 +35,5 @@ type ValidatorConfig struct {
 }
 
 // ValidationRule defines a single validation rule.
+type ValidationRule interface {
+	Validate(field string, value interface{}) *ValidationError
