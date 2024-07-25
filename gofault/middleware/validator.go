@@ -27,3 +27,6 @@ func (ve ValidationErrors) Error() string {
 }
 
 // ValidatorConfig holds configuration for the validator middleware.
+type ValidatorConfig struct {
+	// BindTarget is the target struct type to bind and validate.
+	BindTarget interface{}
