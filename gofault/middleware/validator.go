@@ -32,3 +32,6 @@ func (ve ValidationErrors) Error() string {
 type ValidatorConfig struct {
 	// BindTarget is the target struct type to bind and validate.
 	BindTarget interface{}
+	// SkipMissing causes missing query/path params to be skipped instead of causing errors.
+	SkipMissing bool
+}
