@@ -39,3 +39,5 @@ type Required struct{}
 func (r *Required) Validate(field string, value interface{}) *ValidationError {
 	if value == nil || (reflect.TypeOf(value).Kind() == reflect.String && strings.TrimSpace(value.(string)) == "") {
 		return &ValidationError{Field: field, Message: "is required"}
+	}
+	return nil
