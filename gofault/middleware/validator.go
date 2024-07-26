@@ -38,3 +38,5 @@ type ValidatorConfig struct {
 type ValidationRule interface {
 	Validate(field string, value interface{}) *ValidationError
 }
+
+// Required validates that a value is not empty.
