@@ -41,3 +41,5 @@ type ValidationRule interface {
 
 // Required validates that a value is not empty.
 type Required struct{}
+
+func (r *Required) Validate(field string, value interface{}) *ValidationError {
