@@ -41,3 +41,4 @@ func (r *Required) Validate(field string, value interface{}) *ValidationError {
 		return &ValidationError{Field: field, Message: "is required"}
 	}
 	return nil
+}
