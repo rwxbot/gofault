@@ -46,3 +46,4 @@ func (r *Required) Validate(field string, value interface{}) *ValidationError {
 // MinLength validates minimum string length.
 type MinLength struct {
 	Length int
+}
