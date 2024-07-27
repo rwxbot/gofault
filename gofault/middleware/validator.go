@@ -55,3 +55,5 @@ type MinLength struct {
 }
 
 func (r *MinLength) Validate(field string, value interface{}) *ValidationError {
+	if str, ok := value.(string); ok {
+		if len(str) < r.Length {
