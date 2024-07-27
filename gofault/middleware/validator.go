@@ -53,3 +53,5 @@ func (r *Required) Validate(field string, value interface{}) *ValidationError {
 type MinLength struct {
 	Length int
 }
+
+func (r *MinLength) Validate(field string, value interface{}) *ValidationError {
