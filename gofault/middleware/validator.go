@@ -48,3 +48,5 @@ func (r *Required) Validate(field string, value interface{}) *ValidationError {
 	}
 	return nil
 }
+
+// MinLength validates minimum string length.
