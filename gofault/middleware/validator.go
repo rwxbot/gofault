@@ -56,3 +56,5 @@ func (r *MinLength) Validate(field string, value interface{}) *ValidationError {
 	}
 	return nil
 }
+
+// MaxLength validates maximum string length.
