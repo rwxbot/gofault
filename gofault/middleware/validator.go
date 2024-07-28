@@ -54,3 +54,5 @@ func (r *MinLength) Validate(field string, value interface{}) *ValidationError {
 			return &ValidationError{Field: field, Message: "must be at least " + itoa(r.Length) + " characters"}
 		}
 	}
+	return nil
+}
