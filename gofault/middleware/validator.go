@@ -51,3 +51,6 @@ type MinLength struct {
 func (r *MinLength) Validate(field string, value interface{}) *ValidationError {
 	if str, ok := value.(string); ok {
 		if len(str) < r.Length {
+			return &ValidationError{Field: field, Message: "must be at least " + itoa(r.Length) + " characters"}
+		}
+	}
