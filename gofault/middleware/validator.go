@@ -67,3 +67,7 @@ func (r *MinLength) Validate(field string, value interface{}) *ValidationError {
 type MaxLength struct {
 	Length int
 }
+
+func (r *MaxLength) Validate(field string, value interface{}) *ValidationError {
+	if str, ok := value.(string); ok {
+		if len(str) > r.Length {
