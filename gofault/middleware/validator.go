@@ -73,3 +73,6 @@ func (r *MaxLength) Validate(field string, value interface{}) *ValidationError {
 		if len(str) > r.Length {
 			return &ValidationError{Field: field, Message: "must be at most " + itoa(r.Length) + " characters"}
 		}
+	}
+	return nil
+}
