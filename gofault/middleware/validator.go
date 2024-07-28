@@ -58,3 +58,6 @@ func (r *MinLength) Validate(field string, value interface{}) *ValidationError {
 }
 
 // MaxLength validates maximum string length.
+type MaxLength struct {
+	Length int
+}
