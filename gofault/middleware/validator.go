@@ -72,15 +72,43 @@ func (r *MaxLength) Validate(field string, value interface{}) *ValidationError {
 }
 
 // Regex validates that a string matches a regex pattern.
+//
+// The pattern is compiled on first use under a mutex: MustCompile on the
+// request path would panic the whole process on a bad pattern (rules are
+// public API and can come from config), and the lazy assignment was a data
+// race because one rule instance is shared by concurrent requests. A pattern
+// that fails to compile fails closed: every value is rejected with a
+// validation error rather than silently passing or panicking.
 type Regex struct {
 	Pattern string
-	regex   *regexp.Regexp
+
+	mu         sync.Mutex
+	compiled   *regexp.Regexp
+	compileErr error
+}
+
+func (r *Regex) compile() (*regexp.Regexp, error) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.compiled == nil && r.compileErr == nil {
+		re, err := regexp.Compile(r.Pattern)
+		if err != nil {
+			r.compileErr = err
+		} else {
+			r.compiled = re
+		}
+	}
+	return r.compiled, r.compileErr
 }
 
 func (r *Regex) Validate(field string, value interface{}) *ValidationError {
 	if str, ok := value.(string); ok {
-		if r.regex == nil {
-			r.regex = regexp.MustCompile(r.Pattern)
+		re, err := r.compile()
+		if err != nil {
+			return &ValidationError{Field: field, Message: "cannot validate against invalid pattern"}
 		}
-		if !r.regex.MatchString(str) {
+		if !re.MatchString(str) {
 			return &ValidationError{Field: field, Message: "has invalid format"}
+		}
+	}
+	return nil
