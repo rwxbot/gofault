@@ -80,3 +80,4 @@ type Regex struct {
 func (r *Regex) Validate(field string, value interface{}) *ValidationError {
 	if str, ok := value.(string); ok {
 		if r.regex == nil {
+			r.regex = regexp.MustCompile(r.Pattern)
