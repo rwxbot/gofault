@@ -80,3 +80,5 @@ func (r *MaxLength) Validate(field string, value interface{}) *ValidationError {
 // Regex validates that a string matches a regex pattern.
 type Regex struct {
 	Pattern string
+	regex   *regexp.Regexp
+}
