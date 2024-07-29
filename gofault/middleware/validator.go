@@ -90,3 +90,6 @@ func (r *Regex) Validate(field string, value interface{}) *ValidationError {
 		}
 		if !r.regex.MatchString(str) {
 			return &ValidationError{Field: field, Message: "has invalid format"}
+		}
+	}
+	return nil
