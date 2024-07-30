@@ -115,3 +115,4 @@ func (r *Regex) Validate(field string, value interface{}) *ValidationError {
 }
 
 // Email validates email format.
+type Email struct{}
