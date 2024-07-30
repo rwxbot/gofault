@@ -94,3 +94,5 @@ func (r *Regex) Validate(field string, value interface{}) *ValidationError {
 	}
 	return nil
 }
+
+// Email validates email format.
