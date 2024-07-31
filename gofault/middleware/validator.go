@@ -104,3 +104,4 @@ func (r *Email) Validate(field string, value interface{}) *ValidationError {
 		if !emailRegex.MatchString(str) {
 			return &ValidationError{Field: field, Message: "must be a valid email address"}
 		}
+	}
