@@ -105,3 +105,5 @@ func (r *Email) Validate(field string, value interface{}) *ValidationError {
 			return &ValidationError{Field: field, Message: "must be a valid email address"}
 		}
 	}
+	return nil
+}
