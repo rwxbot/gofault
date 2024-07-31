@@ -121,3 +121,4 @@ func (r *Email) Validate(field string, value interface{}) *ValidationError {
 	if str, ok := value.(string); ok {
 		emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$`)
 		if !emailRegex.MatchString(str) {
+			return &ValidationError{Field: field, Message: "must be a valid email address"}
