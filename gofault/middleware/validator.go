@@ -112,3 +112,6 @@ func (r *Email) Validate(field string, value interface{}) *ValidationError {
 type Min struct {
 	Value float64
 }
+
+func (r *Min) Validate(field string, value interface{}) *ValidationError {
+	switch v := value.(type) {
