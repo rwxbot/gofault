@@ -107,3 +107,5 @@ func (r *Email) Validate(field string, value interface{}) *ValidationError {
 	}
 	return nil
 }
+
+// Min validates minimum numeric value.
