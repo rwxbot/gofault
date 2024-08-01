@@ -109,3 +109,4 @@ func (r *Email) Validate(field string, value interface{}) *ValidationError {
 }
 
 // Min validates minimum numeric value.
+type Min struct {
