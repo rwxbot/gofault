@@ -118,3 +118,6 @@ func (r *Min) Validate(field string, value interface{}) *ValidationError {
 	case int:
 		if float64(v) < r.Value {
 			return &ValidationError{Field: field, Message: "must be at least " + itoa(int(r.Value))}
+		}
+	case float64:
+		if v < r.Value {
