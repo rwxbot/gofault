@@ -134,3 +134,4 @@ type Min struct {
 
 func (r *Min) Validate(field string, value interface{}) *ValidationError {
 	switch v := value.(type) {
+	case int:
