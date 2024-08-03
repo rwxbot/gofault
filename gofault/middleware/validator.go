@@ -159,3 +159,6 @@ func (r *Min) Validate(field string, value interface{}) *ValidationError {
 }
 
 // Max validates maximum numeric value.
+type Max struct {
+	Value float64
+}
