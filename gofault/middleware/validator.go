@@ -145,3 +145,4 @@ func (r *Min) Validate(field string, value interface{}) *ValidationError {
 	case string:
 		// Skip for string types
 	}
+	return nil
