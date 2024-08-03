@@ -142,3 +142,6 @@ func (r *Min) Validate(field string, value interface{}) *ValidationError {
 		if v < r.Value {
 			return &ValidationError{Field: field, Message: "must be at least " + ftos(r.Value)}
 		}
+	case string:
+		// Skip for string types
+	}
