@@ -128,3 +128,5 @@ func (r *Min) Validate(field string, value interface{}) *ValidationError {
 	}
 	return nil
 }
+
+// Max validates maximum numeric value.
