@@ -143,6 +143,17 @@ func (r *Min) Validate(field string, value interface{}) *ValidationError {
 			return &ValidationError{Field: field, Message: "must be at least " + ftos(r.Value)}
 		}
 	case string:
-		// Skip for string types
+		// Path and query parameters always arrive as strings, so skipping
+		// them made every Min rule on a request field a silent no-op. Parse
+		// and enforce; a non-numeric value is a validation failure, not a
+		// pass.
+		n, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			return &ValidationError{Field: field, Message: "must be a number of at least " + ftos(r.Value)}
+		}
+		if n < r.Value {
+			return &ValidationError{Field: field, Message: "must be at least " + ftos(r.Value)}
+		}
 	}
 	return nil
+}
