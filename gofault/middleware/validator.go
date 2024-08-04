@@ -162,3 +162,6 @@ func (r *Min) Validate(field string, value interface{}) *ValidationError {
 type Max struct {
 	Value float64
 }
+
+func (r *Max) Validate(field string, value interface{}) *ValidationError {
+	switch v := value.(type) {
