@@ -173,4 +173,16 @@ func (r *Max) Validate(field string, value interface{}) *ValidationError {
 		if v > r.Value {
 			return &ValidationError{Field: field, Message: "must be at most " + ftos(r.Value)}
 		}
+	case string:
+		// Same as Min: request parameters are strings, and skipping them
+		// silently disabled every Max rule on a request field.
+		n, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			return &ValidationError{Field: field, Message: "must be a number of at most " + ftos(r.Value)}
+		}
+		if n > r.Value {
+			return &ValidationError{Field: field, Message: "must be at most " + ftos(r.Value)}
+		}
 	}
+	return nil
+}
