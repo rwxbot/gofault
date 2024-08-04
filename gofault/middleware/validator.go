@@ -141,3 +141,6 @@ func (r *Max) Validate(field string, value interface{}) *ValidationError {
 			return &ValidationError{Field: field, Message: "must be at most " + itoa(int(r.Value))}
 		}
 	case float64:
+		if v > r.Value {
+			return &ValidationError{Field: field, Message: "must be at most " + ftos(r.Value)}
+		}
