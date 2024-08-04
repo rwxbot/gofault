@@ -144,3 +144,4 @@ func (r *Max) Validate(field string, value interface{}) *ValidationError {
 		if v > r.Value {
 			return &ValidationError{Field: field, Message: "must be at most " + ftos(r.Value)}
 		}
+	}
