@@ -189,3 +189,5 @@ func (r *Max) Validate(field string, value interface{}) *ValidationError {
 
 // Rules defines validation rules for a struct field.
 type Rules map[string][]ValidationRule
+
+// ValidateRequest validates the request against defined rules.
