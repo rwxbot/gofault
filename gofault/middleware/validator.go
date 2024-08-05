@@ -186,3 +186,5 @@ func (r *Max) Validate(field string, value interface{}) *ValidationError {
 	}
 	return nil
 }
+
+// Rules defines validation rules for a struct field.
