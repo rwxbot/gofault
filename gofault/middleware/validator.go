@@ -152,3 +152,5 @@ func (r *Max) Validate(field string, value interface{}) *ValidationError {
 type Rules map[string][]ValidationRule
 
 // ValidateRequest validates the request against defined rules.
+func ValidateRequest(ctx *core.Ctx, rules Rules) error {
+	var errs ValidationErrors
