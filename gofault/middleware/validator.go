@@ -191,3 +191,9 @@ func (r *Max) Validate(field string, value interface{}) *ValidationError {
 type Rules map[string][]ValidationRule
 
 // ValidateRequest validates the request against defined rules.
+//
+// Rules are supplied per call rather than per route; there is no validator
+// middleware. A previous ValidatorConfig (with BindTarget and SkipMissing)
+// promised one but was never read by any code, so setting it did nothing.
+func ValidateRequest(ctx *core.Ctx, rules Rules) error {
+	var errs ValidationErrors
