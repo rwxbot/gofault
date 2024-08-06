@@ -197,3 +197,7 @@ type Rules map[string][]ValidationRule
 // promised one but was never read by any code, so setting it did nothing.
 func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 	var errs ValidationErrors
+
+	for field, rules := range rules {
+		value := getFieldValue(ctx, field)
+		for _, rule := range rules {
