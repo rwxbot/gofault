@@ -154,3 +154,7 @@ type Rules map[string][]ValidationRule
 // ValidateRequest validates the request against defined rules.
 func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 	var errs ValidationErrors
+
+	for field, rules := range rules {
+		value := getFieldValue(ctx, field)
+		for _, rule := range rules {
