@@ -202,3 +202,5 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 		value := getFieldValue(ctx, field)
 		for _, rule := range rules {
 			if err := rule.Validate(field, value); err != nil {
+				errs = append(errs, *err)
+			}
