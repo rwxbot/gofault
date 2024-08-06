@@ -161,3 +161,4 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 			if err := rule.Validate(field, value); err != nil {
 				errs = append(errs, *err)
 			}
+		}
