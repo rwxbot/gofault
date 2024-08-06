@@ -158,3 +158,4 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 	for field, rules := range rules {
 		value := getFieldValue(ctx, field)
 		for _, rule := range rules {
+			if err := rule.Validate(field, value); err != nil {
