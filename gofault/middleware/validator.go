@@ -205,3 +205,4 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 				errs = append(errs, *err)
 			}
 		}
+	}
