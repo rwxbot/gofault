@@ -163,3 +163,7 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 			}
 		}
 	}
+
+	if len(errs) > 0 {
+		return exception.BadRequest(errs.Error())
+	}
