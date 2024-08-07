@@ -171,3 +171,5 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 }
 
 // getFieldValue gets a field value from the request.
+func getFieldValue(ctx *core.Ctx, field string) interface{} {
+	// Try path params first
