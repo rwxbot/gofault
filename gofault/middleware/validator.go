@@ -169,3 +169,5 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 	}
 	return nil
 }
+
+// getFieldValue gets a field value from the request.
