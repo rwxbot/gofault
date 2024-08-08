@@ -174,3 +174,4 @@ func ValidateRequest(ctx *core.Ctx, rules Rules) error {
 func getFieldValue(ctx *core.Ctx, field string) interface{} {
 	// Try path params first
 	if ctx.Params != nil {
+		if v, ok := ctx.Params[field]; ok {
