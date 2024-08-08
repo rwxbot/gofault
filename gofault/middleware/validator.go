@@ -220,3 +220,4 @@ func getFieldValue(ctx *core.Ctx, field string) interface{} {
 		if v, ok := ctx.Params[field]; ok {
 			return v
 		}
+	}
