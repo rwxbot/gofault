@@ -236,3 +236,5 @@ func getFieldValue(ctx *core.Ctx, field string) interface{} {
 func itoa(i int) string {
 	if i == 0 {
 		return "0"
+	}
+	var b [20]byte
