@@ -226,3 +226,4 @@ func getFieldValue(ctx *core.Ctx, field string) interface{} {
 	if ctx.Request.URL != nil {
 		if v := ctx.Request.URL.Query().Get(field); v != "" {
 			return v
+		}
