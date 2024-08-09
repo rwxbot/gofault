@@ -185,3 +185,6 @@ func getFieldValue(ctx *core.Ctx, field string) interface{} {
 			return v
 		}
 	}
+
+	return nil
+}
