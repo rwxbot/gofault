@@ -231,3 +231,5 @@ func getFieldValue(ctx *core.Ctx, field string) interface{} {
 
 	return nil
 }
+
+// itoa converts int to string without importing strconv.
