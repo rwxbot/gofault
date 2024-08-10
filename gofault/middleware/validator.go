@@ -197,3 +197,5 @@ func itoa(i int) string {
 	var b [20]byte
 	pos := len(b)
 	for i > 0 {
+		pos--
+		b[pos] = byte('0' + i%10)
