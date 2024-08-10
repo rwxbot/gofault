@@ -244,3 +244,4 @@ func itoa(i int) string {
 		b[pos] = byte('0' + i%10)
 		i /= 10
 	}
+	return string(b[pos:])
