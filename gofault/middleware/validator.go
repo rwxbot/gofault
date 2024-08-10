@@ -238,3 +238,4 @@ func itoa(i int) string {
 		return "0"
 	}
 	var b [20]byte
+	pos := len(b)
