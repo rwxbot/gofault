@@ -242,3 +242,5 @@ func itoa(i int) string {
 	for i > 0 {
 		pos--
 		b[pos] = byte('0' + i%10)
+		i /= 10
+	}
