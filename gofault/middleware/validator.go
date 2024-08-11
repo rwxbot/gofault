@@ -210,3 +210,4 @@ func ftos(f float64) string {
 		return itoa(int(f))
 	}
 	// For simplicity, return formatted string
+	i := int(f * 100)
