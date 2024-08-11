@@ -255,3 +255,4 @@ func ftos(f float64) string {
 	// For simplicity, return formatted string
 	i := int(f * 100)
 	return itoa(i/100) + "." + itoa((i%100)/10) + itoa((i%100)%10)
+}
