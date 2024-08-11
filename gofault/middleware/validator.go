@@ -250,3 +250,5 @@ func itoa(i int) string {
 // ftos converts float64 to string without importing strconv.
 func ftos(f float64) string {
 	if f == float64(int64(f)) {
+		return itoa(int(f))
+	}
