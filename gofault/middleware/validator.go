@@ -203,3 +203,5 @@ func itoa(i int) string {
 	}
 	return string(b[pos:])
 }
+
+// ftos converts float64 to string without importing strconv.
