@@ -11,3 +11,6 @@ import (
 
 func TestRequired(t *testing.T) {
 	r := &Required{}
+
+	// Valid case
+	err := r.Validate("field", "value")
