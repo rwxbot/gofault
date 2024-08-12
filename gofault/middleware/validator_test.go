@@ -13,3 +13,4 @@ func TestRequired(t *testing.T) {
 
 	// Valid case
 	err := r.Validate("field", "value")
+	if err != nil {
