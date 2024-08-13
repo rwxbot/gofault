@@ -15,3 +15,4 @@ func TestRequired(t *testing.T) {
 	// Valid case
 	err := r.Validate("field", "value")
 	if err != nil {
+		t.Errorf("expected no error for non-empty value, got %v", err)
