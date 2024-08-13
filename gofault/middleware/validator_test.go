@@ -21,3 +21,5 @@ func TestRequired(t *testing.T) {
 	// Empty string
 	err = r.Validate("field", "")
 	if err == nil {
+		t.Error("expected error for empty string")
+	}
