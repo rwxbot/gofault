@@ -16,3 +16,7 @@ func TestRequired(t *testing.T) {
 	if err != nil {
 		t.Errorf("expected no error for non-empty value, got %v", err)
 	}
+
+	// Empty string
+	err = r.Validate("field", "")
+	if err == nil {
