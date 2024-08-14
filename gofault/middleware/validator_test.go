@@ -28,3 +28,4 @@ func TestRequired(t *testing.T) {
 	if err == nil {
 		t.Error("expected error for nil")
 	}
+}
