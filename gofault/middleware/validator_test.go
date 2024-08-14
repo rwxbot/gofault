@@ -35,3 +35,5 @@ func TestMinLength(t *testing.T) {
 
 	err := r.Validate("field", "hello")
 	if err != nil {
+		t.Errorf("expected no error for length 5, got %v", err)
+	}
