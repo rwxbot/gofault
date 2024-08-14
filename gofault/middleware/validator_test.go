@@ -33,3 +33,6 @@ func TestRequired(t *testing.T) {
 
 func TestMinLength(t *testing.T) {
 	r := &MinLength{Length: 5}
+
+	err := r.Validate("field", "hello")
+	if err != nil {
