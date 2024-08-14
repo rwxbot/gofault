@@ -39,3 +39,4 @@ func TestMinLength(t *testing.T) {
 	}
 
 	err = r.Validate("field", "hi")
+	if err == nil {
