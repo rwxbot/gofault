@@ -29,3 +29,6 @@ func TestRequired(t *testing.T) {
 		t.Error("expected error for nil")
 	}
 }
+
+func TestMinLength(t *testing.T) {
+	r := &MinLength{Length: 5}
