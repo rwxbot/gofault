@@ -26,3 +26,5 @@ func TestRequired(t *testing.T) {
 	// Nil
 	err = r.Validate("field", nil)
 	if err == nil {
+		t.Error("expected error for nil")
+	}
