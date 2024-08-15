@@ -43,3 +43,6 @@ func TestMinLength(t *testing.T) {
 		t.Error("expected error for length 2")
 	}
 }
+
+func TestMaxLength(t *testing.T) {
+	r := &MaxLength{Length: 5}
