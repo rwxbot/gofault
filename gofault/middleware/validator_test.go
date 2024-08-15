@@ -43,3 +43,4 @@ func TestMinLength(t *testing.T) {
 	if err == nil {
 		t.Error("expected error for length 2")
 	}
+}
