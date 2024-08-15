@@ -47,3 +47,5 @@ func TestMinLength(t *testing.T) {
 
 func TestMaxLength(t *testing.T) {
 	r := &MaxLength{Length: 5}
+
+	err := r.Validate("field", "hello")
