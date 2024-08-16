@@ -54,3 +54,6 @@ func TestMaxLength(t *testing.T) {
 
 	err = r.Validate("field", "hello world")
 	if err == nil {
+		t.Error("expected error for length > 5")
+	}
+}
