@@ -68,3 +68,6 @@ func TestRegex(t *testing.T) {
 	}
 
 	err = r.Validate("field", "abc-defg")
+	if err == nil {
+		t.Error("expected error for non-matching pattern")
+	}
