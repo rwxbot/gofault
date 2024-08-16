@@ -58,3 +58,6 @@ func TestMaxLength(t *testing.T) {
 		t.Error("expected error for length > 5")
 	}
 }
+
+func TestRegex(t *testing.T) {
+	r := &Regex{Pattern: `^\d{3}-\d{4}$`}
