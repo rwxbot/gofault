@@ -65,3 +65,4 @@ func TestRegex(t *testing.T) {
 	err := r.Validate("field", "123-4567")
 	if err != nil {
 		t.Errorf("expected no error for matching pattern, got %v", err)
+	}
