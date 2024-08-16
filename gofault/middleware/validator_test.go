@@ -60,3 +60,7 @@ func TestMaxLength(t *testing.T) {
 
 func TestRegex(t *testing.T) {
 	r := &Regex{Pattern: `^\d{3}-\d{4}$`}
+
+	err := r.Validate("field", "123-4567")
+	if err != nil {
+		t.Errorf("expected no error for matching pattern, got %v", err)
