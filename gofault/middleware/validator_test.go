@@ -54,3 +54,4 @@ func TestMaxLength(t *testing.T) {
 	}
 
 	err = r.Validate("field", "hello world")
+	if err == nil {
