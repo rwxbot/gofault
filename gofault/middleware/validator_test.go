@@ -80,3 +80,6 @@ func TestEmail(t *testing.T) {
 	if err != nil {
 		t.Errorf("expected no error for valid email, got %v", err)
 	}
+
+	err = r.Validate("field", "invalid-email")
+	if err == nil {
