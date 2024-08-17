@@ -74,3 +74,5 @@ func TestRegex(t *testing.T) {
 
 func TestEmail(t *testing.T) {
 	r := &Email{}
+
+	err := r.Validate("field", "test@example.com")
