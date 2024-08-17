@@ -71,3 +71,6 @@ func TestRegex(t *testing.T) {
 		t.Error("expected error for non-matching pattern")
 	}
 }
+
+func TestEmail(t *testing.T) {
+	r := &Email{}
