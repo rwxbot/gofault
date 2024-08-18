@@ -88,3 +88,7 @@ func TestEmail(t *testing.T) {
 
 func TestMin(t *testing.T) {
 	r := &Min{Value: 10}
+
+	err := r.Validate("field", 15)
+	if err != nil {
+		t.Errorf("expected no error for value 15, got %v", err)
