@@ -85,3 +85,6 @@ func TestEmail(t *testing.T) {
 		t.Error("expected error for invalid email")
 	}
 }
+
+func TestMin(t *testing.T) {
+	r := &Min{Value: 10}
