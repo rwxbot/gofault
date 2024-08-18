@@ -152,3 +152,6 @@ func TestRegex_ConcurrentCompile(t *testing.T) {
 	}
 	wg.Wait()
 }
+
+func TestMin(t *testing.T) {
+	r := &Min{Value: 10}
