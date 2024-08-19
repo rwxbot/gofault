@@ -102,3 +102,5 @@ func TestMin(t *testing.T) {
 
 func TestMax(t *testing.T) {
 	r := &Max{Value: 100}
+
+	err := r.Validate("field", 50)
