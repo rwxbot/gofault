@@ -96,3 +96,4 @@ func TestMin(t *testing.T) {
 
 	err = r.Validate("field", 5)
 	if err == nil {
+		t.Error("expected error for value 5")
