@@ -99,3 +99,6 @@ func TestMin(t *testing.T) {
 		t.Error("expected error for value 5")
 	}
 }
+
+func TestMax(t *testing.T) {
+	r := &Max{Value: 100}
