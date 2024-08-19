@@ -162,3 +162,4 @@ func TestMin(t *testing.T) {
 	}
 
 	err = r.Validate("field", 5)
+	if err == nil {
