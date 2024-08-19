@@ -171,3 +171,6 @@ func TestMax(t *testing.T) {
 	r := &Max{Value: 100}
 
 	err := r.Validate("field", 50)
+	if err != nil {
+		t.Errorf("expected no error for value 50, got %v", err)
+	}
