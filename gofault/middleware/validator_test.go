@@ -116,3 +116,6 @@ func TestMax(t *testing.T) {
 
 func TestValidationErrors_Error(t *testing.T) {
 	errs := ValidationErrors{
+		{Field: "name", Message: "is required"},
+		{Field: "email", Message: "invalid format"},
+	}
