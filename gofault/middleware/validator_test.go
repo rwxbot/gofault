@@ -179,3 +179,4 @@ func TestMax(t *testing.T) {
 	if err == nil {
 		t.Error("expected error for value 150")
 	}
+}
