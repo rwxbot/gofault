@@ -113,3 +113,6 @@ func TestMax(t *testing.T) {
 		t.Error("expected error for value 150")
 	}
 }
+
+func TestValidationErrors_Error(t *testing.T) {
+	errs := ValidationErrors{
