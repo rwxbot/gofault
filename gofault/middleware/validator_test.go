@@ -177,3 +177,5 @@ func TestMax(t *testing.T) {
 
 	err = r.Validate("field", 150)
 	if err == nil {
+		t.Error("expected error for value 150")
+	}
