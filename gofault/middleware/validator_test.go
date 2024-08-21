@@ -192,3 +192,5 @@ func TestValidationErrors_Error(t *testing.T) {
 		t.Errorf("unexpected error string: %s", str)
 	}
 }
+
+func TestValidateRequest(t *testing.T) {
