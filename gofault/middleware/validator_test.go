@@ -194,3 +194,5 @@ func TestValidationErrors_Error(t *testing.T) {
 }
 
 func TestValidateRequest(t *testing.T) {
+	req := httptest.NewRequest("GET", "/test?name=John&age=25", nil)
+	ctx := &core.Ctx{Request: req, Params: make(map[string]string)}
