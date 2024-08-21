@@ -188,3 +188,6 @@ func TestValidationErrors_Error(t *testing.T) {
 	}
 
 	str := errs.Error()
+	if str != "name: is required; email: invalid format" {
+		t.Errorf("unexpected error string: %s", str)
+	}
