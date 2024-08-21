@@ -201,3 +201,5 @@ func TestValidateRequest(t *testing.T) {
 		"name": {&Required{}, &MinLength{Length: 2}},
 		"age":  {&Required{}},
 	}
+
+	err := ValidateRequest(ctx, rules)
