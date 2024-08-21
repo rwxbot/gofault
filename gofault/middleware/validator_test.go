@@ -119,3 +119,5 @@ func TestValidationErrors_Error(t *testing.T) {
 		{Field: "name", Message: "is required"},
 		{Field: "email", Message: "invalid format"},
 	}
+
+	str := errs.Error()
