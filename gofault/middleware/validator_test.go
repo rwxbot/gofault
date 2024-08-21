@@ -198,3 +198,6 @@ func TestValidateRequest(t *testing.T) {
 	ctx := &core.Ctx{Request: req, Params: make(map[string]string)}
 
 	rules := Rules{
+		"name": {&Required{}, &MinLength{Length: 2}},
+		"age":  {&Required{}},
+	}
