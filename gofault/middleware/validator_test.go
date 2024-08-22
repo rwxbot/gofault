@@ -206,3 +206,4 @@ func TestValidateRequest(t *testing.T) {
 	if err != nil {
 		t.Errorf("expected no error, got %v", err)
 	}
+}
