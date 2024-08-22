@@ -214,3 +214,6 @@ func TestValidateRequest_MissingField(t *testing.T) {
 
 	rules := Rules{
 		"name": {&Required{}},
+	}
+
+	err := ValidateRequest(ctx, rules)
