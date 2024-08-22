@@ -211,3 +211,6 @@ func TestValidateRequest(t *testing.T) {
 func TestValidateRequest_MissingField(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test", nil)
 	ctx := &core.Ctx{Request: req, Params: make(map[string]string)}
+
+	rules := Rules{
+		"name": {&Required{}},
