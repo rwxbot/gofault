@@ -138,3 +138,4 @@ func TestValidateRequest(t *testing.T) {
 	err := ValidateRequest(ctx, rules)
 	if err != nil {
 		t.Errorf("expected no error, got %v", err)
+	}
