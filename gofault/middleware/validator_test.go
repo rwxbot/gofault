@@ -140,3 +140,7 @@ func TestValidateRequest(t *testing.T) {
 		t.Errorf("expected no error, got %v", err)
 	}
 }
+
+func TestValidateRequest_MissingField(t *testing.T) {
+	req := httptest.NewRequest("GET", "/test", nil)
+	ctx := &core.Ctx{Request: req, Params: make(map[string]string)}
