@@ -224,3 +224,6 @@ func TestValidateRequest_MissingField(t *testing.T) {
 		t.Error("expected HTTPException")
 	}
 }
+
+func TestValidateRequest_InvalidEmail(t *testing.T) {
+	req := httptest.NewRequest("GET", "/test?email=not-an-email", nil)
