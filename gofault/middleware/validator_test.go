@@ -154,3 +154,6 @@ func TestValidateRequest_MissingField(t *testing.T) {
 		t.Error("expected error for missing required field")
 	}
 	if _, ok := err.(exception.HTTPException); !ok {
+		t.Error("expected HTTPException")
+	}
+}
