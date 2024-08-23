@@ -228,3 +228,5 @@ func TestValidateRequest_MissingField(t *testing.T) {
 func TestValidateRequest_InvalidEmail(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test?email=not-an-email", nil)
 	ctx := &core.Ctx{Request: req, Params: make(map[string]string)}
+
+	rules := Rules{
