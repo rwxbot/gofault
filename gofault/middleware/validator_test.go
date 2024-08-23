@@ -152,3 +152,4 @@ func TestValidateRequest_MissingField(t *testing.T) {
 	err := ValidateRequest(ctx, rules)
 	if err == nil {
 		t.Error("expected error for missing required field")
+	}
