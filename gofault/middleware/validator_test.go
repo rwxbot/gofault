@@ -163,3 +163,5 @@ func TestValidateRequest_InvalidEmail(t *testing.T) {
 	ctx := &core.Ctx{Request: req, Params: make(map[string]string)}
 
 	rules := Rules{
+		"email": {&Required{}, &Email{}},
+	}
