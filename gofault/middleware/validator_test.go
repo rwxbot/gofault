@@ -236,3 +236,4 @@ func TestValidateRequest_InvalidEmail(t *testing.T) {
 	err := ValidateRequest(ctx, rules)
 	if err == nil {
 		t.Error("expected error for invalid email")
+	}
