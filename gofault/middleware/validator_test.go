@@ -165,3 +165,5 @@ func TestValidateRequest_InvalidEmail(t *testing.T) {
 	rules := Rules{
 		"email": {&Required{}, &Email{}},
 	}
+
+	err := ValidateRequest(ctx, rules)
