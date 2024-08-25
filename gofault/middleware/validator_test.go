@@ -87,72 +87,6 @@ func TestEmail(t *testing.T) {
 	}
 }
 
-// Path/query parameters always arrive as strings; Min must parse them rather
-// than silently skipping (the old `case string: // Skip` made every rule a no-op).
-func TestMin_StringParam(t *testing.T) {
-	r := &Min{Value: 10}
-	if err := r.Validate("age", "5"); err == nil {
-		t.Error("string value below minimum should fail validation")
-	}
-	if err := r.Validate("age", "15"); err != nil {
-		t.Errorf("string value above minimum should pass, got %v", err)
-	}
-	if err := r.Validate("age", "abc"); err == nil {
-		t.Error("non-numeric string should fail validation, not pass silently")
-	}
-}
-
-func TestMax_StringParam(t *testing.T) {
-	r := &Max{Value: 100}
-	if err := r.Validate("page", "150"); err == nil {
-		t.Error("string value above maximum should fail validation")
-	}
-	if err := r.Validate("page", "50"); err != nil {
-		t.Errorf("string value below maximum should pass, got %v", err)
-	}
-	if err := r.Validate("page", "xyz"); err == nil {
-		t.Error("non-numeric string should fail validation, not pass silently")
-	}
-}
-
-// A bad pattern must not panic the request path (MustCompile used to run
-// inside Validate), and it must fail closed rather than pass everything.
-func TestRegex_InvalidPatternFailsClosed(t *testing.T) {
-	r := &Regex{Pattern: "([unclosed"}
-	err := r.Validate("code", "anything")
-	if err == nil {
-		t.Fatal("invalid pattern should produce a validation error, not a pass")
-	}
-	// And it must not panic even when hammered concurrently.
-	done := make(chan struct{})
-	go func() {
-		defer close(done)
-		for i := 0; i < 20; i++ {
-			_ = r.Validate("code", "x")
-		}
-	}()
-	for i := 0; i < 20; i++ {
-		_ = r.Validate("code", "x")
-	}
-	<-done
-}
-
-// Concurrent first-use of a valid pattern must not race on the lazy compile.
-func TestRegex_ConcurrentCompile(t *testing.T) {
-	r := &Regex{Pattern: `^\d{3}$`}
-	var wg sync.WaitGroup
-	for i := 0; i < 10; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if err := r.Validate("code", "123"); err != nil {
-				t.Errorf("valid value rejected: %v", err)
-			}
-		}()
-	}
-	wg.Wait()
-}
-
 func TestMin(t *testing.T) {
 	r := &Min{Value: 10}
 
@@ -237,3 +171,70 @@ func TestValidateRequest_InvalidEmail(t *testing.T) {
 	if err == nil {
 		t.Error("expected error for invalid email")
 	}
+}
+
+// Path/query parameters always arrive as strings; Min must parse them rather
+// than silently skipping (the old `case string: // Skip` made every rule a no-op).
+func TestMin_StringParam(t *testing.T) {
+	r := &Min{Value: 10}
+	if err := r.Validate("age", "5"); err == nil {
+		t.Error("string value below minimum should fail validation")
+	}
+	if err := r.Validate("age", "15"); err != nil {
+		t.Errorf("string value above minimum should pass, got %v", err)
+	}
+	if err := r.Validate("age", "abc"); err == nil {
+		t.Error("non-numeric string should fail validation, not pass silently")
+	}
+}
+
+func TestMax_StringParam(t *testing.T) {
+	r := &Max{Value: 100}
+	if err := r.Validate("page", "150"); err == nil {
+		t.Error("string value above maximum should fail validation")
+	}
+	if err := r.Validate("page", "50"); err != nil {
+		t.Errorf("string value below maximum should pass, got %v", err)
+	}
+	if err := r.Validate("page", "xyz"); err == nil {
+		t.Error("non-numeric string should fail validation, not pass silently")
+	}
+}
+
+// A bad pattern must not panic the request path (MustCompile used to run
+// inside Validate), and it must fail closed rather than pass everything.
+func TestRegex_InvalidPatternFailsClosed(t *testing.T) {
+	r := &Regex{Pattern: "([unclosed"}
+	err := r.Validate("code", "anything")
+	if err == nil {
+		t.Fatal("invalid pattern should produce a validation error, not a pass")
+	}
+	// And it must not panic even when hammered concurrently.
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		for i := 0; i < 20; i++ {
+			_ = r.Validate("code", "x")
+		}
+	}()
+	for i := 0; i < 20; i++ {
+		_ = r.Validate("code", "x")
+	}
+	<-done
+}
+
+// Concurrent first-use of a valid pattern must not race on the lazy compile.
+func TestRegex_ConcurrentCompile(t *testing.T) {
+	r := &Regex{Pattern: `^\d{3}$`}
+	var wg sync.WaitGroup
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			if err := r.Validate("code", "123"); err != nil {
+				t.Errorf("valid value rejected: %v", err)
+			}
+		}()
+	}
+	wg.Wait()
+}
