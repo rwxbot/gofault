@@ -170,3 +170,4 @@ func TestValidateRequest_InvalidEmail(t *testing.T) {
 	if err == nil {
 		t.Error("expected error for invalid email")
 	}
+}
