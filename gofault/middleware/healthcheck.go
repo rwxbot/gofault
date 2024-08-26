@@ -7,3 +7,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// HealthStatus represents the health status of a component.
