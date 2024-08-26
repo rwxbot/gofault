@@ -11,3 +11,4 @@ import (
 )
 
 // HealthStatus represents the health status of a component.
+type HealthStatus string
