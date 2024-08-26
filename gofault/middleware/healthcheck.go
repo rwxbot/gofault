@@ -15,3 +15,5 @@ const (
 	HealthStatusUp   HealthStatus = "up"
 	HealthStatusDown HealthStatus = "down"
 )
+
+// HealthCheckResponse represents the health check response.
