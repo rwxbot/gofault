@@ -26,3 +26,6 @@ type HealthCheckResponse struct {
 }
 
 // HealthCheck represents a single health check.
+type HealthCheck struct {
+	Status  HealthStatus `json:"status"`
+	Message string       `json:"message,omitempty"`
