@@ -17,3 +17,6 @@ const (
 )
 
 // HealthCheckResponse represents the health check response.
+type HealthCheckResponse struct {
+	Status    HealthStatus           `json:"status"`
+	Timestamp string                 `json:"timestamp"`
