@@ -24,3 +24,5 @@ type HealthCheckResponse struct {
 	Timestamp string                 `json:"timestamp"`
 	Checks    map[string]HealthCheck `json:"checks,omitempty"`
 }
+
+// HealthCheck represents a single health check.
