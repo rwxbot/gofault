@@ -27,3 +27,5 @@ type HealthCheckResponse struct {
 type HealthCheck struct {
 	Status  HealthStatus `json:"status"`
 	Message string       `json:"message,omitempty"`
+	Latency string       `json:"latency,omitempty"`
+}
