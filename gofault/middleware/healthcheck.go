@@ -38,3 +38,5 @@ type HealthCheckConfig struct {
 	// Path is the URL path for the health check endpoint.
 	Path string
 	// Checks is a map of health checkers.
+	Checks map[string]HealthChecker
+	// IncludeTimestamp controls whether to include timestamp in response.
