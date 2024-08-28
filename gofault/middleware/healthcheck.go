@@ -31,3 +31,5 @@ type HealthCheck struct {
 	Message string       `json:"message,omitempty"`
 	Latency string       `json:"latency,omitempty"`
 }
+
+// HealthChecker is a function that performs a health check.
