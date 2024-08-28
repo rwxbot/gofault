@@ -37,3 +37,4 @@ type HealthChecker func() HealthCheck
 type HealthCheckConfig struct {
 	// Path is the URL path for the health check endpoint.
 	Path string
+	// Checks is a map of health checkers.
