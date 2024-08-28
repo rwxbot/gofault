@@ -40,3 +40,4 @@ type HealthCheckConfig struct {
 	// Checks is a map of health checkers.
 	Checks map[string]HealthChecker
 	// IncludeTimestamp controls whether to include timestamp in response.
+	IncludeTimestamp bool
