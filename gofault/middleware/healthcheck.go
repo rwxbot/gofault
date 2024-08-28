@@ -34,3 +34,6 @@ type HealthCheck struct {
 type HealthChecker func() HealthCheck
 
 // HealthCheckConfig holds configuration for the health check middleware.
+type HealthCheckConfig struct {
+	// Path is the URL path for the health check endpoint.
+	Path string
