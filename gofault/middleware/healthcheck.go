@@ -33,3 +33,4 @@ type HealthCheck struct {
 }
 
 // HealthChecker is a function that performs a health check.
+type HealthChecker func() HealthCheck
