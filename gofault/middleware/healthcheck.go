@@ -48,3 +48,4 @@ type HealthCheckConfig struct {
 }
 
 // DefaultHealthCheckConfig returns a default health check configuration.
+func DefaultHealthCheckConfig() HealthCheckConfig {
