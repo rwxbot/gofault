@@ -50,3 +50,5 @@ func DefaultHealthCheckConfig() HealthCheckConfig {
 	return HealthCheckConfig{
 		Path:             "/health",
 		Checks:           make(map[string]HealthChecker),
+		IncludeTimestamp: true,
+		IncludeChecks:    true,
