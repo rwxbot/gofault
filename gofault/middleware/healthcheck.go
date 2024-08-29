@@ -46,3 +46,5 @@ type HealthCheckConfig struct {
 	// IncludeChecks controls whether to include individual check details.
 	IncludeChecks bool
 }
+
+// DefaultHealthCheckConfig returns a default health check configuration.
