@@ -43,3 +43,4 @@ type HealthCheckConfig struct {
 	IncludeTimestamp bool
 	// IncludeChecks controls whether to include individual check details.
 	IncludeChecks bool
+}
