@@ -98,3 +98,5 @@ func DefaultHealthCheckConfig() *HealthCheckConfig {
 		Checks:           make(map[string]HealthChecker),
 		IncludeTimestamp: true,
 		IncludeChecks:    true,
+	}
+}
