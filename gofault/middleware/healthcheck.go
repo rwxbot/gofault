@@ -56,3 +56,5 @@ func DefaultHealthCheckConfig() HealthCheckConfig {
 }
 
 // HealthCheckMiddleware creates a health check endpoint.
+func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
+	if config.Path == "" {
