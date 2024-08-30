@@ -54,3 +54,5 @@ func DefaultHealthCheckConfig() HealthCheckConfig {
 		IncludeChecks:    true,
 	}
 }
+
+// HealthCheckMiddleware creates a health check endpoint.
