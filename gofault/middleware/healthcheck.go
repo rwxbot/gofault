@@ -106,3 +106,6 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 	if config.Path == "" {
 		config.Path = "/health"
 	}
+	if config.Checks == nil {
+		config.Checks = make(map[string]HealthChecker)
+	}
