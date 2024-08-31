@@ -63,3 +63,7 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 	if config.Checks == nil {
 		config.Checks = make(map[string]HealthChecker)
 	}
+
+	return func(ctx *core.Ctx) error {
+		response := HealthCheckResponse{
+			Status: HealthStatusUp,
