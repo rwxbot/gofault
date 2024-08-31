@@ -68,3 +68,7 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 		response := HealthCheckResponse{
 			Status: HealthStatusUp,
 		}
+
+		if config.IncludeTimestamp {
+			response.Timestamp = time.Now().UTC().Format(time.RFC3339)
+		}
