@@ -67,3 +67,4 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 	return func(ctx *core.Ctx) error {
 		response := HealthCheckResponse{
 			Status: HealthStatusUp,
+		}
