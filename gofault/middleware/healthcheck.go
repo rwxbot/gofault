@@ -72,3 +72,5 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 		if config.IncludeTimestamp {
 			response.Timestamp = time.Now().UTC().Format(time.RFC3339)
 		}
+
+		if config.IncludeChecks && len(config.Checks) > 0 {
