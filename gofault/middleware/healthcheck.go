@@ -101,11 +101,15 @@ func DefaultHealthCheckConfig() *HealthCheckConfig {
 	}
 }
 
-// HealthCheckMiddleware creates a health check endpoint.
-func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
+// HealthCheckHandler creates the health check endpoint handler.
+//
+// It returns a handler rather than a middleware: the health endpoint is a
+// terminal route, so RegisterHealthCheck wires the path for you.
+func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 	if config.Path == "" {
 		config.Path = "/health"
 	}
-	if config.Checks == nil {
-		config.Checks = make(map[string]HealthChecker)
-	}
+
+	return func(ctx *core.Ctx) error {
+		response := HealthCheckResponse{
+			Status: HealthStatusUp,
