@@ -79,3 +79,6 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 				result := check()
 				response.Checks[name] = result
 				if result.Status == HealthStatusDown {
+					response.Status = HealthStatusDown
+				}
+			}
