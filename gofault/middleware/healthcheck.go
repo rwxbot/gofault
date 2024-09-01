@@ -82,3 +82,4 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 					response.Status = HealthStatusDown
 				}
 			}
+		}
