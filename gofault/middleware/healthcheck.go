@@ -124,3 +124,4 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 			for name, check := range config.Checks {
 				result := check()
 				response.Checks[name] = result
+				if result.Status == HealthStatusDown {
