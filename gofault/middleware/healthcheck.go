@@ -122,3 +122,5 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 		if config.IncludeChecks && len(config.Checks) > 0 {
 			response.Checks = make(map[string]HealthCheck)
 			for name, check := range config.Checks {
+				result := check()
+				response.Checks[name] = result
