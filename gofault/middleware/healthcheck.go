@@ -119,9 +119,15 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 			response.Timestamp = time.Now().UTC().Format(time.RFC3339)
 		}
 
-		if config.IncludeChecks && len(config.Checks) > 0 {
-			response.Checks = make(map[string]HealthCheck)
-			for name, check := range config.Checks {
-				result := check()
+		checks := config.snapshot()
+		if config.IncludeChecks && len(checks) > 0 {
+			response.Checks = make(map[string]HealthCheck, len(checks))
+			for name, check := range checks {
+				// A panicking checker must not take down the health endpoint;
+				// report it as down and keep the other results.
+				result := runChecker(check)
 				response.Checks[name] = result
 				if result.Status == HealthStatusDown {
+					response.Status = HealthStatusDown
+				}
+			}
