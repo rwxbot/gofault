@@ -131,3 +131,4 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 					response.Status = HealthStatusDown
 				}
 			}
+		}
