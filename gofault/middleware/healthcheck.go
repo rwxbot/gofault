@@ -139,3 +139,4 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 		}
 
 		ctx.Response.Header().Set("Content-Type", "application/json")
+		ctx.Response.WriteHeader(statusCode)
