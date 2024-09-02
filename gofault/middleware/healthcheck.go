@@ -132,3 +132,6 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 				}
 			}
 		}
+
+		statusCode := http.StatusOK
+		if response.Status == HealthStatusDown {
