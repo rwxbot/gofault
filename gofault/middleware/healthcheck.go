@@ -136,3 +136,6 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 		statusCode := http.StatusOK
 		if response.Status == HealthStatusDown {
 			statusCode = http.StatusServiceUnavailable
+		}
+
+		ctx.Response.Header().Set("Content-Type", "application/json")
