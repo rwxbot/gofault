@@ -101,3 +101,6 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 func (c *HealthCheckConfig) RegisterHealthCheck(name string, checker HealthChecker) {
 	if c.Checks == nil {
 		c.Checks = make(map[string]HealthChecker)
+	}
+	c.Checks[name] = checker
+}
