@@ -144,3 +144,4 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 		encoder := json.NewEncoder(ctx.Response)
 		return encoder.Encode(response)
 	}
+}
