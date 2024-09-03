@@ -96,3 +96,5 @@ func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
 		return encoder.Encode(response)
 	}
 }
+
+// RegisterHealthCheck registers a new health check.
