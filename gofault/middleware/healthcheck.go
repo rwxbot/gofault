@@ -147,3 +147,6 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 }
 
 // RegisterHealthCheck registers a new health check.
+func (c *HealthCheckConfig) RegisterHealthCheck(name string, checker HealthChecker) {
+	if c.Checks == nil {
+		c.Checks = make(map[string]HealthChecker)
