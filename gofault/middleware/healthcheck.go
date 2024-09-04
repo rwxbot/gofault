@@ -106,3 +106,5 @@ func (c *HealthCheckConfig) RegisterHealthCheck(name string, checker HealthCheck
 }
 
 // NewHealthCheckResponse creates a basic health check response.
+func NewHealthCheckResponse(status HealthStatus, message string) HealthCheck {
+	return HealthCheck{
