@@ -111,3 +111,4 @@ func NewHealthCheckResponse(status HealthStatus, message string) HealthCheck {
 		Status:  status,
 		Message: message,
 	}
+}
