@@ -153,3 +153,5 @@ func (c *HealthCheckConfig) RegisterHealthCheck(name string, checker HealthCheck
 	}
 	c.Checks[name] = checker
 }
+
+// NewHealthCheckResponse creates a basic health check response.
