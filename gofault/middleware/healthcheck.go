@@ -141,19 +141,62 @@ func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 		ctx.Response.Header().Set("Content-Type", "application/json")
 		ctx.Response.WriteHeader(statusCode)
 
-		encoder := json.NewEncoder(ctx.Response)
-		return encoder.Encode(response)
+		return json.NewEncoder(ctx.Response).Encode(response)
 	}
 }
 
-// RegisterHealthCheck registers a new health check.
-func (c *HealthCheckConfig) RegisterHealthCheck(name string, checker HealthChecker) {
-	if c.Checks == nil {
-		c.Checks = make(map[string]HealthChecker)
+// runChecker invokes a checker, converting a panic into a down result.
+func runChecker(check HealthChecker) (result HealthCheck) {
+	defer func() {
+		if r := recover(); r != nil {
+			result = HealthCheck{
+				Status:  HealthStatusDown,
+				Message: fmt.Sprintf("health check panicked: %v", r),
+			}
+		}
+	}()
+	if check == nil {
+		return HealthCheck{
+			Status:  HealthStatusDown,
+			Message: "health check is nil",
+		}
 	}
-	c.Checks[name] = checker
+	return check()
 }
 
-// NewHealthCheckResponse creates a basic health check response.
+// RegisterHealthCheckEndpoint registers the health route on the router and
+// returns the handler.
+func RegisterHealthCheckEndpoint(rtr HealthCheckRegistrar, config *HealthCheckConfig) core.Handler {
+	handler := HealthCheckHandler(config)
+	if handler == nil || rtr == nil {
+		return handler
+	}
+	if config.Path == "" {
+		config.Path = "/health"
+	}
+	rtr.Handle(http.MethodGet, config.Path, handler)
+	return handler
+}
+
+// HealthCheckRegistrar is the subset of the router that
+// RegisterHealthCheckEndpoint needs.
+type HealthCheckRegistrar interface {
+	Handle(method, path string, handler core.Handler, mw ...core.MiddlewareFunc)
+}
+
+// HealthCheckMiddleware creates a health check endpoint.
+//
+// Deprecated: it returns a core.Handler, not a middleware. Use
+// HealthCheckHandler, or RegisterHealthCheckEndpoint to wire the route.
+func HealthCheckMiddleware(config *HealthCheckConfig) core.Handler {
+	return HealthCheckHandler(config)
+}
+
+// NewHealthCheckResponse creates a health check result.
+//
+// The name says Response but it has always returned a HealthCheck; it is kept
+// as-is so existing callers compile. Use HealthCheckResponse for the envelope.
 func NewHealthCheckResponse(status HealthStatus, message string) HealthCheck {
 	return HealthCheck{
+		Status:  status,
+		Message: message,
