@@ -116,3 +116,5 @@ func NewHealthCheckResponse(status HealthStatus, message string) HealthCheck {
 // LatencyHealthCheck creates a health check that measures latency.
 func LatencyHealthCheck(name string, fn func() error) HealthChecker {
 	return func() HealthCheck {
+		start := time.Now()
+		err := fn()
