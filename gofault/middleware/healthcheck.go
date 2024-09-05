@@ -112,3 +112,5 @@ func NewHealthCheckResponse(status HealthStatus, message string) HealthCheck {
 		Message: message,
 	}
 }
+
+// LatencyHealthCheck creates a health check that measures latency.
