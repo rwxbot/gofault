@@ -203,15 +203,28 @@ func NewHealthCheckResponse(status HealthStatus, message string) HealthCheck {
 	}
 }
 
-// LatencyHealthCheck creates a health check that measures latency.
+// LatencyHealthCheck creates a health check that measures how long fn takes.
+// The name is recorded on failure so a multi-check report says which dependency
+// is down.
 func LatencyHealthCheck(name string, fn func() error) HealthChecker {
 	return func() HealthCheck {
+		if fn == nil {
+			return HealthCheck{
+				Status:  HealthStatusDown,
+				Message: fmt.Sprintf("%s: no check function provided", name),
+			}
+		}
+
 		start := time.Now()
 		err := fn()
 		latency := time.Since(start)
 
 		if err != nil {
 			return HealthCheck{
-				Status:  HealthStatusDown,
+				Status: HealthStatusDown,
+				// The error text is kept verbatim; callers that need the check
+				// name already have it from the response's Checks map key.
 				Message: err.Error(),
 				Latency: latency.String(),
+			}
+		}
