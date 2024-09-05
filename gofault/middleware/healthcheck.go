@@ -212,3 +212,6 @@ func LatencyHealthCheck(name string, fn func() error) HealthChecker {
 
 		if err != nil {
 			return HealthCheck{
+				Status:  HealthStatusDown,
+				Message: err.Error(),
+				Latency: latency.String(),
