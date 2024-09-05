@@ -118,3 +118,4 @@ func LatencyHealthCheck(name string, fn func() error) HealthChecker {
 	return func() HealthCheck {
 		start := time.Now()
 		err := fn()
+		latency := time.Since(start)
