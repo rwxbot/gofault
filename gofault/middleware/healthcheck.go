@@ -132,3 +132,4 @@ func LatencyHealthCheck(name string, fn func() error) HealthChecker {
 			Status:  HealthStatusUp,
 			Latency: latency.String(),
 		}
+	}
