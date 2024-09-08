@@ -13,3 +13,4 @@ func TestDefaultHealthCheckConfig(t *testing.T) {
 	cfg := DefaultHealthCheckConfig()
 
 	if cfg.Path != "/health" {
+		t.Errorf("Path = %s, want /health", cfg.Path)
