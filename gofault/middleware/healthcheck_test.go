@@ -14,3 +14,5 @@ func TestDefaultHealthCheckConfig(t *testing.T) {
 
 	if cfg.Path != "/health" {
 		t.Errorf("Path = %s, want /health", cfg.Path)
+	}
+	if !cfg.IncludeTimestamp {
