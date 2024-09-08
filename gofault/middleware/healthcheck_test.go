@@ -10,3 +10,6 @@ import (
 )
 
 func TestDefaultHealthCheckConfig(t *testing.T) {
+	cfg := DefaultHealthCheckConfig()
+
+	if cfg.Path != "/health" {
