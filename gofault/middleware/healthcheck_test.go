@@ -21,3 +21,4 @@ func TestDefaultHealthCheckConfig(t *testing.T) {
 	if !cfg.IncludeChecks {
 		t.Error("IncludeChecks should be true")
 	}
+}
