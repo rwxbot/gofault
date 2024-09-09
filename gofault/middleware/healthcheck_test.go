@@ -18,3 +18,4 @@ func TestDefaultHealthCheckConfig(t *testing.T) {
 	if !cfg.IncludeTimestamp {
 		t.Error("IncludeTimestamp should be true")
 	}
+	if !cfg.IncludeChecks {
