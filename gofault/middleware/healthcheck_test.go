@@ -22,3 +22,6 @@ func TestDefaultHealthCheckConfig(t *testing.T) {
 		t.Error("IncludeChecks should be true")
 	}
 }
+
+func TestHealthCheckMiddleware_Up(t *testing.T) {
+	cfg := DefaultHealthCheckConfig()
