@@ -25,3 +25,6 @@ func TestDefaultHealthCheckConfig(t *testing.T) {
 
 func TestHealthCheckMiddleware_Up(t *testing.T) {
 	cfg := DefaultHealthCheckConfig()
+	cfg.Checks = map[string]HealthChecker{
+		"db": func() HealthCheck {
+			return HealthCheck{Status: HealthStatusUp}
