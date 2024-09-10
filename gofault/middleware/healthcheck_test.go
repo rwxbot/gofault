@@ -30,3 +30,5 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 			return HealthCheck{Status: HealthStatusUp}
 		},
 	}
+
+	handler := HealthCheckMiddleware(cfg)
