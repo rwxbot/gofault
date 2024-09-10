@@ -32,3 +32,6 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 	}
 
 	handler := HealthCheckMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/health", nil)
+	rec := httptest.NewRecorder()
