@@ -28,3 +28,5 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 	cfg.Checks = map[string]HealthChecker{
 		"db": func() HealthCheck {
 			return HealthCheck{Status: HealthStatusUp}
+		},
+	}
