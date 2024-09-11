@@ -38,3 +38,6 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 	ctx := &core.Ctx{Request: req, Response: rec}
 
 	handler(ctx)
+
+	if rec.Code != http.StatusOK {
+		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)
