@@ -44,3 +44,4 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 	}
 
 	var response HealthCheckResponse
+	if err := json.Unmarshal(rec.Body.Bytes(), &response); err != nil {
