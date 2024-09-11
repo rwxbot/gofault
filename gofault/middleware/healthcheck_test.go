@@ -45,3 +45,5 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 
 	var response HealthCheckResponse
 	if err := json.Unmarshal(rec.Body.Bytes(), &response); err != nil {
+		t.Fatalf("failed to unmarshal response: %v", err)
+	}
