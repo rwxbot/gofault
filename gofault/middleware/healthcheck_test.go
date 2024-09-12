@@ -50,3 +50,5 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 
 	if response.Status != HealthStatusUp {
 		t.Errorf("status = %s, want %s", response.Status, HealthStatusUp)
+	}
+}
