@@ -52,3 +52,7 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 		t.Errorf("status = %s, want %s", response.Status, HealthStatusUp)
 	}
 }
+
+func TestHealthCheckMiddleware_Down(t *testing.T) {
+	cfg := DefaultHealthCheckConfig()
+	cfg.Checks = map[string]HealthChecker{
