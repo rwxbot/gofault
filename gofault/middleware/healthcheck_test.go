@@ -60,3 +60,7 @@ func TestHealthCheckMiddleware_Down(t *testing.T) {
 			return HealthCheck{Status: HealthStatusDown, Message: "connection refused"}
 		},
 	}
+
+	handler := HealthCheckMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/health", nil)
