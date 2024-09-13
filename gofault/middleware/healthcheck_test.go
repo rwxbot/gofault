@@ -58,3 +58,5 @@ func TestHealthCheckMiddleware_Down(t *testing.T) {
 	cfg.Checks = map[string]HealthChecker{
 		"db": func() HealthCheck {
 			return HealthCheck{Status: HealthStatusDown, Message: "connection refused"}
+		},
+	}
