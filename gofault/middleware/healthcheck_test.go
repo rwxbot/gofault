@@ -77,3 +77,5 @@ func TestHealthCheckMiddleware_Down(t *testing.T) {
 func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
 	cfg := DefaultHealthCheckConfig()
 	cfg.IncludeChecks = false
+
+	handler := HealthCheckMiddleware(cfg)
