@@ -73,3 +73,7 @@ func TestHealthCheckMiddleware_Down(t *testing.T) {
 		t.Errorf("status code = %d, want %d", rec.Code, http.StatusServiceUnavailable)
 	}
 }
+
+func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
+	cfg := DefaultHealthCheckConfig()
+	cfg.IncludeChecks = false
