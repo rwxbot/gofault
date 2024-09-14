@@ -79,3 +79,5 @@ func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
 	cfg.IncludeChecks = false
 
 	handler := HealthCheckMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/health", nil)
