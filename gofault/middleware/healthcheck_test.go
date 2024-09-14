@@ -70,3 +70,6 @@ func TestHealthCheckMiddleware_Down(t *testing.T) {
 	handler(ctx)
 
 	if rec.Code != http.StatusServiceUnavailable {
+		t.Errorf("status code = %d, want %d", rec.Code, http.StatusServiceUnavailable)
+	}
+}
