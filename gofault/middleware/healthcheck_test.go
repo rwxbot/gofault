@@ -81,3 +81,5 @@ func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
 	handler := HealthCheckMiddleware(cfg)
 
 	req := httptest.NewRequest("GET", "/health", nil)
+	rec := httptest.NewRecorder()
+	ctx := &core.Ctx{Request: req, Response: rec}
