@@ -68,3 +68,5 @@ func TestHealthCheckMiddleware_Down(t *testing.T) {
 	ctx := &core.Ctx{Request: req, Response: rec}
 
 	handler(ctx)
+
+	if rec.Code != http.StatusServiceUnavailable {
