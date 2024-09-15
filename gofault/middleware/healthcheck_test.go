@@ -87,3 +87,4 @@ func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
 	handler(ctx)
 
 	if rec.Code != http.StatusOK {
+		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)
