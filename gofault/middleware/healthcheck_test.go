@@ -90,3 +90,6 @@ func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
 		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)
 	}
 }
+
+func TestHealthCheckConfig_RegisterHealthCheck(t *testing.T) {
+	cfg := DefaultHealthCheckConfig()
