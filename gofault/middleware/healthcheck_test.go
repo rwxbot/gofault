@@ -93,3 +93,6 @@ func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
 
 func TestHealthCheckConfig_RegisterHealthCheck(t *testing.T) {
 	cfg := DefaultHealthCheckConfig()
+
+	checker := func() HealthCheck {
+		return HealthCheck{Status: HealthStatusUp}
