@@ -98,3 +98,7 @@ func TestHealthCheckConfig_RegisterHealthCheck(t *testing.T) {
 		return HealthCheck{Status: HealthStatusUp}
 	}
 	cfg.RegisterHealthCheck("cache", checker)
+
+	if len(cfg.Checks) != 1 {
+		t.Errorf("Checks count = %d, want 1", len(cfg.Checks))
+	}
