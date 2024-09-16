@@ -96,3 +96,5 @@ func TestHealthCheckConfig_RegisterHealthCheck(t *testing.T) {
 
 	checker := func() HealthCheck {
 		return HealthCheck{Status: HealthStatusUp}
+	}
+	cfg.RegisterHealthCheck("cache", checker)
