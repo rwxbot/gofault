@@ -102,3 +102,4 @@ func TestHealthCheckConfig_RegisterHealthCheck(t *testing.T) {
 	if len(cfg.Checks) != 1 {
 		t.Errorf("Checks count = %d, want 1", len(cfg.Checks))
 	}
+}
