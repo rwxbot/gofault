@@ -107,3 +107,4 @@ func TestHealthCheckConfig_RegisterHealthCheck(t *testing.T) {
 func TestLatencyHealthCheck(t *testing.T) {
 	checker := LatencyHealthCheck("test", func() error {
 		return nil
+	})
