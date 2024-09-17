@@ -112,3 +112,4 @@ func TestLatencyHealthCheck(t *testing.T) {
 	result := checker()
 
 	if result.Status != HealthStatusUp {
+		t.Errorf("status = %s, want %s", result.Status, HealthStatusUp)
