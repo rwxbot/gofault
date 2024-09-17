@@ -115,3 +115,4 @@ func TestLatencyHealthCheck(t *testing.T) {
 		t.Errorf("status = %s, want %s", result.Status, HealthStatusUp)
 	}
 	if result.Latency == "" {
+		t.Error("latency should be set")
