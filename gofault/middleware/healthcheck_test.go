@@ -103,3 +103,5 @@ func TestHealthCheckConfig_RegisterHealthCheck(t *testing.T) {
 		t.Errorf("Checks count = %d, want 1", len(cfg.Checks))
 	}
 }
+
+func TestLatencyHealthCheck(t *testing.T) {
