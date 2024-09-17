@@ -110,3 +110,5 @@ func TestLatencyHealthCheck(t *testing.T) {
 	})
 
 	result := checker()
+
+	if result.Status != HealthStatusUp {
