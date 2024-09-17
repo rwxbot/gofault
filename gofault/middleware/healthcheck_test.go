@@ -108,3 +108,5 @@ func TestLatencyHealthCheck(t *testing.T) {
 	checker := LatencyHealthCheck("test", func() error {
 		return nil
 	})
+
+	result := checker()
