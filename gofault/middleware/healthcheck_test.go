@@ -122,3 +122,4 @@ func TestLatencyHealthCheck(t *testing.T) {
 func TestLatencyHealthCheck_Error(t *testing.T) {
 	checker := LatencyHealthCheck("test", func() error {
 		return &testError{"connection refused"}
+	})
