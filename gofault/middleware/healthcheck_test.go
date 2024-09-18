@@ -116,3 +116,4 @@ func TestLatencyHealthCheck(t *testing.T) {
 	}
 	if result.Latency == "" {
 		t.Error("latency should be set")
+	}
