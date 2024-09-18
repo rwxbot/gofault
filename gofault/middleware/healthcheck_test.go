@@ -118,3 +118,7 @@ func TestLatencyHealthCheck(t *testing.T) {
 		t.Error("latency should be set")
 	}
 }
+
+func TestLatencyHealthCheck_Error(t *testing.T) {
+	checker := LatencyHealthCheck("test", func() error {
+		return &testError{"connection refused"}
