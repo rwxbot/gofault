@@ -137,3 +137,6 @@ func TestLatencyHealthCheck_Error(t *testing.T) {
 type testError struct {
 	msg string
 }
+
+func (e *testError) Error() string {
+	return e.msg
