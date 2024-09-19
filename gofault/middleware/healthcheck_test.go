@@ -130,3 +130,5 @@ func TestLatencyHealthCheck_Error(t *testing.T) {
 		t.Errorf("status = %s, want %s", result.Status, HealthStatusDown)
 	}
 	if result.Message != "connection refused" {
+		t.Errorf("message = %s, want connection refused", result.Message)
+	}
