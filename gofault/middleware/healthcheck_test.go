@@ -133,3 +133,5 @@ func TestLatencyHealthCheck_Error(t *testing.T) {
 		t.Errorf("message = %s, want connection refused", result.Message)
 	}
 }
+
+type testError struct {
