@@ -147,3 +147,6 @@ func TestNewHealthCheckResponse(t *testing.T) {
 
 	if response.Status != HealthStatusUp {
 		t.Errorf("status = %s, want %s", response.Status, HealthStatusUp)
+	}
+	if response.Message != "ok" {
+		t.Errorf("message = %s, want ok", response.Message)
