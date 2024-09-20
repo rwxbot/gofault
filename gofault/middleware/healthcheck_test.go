@@ -144,3 +144,6 @@ func (e *testError) Error() string {
 
 func TestNewHealthCheckResponse(t *testing.T) {
 	response := NewHealthCheckResponse(HealthStatusUp, "ok")
+
+	if response.Status != HealthStatusUp {
+		t.Errorf("status = %s, want %s", response.Status, HealthStatusUp)
