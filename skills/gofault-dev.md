@@ -15,3 +15,6 @@ go test ./...                          # 运行所有测试
 go build ./...                         # 确认可构建
 python3 tools/commit-gen.py --help    # 确认 commit-gen 可用
 ```
+
+### 3. 开发新版本
+```bash
