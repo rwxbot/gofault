@@ -7,3 +7,11 @@
 
 ### 1. 读取交接文档
 第一件事：读取 `memory/AGENTS.md`，了解当前进度、红线约束、目录结构。
+
+### 2. 本地验证
+```bash
+cd /Users/Wang/Code/webfault-lib/gofault-all
+go test ./...                          # 运行所有测试
+go build ./...                         # 确认可构建
+python3 tools/commit-gen.py --help    # 确认 commit-gen 可用
+```
