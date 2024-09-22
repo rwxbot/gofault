@@ -46,3 +46,10 @@ curl http://localhost:9090/hello/
 - [ ] 可运行示例
 - [ ] 架构图（mermaid）
 - [ ] 版本 README
+
+### 6. 零 Node 生态红线
+每次提交前强制检查：
+```bash
+grep -rE '@|require\(|module\.exports|main\.ts' gofault/ || echo "CLEAN"
+```
+如有违禁，立即修复。
