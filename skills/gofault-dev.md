@@ -24,3 +24,11 @@ python3 tools/commit-gen.py \
   --start-date YYYY-01-01 \
   --end-date YYYY-12-31 \
   --tag-date YYYY-12-31
+
+# 验证示例可运行
+cd gofault/examples/hello
+go run main.go &
+sleep 1
+curl http://localhost:9090/hello/greet/World
+curl http://localhost:9090/hello/
+```
