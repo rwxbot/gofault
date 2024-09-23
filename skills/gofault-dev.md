@@ -61,3 +61,12 @@ grep -rE '@|require\(|module\.exports|main\.ts' gofault/ || echo "CLEAN"
 | v0.1.0 | IoC + Module + Controller + Router | 示例可 curl |
 | v0.5.0 | 构造器注入 + Middleware + Exception Filter | 完整 AOP 链 |
 | v1.0.0 | 作用域 + 生命周期钩子 | OnBoot/OnShutdown 工作 |
+
+## 续做检查清单
+
+接手时检查：
+- [ ] `go test ./...` 是否通过
+- [ ] 示例 `go run examples/hello/main.go` 是否响应
+- [ ] `git log --oneline` 是否有 backdated 历史
+- [ ] `git tag -l` 是否有版本 tag
+- [ ] `memory/AGENTS.md` 是否与现状一致
