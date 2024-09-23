@@ -403,3 +403,8 @@ Available rules: `Required`, `Min`, `Max`, `MinLength`, `MaxLength`, `Regex`,
 ```go
 cfg := middleware.DefaultHealthCheckConfig()
 cfg.Path = "/healthz"
+cfg.RegisterHealthCheck("db", middleware.LatencyHealthCheck("db", db.Ping))
+
+probe := middleware.HealthCheckMiddleware(cfg)
+rtr.Handle("GET", cfg.Path, probe)
+```
