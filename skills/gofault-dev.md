@@ -53,3 +53,11 @@ curl http://localhost:9090/hello/
 grep -rE '@|require\(|module\.exports|main\.ts' gofault/ || echo "CLEAN"
 ```
 如有违禁，立即修复。
+
+## 版本里程碑
+
+| Tag | 目标 | 验收条件 |
+|-----|------|---------|
+| v0.1.0 | IoC + Module + Controller + Router | 示例可 curl |
+| v0.5.0 | 构造器注入 + Middleware + Exception Filter | 完整 AOP 链 |
+| v1.0.0 | 作用域 + 生命周期钩子 | OnBoot/OnShutdown 工作 |
