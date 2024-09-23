@@ -384,3 +384,12 @@ failure:
 
 ```go
 err := middleware.ValidateRequest(ctx, middleware.Rules{
+    "email": {middleware.Required(), middleware.Email()},
+    "age":   {middleware.Min(18), middleware.Max(120)},
+})
+if err != nil {
+    return exception.BadRequest(err.Error())
+}
+```
+
+Available rules: `Required`, `Min`, `Max`, `MinLength`, `MaxLength`, `Regex`,
