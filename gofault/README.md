@@ -373,3 +373,14 @@ for non-JSON endpoints:
 c.JSON(ctx.Response, http.StatusOK, user)
 c.Text(ctx.Response, http.StatusOK, "pong")
 ```
+
+
+## What's new in v1.5.0
+
+### Request validation
+
+`ValidateRequest` checks a set of named rules and returns an error listing every
+failure:
+
+```go
+err := middleware.ValidateRequest(ctx, middleware.Rules{
