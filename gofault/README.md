@@ -393,3 +393,13 @@ if err != nil {
 ```
 
 Available rules: `Required`, `Min`, `Max`, `MinLength`, `MaxLength`, `Regex`,
+`Email`.
+
+### Health checks
+
+`HealthCheckMiddleware` answers a probe path and reports each registered check.
+`LatencyHealthCheck` wraps any function and records how long it took:
+
+```go
+cfg := middleware.DefaultHealthCheckConfig()
+cfg.Path = "/healthz"
