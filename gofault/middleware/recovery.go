@@ -5,3 +5,5 @@ import (
 	"fmt"
 	"net/http"
 	"runtime/debug"
+
+	"github.com/gofault/gofault/core"
