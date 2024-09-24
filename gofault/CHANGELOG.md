@@ -32,3 +32,8 @@
 
 ### Added
 - Unified response encoding and error handling
+
+## [v1.5.0]
+
+### Added
+- Validator and HealthCheck middleware
