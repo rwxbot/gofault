@@ -8,3 +8,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// RecoveryConfig holds configuration for the recovery middleware.
