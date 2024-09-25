@@ -14,3 +14,4 @@ type RecoveryConfig struct {
 	// Enabled enables the recovery middleware.
 	Enabled bool
 	// StackTrace enables stack trace in error response (for debugging).
+	StackTrace bool
