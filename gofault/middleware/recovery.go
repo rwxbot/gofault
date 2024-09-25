@@ -15,3 +15,4 @@ type RecoveryConfig struct {
 	Enabled bool
 	// StackTrace enables stack trace in error response (for debugging).
 	StackTrace bool
+}
