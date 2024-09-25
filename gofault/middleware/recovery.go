@@ -10,3 +10,5 @@ import (
 )
 
 // RecoveryConfig holds configuration for the recovery middleware.
+type RecoveryConfig struct {
+	// Enabled enables the recovery middleware.
