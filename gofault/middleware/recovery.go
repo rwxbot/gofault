@@ -23,3 +23,4 @@ func DefaultRecoveryConfig() RecoveryConfig {
 		Enabled:    true,
 		StackTrace: false,
 	}
+}
