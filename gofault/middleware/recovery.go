@@ -16,3 +16,5 @@ type RecoveryConfig struct {
 	// StackTrace enables stack trace in error response (for debugging).
 	StackTrace bool
 }
+
+// DefaultRecoveryConfig returns a default recovery configuration.
