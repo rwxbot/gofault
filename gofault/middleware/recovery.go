@@ -19,3 +19,4 @@ type RecoveryConfig struct {
 
 // DefaultRecoveryConfig returns a default recovery configuration.
 func DefaultRecoveryConfig() RecoveryConfig {
+	return RecoveryConfig{
