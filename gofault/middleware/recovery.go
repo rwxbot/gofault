@@ -29,3 +29,4 @@ func DefaultRecoveryConfig() RecoveryConfig {
 func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
