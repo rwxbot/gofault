@@ -27,3 +27,5 @@ func DefaultRecoveryConfig() RecoveryConfig {
 
 // RecoveryMiddleware recovers from panics and returns a proper error response.
 func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
+	if !config.Enabled {
+		return nil
