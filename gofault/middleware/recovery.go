@@ -30,3 +30,6 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
+		defer func() {
