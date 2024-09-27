@@ -24,3 +24,5 @@ func DefaultRecoveryConfig() RecoveryConfig {
 		StackTrace: false,
 	}
 }
+
+// RecoveryMiddleware recovers from panics and returns a proper error response.
