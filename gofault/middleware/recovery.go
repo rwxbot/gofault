@@ -42,3 +42,6 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 					errMsg = val
 				default:
 					errMsg = fmt.Sprintf("panic: %v", val)
+				}
+
+				stackTrace := ""
