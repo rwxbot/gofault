@@ -33,3 +33,5 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 
 	return func(ctx *core.Ctx, next core.Handler) error {
 		defer func() {
+			if r := recover(); r != nil {
+				var errMsg string
