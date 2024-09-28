@@ -35,3 +35,6 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 		defer func() {
 			if r := recover(); r != nil {
 				var errMsg string
+				switch val := r.(type) {
+				case error:
+					errMsg = val.Error()
