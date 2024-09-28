@@ -38,3 +38,6 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 				switch val := r.(type) {
 				case error:
 					errMsg = val.Error()
+				case string:
+					errMsg = val
+				default:
