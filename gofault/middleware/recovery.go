@@ -53,3 +53,4 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 				ctx.Response.WriteHeader(http.StatusInternalServerError)
 
 				response := map[string]any{
+					"status":  "error",
