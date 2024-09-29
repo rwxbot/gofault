@@ -57,3 +57,5 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 					"message": errMsg,
 				}
 				if stackTrace != "" {
+					response["stack"] = stackTrace
+				}
