@@ -59,3 +59,5 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 				if stackTrace != "" {
 					response["stack"] = stackTrace
 				}
+
+				json.NewEncoder(ctx.Response).Encode(response)
