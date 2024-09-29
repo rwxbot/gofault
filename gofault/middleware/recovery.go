@@ -48,3 +48,5 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 				if config.StackTrace {
 					stackTrace = string(debug.Stack())
 				}
+
+				ctx.Response.Header().Set("Content-Type", "application/json")
