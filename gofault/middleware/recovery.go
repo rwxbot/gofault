@@ -50,3 +50,6 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 				}
 
 				ctx.Response.Header().Set("Content-Type", "application/json")
+				ctx.Response.WriteHeader(http.StatusInternalServerError)
+
+				response := map[string]any{
