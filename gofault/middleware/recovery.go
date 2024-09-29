@@ -47,3 +47,4 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 				stackTrace := ""
 				if config.StackTrace {
 					stackTrace = string(debug.Stack())
+				}
