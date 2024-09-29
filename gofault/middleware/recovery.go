@@ -54,3 +54,6 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 
 				response := map[string]any{
 					"status":  "error",
+					"message": errMsg,
+				}
+				if stackTrace != "" {
