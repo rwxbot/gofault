@@ -61,3 +61,5 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 				}
 
 				json.NewEncoder(ctx.Response).Encode(response)
+			}
+		}()
