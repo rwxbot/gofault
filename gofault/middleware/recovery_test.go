@@ -11,3 +11,6 @@ import (
 
 func TestDefaultRecoveryConfig(t *testing.T) {
 	config := DefaultRecoveryConfig()
+	if !config.Enabled {
+		t.Error("Expected Enabled to be true")
+	}
