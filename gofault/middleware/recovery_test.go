@@ -8,3 +8,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestDefaultRecoveryConfig(t *testing.T) {
