@@ -17,3 +17,4 @@ func TestDefaultRecoveryConfig(t *testing.T) {
 	if config.StackTrace {
 		t.Error("Expected StackTrace to be false")
 	}
+}
