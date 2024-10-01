@@ -5,3 +5,5 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/gofault/gofault/core"
