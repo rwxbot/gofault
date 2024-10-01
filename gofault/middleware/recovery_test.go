@@ -10,3 +10,4 @@ import (
 )
 
 func TestDefaultRecoveryConfig(t *testing.T) {
+	config := DefaultRecoveryConfig()
