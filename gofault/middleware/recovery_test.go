@@ -14,3 +14,6 @@ func TestDefaultRecoveryConfig(t *testing.T) {
 	if !config.Enabled {
 		t.Error("Expected Enabled to be true")
 	}
+	if config.StackTrace {
+		t.Error("Expected StackTrace to be false")
+	}
