@@ -24,3 +24,4 @@ func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		panic("test panic")
+	}
