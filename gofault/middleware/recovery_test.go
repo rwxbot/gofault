@@ -18,3 +18,6 @@ func TestDefaultRecoveryConfig(t *testing.T) {
 		t.Error("Expected StackTrace to be false")
 	}
 }
+
+func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
+	middleware := RecoveryMiddleware(DefaultRecoveryConfig())
