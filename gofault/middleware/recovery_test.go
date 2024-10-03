@@ -41,3 +41,6 @@ func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
 		t.Errorf("Expected body to contain 'test panic', got: %s", body)
 	}
 }
+
+func TestRecoveryMiddleware_NoPanic(t *testing.T) {
+	middleware := RecoveryMiddleware(DefaultRecoveryConfig())
