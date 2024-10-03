@@ -44,3 +44,5 @@ func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
 
 func TestRecoveryMiddleware_NoPanic(t *testing.T) {
 	middleware := RecoveryMiddleware(DefaultRecoveryConfig())
+
+	next := func(ctx *core.Ctx) error {
