@@ -33,3 +33,5 @@ func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
 	middleware(ctx, next)
 
 	if w.Code != http.StatusInternalServerError {
+		t.Errorf("Expected status %d, got %d", http.StatusInternalServerError, w.Code)
+	}
