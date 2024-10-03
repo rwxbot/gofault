@@ -35,3 +35,6 @@ func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
 	if w.Code != http.StatusInternalServerError {
 		t.Errorf("Expected status %d, got %d", http.StatusInternalServerError, w.Code)
 	}
+
+	body := w.Body.String()
+	if !strings.Contains(body, "test panic") {
