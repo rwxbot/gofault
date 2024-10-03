@@ -38,3 +38,4 @@ func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
 
 	body := w.Body.String()
 	if !strings.Contains(body, "test panic") {
+		t.Errorf("Expected body to contain 'test panic', got: %s", body)
