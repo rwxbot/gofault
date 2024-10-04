@@ -52,3 +52,5 @@ func TestRecoveryMiddleware_NoPanic(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodGet, "/ok", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
