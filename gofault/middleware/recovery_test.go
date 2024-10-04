@@ -50,3 +50,5 @@ func TestRecoveryMiddleware_NoPanic(t *testing.T) {
 		ctx.Response.Write([]byte(`{"status":"ok"}`))
 		return nil
 	}
+
+	req := httptest.NewRequest(http.MethodGet, "/ok", nil)
