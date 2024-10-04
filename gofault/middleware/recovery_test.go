@@ -49,3 +49,4 @@ func TestRecoveryMiddleware_NoPanic(t *testing.T) {
 		ctx.Response.WriteHeader(http.StatusOK)
 		ctx.Response.Write([]byte(`{"status":"ok"}`))
 		return nil
+	}
