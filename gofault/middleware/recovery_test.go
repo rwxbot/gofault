@@ -73,3 +73,4 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		panic("test panic with stack")
+	}
