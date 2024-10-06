@@ -70,3 +70,6 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 	config.StackTrace = true
 
 	middleware := RecoveryMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
+		panic("test panic with stack")
