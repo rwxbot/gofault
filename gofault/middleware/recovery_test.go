@@ -64,3 +64,5 @@ func TestRecoveryMiddleware_NoPanic(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
 	}
 }
+
+func TestRecoveryMiddleware_StackTrace(t *testing.T) {
