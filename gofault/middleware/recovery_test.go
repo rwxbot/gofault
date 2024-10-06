@@ -66,3 +66,5 @@ func TestRecoveryMiddleware_NoPanic(t *testing.T) {
 }
 
 func TestRecoveryMiddleware_StackTrace(t *testing.T) {
+	config := DefaultRecoveryConfig()
+	config.StackTrace = true
