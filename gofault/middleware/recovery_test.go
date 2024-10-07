@@ -77,3 +77,4 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 
 	req := httptest.NewRequest(http.MethodGet, "/panic", nil)
 	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
