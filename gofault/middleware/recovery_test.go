@@ -98,3 +98,5 @@ func TestRecoveryMiddleware_Disabled(t *testing.T) {
 	handler := RecoveryMiddleware(config)
 	if handler != nil {
 		t.Error("Expected nil handler when disabled")
+	}
+}
