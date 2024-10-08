@@ -93,3 +93,4 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 
 func TestRecoveryMiddleware_Disabled(t *testing.T) {
 	config := DefaultRecoveryConfig()
+	config.Enabled = false
