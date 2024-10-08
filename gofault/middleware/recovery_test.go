@@ -89,3 +89,4 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 	if !strings.Contains(body, "goroutine") {
 		t.Errorf("Expected body to contain stack trace, got: %s", body)
 	}
+}
