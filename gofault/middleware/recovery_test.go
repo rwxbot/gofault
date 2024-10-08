@@ -90,3 +90,6 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 		t.Errorf("Expected body to contain stack trace, got: %s", body)
 	}
 }
+
+func TestRecoveryMiddleware_Disabled(t *testing.T) {
+	config := DefaultRecoveryConfig()
