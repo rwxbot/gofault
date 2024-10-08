@@ -94,3 +94,7 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 func TestRecoveryMiddleware_Disabled(t *testing.T) {
 	config := DefaultRecoveryConfig()
 	config.Enabled = false
+
+	handler := RecoveryMiddleware(config)
+	if handler != nil {
+		t.Error("Expected nil handler when disabled")
