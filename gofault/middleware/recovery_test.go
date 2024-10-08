@@ -100,3 +100,6 @@ func TestRecoveryMiddleware_Disabled(t *testing.T) {
 		t.Error("Expected nil handler when disabled")
 	}
 }
+
+func TestRecoveryMiddleware_PanicWithError(t *testing.T) {
+	middleware := RecoveryMiddleware(DefaultRecoveryConfig())
