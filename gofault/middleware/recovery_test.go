@@ -109,3 +109,4 @@ func TestRecoveryMiddleware_PanicWithError(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodGet, "/panic-error", nil)
+	w := httptest.NewRecorder()
