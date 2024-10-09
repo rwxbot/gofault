@@ -103,3 +103,6 @@ func TestRecoveryMiddleware_Disabled(t *testing.T) {
 
 func TestRecoveryMiddleware_PanicWithError(t *testing.T) {
 	middleware := RecoveryMiddleware(DefaultRecoveryConfig())
+
+	next := func(ctx *core.Ctx) error {
+		panic(http.ErrAbortHandler)
