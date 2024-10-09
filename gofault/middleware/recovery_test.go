@@ -113,3 +113,5 @@ func TestRecoveryMiddleware_PanicWithError(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	if w.Code != http.StatusInternalServerError {
