@@ -106,3 +106,6 @@ func TestRecoveryMiddleware_PanicWithError(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		panic(http.ErrAbortHandler)
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/panic-error", nil)
