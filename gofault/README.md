@@ -408,3 +408,14 @@ cfg.RegisterHealthCheck("db", middleware.LatencyHealthCheck("db", db.Ping))
 probe := middleware.HealthCheckMiddleware(cfg)
 rtr.Handle("GET", cfg.Path, probe)
 ```
+
+
+## What's new in v1.6.0
+
+### Recovery
+
+`RecoveryMiddleware` turns a panic into a `500` response instead of dropping the
+connection. `StackTrace` adds the goroutine dump while debugging:
+
+```go
+mod.RegisterMiddleware(middleware.RecoveryMiddleware(
