@@ -419,3 +419,8 @@ connection. `StackTrace` adds the goroutine dump while debugging:
 
 ```go
 mod.RegisterMiddleware(middleware.RecoveryMiddleware(
+    middleware.RecoveryConfig{Enabled: true, StackTrace: false},
+))
+```
+
+Register it before the other middleware of the same module so it wraps them.
