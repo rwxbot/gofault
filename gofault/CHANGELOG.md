@@ -41,3 +41,4 @@
 ## [v1.6.0]
 
 ### Added
+- Recovery middleware with stack trace capture
