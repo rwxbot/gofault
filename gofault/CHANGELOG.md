@@ -37,3 +37,7 @@
 
 ### Added
 - Validator and HealthCheck middleware
+
+## [v1.6.0]
+
+### Added
