@@ -7,3 +7,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// CompressionConfig holds configuration for the compression middleware.
