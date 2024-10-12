@@ -21,3 +21,4 @@ type CompressionConfig struct {
 	Level int
 	// MinSize is the minimum response size to compress (bytes).
 	MinSize int
+}
