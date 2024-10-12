@@ -10,3 +10,4 @@ import (
 
 // CompressionConfig holds configuration for the compression middleware.
 type CompressionConfig struct {
+	// Enabled enables the compression middleware.
