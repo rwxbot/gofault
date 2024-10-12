@@ -16,3 +16,4 @@ type CompressionConfig struct {
 	Enabled bool
 	// Level is the gzip compression level (1-9, default 6).
 	Level int
+	// MinSize is the minimum response size to compress (bytes).
