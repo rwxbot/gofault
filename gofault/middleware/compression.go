@@ -22,3 +22,5 @@ type CompressionConfig struct {
 func DefaultCompressionConfig() CompressionConfig {
 	return CompressionConfig{
 		Enabled: true,
+		Level:   gzip.DefaultCompression,
+		MinSize: 1024, // 1KB minimum
