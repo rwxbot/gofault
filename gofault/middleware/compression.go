@@ -31,3 +31,5 @@ func DefaultCompressionConfig() CompressionConfig {
 		MinSize: 1024, // 1KB minimum
 	}
 }
+
+// gzipResponseWriter wraps http.ResponseWriter to compress output with gzip.
