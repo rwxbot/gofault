@@ -29,3 +29,5 @@ func DefaultCompressionConfig() CompressionConfig {
 		Enabled: true,
 		Level:   gzip.DefaultCompression,
 		MinSize: 1024, // 1KB minimum
+	}
+}
