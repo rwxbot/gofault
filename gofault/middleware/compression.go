@@ -24,3 +24,6 @@ type CompressionConfig struct {
 }
 
 // DefaultCompressionConfig returns a default compression configuration.
+func DefaultCompressionConfig() CompressionConfig {
+	return CompressionConfig{
+		Enabled: true,
