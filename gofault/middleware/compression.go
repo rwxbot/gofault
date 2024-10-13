@@ -17,3 +17,5 @@ type CompressionConfig struct {
 	// MinSize is the minimum response size to compress (bytes).
 	MinSize int
 }
+
+// DefaultCompressionConfig returns a default compression configuration.
