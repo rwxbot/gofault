@@ -44,3 +44,4 @@ func (w *gzipResponseWriter) Write(data []byte) (int, error) {
 
 func (w *gzipResponseWriter) WriteHeader(statusCode int) {
 	w.ResponseWriter.WriteHeader(statusCode)
+}
