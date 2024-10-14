@@ -36,3 +36,6 @@ type gzipResponseWriter struct {
 func (w *gzipResponseWriter) Write(data []byte) (int, error) {
 	return w.writer.Write(data)
 }
+
+func (w *gzipResponseWriter) WriteHeader(statusCode int) {
+	w.ResponseWriter.WriteHeader(statusCode)
