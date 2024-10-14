@@ -37,3 +37,7 @@ type gzipResponseWriter struct {
 	http.ResponseWriter
 	writer *gzip.Writer
 }
+
+func (w *gzipResponseWriter) Write(data []byte) (int, error) {
+	return w.writer.Write(data)
+}
