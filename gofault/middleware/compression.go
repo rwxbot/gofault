@@ -30,3 +30,5 @@ func DefaultCompressionConfig() CompressionConfig {
 // gzipResponseWriter wraps http.ResponseWriter to compress output with gzip.
 type gzipResponseWriter struct {
 	http.ResponseWriter
+	writer *gzip.Writer
+}
