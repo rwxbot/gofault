@@ -48,3 +48,6 @@ func (w *gzipResponseWriter) WriteHeader(statusCode int) {
 
 // CompressionMiddleware compresses responses using gzip when Accept-Encoding contains "gzip".
 // Returns a MiddlewareFunc that wraps the response if the client supports gzip.
+func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
+	if !config.Enabled {
+		return nil
