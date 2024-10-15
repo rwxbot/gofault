@@ -49,3 +49,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 	}
 
 	level := config.Level
+	if level < gzip.DefaultCompression || level > gzip.BestCompression {
+		level = gzip.DefaultCompression
+	}
