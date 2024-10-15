@@ -51,3 +51,6 @@ func (w *gzipResponseWriter) WriteHeader(statusCode int) {
 func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
+
+	level := config.Level
