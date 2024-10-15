@@ -54,3 +54,4 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 	}
 
 	minSize := config.MinSize
+	if minSize < 0 {
