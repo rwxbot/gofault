@@ -60,3 +60,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 
 	return func(ctx *core.Ctx, next core.Handler) error {
 		encoding := ctx.Request.Header.Get("Accept-Encoding")
+
+		if !strings.Contains(encoding, "gzip") {
+			return next(ctx)
