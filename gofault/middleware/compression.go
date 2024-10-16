@@ -63,3 +63,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 
 		if !strings.Contains(encoding, "gzip") {
 			return next(ctx)
+		}
+
+		// Capture the response for compression
