@@ -135,3 +135,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 	if minSize < 0 {
 		minSize = 0
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
+		encoding := ctx.Request.Header.Get("Accept-Encoding")
