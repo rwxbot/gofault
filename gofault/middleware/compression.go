@@ -148,3 +148,5 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 			ResponseWriter: ctx.Response,
 			statusCode:     http.StatusOK,
 			body:           []byte{},
+		}
+		ctx.Response = capture
