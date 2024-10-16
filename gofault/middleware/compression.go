@@ -66,3 +66,5 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 		}
 
 		// Capture the response for compression
+		capture := &compressCapture{
+			ResponseWriter: ctx.Response,
