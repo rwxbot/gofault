@@ -72,3 +72,5 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 			body:           []byte{},
 		}
 		ctx.Response = capture
+
+		err := next(ctx)
