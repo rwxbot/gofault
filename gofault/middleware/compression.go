@@ -160,3 +160,4 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 				// Fallback to uncompressed
 				capture.ResponseWriter.WriteHeader(capture.statusCode)
 				capture.ResponseWriter.Write(capture.body)
+				return err
