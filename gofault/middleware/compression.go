@@ -79,3 +79,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 		if len(capture.body) >= minSize {
 			gz, gzipErr := gzip.NewWriterLevel(capture.ResponseWriter, level)
 			if gzipErr != nil {
+				// Fallback to uncompressed
+				capture.ResponseWriter.WriteHeader(capture.statusCode)
+				capture.ResponseWriter.Write(capture.body)
