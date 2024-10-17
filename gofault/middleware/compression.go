@@ -74,3 +74,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 		ctx.Response = capture
 
 		err := next(ctx)
+
+		// Only compress if body is large enough
+		if len(capture.body) >= minSize {
