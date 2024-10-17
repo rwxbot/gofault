@@ -77,3 +77,5 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 
 		// Only compress if body is large enough
 		if len(capture.body) >= minSize {
+			gz, gzipErr := gzip.NewWriterLevel(capture.ResponseWriter, level)
+			if gzipErr != nil {
