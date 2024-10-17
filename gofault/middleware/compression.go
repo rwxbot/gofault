@@ -164,3 +164,5 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 			}
 
 			capture.ResponseWriter.Header().Set("Content-Encoding", "gzip")
+			capture.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
+			capture.ResponseWriter.Header().Del("Content-Length")
