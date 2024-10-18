@@ -175,3 +175,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 			capture.ResponseWriter.WriteHeader(capture.statusCode)
 			capture.ResponseWriter.Write(capture.body)
 		}
+
+		return err
+	}
