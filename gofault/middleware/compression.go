@@ -100,3 +100,4 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 
 		return err
 	}
+}
