@@ -95,3 +95,5 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 		} else {
 			// Body too small, write uncompressed
 			capture.ResponseWriter.WriteHeader(capture.statusCode)
+			capture.ResponseWriter.Write(capture.body)
+		}
