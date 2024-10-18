@@ -169,3 +169,4 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 
 			capture.ResponseWriter.WriteHeader(capture.statusCode)
 			gz.Write(capture.body)
+			gz.Close()
