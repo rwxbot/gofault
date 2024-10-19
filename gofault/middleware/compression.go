@@ -111,3 +111,4 @@ type compressCapture struct {
 
 func (r *compressCapture) WriteHeader(statusCode int) {
 	r.statusCode = statusCode
+}
