@@ -183,3 +183,6 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 // compressCapture captures the response body for potential compression.
 type compressCapture struct {
 	http.ResponseWriter
+	statusCode int
+	body       []byte
+}
