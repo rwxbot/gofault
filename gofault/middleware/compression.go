@@ -101,3 +101,5 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 		return err
 	}
 }
+
+// compressCapture captures the response body for potential compression.
