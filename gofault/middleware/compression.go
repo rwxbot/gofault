@@ -186,3 +186,6 @@ type compressCapture struct {
 	statusCode int
 	body       []byte
 }
+
+func (r *compressCapture) WriteHeader(statusCode int) {
+	r.statusCode = statusCode
