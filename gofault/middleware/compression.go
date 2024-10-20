@@ -112,3 +112,6 @@ type compressCapture struct {
 func (r *compressCapture) WriteHeader(statusCode int) {
 	r.statusCode = statusCode
 }
+
+func (r *compressCapture) Write(data []byte) (int, error) {
+	r.body = append(r.body, data...)
