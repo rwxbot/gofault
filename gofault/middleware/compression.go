@@ -115,3 +115,5 @@ func (r *compressCapture) WriteHeader(statusCode int) {
 
 func (r *compressCapture) Write(data []byte) (int, error) {
 	r.body = append(r.body, data...)
+	return len(data), nil
+}
