@@ -137,59 +137,140 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {
-		encoding := ctx.Request.Header.Get("Accept-Encoding")
-
-		if !strings.Contains(encoding, "gzip") {
+		if !acceptsGzip(ctx.Request.Header.Get("Accept-Encoding")) {
 			return next(ctx)
 		}
 
-		// Capture the response for compression
-		capture := &compressCapture{
-			ResponseWriter: ctx.Response,
-			statusCode:     http.StatusOK,
-			body:           []byte{},
+		// A protocol-upgrade request (WebSocket and friends) must not be
+		// buffered: the 101 handshake response is followed by raw protocol
+		// bytes on the same connection, and the upgrader type-asserts the
+		// writer to http.Hijacker. Capturing here would strand the handshake
+		// in the buffer and fail the assertion.
+		if isUpgradeRequest(ctx.Request) {
+			return next(ctx)
 		}
+
+		real := ctx.Response
+		capture := newCompressCapture(real)
 		ctx.Response = capture
+		// Restore the real writer before returning. The router hands the same
+		// *Ctx to the exception filter after this middleware returns, so leaving
+		// the buffer installed would send the error response into a buffer
+		// nobody reads and the client would get 200 with an empty body.
+		defer func() { ctx.Response = real }()
 
 		err := next(ctx)
 
-		// Only compress if body is large enough
-		if len(capture.body) >= minSize {
-			gz, gzipErr := gzip.NewWriterLevel(capture.ResponseWriter, level)
+		// When the handler failed, discard the captured output and return the
+		// error untouched. Writing it out here would commit a 2xx status line
+		// (the handler never wrote one, so the capture holds the 200 default),
+		// which turns the exception filter's error response into a no-op and
+		// leaves the client with a successful-looking empty response.
+		if err != nil {
+			return err
+		}
+
+		// Once the handler has flushed, the status line and the bytes flushed
+		// so far are already committed on the wire. Gzip-compressing and
+		// replaying the whole buffer would send the flushed prefix twice, so
+		// a flushed response is only topped up with its remaining bytes.
+		if capture.flushed {
+			capture.flushTo(real)
+			return nil
+		}
+
+		// A body is meaningless for these statuses and net/http rejects it, so
+		// drop it rather than letting the handler's Write surface as an error.
+		if !bodyAllowedForStatus(capture.statusCode) {
+			capture.flushTo(real)
+			return nil
+		}
+
+		if capture.body.Len() >= minSize && capture.body.Len() > 0 {
+			gz, gzipErr := gzip.NewWriterLevel(real, level)
 			if gzipErr != nil {
-				// Fallback to uncompressed
-				capture.ResponseWriter.WriteHeader(capture.statusCode)
-				capture.ResponseWriter.Write(capture.body)
+				// Fall back to uncompressed rather than dropping the body.
+				capture.flushTo(real)
 				return err
 			}
 
-			capture.ResponseWriter.Header().Set("Content-Encoding", "gzip")
-			capture.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
-			capture.ResponseWriter.Header().Del("Content-Length")
+			// Content-Length no longer applies once the body is compressed, and
+			// gzip needs the response to be identified per encoding.
+			real.Header().Set("Content-Encoding", "gzip")
+			real.Header().Add("Vary", "Accept-Encoding")
+			real.Header().Del("Content-Length")
 
-			capture.ResponseWriter.WriteHeader(capture.statusCode)
-			gz.Write(capture.body)
-			gz.Close()
-		} else {
-			// Body too small, write uncompressed
-			capture.ResponseWriter.WriteHeader(capture.statusCode)
-			capture.ResponseWriter.Write(capture.body)
+			real.WriteHeader(capture.statusCode)
+			if _, writeErr := gz.Write(capture.body.Bytes()); writeErr != nil {
+				_ = gz.Close()
+				return writeErr
+			}
+			if closeErr := gz.Close(); closeErr != nil {
+				return closeErr
+			}
+			return nil
 		}
 
-		return err
+		capture.flushTo(real)
+		return nil
 	}
 }
 
-// compressCapture captures the response body for potential compression.
-type compressCapture struct {
-	http.ResponseWriter
-	statusCode int
-	body       []byte
+// flushTo writes the captured response to the real writer.
+//
+// It is incremental: the first call commits the status line and everything
+// buffered so far, later calls only replay the bytes written since. A
+// streaming handler can Flush several times, and the middleware's own
+// replay at the end of the request must not write the already-flushed
+// prefix a second time.
+func (r *compressCapture) flushTo(w http.ResponseWriter) {
+	if !r.flushed {
+		// Bodies that must not carry content (204, 304, 1xx) are header-only.
+		if bodyAllowedForStatus(r.statusCode) {
+			w.WriteHeader(r.statusCode)
+			if r.body.Len() > 0 {
+				_, _ = w.Write(r.body.Bytes())
+			}
+			r.sent = r.body.Len()
+		} else {
+			w.WriteHeader(r.statusCode)
+		}
+		r.flushed = true
+		return
+	}
+	if remaining := r.body.Bytes()[r.sent:]; len(remaining) > 0 {
+		_, _ = w.Write(remaining)
+		r.sent = r.body.Len()
+	}
 }
 
-func (r *compressCapture) WriteHeader(statusCode int) {
-	r.statusCode = statusCode
+// bodyAllowedForStatus reports whether a status code permits a body.
+// Writing one for 204 or 304 is a protocol violation and some clients abort on it.
+func bodyAllowedForStatus(status int) bool {
+	switch {
+	case status >= 100 && status <= 199:
+		return false
+	case status == http.StatusNoContent:
+		return false
+	case status == http.StatusNotModified:
+		return false
+	}
+	return true
 }
 
-func (r *compressCapture) Write(data []byte) (int, error) {
-	r.body = append(r.body, data...)
+// acceptsGzip reports whether the client offered gzip. A bare "gzip" substring
+// match would also accept encodings such as "x-gzip" or "gzip-extra", so the
+// token list is walked instead.
+func acceptsGzip(header string) bool {
+	for _, part := range strings.Split(header, ",") {
+		token := strings.TrimSpace(part)
+		if i := strings.IndexByte(token, ';'); i >= 0 {
+			// Strip ";q=..." parameters.
+			token = strings.TrimSpace(token[:i])
+		}
+		if strings.EqualFold(token, "gzip") {
+			return true
+		}
+	}
+	return false
+}
