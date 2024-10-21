@@ -13,3 +13,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestDefaultCompressionConfig(t *testing.T) {
