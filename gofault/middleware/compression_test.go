@@ -15,3 +15,6 @@ import (
 )
 
 func TestDefaultCompressionConfig(t *testing.T) {
+	config := DefaultCompressionConfig()
+	if !config.Enabled {
+		t.Error("Expected Enabled to be true")
