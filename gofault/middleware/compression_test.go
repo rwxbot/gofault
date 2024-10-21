@@ -20,3 +20,4 @@ func TestDefaultCompressionConfig(t *testing.T) {
 		t.Errorf("Expected Level %d, got %d", gzip.DefaultCompression, config.Level)
 	}
 	if config.MinSize != 1024 {
+		t.Errorf("Expected MinSize 1024, got %d", config.MinSize)
