@@ -21,3 +21,5 @@ func TestDefaultCompressionConfig(t *testing.T) {
 	}
 	if config.MinSize != 1024 {
 		t.Errorf("Expected MinSize 1024, got %d", config.MinSize)
+	}
+}
