@@ -23,3 +23,6 @@ func TestDefaultCompressionConfig(t *testing.T) {
 		t.Errorf("Expected MinSize 1024, got %d", config.MinSize)
 	}
 }
+
+func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
+	middleware := CompressionMiddleware(DefaultCompressionConfig())
