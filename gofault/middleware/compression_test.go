@@ -26,3 +26,7 @@ func TestDefaultCompressionConfig(t *testing.T) {
 
 func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 	middleware := CompressionMiddleware(DefaultCompressionConfig())
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.Header().Set("Content-Type", "text/plain")
+		ctx.Response.WriteHeader(http.StatusOK)
