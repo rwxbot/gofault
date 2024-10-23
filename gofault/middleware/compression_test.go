@@ -42,3 +42,5 @@ func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	if w.Code != http.StatusOK {
