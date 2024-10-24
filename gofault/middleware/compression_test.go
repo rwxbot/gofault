@@ -45,3 +45,4 @@ func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 
 	if w.Code != http.StatusOK {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
+	}
