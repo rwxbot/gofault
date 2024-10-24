@@ -49,3 +49,4 @@ func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 
 	if w.Header().Get("Content-Encoding") == "gzip" {
 		t.Error("Expected no Content-Encoding header for missing Accept-Encoding")
+	}
