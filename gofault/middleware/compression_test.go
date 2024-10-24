@@ -51,3 +51,7 @@ func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 		t.Error("Expected no Content-Encoding header for missing Accept-Encoding")
 	}
 }
+
+func TestCompressionMiddleware_Disabled(t *testing.T) {
+	config := DefaultCompressionConfig()
+	config.Enabled = false
