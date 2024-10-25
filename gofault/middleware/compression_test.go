@@ -59,3 +59,5 @@ func TestCompressionMiddleware_Disabled(t *testing.T) {
 	handler := CompressionMiddleware(config)
 	if handler != nil {
 		t.Error("Expected nil handler when disabled")
+	}
+}
