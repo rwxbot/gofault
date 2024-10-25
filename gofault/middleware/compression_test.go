@@ -55,3 +55,6 @@ func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 func TestCompressionMiddleware_Disabled(t *testing.T) {
 	config := DefaultCompressionConfig()
 	config.Enabled = false
+
+	handler := CompressionMiddleware(config)
+	if handler != nil {
