@@ -61,3 +61,6 @@ func TestCompressionMiddleware_Disabled(t *testing.T) {
 		t.Error("Expected nil handler when disabled")
 	}
 }
+
+func TestGzipResponseWriter_Write(t *testing.T) {
+	w := httptest.NewRecorder()
