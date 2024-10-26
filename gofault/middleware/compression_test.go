@@ -67,3 +67,4 @@ func TestGzipResponseWriter_Write(t *testing.T) {
 	gz := gzip.NewWriter(w)
 
 	gr := &gzipResponseWriter{
+		ResponseWriter: w,
