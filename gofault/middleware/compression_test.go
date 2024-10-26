@@ -67,3 +67,5 @@ func TestGzipResponseWriter_Write(t *testing.T) {
 		ResponseWriter: w,
 		writer:         gz,
 	}
+
+	data := []byte("test data")
