@@ -62,3 +62,5 @@ func TestCompressionMiddleware_Disabled(t *testing.T) {
 func TestGzipResponseWriter_Write(t *testing.T) {
 	w := httptest.NewRecorder()
 	gz := gzip.NewWriter(w)
+
+	gr := &gzipResponseWriter{
