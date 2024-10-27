@@ -70,3 +70,7 @@ func TestGzipResponseWriter_Write(t *testing.T) {
 
 	data := []byte("test data")
 	n, err := gr.Write(data)
+
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
