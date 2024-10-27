@@ -75,3 +75,5 @@ func TestGzipResponseWriter_Write(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 	if n != len(data) {
+		t.Errorf("Expected %d bytes written, got %d", len(data), n)
+	}
