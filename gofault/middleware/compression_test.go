@@ -86,3 +86,6 @@ func TestCompressCapture_WriteHeader(t *testing.T) {
 	capture := &compressCapture{
 		ResponseWriter: w,
 		statusCode:     http.StatusOK,
+	}
+
+	capture.WriteHeader(http.StatusCreated)
