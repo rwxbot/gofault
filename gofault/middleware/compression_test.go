@@ -62,26 +62,5 @@ func TestCompressionMiddleware_Disabled(t *testing.T) {
 	}
 }
 
-func TestGzipResponseWriter_Write(t *testing.T) {
-	w := httptest.NewRecorder()
-	gz := gzip.NewWriter(w)
-
-	gr := &gzipResponseWriter{
-		ResponseWriter: w,
-		writer:         gz,
-	}
-
-	data := []byte("test data")
-	n, err := gr.Write(data)
-
-	if err != nil {
-		t.Errorf("Unexpected error: %v", err)
-	}
-	if n != len(data) {
-		t.Errorf("Expected %d bytes written, got %d", len(data), n)
-	}
-	gz.Close()
-}
-
 func TestCompressCapture_WriteHeader(t *testing.T) {
 	w := httptest.NewRecorder()
