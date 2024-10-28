@@ -89,3 +89,5 @@ func TestCompressCapture_WriteHeader(t *testing.T) {
 	}
 
 	capture.WriteHeader(http.StatusCreated)
+
+	if capture.statusCode != http.StatusCreated {
