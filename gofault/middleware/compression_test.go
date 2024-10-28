@@ -64,3 +64,7 @@ func TestCompressionMiddleware_Disabled(t *testing.T) {
 
 func TestCompressCapture_WriteHeader(t *testing.T) {
 	w := httptest.NewRecorder()
+
+	capture := &compressCapture{
+		ResponseWriter: w,
+		statusCode:     http.StatusOK,
