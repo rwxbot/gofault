@@ -73,3 +73,6 @@ func TestCompressCapture_WriteHeader(t *testing.T) {
 	capture.WriteHeader(http.StatusCreated)
 
 	if capture.statusCode != http.StatusCreated {
+		t.Errorf("Expected status %d, got %d", http.StatusCreated, capture.statusCode)
+	}
+}
