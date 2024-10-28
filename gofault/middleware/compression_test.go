@@ -82,3 +82,6 @@ func TestGzipResponseWriter_Write(t *testing.T) {
 	}
 	gz.Close()
 }
+
+func TestCompressCapture_WriteHeader(t *testing.T) {
+	w := httptest.NewRecorder()
