@@ -97,3 +97,6 @@ func TestCompressCapture_WriteHeader(t *testing.T) {
 
 func TestCompressCapture_Write(t *testing.T) {
 	w := httptest.NewRecorder()
+
+	capture := &compressCapture{
+		ResponseWriter: w,
