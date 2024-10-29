@@ -94,3 +94,6 @@ func TestCompressCapture_WriteHeader(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", http.StatusCreated, capture.statusCode)
 	}
 }
+
+func TestCompressCapture_Write(t *testing.T) {
+	w := httptest.NewRecorder()
