@@ -102,3 +102,5 @@ func TestCompressCapture_Write(t *testing.T) {
 		ResponseWriter: w,
 		statusCode:     http.StatusOK,
 	}
+
+	data := []byte("test data")
