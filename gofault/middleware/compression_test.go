@@ -86,3 +86,4 @@ func TestCompressCapture_Write(t *testing.T) {
 	}
 
 	data := []byte("test data")
+	n, err := capture.Write(data)
