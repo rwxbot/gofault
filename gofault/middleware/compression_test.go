@@ -82,3 +82,5 @@ func TestCompressCapture_Write(t *testing.T) {
 
 	capture := &compressCapture{
 		ResponseWriter: w,
+		statusCode:     http.StatusOK,
+	}
