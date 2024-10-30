@@ -89,3 +89,5 @@ func TestCompressCapture_Write(t *testing.T) {
 	n, err := capture.Write(data)
 
 	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
