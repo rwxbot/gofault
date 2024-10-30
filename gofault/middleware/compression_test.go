@@ -98,3 +98,6 @@ func TestCompressCapture_Write(t *testing.T) {
 		t.Errorf("Expected body 'test data', got '%s'", capture.body.String())
 	}
 }
+
+func TestCompressionMiddleware_WithGzip(t *testing.T) {
+	middleware := CompressionMiddleware(DefaultCompressionConfig())
