@@ -114,3 +114,5 @@ func TestCompressCapture_Write(t *testing.T) {
 	}
 	if string(capture.body) != "test data" {
 		t.Errorf("Expected body 'test data', got '%s'", string(capture.body))
+	}
+}
