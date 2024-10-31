@@ -105,3 +105,5 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.Header().Set("Content-Type", "text/plain")
 		ctx.Response.WriteHeader(http.StatusOK)
+		ctx.Response.Write([]byte(strings.Repeat("x", 2000)))
+		return nil
