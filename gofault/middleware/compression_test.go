@@ -111,3 +111,5 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 
 	req := httptest.NewRequest(http.MethodGet, "/test", nil)
 	req.Header.Set("Accept-Encoding", "gzip")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
