@@ -101,3 +101,5 @@ func TestCompressCapture_Write(t *testing.T) {
 
 func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	middleware := CompressionMiddleware(DefaultCompressionConfig())
+
+	next := func(ctx *core.Ctx) error {
