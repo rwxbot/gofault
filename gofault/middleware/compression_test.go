@@ -133,3 +133,5 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	if w.Code != http.StatusOK {
