@@ -139,3 +139,4 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	}
 
 	if w.Header().Get("Content-Encoding") != "gzip" {
+		t.Errorf("Expected Content-Encoding 'gzip', got '%s'", w.Header().Get("Content-Encoding"))
