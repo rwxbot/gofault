@@ -127,3 +127,5 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	// Verify the body is actually gzip compressed
 	reader, err := gzip.NewReader(w.Body)
 	if err != nil {
+		t.Fatalf("Failed to create gzip reader: %v", err)
+	}
