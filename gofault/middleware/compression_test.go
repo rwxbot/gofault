@@ -134,3 +134,6 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	body, err := io.ReadAll(reader)
 	if err != nil {
 		t.Fatalf("Failed to read gzip body: %v", err)
+	}
+
+	if len(body) != 2000 {
