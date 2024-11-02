@@ -137,3 +137,4 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	}
 
 	if len(body) != 2000 {
+		t.Errorf("Expected decompressed body length 2000, got %d", len(body))
