@@ -147,3 +147,4 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to create gzip reader: %v", err)
 	}
+	defer reader.Close()
