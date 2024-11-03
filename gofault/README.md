@@ -424,3 +424,10 @@ mod.RegisterMiddleware(middleware.RecoveryMiddleware(
 ```
 
 Register it before the other middleware of the same module so it wraps them.
+
+
+## What's new in v1.7.0
+
+### Compression
+
+`CompressionMiddleware` gzips responses that exceed `MinSize`; smaller bodies pass
