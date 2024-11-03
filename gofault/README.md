@@ -437,3 +437,6 @@ through untouched so the header overhead is not paid for nothing:
 cfg := middleware.DefaultCompressionConfig()
 cfg.Level = gzip.BestSpeed
 cfg.MinSize = 1024
+
+mod.RegisterMiddleware(middleware.CompressionMiddleware(cfg))
+```
