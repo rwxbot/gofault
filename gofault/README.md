@@ -431,3 +431,9 @@ Register it before the other middleware of the same module so it wraps them.
 ### Compression
 
 `CompressionMiddleware` gzips responses that exceed `MinSize`; smaller bodies pass
+through untouched so the header overhead is not paid for nothing:
+
+```go
+cfg := middleware.DefaultCompressionConfig()
+cfg.Level = gzip.BestSpeed
+cfg.MinSize = 1024
