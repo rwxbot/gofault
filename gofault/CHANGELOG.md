@@ -42,3 +42,8 @@
 
 ### Added
 - Recovery middleware with stack trace capture
+
+## [v1.7.0]
+
+### Added
+- Compression middleware
