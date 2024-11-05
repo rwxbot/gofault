@@ -18,3 +18,6 @@ type IPFilterConfig struct {
 	Block []string
 	// Mode determines the filter behavior when an IP matches both allow and block lists.
 	// "block" (default): blocked IPs take precedence.
+	// "allow": allowed IPs take precedence.
+	Mode string
+}
