@@ -16,3 +16,5 @@ type IPFilterConfig struct {
 	Allow []string
 	// Block is the list of blocked IP addresses or CIDR ranges.
 	Block []string
+	// Mode determines the filter behavior when an IP matches both allow and block lists.
+	// "block" (default): blocked IPs take precedence.
