@@ -14,3 +14,4 @@ type IPFilterConfig struct {
 	Enabled bool
 	// Allow is the list of allowed IP addresses or CIDR ranges. If empty, all are allowed except blocked.
 	Allow []string
+	// Block is the list of blocked IP addresses or CIDR ranges.
