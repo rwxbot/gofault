@@ -9,3 +9,5 @@ import (
 )
 
 // IPFilterConfig holds configuration for the IP filter middleware.
+type IPFilterConfig struct {
+	// Enabled enables the IP filter middleware.
