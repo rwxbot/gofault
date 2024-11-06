@@ -23,3 +23,5 @@ type IPFilterConfig struct {
 }
 
 // DefaultIPFilterConfig returns a default IP filter configuration.
+func DefaultIPFilterConfig() IPFilterConfig {
+	return IPFilterConfig{
