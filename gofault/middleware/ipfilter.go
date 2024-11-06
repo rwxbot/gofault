@@ -21,3 +21,5 @@ type IPFilterConfig struct {
 	// "allow": allowed IPs take precedence.
 	Mode string
 }
+
+// DefaultIPFilterConfig returns a default IP filter configuration.
