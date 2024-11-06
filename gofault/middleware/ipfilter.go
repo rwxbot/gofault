@@ -35,3 +35,4 @@ func DefaultIPFilterConfig() IPFilterConfig {
 		Enabled: true,
 		Mode:    "block",
 	}
+}
