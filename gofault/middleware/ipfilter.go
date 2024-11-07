@@ -41,3 +41,6 @@ func DefaultIPFilterConfig() IPFilterConfig {
 func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
+
+	allowNets := parseIPPatterns(config.Allow)
