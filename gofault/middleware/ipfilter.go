@@ -41,3 +41,6 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 
 	return func(ctx *core.Ctx, next core.Handler) error {
 		clientIP := getClientIP(ctx)
+
+		// Check block list first
+		if isIPBlocked(clientIP, blockNets) {
