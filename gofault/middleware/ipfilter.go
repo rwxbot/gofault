@@ -29,3 +29,5 @@ func DefaultIPFilterConfig() IPFilterConfig {
 		Mode:    "block",
 	}
 }
+
+// IPFilterMiddleware creates a middleware that filters requests by IP address.
