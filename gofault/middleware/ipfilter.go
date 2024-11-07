@@ -44,3 +44,5 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 
 		// Check block list first
 		if isIPBlocked(clientIP, blockNets) {
+			ctx.Response.WriteHeader(http.StatusForbidden)
+			ctx.Response.Write([]byte(`{"status":"error","message":"IP blocked"}`))
