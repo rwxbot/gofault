@@ -31,3 +31,6 @@ func DefaultIPFilterConfig() IPFilterConfig {
 }
 
 // IPFilterMiddleware creates a middleware that filters requests by IP address.
+func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
+	if !config.Enabled {
+		return nil
