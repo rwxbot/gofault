@@ -44,3 +44,4 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 	}
 
 	allowNets := parseIPPatterns(config.Allow)
+	blockNets := parseIPPatterns(config.Block)
