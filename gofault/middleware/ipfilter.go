@@ -58,3 +58,4 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 
 		// If allow list is not empty, check it
 		if len(allowNets) > 0 && !isIPAllowed(clientIP, allowNets) {
+			ctx.Response.WriteHeader(http.StatusForbidden)
