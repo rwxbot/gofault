@@ -55,3 +55,6 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 			ctx.Response.Write([]byte(`{"status":"error","message":"IP blocked"}`))
 			return nil
 		}
+
+		// If allow list is not empty, check it
+		if len(allowNets) > 0 && !isIPAllowed(clientIP, allowNets) {
