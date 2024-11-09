@@ -55,3 +55,6 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 			ctx.Response.Write([]byte(`{"status":"error","message":"IP not allowed"}`))
 			return nil
 		}
+
+		return next(ctx)
+	}
