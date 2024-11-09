@@ -58,3 +58,4 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 
 		return next(ctx)
 	}
+}
