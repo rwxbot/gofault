@@ -77,3 +77,5 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 		return next(ctx)
 	}
 }
+
+// parseIPPatterns parses IP addresses and CIDR ranges into net.IPNet structures.
