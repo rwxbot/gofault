@@ -66,3 +66,5 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 	for _, pattern := range patterns {
 		pattern = strings.TrimSpace(pattern)
 		if pattern == "" {
+			continue
+		}
