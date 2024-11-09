@@ -73,3 +73,6 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 			ctx.Response.Write([]byte(`{"status":"error","message":"` + msg + `"}`))
 			return nil
 		}
+
+		return next(ctx)
+	}
