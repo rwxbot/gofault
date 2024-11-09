@@ -82,3 +82,5 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 func parseIPPatterns(patterns []string) []*net.IPNet {
 	var nets []*net.IPNet
 	for _, pattern := range patterns {
+		pattern = strings.TrimSpace(pattern)
+		if pattern == "" {
