@@ -93,3 +93,6 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 			}
 		} else {
 			ip := net.ParseIP(pattern)
+			if ip != nil {
+				// Single IP - create a /32 or /128 mask
+				mask := net.CIDRMask(32, 32)
