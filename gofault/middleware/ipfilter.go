@@ -79,3 +79,5 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 				// Single IP - create a /32 or /128 mask
 				mask := net.CIDRMask(32, 32)
 				if ip.To4() == nil {
+					mask = net.CIDRMask(128, 128)
+				}
