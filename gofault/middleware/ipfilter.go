@@ -92,3 +92,4 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 				nets = append(nets, ipNet)
 			}
 		} else {
+			ip := net.ParseIP(pattern)
