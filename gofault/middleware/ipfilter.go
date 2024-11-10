@@ -71,3 +71,6 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 		if strings.Contains(pattern, "/") {
 			_, ipNet, err := net.ParseCIDR(pattern)
 			if err == nil {
+				nets = append(nets, ipNet)
+			}
+		} else {
