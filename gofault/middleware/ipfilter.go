@@ -91,3 +91,6 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 // getClientIP extracts the client IP from the request, checking X-Forwarded-For and X-Real-IP headers.
 func getClientIP(ctx *core.Ctx) net.IP {
 	// Check X-Forwarded-For header first
+	xff := ctx.Request.Header.Get("X-Forwarded-For")
+	if xff != "" {
+		// Take the first IP in the chain
