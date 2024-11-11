@@ -99,3 +99,4 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 				if ip.To4() == nil {
 					mask = net.CIDRMask(128, 128)
 				}
+				nets = append(nets, &net.IPNet{IP: ip, Mask: mask})
