@@ -83,3 +83,5 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 				}
 				nets = append(nets, &net.IPNet{IP: ip, Mask: mask})
 			}
+		}
+	}
