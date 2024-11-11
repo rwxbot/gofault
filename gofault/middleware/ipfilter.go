@@ -106,6 +106,44 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 	return nets
 }
 
-// getClientIP extracts the client IP from the request, checking X-Forwarded-For and X-Real-IP headers.
-func getClientIP(ctx *core.Ctx) net.IP {
+// remoteIP returns the authoritative IP of the TCP connection.
+func remoteIP(ctx *core.Ctx) net.IP {
+	host, _, err := net.SplitHostPort(ctx.Request.RemoteAddr)
+	if err == nil {
+		ip := net.ParseIP(host)
+		if ip != nil {
+			return ip
+		}
+	}
+	return net.ParseIP(ctx.Request.RemoteAddr)
+}
+
+// getClientIP extracts the client IP from the request.
+//
+// X-Forwarded-For and X-Real-IP are attacker-controlled unless the request
+// arrived through a trusted reverse proxy: unconditionally trusting them let
+// any client spoof its way past the filter (e.g. "X-Forwarded-For: 127.0.0.1"
+// against an allow-list that permits localhost). The headers are therefore
+// only consulted when the connection's RemoteAddr is inside TrustedProxies;
+// with no trusted proxies configured the TCP address is authoritative.
+func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
+	remote := remoteIP(ctx)
+	if remote == nil {
+		return nil
+	}
+
+	trusted := false
+	for _, ipNet := range trustedNets {
+		if ipNet.Contains(remote) {
+			trusted = true
+			break
+		}
+	}
+	if !trusted {
+		return remote
+	}
+
 	// Check X-Forwarded-For header first
+	xff := ctx.Request.Header.Get("X-Forwarded-For")
+	if xff != "" {
+		// Take the first IP in the chain
