@@ -104,3 +104,4 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 		}
 	}
 	return nets
+}
