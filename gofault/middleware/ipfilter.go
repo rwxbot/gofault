@@ -87,3 +87,5 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 	}
 	return nets
 }
+
+// getClientIP extracts the client IP from the request, checking X-Forwarded-For and X-Real-IP headers.
