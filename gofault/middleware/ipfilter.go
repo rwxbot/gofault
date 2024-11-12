@@ -150,3 +150,5 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 		parts := strings.Split(xff, ",")
 		ip := net.ParseIP(strings.TrimSpace(parts[0]))
 		if ip != nil {
+			return ip
+		}
