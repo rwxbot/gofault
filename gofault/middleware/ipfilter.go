@@ -152,3 +152,4 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 		if ip != nil {
 			return ip
 		}
+	}
