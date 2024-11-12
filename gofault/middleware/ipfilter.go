@@ -94,3 +94,4 @@ func getClientIP(ctx *core.Ctx) net.IP {
 	xff := ctx.Request.Header.Get("X-Forwarded-For")
 	if xff != "" {
 		// Take the first IP in the chain
+		parts := strings.Split(xff, ",")
