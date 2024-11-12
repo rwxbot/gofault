@@ -100,3 +100,6 @@ func getClientIP(ctx *core.Ctx) net.IP {
 			return ip
 		}
 	}
+
+	// Check X-Real-IP header
+	xri := ctx.Request.Header.Get("X-Real-IP")
