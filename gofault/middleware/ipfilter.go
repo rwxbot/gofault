@@ -97,3 +97,5 @@ func getClientIP(ctx *core.Ctx) net.IP {
 		parts := strings.Split(xff, ",")
 		ip := net.ParseIP(strings.TrimSpace(parts[0]))
 		if ip != nil {
+			return ip
+		}
