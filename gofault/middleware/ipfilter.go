@@ -148,3 +148,5 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 	if xff != "" {
 		// Take the first IP in the chain
 		parts := strings.Split(xff, ",")
+		ip := net.ParseIP(strings.TrimSpace(parts[0]))
+		if ip != nil {
