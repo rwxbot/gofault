@@ -158,3 +158,4 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 	xri := ctx.Request.Header.Get("X-Real-IP")
 	if xri != "" {
 		ip := net.ParseIP(xri)
+		if ip != nil {
