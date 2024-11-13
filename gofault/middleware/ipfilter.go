@@ -109,3 +109,6 @@ func getClientIP(ctx *core.Ctx) net.IP {
 			return ip
 		}
 	}
+
+	// Fall back to remote address
+	host, _, err := net.SplitHostPort(ctx.Request.RemoteAddr)
