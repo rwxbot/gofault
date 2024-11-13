@@ -106,3 +106,4 @@ func getClientIP(ctx *core.Ctx) net.IP {
 	if xri != "" {
 		ip := net.ParseIP(xri)
 		if ip != nil {
+			return ip
