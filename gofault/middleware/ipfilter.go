@@ -177,4 +177,17 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 	return remote
 }
 
+// isTrusted reports whether ip falls inside one of the trusted proxy nets.
+func isTrusted(ip net.IP, trustedNets []*net.IPNet) bool {
+	for _, ipNet := range trustedNets {
+		if ipNet.Contains(ip) {
+			return true
+		}
+	}
+	return false
+}
+
 // isIPBlocked checks if an IP is in the block list.
+func isIPBlocked(ip net.IP, blockList []*net.IPNet) bool {
+	for _, ipNet := range blockList {
+		if ipNet.Contains(ip) {
