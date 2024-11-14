@@ -179,3 +179,5 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 	if err == nil {
 		ip := net.ParseIP(host)
 		if ip != nil {
+			return ip
+		}
