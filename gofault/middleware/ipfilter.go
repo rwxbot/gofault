@@ -174,14 +174,7 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 		}
 	}
 
-	// Fall back to remote address
-	host, _, err := net.SplitHostPort(ctx.Request.RemoteAddr)
-	if err == nil {
-		ip := net.ParseIP(host)
-		if ip != nil {
-			return ip
-		}
-	}
-
-	return net.ParseIP(ctx.Request.RemoteAddr)
+	return remote
 }
+
+// isIPBlocked checks if an IP is in the block list.
