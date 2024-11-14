@@ -118,3 +118,5 @@ func getClientIP(ctx *core.Ctx) net.IP {
 			return ip
 		}
 	}
+
+	return net.ParseIP(ctx.Request.RemoteAddr)
