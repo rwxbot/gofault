@@ -121,3 +121,5 @@ func getClientIP(ctx *core.Ctx) net.IP {
 
 	return net.ParseIP(ctx.Request.RemoteAddr)
 }
+
+// isIPBlocked checks if an IP is in the block list.
