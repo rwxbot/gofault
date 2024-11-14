@@ -114,3 +114,4 @@ func getClientIP(ctx *core.Ctx) net.IP {
 	host, _, err := net.SplitHostPort(ctx.Request.RemoteAddr)
 	if err == nil {
 		ip := net.ParseIP(host)
+		if ip != nil {
