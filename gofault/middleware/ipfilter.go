@@ -184,3 +184,4 @@ func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 	}
 
 	return net.ParseIP(ctx.Request.RemoteAddr)
+}
