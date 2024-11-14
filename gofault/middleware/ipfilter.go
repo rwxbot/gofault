@@ -123,3 +123,6 @@ func getClientIP(ctx *core.Ctx) net.IP {
 }
 
 // isIPBlocked checks if an IP is in the block list.
+func isIPBlocked(ip net.IP, blockList []*net.IPNet) bool {
+	for _, ipNet := range blockList {
+		if ipNet.Contains(ip) {
