@@ -129,3 +129,4 @@ func isIPBlocked(ip net.IP, blockList []*net.IPNet) bool {
 			return true
 		}
 	}
+	return false
