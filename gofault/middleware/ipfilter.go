@@ -191,3 +191,4 @@ func isTrusted(ip net.IP, trustedNets []*net.IPNet) bool {
 func isIPBlocked(ip net.IP, blockList []*net.IPNet) bool {
 	for _, ipNet := range blockList {
 		if ipNet.Contains(ip) {
+			return true
