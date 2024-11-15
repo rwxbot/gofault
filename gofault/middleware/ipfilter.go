@@ -196,3 +196,5 @@ func isIPBlocked(ip net.IP, blockList []*net.IPNet) bool {
 	}
 	return false
 }
+
+// isIPAllowed checks if an IP is in the allow list.
