@@ -137,3 +137,5 @@ func isIPAllowed(ip net.IP, allowList []*net.IPNet) bool {
 	for _, ipNet := range allowList {
 		if ipNet.Contains(ip) {
 			return true
+		}
+	}
