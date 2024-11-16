@@ -204,3 +204,5 @@ func isIPAllowed(ip net.IP, allowList []*net.IPNet) bool {
 			return true
 		}
 	}
+	return false
+}
