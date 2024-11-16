@@ -134,3 +134,5 @@ func isIPBlocked(ip net.IP, blockList []*net.IPNet) bool {
 
 // isIPAllowed checks if an IP is in the allow list.
 func isIPAllowed(ip net.IP, allowList []*net.IPNet) bool {
+	for _, ipNet := range allowList {
+		if ipNet.Contains(ip) {
