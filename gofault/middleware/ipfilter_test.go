@@ -11,3 +11,5 @@ import (
 func TestDefaultIPFilterConfig(t *testing.T) {
 	config := DefaultIPFilterConfig()
 	if !config.Enabled {
+		t.Error("Expected Enabled to be true")
+	}
