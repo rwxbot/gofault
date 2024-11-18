@@ -16,3 +16,4 @@ func TestDefaultIPFilterConfig(t *testing.T) {
 	if config.Mode != "block" {
 		t.Errorf("Expected Mode 'block', got '%s'", config.Mode)
 	}
+}
