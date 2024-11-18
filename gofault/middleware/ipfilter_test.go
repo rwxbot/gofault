@@ -19,3 +19,4 @@ func TestDefaultIPFilterConfig(t *testing.T) {
 }
 
 func TestIPFilterMiddleware_Disabled(t *testing.T) {
+	config := DefaultIPFilterConfig()
