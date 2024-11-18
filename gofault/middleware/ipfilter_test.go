@@ -21,3 +21,6 @@ func TestDefaultIPFilterConfig(t *testing.T) {
 func TestIPFilterMiddleware_Disabled(t *testing.T) {
 	config := DefaultIPFilterConfig()
 	config.Enabled = false
+
+	handler := IPFilterMiddleware(config)
+	if handler != nil {
