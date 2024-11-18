@@ -7,3 +7,7 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestDefaultIPFilterConfig(t *testing.T) {
+	config := DefaultIPFilterConfig()
+	if !config.Enabled {
