@@ -13,3 +13,6 @@ func TestDefaultIPFilterConfig(t *testing.T) {
 	if !config.Enabled {
 		t.Error("Expected Enabled to be true")
 	}
+	if config.Mode != "block" {
+		t.Errorf("Expected Mode 'block', got '%s'", config.Mode)
+	}
