@@ -24,3 +24,4 @@ func TestIPFilterMiddleware_Disabled(t *testing.T) {
 
 	handler := IPFilterMiddleware(config)
 	if handler != nil {
+		t.Error("Expected nil handler when disabled")
