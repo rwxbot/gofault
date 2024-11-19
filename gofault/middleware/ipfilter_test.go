@@ -30,3 +30,6 @@ func TestIPFilterMiddleware_Disabled(t *testing.T) {
 
 func TestIPFilterMiddleware_NoRestrictions(t *testing.T) {
 	middleware := IPFilterMiddleware(DefaultIPFilterConfig())
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
