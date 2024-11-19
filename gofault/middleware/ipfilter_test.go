@@ -27,3 +27,6 @@ func TestIPFilterMiddleware_Disabled(t *testing.T) {
 		t.Error("Expected nil handler when disabled")
 	}
 }
+
+func TestIPFilterMiddleware_NoRestrictions(t *testing.T) {
+	middleware := IPFilterMiddleware(DefaultIPFilterConfig())
