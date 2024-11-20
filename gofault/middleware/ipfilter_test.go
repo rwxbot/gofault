@@ -38,3 +38,5 @@ func TestIPFilterMiddleware_NoRestrictions(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodGet, "/test", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
