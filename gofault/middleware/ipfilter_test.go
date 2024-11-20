@@ -45,3 +45,5 @@ func TestIPFilterMiddleware_NoRestrictions(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
+
+	if w.Code != http.StatusOK {
