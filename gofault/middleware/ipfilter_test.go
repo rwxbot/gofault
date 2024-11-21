@@ -56,3 +56,5 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	config.Block = []string{"192.168.1.100"}
 
 	middleware := IPFilterMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
