@@ -58,3 +58,4 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	middleware := IPFilterMiddleware(config)
 
 	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
