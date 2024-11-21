@@ -50,3 +50,7 @@ func TestIPFilterMiddleware_NoRestrictions(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
 	}
 }
+
+func TestIPFilterMiddleware_BlockList(t *testing.T) {
+	config := DefaultIPFilterConfig()
+	config.Block = []string{"192.168.1.100"}
