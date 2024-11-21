@@ -54,3 +54,5 @@ func TestIPFilterMiddleware_NoRestrictions(t *testing.T) {
 func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	config := DefaultIPFilterConfig()
 	config.Block = []string{"192.168.1.100"}
+
+	middleware := IPFilterMiddleware(config)
