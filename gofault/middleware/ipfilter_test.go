@@ -63,3 +63,4 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodGet, "/test", nil)
+	w := httptest.NewRecorder()
