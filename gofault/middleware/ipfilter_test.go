@@ -59,3 +59,4 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
