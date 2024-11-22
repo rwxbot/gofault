@@ -61,3 +61,5 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 		ctx.Response.WriteHeader(http.StatusOK)
 		return nil
 	}
+
+	req := httptest.NewRequest(http.MethodGet, "/test", nil)
