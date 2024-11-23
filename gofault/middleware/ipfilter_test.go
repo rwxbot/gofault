@@ -65,3 +65,4 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/test", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+	ctx.Request.RemoteAddr = "192.168.1.100:12345"
