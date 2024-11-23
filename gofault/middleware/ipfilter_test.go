@@ -68,3 +68,7 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	ctx.Request.RemoteAddr = "192.168.1.100:12345"
 
 	middleware(ctx, next)
+
+	if w.Code != http.StatusForbidden {
+		t.Errorf("Expected status %d, got %d", http.StatusForbidden, w.Code)
+	}
