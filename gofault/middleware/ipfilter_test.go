@@ -66,3 +66,5 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 	ctx.Request.RemoteAddr = "192.168.1.100:12345"
+
+	middleware(ctx, next)
