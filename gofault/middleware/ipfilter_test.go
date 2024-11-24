@@ -79,3 +79,5 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 	config.Allow = []string{"10.0.0.0/8"}
 
 	middleware := IPFilterMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
