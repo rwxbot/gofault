@@ -75,3 +75,4 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 }
 
 func TestIPFilterMiddleware_AllowList(t *testing.T) {
+	config := DefaultIPFilterConfig()
