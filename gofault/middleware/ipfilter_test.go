@@ -73,3 +73,5 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", http.StatusForbidden, w.Code)
 	}
 }
+
+func TestIPFilterMiddleware_AllowList(t *testing.T) {
