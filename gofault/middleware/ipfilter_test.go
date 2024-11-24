@@ -76,3 +76,6 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 
 func TestIPFilterMiddleware_AllowList(t *testing.T) {
 	config := DefaultIPFilterConfig()
+	config.Allow = []string{"10.0.0.0/8"}
+
+	middleware := IPFilterMiddleware(config)
