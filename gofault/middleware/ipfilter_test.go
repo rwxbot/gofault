@@ -87,3 +87,4 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 	}
 
 	// IP in allow range
+	req := httptest.NewRequest(http.MethodGet, "/test", nil)
