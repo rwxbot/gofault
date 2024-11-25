@@ -99,3 +99,6 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 	if w.Code != http.StatusOK {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
 	}
+
+	// IP not in allow range
+	req2 := httptest.NewRequest(http.MethodGet, "/test", nil)
