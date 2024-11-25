@@ -88,3 +88,6 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 
 	// IP in allow range
 	req := httptest.NewRequest(http.MethodGet, "/test", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+	ctx.Request.RemoteAddr = "10.1.2.3:12345"
