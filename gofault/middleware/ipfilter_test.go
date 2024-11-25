@@ -81,3 +81,6 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 	middleware := IPFilterMiddleware(config)
 
 	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		return nil
