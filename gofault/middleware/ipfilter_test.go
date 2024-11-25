@@ -97,3 +97,5 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 	if w.Code != http.StatusOK {
+		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
+	}
