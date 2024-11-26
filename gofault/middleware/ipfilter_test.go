@@ -108,3 +108,5 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 
 	middleware(ctx2, func(c *core.Ctx) error {
 		c.Response.WriteHeader(http.StatusOK)
+		return nil
+	})
