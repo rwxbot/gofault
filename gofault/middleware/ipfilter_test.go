@@ -105,3 +105,6 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 	w2 := httptest.NewRecorder()
 	ctx2 := core.NewCtx(w2, req2)
 	ctx2.Request.RemoteAddr = "192.168.1.1:12345"
+
+	middleware(ctx2, func(c *core.Ctx) error {
+		c.Response.WriteHeader(http.StatusOK)
