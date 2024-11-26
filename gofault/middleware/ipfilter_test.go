@@ -110,3 +110,6 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 		c.Response.WriteHeader(http.StatusOK)
 		return nil
 	})
+
+	if w2.Code != http.StatusForbidden {
+		t.Errorf("Expected status %d, got %d", http.StatusForbidden, w2.Code)
