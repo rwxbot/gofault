@@ -118,3 +118,6 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 
 func TestParseIPPatterns(t *testing.T) {
 	patterns := []string{"192.168.1.1", "10.0.0.0/8", "172.16.0.0/12"}
+	nets := parseIPPatterns(patterns)
+
+	if len(nets) != 3 {
