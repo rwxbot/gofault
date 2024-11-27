@@ -115,3 +115,6 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", http.StatusForbidden, w2.Code)
 	}
 }
+
+func TestParseIPPatterns(t *testing.T) {
+	patterns := []string{"192.168.1.1", "10.0.0.0/8", "172.16.0.0/12"}
