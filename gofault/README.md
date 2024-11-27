@@ -450,3 +450,9 @@ mod.RegisterMiddleware(middleware.CompressionMiddleware(cfg))
 selects how an address that matches neither list is treated:
 
 ```go
+cfg := middleware.IPFilterConfig{
+    Enabled: true,
+    Allow:   []string{"10.0.0.0/8", "192.168.1.0/24"},
+    Block:   []string{"203.0.113.0/24"},
+    Mode:    "allowlist",
+}
