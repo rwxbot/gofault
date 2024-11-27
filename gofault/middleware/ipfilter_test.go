@@ -122,3 +122,5 @@ func TestParseIPPatterns(t *testing.T) {
 
 	if len(nets) != 3 {
 		t.Errorf("Expected 3 networks, got %d", len(nets))
+	}
+}
