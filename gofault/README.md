@@ -440,3 +440,13 @@ cfg.MinSize = 1024
 
 mod.RegisterMiddleware(middleware.CompressionMiddleware(cfg))
 ```
+
+
+## What's new in v1.8.0
+
+### IP filtering
+
+`IPFilterMiddleware` matches the client address against CIDR ranges. `Mode`
+selects how an address that matches neither list is treated:
+
+```go
