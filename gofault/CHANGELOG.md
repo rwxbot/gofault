@@ -51,3 +51,4 @@
 ## [v1.8.0]
 
 ### Added
+- IP filter middleware with CIDR support
