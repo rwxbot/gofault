@@ -47,3 +47,7 @@
 
 ### Added
 - Compression middleware
+
+## [v1.8.0]
+
+### Added
