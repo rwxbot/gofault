@@ -456,3 +456,6 @@ cfg := middleware.IPFilterConfig{
     Block:   []string{"203.0.113.0/24"},
     Mode:    "allowlist",
 }
+
+mod.RegisterMiddleware(middleware.IPFilterMiddleware(cfg))
+```
