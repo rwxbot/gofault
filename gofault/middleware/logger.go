@@ -9,3 +9,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// RequestLoggerConfig holds configuration for the request logger middleware.
