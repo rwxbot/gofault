@@ -12,3 +12,6 @@ type RequestLoggerConfig struct {
 	Enabled bool
 	// LogBody enables logging of request and response bodies.
 	LogBody bool
+	// LogHeaders enables logging of request headers.
+	LogHeaders bool
+}
