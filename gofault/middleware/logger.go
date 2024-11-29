@@ -21,3 +21,6 @@ type RequestLoggerConfig struct {
 }
 
 // DefaultRequestLoggerConfig returns a default request logger configuration.
+func DefaultRequestLoggerConfig() RequestLoggerConfig {
+	return RequestLoggerConfig{
+		Enabled:    true,
