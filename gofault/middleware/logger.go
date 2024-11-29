@@ -24,3 +24,6 @@ type RequestLoggerConfig struct {
 func DefaultRequestLoggerConfig() RequestLoggerConfig {
 	return RequestLoggerConfig{
 		Enabled:    true,
+		LogBody:    false,
+		LogHeaders: false,
+	}
