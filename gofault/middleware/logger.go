@@ -9,3 +9,6 @@ import (
 // RequestLoggerConfig holds configuration for the request logger middleware.
 type RequestLoggerConfig struct {
 	// Enabled enables the request logger.
+	Enabled bool
+	// LogBody enables logging of request and response bodies.
+	LogBody bool
