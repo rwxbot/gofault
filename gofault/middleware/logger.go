@@ -15,3 +15,5 @@ type RequestLoggerConfig struct {
 	// LogHeaders enables logging of request headers.
 	LogHeaders bool
 }
+
+// DefaultRequestLoggerConfig returns a default request logger configuration.
