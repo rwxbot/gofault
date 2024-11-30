@@ -30,3 +30,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
