@@ -36,3 +36,4 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {
+		start := time.Now()
