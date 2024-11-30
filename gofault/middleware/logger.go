@@ -28,3 +28,5 @@ func DefaultRequestLoggerConfig() RequestLoggerConfig {
 		LogHeaders: false,
 	}
 }
+
+// RequestLoggerMiddleware creates a middleware that logs HTTP requests and responses.
