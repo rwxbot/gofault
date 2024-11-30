@@ -27,3 +27,4 @@ func DefaultRequestLoggerConfig() RequestLoggerConfig {
 		LogBody:    false,
 		LogHeaders: false,
 	}
+}
