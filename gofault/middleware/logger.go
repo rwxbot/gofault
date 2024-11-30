@@ -30,3 +30,6 @@ func DefaultRequestLoggerConfig() RequestLoggerConfig {
 }
 
 // RequestLoggerMiddleware creates a middleware that logs HTTP requests and responses.
+func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
+	if !config.Enabled {
+		return nil
