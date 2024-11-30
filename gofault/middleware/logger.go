@@ -29,3 +29,4 @@ func DefaultRequestLoggerConfig() RequestLoggerConfig {
 func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
