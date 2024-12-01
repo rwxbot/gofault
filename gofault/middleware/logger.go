@@ -36,3 +36,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 
 		// Log request
 		logData := map[string]any{
+			"method":  ctx.Request.Method,
+			"path":    ctx.Request.URL.Path,
