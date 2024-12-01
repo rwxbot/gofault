@@ -43,3 +43,6 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 			"method":  ctx.Request.Method,
 			"path":    ctx.Request.URL.Path,
 			"query":   ctx.Request.URL.RawQuery,
+			"ip":      ctx.Request.RemoteAddr,
+			"started": start.Format(time.RFC3339),
+		}
