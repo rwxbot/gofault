@@ -50,3 +50,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		if config.LogHeaders {
 			logData["headers"] = formatHeaders(ctx.Request.Header)
 		}
+
+		if config.LogBody {
