@@ -42,3 +42,6 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 			"ip":      ctx.Request.RemoteAddr,
 			"started": start.Format(time.RFC3339),
 		}
+
+		if config.LogHeaders {
+			logData["headers"] = formatHeaders(ctx.Request.Header)
