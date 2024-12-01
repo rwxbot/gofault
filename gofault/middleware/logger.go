@@ -35,3 +35,4 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		start := time.Now()
 
 		// Log request
+		logData := map[string]any{
