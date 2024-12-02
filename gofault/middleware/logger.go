@@ -53,3 +53,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 
 		// Call next handler
 		err := next(ctx)
+
+		// Log response
