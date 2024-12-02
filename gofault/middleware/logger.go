@@ -48,3 +48,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		}
 
 		if config.LogBody {
+			logData["body"] = readRequestBody(ctx)
+		}
