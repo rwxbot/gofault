@@ -67,7 +67,18 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 			logData["response_body"] = "response captured"
 		}
 
-		// In a real implementation, this would use the app's logger
-		// For now, we just avoid blocking
+		// Emit the log entry. Previously this built logData and discarded it,
+		// so the middleware produced no output at all.
+		attrs := make([]any, 0, len(logData)*2)
+		for k, v := range logData {
+			attrs = append(attrs, k, v)
+		}
+		if err != nil {
+			slog.Default().Error("request failed", attrs...)
+		} else {
+			slog.Default().Info("request", attrs...)
+		}
 
 		return err
+	}
+}
