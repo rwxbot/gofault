@@ -84,3 +84,6 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 }
 
 // formatHeaders formats HTTP headers as a map.
+func formatHeaders(headers map[string][]string) map[string]string {
+	result := make(map[string]string)
+	for k, v := range headers {
