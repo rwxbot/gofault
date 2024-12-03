@@ -82,3 +82,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		return err
 	}
 }
+
+// formatHeaders formats HTTP headers as a map.
