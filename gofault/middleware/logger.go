@@ -62,3 +62,6 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		if config.LogBody {
 			logData["response_body"] = "response captured"
 		}
+
+		// In a real implementation, this would use the app's logger
+		// For now, we just avoid blocking
