@@ -58,3 +58,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		duration := time.Since(start)
 		logData["duration_ms"] = duration.Milliseconds()
 		logData["status"] = ctx.StatusCode
+
+		if config.LogBody {
