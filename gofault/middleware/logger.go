@@ -69,3 +69,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 
 		// In a real implementation, this would use the app's logger
 		// For now, we just avoid blocking
+
+		return err
