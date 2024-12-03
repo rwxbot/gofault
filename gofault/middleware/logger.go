@@ -67,3 +67,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		// For now, we just avoid blocking
 
 		return err
+	}
+}
