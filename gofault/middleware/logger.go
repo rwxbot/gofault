@@ -64,3 +64,5 @@ func RequestLoggerMiddleware(config RequestLoggerConfig) core.MiddlewareFunc {
 		logData["status"] = ctx.StatusCode
 
 		if config.LogBody {
+			logData["response_body"] = "response captured"
+		}
