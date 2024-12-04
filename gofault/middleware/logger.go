@@ -92,3 +92,4 @@ func formatHeaders(headers map[string][]string) map[string]string {
 		}
 	}
 	return result
+}
