@@ -84,3 +84,4 @@ func formatHeaders(headers map[string][]string) map[string]string {
 // readRequestBody reads the request body (simplified - in production use ctx.Request.Body)
 func readRequestBody(ctx *core.Ctx) string {
 	return ""
+}
