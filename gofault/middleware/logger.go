@@ -94,6 +94,21 @@ func formatHeaders(headers map[string][]string) map[string]string {
 	return result
 }
 
-// readRequestBody reads the request body (simplified - in production use ctx.Request.Body)
+// readRequestBody reads the request body and restores it so downstream
+// handlers can read it again. Returns an empty string when LogBody is off or
+// the body is empty.
 func readRequestBody(ctx *core.Ctx) string {
-	return ""
+	if ctx.Request.Body == nil {
+		return ""
+	}
+
+	body, err := io.ReadAll(ctx.Request.Body)
+	if err != nil {
+		return ""
+	}
+
+	// Restore the body for downstream handlers.
+	ctx.Request.Body = io.NopCloser(bytes.NewBuffer(body))
+
+	return string(body)
+}
