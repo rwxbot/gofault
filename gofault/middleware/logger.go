@@ -90,3 +90,5 @@ func formatHeaders(headers map[string][]string) map[string]string {
 		if len(v) > 0 {
 			result[k] = v[0]
 		}
+	}
+	return result
