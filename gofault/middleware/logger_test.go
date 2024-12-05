@@ -10,3 +10,5 @@ import (
 
 func TestDefaultRequestLoggerConfig(t *testing.T) {
 	config := DefaultRequestLoggerConfig()
+	if !config.Enabled {
+		t.Error("Expected Enabled to be true")
