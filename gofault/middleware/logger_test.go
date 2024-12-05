@@ -9,3 +9,4 @@ import (
 )
 
 func TestDefaultRequestLoggerConfig(t *testing.T) {
+	config := DefaultRequestLoggerConfig()
