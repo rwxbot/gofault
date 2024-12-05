@@ -7,3 +7,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestDefaultRequestLoggerConfig(t *testing.T) {
