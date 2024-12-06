@@ -18,3 +18,5 @@ func TestDefaultRequestLoggerConfig(t *testing.T) {
 	}
 	if config.LogHeaders {
 		t.Error("Expected LogHeaders to be false")
+	}
+}
