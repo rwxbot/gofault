@@ -20,3 +20,5 @@ func TestDefaultRequestLoggerConfig(t *testing.T) {
 		t.Error("Expected LogHeaders to be false")
 	}
 }
+
+func TestRequestLoggerMiddleware_Disabled(t *testing.T) {
