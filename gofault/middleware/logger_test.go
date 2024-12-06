@@ -14,3 +14,5 @@ func TestDefaultRequestLoggerConfig(t *testing.T) {
 		t.Error("Expected Enabled to be true")
 	}
 	if config.LogBody {
+		t.Error("Expected LogBody to be false")
+	}
