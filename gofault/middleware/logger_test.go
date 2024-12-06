@@ -22,3 +22,4 @@ func TestDefaultRequestLoggerConfig(t *testing.T) {
 }
 
 func TestRequestLoggerMiddleware_Disabled(t *testing.T) {
+	config := DefaultRequestLoggerConfig()
