@@ -39,3 +39,7 @@ func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
 		ctx.Response.Write([]byte(`{"status":"ok"}`))
 		return nil
 	}
+
+	req := httptest.NewRequest(http.MethodGet, "/test?foo=bar", nil)
+	req.Header.Set("X-Custom-Header", "test-value")
+	w := httptest.NewRecorder()
