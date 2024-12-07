@@ -30,3 +30,6 @@ func TestRequestLoggerMiddleware_Disabled(t *testing.T) {
 		t.Error("Expected nil handler when disabled")
 	}
 }
+
+func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
+	middleware := RequestLoggerMiddleware(DefaultRequestLoggerConfig())
