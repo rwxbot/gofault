@@ -28,3 +28,4 @@ func TestRequestLoggerMiddleware_Disabled(t *testing.T) {
 	handler := RequestLoggerMiddleware(config)
 	if handler != nil {
 		t.Error("Expected nil handler when disabled")
+	}
