@@ -35,3 +35,6 @@ func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
 	middleware := RequestLoggerMiddleware(DefaultRequestLoggerConfig())
 
 	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		return nil
