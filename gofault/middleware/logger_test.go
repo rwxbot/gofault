@@ -33,3 +33,5 @@ func TestRequestLoggerMiddleware_Disabled(t *testing.T) {
 
 func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
 	middleware := RequestLoggerMiddleware(DefaultRequestLoggerConfig())
+
+	next := func(ctx *core.Ctx) error {
