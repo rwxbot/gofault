@@ -46,3 +46,4 @@ func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	err := middleware(ctx, next)
+	if err != nil {
