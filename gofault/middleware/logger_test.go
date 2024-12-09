@@ -54,3 +54,6 @@ func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
 	}
 }
+
+func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
+	config := DefaultRequestLoggerConfig()
