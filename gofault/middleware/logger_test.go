@@ -58,3 +58,7 @@ func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
 func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
 	config := DefaultRequestLoggerConfig()
 	config.LogBody = true
+
+	middleware := RequestLoggerMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
