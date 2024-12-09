@@ -62,3 +62,6 @@ func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
 	middleware := RequestLoggerMiddleware(config)
 
 	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusCreated)
+		return nil
+	}
