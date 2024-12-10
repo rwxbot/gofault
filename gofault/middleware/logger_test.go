@@ -65,3 +65,6 @@ func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
 		ctx.Response.WriteHeader(http.StatusCreated)
 		return nil
 	}
+
+	req := httptest.NewRequest(http.MethodPost, "/test", nil)
+	w := httptest.NewRecorder()
