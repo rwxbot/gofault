@@ -71,3 +71,5 @@ func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	err := middleware(ctx, next)
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
