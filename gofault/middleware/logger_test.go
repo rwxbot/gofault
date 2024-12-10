@@ -68,3 +68,6 @@ func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
 
 	req := httptest.NewRequest(http.MethodPost, "/test", nil)
 	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	err := middleware(ctx, next)
