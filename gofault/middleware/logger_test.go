@@ -77,3 +77,5 @@ func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
 }
 
 func TestRequestLoggerMiddleware_WithHeaderLogging(t *testing.T) {
+	config := DefaultRequestLoggerConfig()
+	config.LogHeaders = true
