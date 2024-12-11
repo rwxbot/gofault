@@ -81,3 +81,7 @@ func TestRequestLoggerMiddleware_WithHeaderLogging(t *testing.T) {
 	config.LogHeaders = true
 
 	middleware := RequestLoggerMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
