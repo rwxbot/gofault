@@ -75,3 +75,5 @@ func TestRequestLoggerMiddleware_WithBodyLogging(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 }
+
+func TestRequestLoggerMiddleware_WithHeaderLogging(t *testing.T) {
