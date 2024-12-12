@@ -93,3 +93,4 @@ func TestRequestLoggerMiddleware_WithHeaderLogging(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	err := middleware(ctx, next)
+	if err != nil {
