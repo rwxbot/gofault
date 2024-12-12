@@ -85,3 +85,6 @@ func TestRequestLoggerMiddleware_WithHeaderLogging(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
 		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/test", nil)
