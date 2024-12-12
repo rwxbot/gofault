@@ -91,3 +91,5 @@ func TestRequestLoggerMiddleware_WithHeaderLogging(t *testing.T) {
 	req.Header.Set("Authorization", "Bearer token")
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := middleware(ctx, next)
