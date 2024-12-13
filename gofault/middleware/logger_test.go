@@ -94,3 +94,4 @@ func TestRequestLoggerMiddleware_WithHeaderLogging(t *testing.T) {
 
 	err := middleware(ctx, next)
 	if err != nil {
+		t.Errorf("unexpected error: %v", err)
