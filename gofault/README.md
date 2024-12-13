@@ -474,3 +474,12 @@ cfg.LogHeaders = false
 cfg.LogBody = false
 
 mod.RegisterMiddleware(middleware.RequestLoggerMiddleware(cfg))
+```
+
+The `logger` package provides the underlying logger, plus a lighter middleware
+for projects that only want method and path:
+
+```go
+log := logger.New("[gofault] ", logger.LevelInfo)
+rtr.Middleware(logger.LoggingMiddleware(log))
+```
