@@ -459,3 +459,11 @@ cfg := middleware.IPFilterConfig{
 
 mod.RegisterMiddleware(middleware.IPFilterMiddleware(cfg))
 ```
+
+
+## What's new in v1.9.0
+
+### Request logging
+
+`RequestLoggerMiddleware` records method, path, status and duration for each
+request. Bodies and headers are opt-in because reading them is not free:
