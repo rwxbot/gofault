@@ -467,3 +467,10 @@ mod.RegisterMiddleware(middleware.IPFilterMiddleware(cfg))
 
 `RequestLoggerMiddleware` records method, path, status and duration for each
 request. Bodies and headers are opt-in because reading them is not free:
+
+```go
+cfg := middleware.DefaultRequestLoggerConfig()
+cfg.LogHeaders = false
+cfg.LogBody = false
+
+mod.RegisterMiddleware(middleware.RequestLoggerMiddleware(cfg))
