@@ -52,3 +52,8 @@
 
 ### Added
 - IP filter middleware with CIDR support
+
+## [v1.9.0]
+
+### Added
+- Request logger middleware
