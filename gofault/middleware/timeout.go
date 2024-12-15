@@ -17,3 +17,5 @@ type TimeoutConfig struct {
 	// Duration is the timeout duration.
 	Duration time.Duration
 	// ErrorMessage is the message to return on timeout.
+	ErrorMessage string
+}
