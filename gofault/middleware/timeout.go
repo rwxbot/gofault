@@ -22,3 +22,6 @@ type TimeoutConfig struct {
 }
 
 // DefaultTimeoutConfig returns a default timeout configuration.
+func DefaultTimeoutConfig() TimeoutConfig {
+	return TimeoutConfig{
+		Enabled:      true,
