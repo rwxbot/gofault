@@ -7,3 +7,5 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/gofault/gofault/core"
