@@ -9,3 +9,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// TimeoutConfig holds configuration for the timeout middleware.
