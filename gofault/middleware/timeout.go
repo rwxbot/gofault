@@ -20,3 +20,5 @@ type TimeoutConfig struct {
 	// ErrorMessage is the message to return on timeout.
 	ErrorMessage string
 }
+
+// DefaultTimeoutConfig returns a default timeout configuration.
