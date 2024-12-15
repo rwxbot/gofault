@@ -11,3 +11,6 @@ import (
 )
 
 // TimeoutConfig holds configuration for the timeout middleware.
+type TimeoutConfig struct {
+	// Enabled enables the timeout middleware.
+	Enabled bool
