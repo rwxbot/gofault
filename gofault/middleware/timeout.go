@@ -33,3 +33,4 @@ func DefaultTimeoutConfig() TimeoutConfig {
 type timeoutBody struct {
 	Status  string `json:"status"`
 	Message string `json:"message"`
+}
