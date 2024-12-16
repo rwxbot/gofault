@@ -28,3 +28,4 @@ func DefaultTimeoutConfig() TimeoutConfig {
 		Duration:     30 * time.Second,
 		ErrorMessage: "Request timeout",
 	}
+}
