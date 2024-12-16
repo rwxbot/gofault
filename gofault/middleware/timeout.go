@@ -30,3 +30,6 @@ func DefaultTimeoutConfig() TimeoutConfig {
 }
 
 // timeoutBody is the payload returned when a handler exceeds its deadline.
+type timeoutBody struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
