@@ -28,3 +28,5 @@ func DefaultTimeoutConfig() TimeoutConfig {
 		ErrorMessage: "Request timeout",
 	}
 }
+
+// timeoutBody is the payload returned when a handler exceeds its deadline.
