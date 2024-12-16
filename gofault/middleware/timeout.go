@@ -25,3 +25,6 @@ type TimeoutConfig struct {
 func DefaultTimeoutConfig() TimeoutConfig {
 	return TimeoutConfig{
 		Enabled:      true,
+		Duration:     30 * time.Second,
+		ErrorMessage: "Request timeout",
+	}
