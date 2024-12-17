@@ -40,3 +40,4 @@ type timeoutBody struct {
 //
 // TimeoutMiddleware runs the handler on its own goroutine, so a handler that
 // outlives the deadline is still running when the timeout response is written.
+// If both goroutines wrote to the same ResponseWriter they would race on the
