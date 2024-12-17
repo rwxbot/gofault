@@ -38,3 +38,4 @@ type timeoutBody struct {
 // bufferedResponse is an http.ResponseWriter that accumulates a handler's output
 // in memory instead of touching the real ResponseWriter.
 //
+// TimeoutMiddleware runs the handler on its own goroutine, so a handler that
