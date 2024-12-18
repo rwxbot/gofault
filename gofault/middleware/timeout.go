@@ -43,3 +43,5 @@ type timeoutBody struct {
 // If both goroutines wrote to the same ResponseWriter they would race on the
 // status line (and net/http would log "superfluous WriteHeader call"). Buffering
 // keeps the real writer owned by exactly one goroutine.
+type bufferedResponse struct {
+	header http.Header
