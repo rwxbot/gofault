@@ -46,3 +46,5 @@ type timeoutBody struct {
 type bufferedResponse struct {
 	header http.Header
 	status int
+	body   bytes.Buffer
+}
