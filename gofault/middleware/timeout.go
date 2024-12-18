@@ -43,3 +43,4 @@ type timeoutBody struct {
 // outlives the deadline is still running when the timeout response is written.
 // If both goroutines wrote to the same ResponseWriter they would race on the
 // status line (and net/http would log "superfluous WriteHeader call"). Buffering
+// keeps the real writer owned by exactly one goroutine.
