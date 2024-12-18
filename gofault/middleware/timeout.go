@@ -45,3 +45,4 @@ type timeoutBody struct {
 // keeps the real writer owned by exactly one goroutine.
 type bufferedResponse struct {
 	header http.Header
+	status int
