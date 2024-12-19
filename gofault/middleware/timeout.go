@@ -52,3 +52,6 @@ type bufferedResponse struct {
 func newBufferedResponse() *bufferedResponse {
 	return &bufferedResponse{header: make(http.Header)}
 }
+
+func (b *bufferedResponse) Header() http.Header {
+	return b.header
