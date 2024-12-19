@@ -61,3 +61,5 @@ func (b *bufferedResponse) Header() http.Header {
 func (b *bufferedResponse) WriteHeader(status int) {
 	if b.status == 0 {
 		b.status = status
+	}
+}
