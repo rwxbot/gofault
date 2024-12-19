@@ -49,3 +49,6 @@ type bufferedResponse struct {
 	status int
 	body   bytes.Buffer
 }
+
+func newBufferedResponse() *bufferedResponse {
+	return &bufferedResponse{header: make(http.Header)}
