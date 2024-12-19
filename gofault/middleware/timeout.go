@@ -56,3 +56,7 @@ func newBufferedResponse() *bufferedResponse {
 func (b *bufferedResponse) Header() http.Header {
 	return b.header
 }
+
+func (b *bufferedResponse) WriteHeader(status int) {
+	if b.status == 0 {
+		b.status = status
