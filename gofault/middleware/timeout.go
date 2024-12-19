@@ -55,3 +55,4 @@ func newBufferedResponse() *bufferedResponse {
 
 func (b *bufferedResponse) Header() http.Header {
 	return b.header
+}
