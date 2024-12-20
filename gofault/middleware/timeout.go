@@ -68,3 +68,5 @@ func (b *bufferedResponse) Write(p []byte) (int, error) {
 	if b.status == 0 {
 		b.status = http.StatusOK
 	}
+	return b.body.Write(p)
+}
