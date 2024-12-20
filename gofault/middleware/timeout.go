@@ -63,3 +63,6 @@ func (b *bufferedResponse) WriteHeader(status int) {
 		b.status = status
 	}
 }
+
+func (b *bufferedResponse) Write(p []byte) (int, error) {
+	if b.status == 0 {
