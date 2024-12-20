@@ -70,3 +70,5 @@ func (b *bufferedResponse) Write(p []byte) (int, error) {
 	}
 	return b.body.Write(p)
 }
+
+// flushTo copies the buffered response onto the real ResponseWriter. It must be
