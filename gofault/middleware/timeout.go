@@ -81,3 +81,4 @@ func (b *bufferedResponse) flushTo(w http.ResponseWriter) {
 	}
 	if b.status != 0 {
 		w.WriteHeader(b.status)
+	}
