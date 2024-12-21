@@ -78,3 +78,6 @@ func (b *bufferedResponse) flushTo(w http.ResponseWriter) {
 		for _, value := range values {
 			w.Header().Add(name, value)
 		}
+	}
+	if b.status != 0 {
+		w.WriteHeader(b.status)
