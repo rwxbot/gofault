@@ -72,3 +72,4 @@ func (b *bufferedResponse) Write(p []byte) (int, error) {
 }
 
 // flushTo copies the buffered response onto the real ResponseWriter. It must be
+// called from a single goroutine once the handler has returned.
