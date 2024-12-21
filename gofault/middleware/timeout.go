@@ -75,3 +75,5 @@ func (b *bufferedResponse) Write(p []byte) (int, error) {
 func (b *bufferedResponse) flushTo(w http.ResponseWriter) {
 	for name, values := range b.header {
 		for _, value := range values {
+			w.Header().Add(name, value)
+		}
