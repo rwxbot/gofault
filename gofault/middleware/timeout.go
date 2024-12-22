@@ -86,3 +86,5 @@ func (b *bufferedResponse) flushTo(w http.ResponseWriter) {
 		_, _ = w.Write(b.body.Bytes())
 	}
 }
+
+// TimeoutMiddleware creates a middleware that cancels requests that exceed the timeout.
