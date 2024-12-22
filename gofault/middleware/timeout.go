@@ -89,3 +89,5 @@ func (b *bufferedResponse) flushTo(w http.ResponseWriter) {
 // TimeoutMiddleware creates a middleware that cancels requests that exceed the timeout.
 func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 	if !config.Enabled {
+		return nil
+	}
