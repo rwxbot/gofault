@@ -84,3 +84,4 @@ func (b *bufferedResponse) flushTo(w http.ResponseWriter) {
 	if b.body.Len() > 0 {
 		_, _ = w.Write(b.body.Bytes())
 	}
+}
