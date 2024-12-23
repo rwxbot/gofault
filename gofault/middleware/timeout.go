@@ -95,3 +95,5 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 	if config.Duration <= 0 {
 		config.Duration = 30 * time.Second
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
