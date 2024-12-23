@@ -98,3 +98,4 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {
+		ctxWithTimeout, cancel := context.WithTimeout(ctx.Request.Context(), config.Duration)
