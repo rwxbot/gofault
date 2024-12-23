@@ -91,3 +91,5 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
 	}
+
+	if config.Duration <= 0 {
