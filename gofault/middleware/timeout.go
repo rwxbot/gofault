@@ -101,3 +101,5 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 		defer cancel()
 
 		ctx.Request = ctx.Request.WithContext(ctxWithTimeout)
+
+		// The handler gets its own Ctx pointing at a private buffer, and shares
