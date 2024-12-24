@@ -107,3 +107,4 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 		// Params/Locals with the caller so middleware downstream still sees them.
 		buffered := newBufferedResponse()
 		inner := *ctx
+		inner.Response = buffered
