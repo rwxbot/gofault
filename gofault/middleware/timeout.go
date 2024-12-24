@@ -111,3 +111,6 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 		errCh := make(chan error, 1)
 		go func() {
 			errCh <- next(&inner)
+		}()
+
+		select {
