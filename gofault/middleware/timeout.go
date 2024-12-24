@@ -104,3 +104,6 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 		ctx.Request = ctx.Request.WithContext(ctxWithTimeout)
 
 		// The handler gets its own Ctx pointing at a private buffer, and shares
+		// Params/Locals with the caller so middleware downstream still sees them.
+		buffered := newBufferedResponse()
+		inner := *ctx
