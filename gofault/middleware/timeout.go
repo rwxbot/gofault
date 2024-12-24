@@ -111,4 +111,17 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 
 		errCh := make(chan error, 1)
 		go func() {
+			// The handler runs on its own goroutine, so a panic here is
+			// invisible to any RecoveryMiddleware wrapping this one: their
+			// deferred recover sits on a different stack and the process
+			// would die. Convert the panic into an error and let the
+			// router's error path (exception filter or 500) handle it.
+			defer func() {
+				if r := recover(); r != nil {
+					errCh <- fmt.Errorf("timeout middleware: handler panic: %v", r)
+				}
+			}()
 			errCh <- next(&inner)
+		}()
+
+		select {
