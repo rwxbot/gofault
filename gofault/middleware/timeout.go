@@ -108,3 +108,7 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 		buffered := newBufferedResponse()
 		inner := *ctx
 		inner.Response = buffered
+
+		errCh := make(chan error, 1)
+		go func() {
+			errCh <- next(&inner)
