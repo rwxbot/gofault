@@ -114,3 +114,6 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 		}()
 
 		select {
+		case err := <-errCh:
+			buffered.flushTo(ctx.Response)
+			return err
