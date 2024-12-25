@@ -118,3 +118,6 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 			buffered.flushTo(ctx.Response)
 			return err
 		case <-ctxWithTimeout.Done():
+			ctx.Response.Header().Set("Content-Type", "application/json")
+			ctx.Response.WriteHeader(http.StatusGatewayTimeout)
+			payload, _ := json.Marshal(timeoutBody{
