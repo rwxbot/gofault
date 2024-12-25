@@ -128,3 +128,4 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 		case err := <-errCh:
 			buffered.flushTo(ctx.Response)
 			return err
+		case <-ctxWithTimeout.Done():
