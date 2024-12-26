@@ -128,3 +128,4 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 			return ctxWithTimeout.Err()
 		}
 	}
+}
