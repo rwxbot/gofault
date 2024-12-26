@@ -149,6 +149,7 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 				Message: config.ErrorMessage,
 			})
 			_, _ = ctx.Response.Write(payload)
-			return ctxWithTimeout.Err()
+			return nil
 		}
 	}
+}
