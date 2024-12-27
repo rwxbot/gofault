@@ -69,3 +69,8 @@ mod.RegisterOnInit(h).RegisterOnBoot(h).RegisterOnShutdown(h)
 
 `module.App.RegisterModules` rejects duplicate names and empty names up front.
 `App.Init` then topologically sorts modules by `Depends` (Kahn's algorithm) and
+fails on unknown dependencies or cycles — before the server starts, so a wiring
+mistake is a boot failure rather than a runtime one.
+
+Hook order follows that sort: `OnInit` and `OnBoot` run in dependency order,
+`OnShutdown` runs in reverse.
