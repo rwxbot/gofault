@@ -40,3 +40,18 @@ is deliberately shallow:
 
 Nothing imports `middleware`, and nothing imports the integrations. That is why
 you can delete `gorm`, `redis` and `grpc` from a build without touching the core.
+
+## Request lifecycle
+
+1. `server.HTTP` accepts the connection and builds a `*core.Ctx` with
+   `core.NewCtx`, which initialises `Params` and `Locals`.
+2. `router.Router.ServeHTTP` matches method and path, extracts `:param`
+   segments into `ctx.Params`, and begins a request scope in the container.
+3. The router's middleware chain runs outermost first, then the module
+   middleware attached to the matched route.
+4. `controller.InvokeHandler` reflects the handler name from the route onto the
+   controller and calls it.
+5. If a handler returns an error, the router hands it to the exception filter
+   chain; `exception.NewHTTPExceptionFilter` recognises `HTTPException` values
+   and writes the matching status code and JSON body.
+6. The request scope ends, releasing request-scoped instances.
