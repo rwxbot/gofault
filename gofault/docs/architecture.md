@@ -34,3 +34,9 @@ is deliberately shallow:
 | `controller`, `exception`, `logger` | `core` |
 | `versioning` | `core` |
 | `middleware` | `core`, `exception` |
+| `router` | `core`, `exception`, `ioc` |
+| `gorm`, `grpc`, `redis` | `core` |
+| `module` | `core`, `controller`, `ioc`, `provider`, `router`, `server` |
+
+Nothing imports `middleware`, and nothing imports the integrations. That is why
+you can delete `gorm`, `redis` and `grpc` from a build without touching the core.
