@@ -74,3 +74,13 @@ mistake is a boot failure rather than a runtime one.
 
 Hook order follows that sort: `OnInit` and `OnBoot` run in dependency order,
 `OnShutdown` runs in reverse.
+
+## Dependency injection
+
+`ioc` resolves by type and supports three scopes:
+
+| registration | lifetime |
+|---|---|
+| `Register` | singleton, created once |
+| `RegisterScoped` | per request, via `ResolveFromCtx` |
+| `RegisterTransient` | a new instance per resolve |
