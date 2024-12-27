@@ -55,3 +55,17 @@ you can delete `gorm`, `redis` and `grpc` from a build without touching the core
    chain; `exception.NewHTTPExceptionFilter` recognises `HTTPException` values
    and writes the matching status code and JSON body.
 6. The request scope ends, releasing request-scoped instances.
+
+## Modules and ordering
+
+A module is a struct, not an interface:
+
+```go
+mod := core.NewModule("api")
+mod.Depends = []string{"database"}
+mod.RegisterControllers(ctrl).RegisterProviders(svc).RegisterMiddleware(mw)
+mod.RegisterOnInit(h).RegisterOnBoot(h).RegisterOnShutdown(h)
+```
+
+`module.App.RegisterModules` rejects duplicate names and empty names up front.
+`App.Init` then topologically sorts modules by `Depends` (Kahn's algorithm) and
