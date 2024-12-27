@@ -84,3 +84,16 @@ Hook order follows that sort: `OnInit` and `OnBoot` run in dependency order,
 | `Register` | singleton, created once |
 | `RegisterScoped` | per request, via `ResolveFromCtx` |
 | `RegisterTransient` | a new instance per resolve |
+
+Constructors are plain functions; their parameters are resolved recursively:
+
+```go
+c := ioc.New()
+c.Register(NewGreetingService)
+
+svc, err := c.Resolve(&GreetingService{})   // pointer to the zero value
+```
+
+`Resolve` takes a pointer to a zero value of the target type so the container can
+key on the type without the caller restating it. Request-scoped resolution goes
+through the context (`ResolveFromCtx`), which the router sets up per request.
