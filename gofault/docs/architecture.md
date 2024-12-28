@@ -114,3 +114,19 @@ Middleware is registered in two places, and the distinction matters:
 
 * `rtr.Middleware(...)` — runs for every route.
 * `mod.RegisterMiddleware(...)` — runs only for routes of that module.
+
+## Concurrency
+
+Two places run work off the request goroutine, and both are written so that only
+one goroutine ever writes a response:
+
+* **Timeout middleware** runs the handler on its own goroutine and lets it write
+  into a private buffer. If the deadline fires first, the middleware writes
+  `504` and the buffered output is discarded. A handler that finishes late can
+  therefore never write to a response that was already committed, and the
+  request context is the signal it should stop.
+* **WebSocket** upgrades the connection, stores it in `ctx.Locals["ws_conn"]`,
+  and runs a ping ticker with its own wait group so the connection is closed
+  exactly once.
+
+Everything else is synchronous. Run `go test ./... -race`; the middleware package
