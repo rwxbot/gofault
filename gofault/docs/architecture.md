@@ -130,3 +130,4 @@ one goroutine ever writes a response:
   exactly once.
 
 Everything else is synchronous. Run `go test ./... -race`; the middleware package
+is where a race will show up first.
