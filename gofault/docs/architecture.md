@@ -97,3 +97,15 @@ svc, err := c.Resolve(&GreetingService{})   // pointer to the zero value
 `Resolve` takes a pointer to a zero value of the target type so the container can
 key on the type without the caller restating it. Request-scoped resolution goes
 through the context (`ResolveFromCtx`), which the router sets up per request.
+
+## Middleware semantics
+
+```go
+type Handler func(ctx *Ctx) error
+type MiddlewareFunc func(ctx *Ctx, next Handler) error
+```
+
+Plain function types, which is what makes middleware composable without an
+interface and testable without a server. Returning before calling `next`
+short-circuits the chain; returning an error propagates it to the exception
+filter.
