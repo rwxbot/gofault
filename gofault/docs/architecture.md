@@ -131,3 +131,18 @@ one goroutine ever writes a response:
 
 Everything else is synchronous. Run `go test ./... -race`; the middleware package
 is where a race will show up first.
+
+## Error handling
+
+`exception` separates the error from its rendering:
+
+```go
+return exception.NotFound("user not found")     // any depth, any goroutine
+```
+
+```go
+rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
+```
+
+Filters implement `ExceptionFilter` and can be chained with
+`NewExceptionFilterChain`. The filter runs on the router, so it also covers
