@@ -109,3 +109,8 @@ Plain function types, which is what makes middleware composable without an
 interface and testable without a server. Returning before calling `next`
 short-circuits the chain; returning an error propagates it to the exception
 filter.
+
+Middleware is registered in two places, and the distinction matters:
+
+* `rtr.Middleware(...)` — runs for every route.
+* `mod.RegisterMiddleware(...)` — runs only for routes of that module.
