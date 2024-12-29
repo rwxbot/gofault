@@ -147,3 +147,14 @@ rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
 Filters implement `ExceptionFilter` and can be chained with
 `NewExceptionFilterChain`. The filter runs on the router, so it also covers
 errors returned by module middleware.
+
+## Testing strategy
+
+* Unit tests never start a server: they build a `*core.Ctx` with
+  `core.NewCtx(httptest.NewRecorder(), httptest.NewRequest(...))` and call a
+  handler directly.
+* HTTP-level assertions read `rec.Result().Header`, the header snapshot taken at
+  `WriteHeader`. Reading `rec.Header()` instead is a false pass, because a
+  recorder keeps accepting writes after the status line while a real server does
+  not.
+* Integration tests that need Redis skip themselves when it is unreachable, and
