@@ -158,3 +158,7 @@ errors returned by module middleware.
   recorder keeps accepting writes after the status line while a real server does
   not.
 * Integration tests that need Redis skip themselves when it is unreachable, and
+  CI provides a real instance so they actually run. See `docs/getting-started.md`
+  for the environment variable.
+* CI runs the suite with `-race`, which is how the timeout middleware's
+  double-write was found.
