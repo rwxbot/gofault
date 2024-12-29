@@ -146,3 +146,4 @@ rtr.ExceptionFilter(exception.NewHTTPExceptionFilter())
 
 Filters implement `ExceptionFilter` and can be chained with
 `NewExceptionFilterChain`. The filter runs on the router, so it also covers
+errors returned by module middleware.
