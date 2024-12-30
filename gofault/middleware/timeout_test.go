@@ -9,3 +9,7 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestDefaultTimeoutConfig(t *testing.T) {
+	config := DefaultTimeoutConfig()
+	if !config.Enabled {
