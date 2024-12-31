@@ -13,3 +13,5 @@ import (
 func TestDefaultTimeoutConfig(t *testing.T) {
 	config := DefaultTimeoutConfig()
 	if !config.Enabled {
+		t.Error("Expected Enabled to be true")
+	}
