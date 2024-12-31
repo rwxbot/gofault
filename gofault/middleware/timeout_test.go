@@ -18,3 +18,6 @@ func TestDefaultTimeoutConfig(t *testing.T) {
 		t.Errorf("Expected Duration 30s, got %v", config.Duration)
 	}
 }
+
+func TestTimeoutMiddleware_Disabled(t *testing.T) {
+	config := DefaultTimeoutConfig()
