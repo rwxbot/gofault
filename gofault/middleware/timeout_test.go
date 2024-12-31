@@ -16,3 +16,5 @@ func TestDefaultTimeoutConfig(t *testing.T) {
 	}
 	if config.Duration != 30*time.Second {
 		t.Errorf("Expected Duration 30s, got %v", config.Duration)
+	}
+}
