@@ -25,3 +25,6 @@ func TestTimeoutMiddleware_Disabled(t *testing.T) {
 	config.Enabled = false
 
 	handler := TimeoutMiddleware(config)
+	if handler != nil {
+		t.Error("Expected nil handler when disabled")
+	}
