@@ -21,3 +21,6 @@ func TestDefaultTimeoutConfig(t *testing.T) {
 
 func TestTimeoutMiddleware_Disabled(t *testing.T) {
 	config := DefaultTimeoutConfig()
+	config.Enabled = false
+
+	handler := TimeoutMiddleware(config)
