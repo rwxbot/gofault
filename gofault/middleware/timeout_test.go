@@ -29,3 +29,6 @@ func TestTimeoutMiddleware_Disabled(t *testing.T) {
 		t.Error("Expected nil handler when disabled")
 	}
 }
+
+func TestTimeoutMiddleware_NoTimeout(t *testing.T) {
+	middleware := TimeoutMiddleware(DefaultTimeoutConfig())
