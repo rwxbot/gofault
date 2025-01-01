@@ -27,3 +27,4 @@ func TestTimeoutMiddleware_Disabled(t *testing.T) {
 	if handler != nil {
 		t.Error("Expected nil handler when disabled")
 	}
+}
