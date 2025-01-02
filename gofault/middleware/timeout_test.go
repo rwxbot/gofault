@@ -41,3 +41,6 @@ func TestTimeoutMiddleware_NoTimeout(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/test", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := middleware(ctx, next)
+	if err != nil {
