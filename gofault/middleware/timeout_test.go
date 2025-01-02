@@ -35,3 +35,6 @@ func TestTimeoutMiddleware_NoTimeout(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
+		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		return nil
+	}
