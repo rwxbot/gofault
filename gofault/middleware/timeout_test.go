@@ -37,3 +37,5 @@ func TestTimeoutMiddleware_NoTimeout(t *testing.T) {
 		ctx.Response.Write([]byte(`{"status":"ok"}`))
 		return nil
 	}
+
+	req := httptest.NewRequest(http.MethodGet, "/test", nil)
