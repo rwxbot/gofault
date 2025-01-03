@@ -53,3 +53,5 @@ func TestTimeoutMiddleware_NoTimeout(t *testing.T) {
 }
 
 func TestTimeoutMiddleware_Timeout(t *testing.T) {
+	config := DefaultTimeoutConfig()
+	config.Duration = 50 * time.Millisecond
