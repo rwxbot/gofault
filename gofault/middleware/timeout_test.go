@@ -51,3 +51,5 @@ func TestTimeoutMiddleware_NoTimeout(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
 	}
 }
+
+func TestTimeoutMiddleware_Timeout(t *testing.T) {
