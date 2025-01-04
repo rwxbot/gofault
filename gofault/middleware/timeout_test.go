@@ -57,3 +57,5 @@ func TestTimeoutMiddleware_Timeout(t *testing.T) {
 	config.Duration = 50 * time.Millisecond
 
 	middleware := TimeoutMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
