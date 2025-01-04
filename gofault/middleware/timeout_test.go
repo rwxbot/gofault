@@ -64,3 +64,5 @@ func TestTimeoutMiddleware_Timeout(t *testing.T) {
 		ctx.Response.WriteHeader(http.StatusOK)
 		return nil
 	}
+
+	req := httptest.NewRequest(http.MethodGet, "/slow", nil)
