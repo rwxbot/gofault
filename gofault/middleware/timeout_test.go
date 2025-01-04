@@ -59,3 +59,5 @@ func TestTimeoutMiddleware_Timeout(t *testing.T) {
 	middleware := TimeoutMiddleware(config)
 
 	next := func(ctx *core.Ctx) error {
+		time.Sleep(200 * time.Millisecond)
+		ctx.Response.WriteHeader(http.StatusOK)
