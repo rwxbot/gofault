@@ -73,3 +73,4 @@ func TestTimeoutMiddleware_Timeout(t *testing.T) {
 
 	if w.Code != http.StatusGatewayTimeout {
 		t.Errorf("Expected status %d, got %d", http.StatusGatewayTimeout, w.Code)
+	}
