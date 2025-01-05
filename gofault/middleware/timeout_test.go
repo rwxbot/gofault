@@ -70,3 +70,6 @@ func TestTimeoutMiddleware_Timeout(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	if w.Code != http.StatusGatewayTimeout {
+		t.Errorf("Expected status %d, got %d", http.StatusGatewayTimeout, w.Code)
