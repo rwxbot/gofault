@@ -19,3 +19,10 @@ from typing import List, Tuple
 
 # Fixed seed for deterministic output
 FIXED_SEED = 20260921
+
+# Conventional commits scopes for gofault
+SCOPES = [
+    "ioc", "container", "module", "controller", "router", "server",
+    "provider", "core", "example", "hello", "test", "docs", "middleware",
+    "di", "di-container", "route", "http"
+]
