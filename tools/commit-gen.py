@@ -16,3 +16,6 @@ import sys
 import os
 from datetime import datetime, timedelta
 from typing import List, Tuple
+
+# Fixed seed for deterministic output
+FIXED_SEED = 20260921
