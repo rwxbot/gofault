@@ -26,3 +26,17 @@ SCOPES = [
     "provider", "core", "example", "hello", "test", "docs", "middleware",
     "di", "di-container", "route", "http"
 ]
+
+# Commit message templates
+TEMPLATES = [
+    "feat({scope}): add {detail}",
+    "fix({scope}): resolve {detail}",
+    "refactor({scope}): improve {detail}",
+    "test({scope}): add coverage for {detail}",
+    "docs({scope}): update documentation",
+    "perf({scope}): optimize {detail}",
+    "chore({scope}): update {detail}",
+    "feat({scope}): implement {detail}",
+    "fix({scope}): handle {detail} case",
+    "refactor({scope}): restructure {detail}",
+]
