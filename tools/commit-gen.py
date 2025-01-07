@@ -57,3 +57,20 @@ ASPECTS = [
     "performance", "code structure", "error messages", "test coverage",
     "documentation", "type safety", "memory usage", "concurrency handling"
 ]
+
+ITEMS = [
+    "dependencies", "ci configuration", "build script", "test suite",
+    "readme", "license", "gitignore", "go mod"
+]
+
+
+def generate_message(scope: str, seed: int) -> str:
+    """Generate a commit message using the seed for determinism."""
+    random.seed(seed)
+    template = random.choice(TEMPLATES)
+    random.seed(seed + 1)
+    category = template.split("(")[0]
+    if category == "feat":
+        detail = random.choice(FEATURES)
+    elif category == "fix":
+        detail = random.choice(ISSUES)
