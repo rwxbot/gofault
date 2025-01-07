@@ -40,3 +40,20 @@ TEMPLATES = [
     "fix({scope}): handle {detail} case",
     "refactor({scope}): restructure {detail}",
 ]
+
+# Detail words for generating messages
+FEATURES = [
+    "singleton scope", "request injection", "route matching", "handler resolution",
+    "provider registration", "module setup", "controller routing", "middleware chain",
+    "error handling", "context propagation", "response writing", "param extraction"
+]
+
+ISSUES = [
+    "nil pointer", "routing conflict", "scope resolution", "type inference",
+    "pattern matching", "header setting", "body parsing", "path extraction"
+]
+
+ASPECTS = [
+    "performance", "code structure", "error messages", "test coverage",
+    "documentation", "type safety", "memory usage", "concurrency handling"
+]
