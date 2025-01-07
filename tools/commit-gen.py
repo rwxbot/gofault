@@ -92,3 +92,20 @@ def generate_commits(start_date: datetime, end_date: datetime, commits_per_day: 
     """Generate a list of (timestamp, message) tuples for commits."""
     commits = []
     current = start_date
+    base_seed = FIXED_SEED
+
+    while current <= end_date:
+        day_seed = base_seed + int(current.timestamp()) // 86400
+
+        for i in range(commits_per_day):
+            # Calculate time offset within the day (random but monotonically increasing)
+            random.seed(day_seed + i)
+            hour_offset = random.randint(0, 12)  # 0-12 hours into the day
+            minute_offset = random.randint(0, 59)
+            second_offset = random.randint(0, 59)
+
+            commit_time = current.replace(hour=9, minute=0, second=0) + \
+                          timedelta(hours=hour_offset, minutes=minute_offset, seconds=second_offset)
+
+            scope = SCOPES[(day_seed + i) % len(SCOPES)]
+            msg_seed = get_commit_seed(base_seed, int(current.timestamp()) // 86400, i)
