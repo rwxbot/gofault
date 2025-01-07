@@ -109,3 +109,19 @@ def generate_commits(start_date: datetime, end_date: datetime, commits_per_day: 
 
             scope = SCOPES[(day_seed + i) % len(SCOPES)]
             msg_seed = get_commit_seed(base_seed, int(current.timestamp()) // 86400, i)
+            message = generate_message(scope, msg_seed)
+
+            commits.append((commit_time, message))
+
+        current += timedelta(days=1)
+
+    return commits
+
+
+def run_commit(commit_time: datetime, message: str, file_path: str = "gofault/README.md") -> bool:
+    """Execute a git commit with the given timestamp and message."""
+    env = {
+        "GIT_AUTHOR_DATE": commit_time.isoformat(),
+        "GIT_COMMITTER_DATE": commit_time.isoformat(),
+        **os.environ
+    }
