@@ -74,3 +74,21 @@ def generate_message(scope: str, seed: int) -> str:
         detail = random.choice(FEATURES)
     elif category == "fix":
         detail = random.choice(ISSUES)
+    elif category == "refactor":
+        detail = random.choice(ASPECTS)
+    elif category == "chore":
+        detail = random.choice(ITEMS)
+    else:
+        detail = random.choice(FEATURES)
+    return template.format(scope=scope, detail=detail)
+
+
+def get_commit_seed(base_seed: int, day: int, commit_num: int) -> int:
+    """Generate a unique seed for each commit based on deterministic values."""
+    return base_seed + day * 1000 + commit_num
+
+
+def generate_commits(start_date: datetime, end_date: datetime, commits_per_day: int = 7) -> List[Tuple[datetime, str]]:
+    """Generate a list of (timestamp, message) tuples for commits."""
+    commits = []
+    current = start_date
