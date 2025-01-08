@@ -169,3 +169,21 @@ def main():
     parser.add_argument("--version", required=True, help="Version tag (e.g., v0.1.0)")
     parser.add_argument("--start-date", required=True, help="Start date (YYYY-MM-DD)")
     parser.add_argument("--end-date", required=True, help="End date (YYYY-MM-DD)")
+    parser.add_argument("--commits-per-day", type=int, default=7, help="Commits per day (default: 7)")
+    parser.add_argument("--tag-date", help="Date for the tag (default: end-date)")
+    parser.add_argument("--dry-run", action="store_true", help="Show commits without committing")
+
+    args = parser.parse_args()
+
+    start = datetime.strptime(args.start_date, "%Y-%m-%d")
+    end = datetime.strptime(args.end_date, "%Y-%m-%d")
+    tag_date = datetime.strptime(args.tag_date or args.end_date, "%Y-%m-%d") if args.tag_date else end
+
+    commits = generate_commits(start, end, args.commits_per_day)
+
+    print(f"Generating {len(commits)} commits for {args.version}")
+    print(f"Date range: {start.date()} to {end.date()}")
+    print(f"Tag date: {tag_date.date()}")
+    print()
+
+    if args.dry_run:
