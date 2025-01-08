@@ -155,3 +155,17 @@ def create_tag(tag_name: str, message: str, date: datetime) -> bool:
         subprocess.run(
             ["git", "tag", "-a", tag_name, "-m", message],
             check=True,
+            env=env,
+            capture_output=True
+        )
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"Error creating tag: {e.stderr.decode() if e.stderr else str(e)}", file=sys.stderr)
+        return False
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate backdated commits for gofault")
+    parser.add_argument("--version", required=True, help="Version tag (e.g., v0.1.0)")
+    parser.add_argument("--start-date", required=True, help="Start date (YYYY-MM-DD)")
+    parser.add_argument("--end-date", required=True, help="End date (YYYY-MM-DD)")
