@@ -194,3 +194,20 @@ def main():
     print()
 
     if args.dry_run:
+        for i, (dt, msg) in enumerate(commits[:10]):
+            print(f"{dt.isoformat()} - {msg}")
+        print(f"... and {len(commits) - 10} more commits")
+        return
+
+    success = 0
+    for i, (dt, msg) in enumerate(commits):
+        if run_commit(dt, msg):
+            success += 1
+        if (i + 1) % 100 == 0:
+            print(f"Progress: {i + 1}/{len(commits)} commits")
+
+    print(f"\nSuccessfully created {success}/{len(commits)} commits")
+
+    if success > 0:
+        tag_msg = f"Release {args.version} - minimal core with IoC, Module, Controller, Router"
+        if create_tag(args.version, tag_msg, tag_date):
