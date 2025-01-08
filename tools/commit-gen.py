@@ -149,3 +149,16 @@ def run_commit(commit_time: datetime, message: str, file_path: str = "gofault/RE
     except subprocess.CalledProcessError as e:
         print(f"Error committing: {e.stderr.decode() if e.stderr else str(e)}", file=sys.stderr)
         return False
+
+
+def create_tag(tag_name: str, message: str, date: datetime) -> bool:
+    """Create a git tag with the given name and message at the specified date."""
+    env = {
+        **os.environ,
+        "GIT_COMMITTER_DATE": date.isoformat(),
+    }
+
+    try:
+        subprocess.run(
+            ["git", "tag", "-a", tag_name, "-m", message],
+            check=True,
