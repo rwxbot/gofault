@@ -120,8 +120,32 @@ def generate_commits(start_date: datetime, end_date: datetime, commits_per_day: 
 
 def run_commit(commit_time: datetime, message: str, file_path: str = "gofault/README.md") -> bool:
     """Execute a git commit with the given timestamp and message."""
+    # Explicit dates must win over any inherited GIT_*_DATE in the caller's
+    # shell: spreading os.environ last let a stray GIT_AUTHOR_DATE in the
+    # environment silently override the backdated timestamp, defeating the
+    # whole point of deterministic history.
     env = {
+        **os.environ,
         "GIT_AUTHOR_DATE": commit_time.isoformat(),
         "GIT_COMMITTER_DATE": commit_time.isoformat(),
-        **os.environ
     }
+
+    try:
+        # Create or update a file
+        with open(file_path, "a" if os.path.exists(file_path) else "w") as f:
+            f.write(f"\n# Commit: {message}\n")
+
+        # Stage only the file this commit is about. `git add .` swept every
+        # untracked file in the tree (.env, credentials, local notes, build
+        # artifacts) into each of the ~7,500 generated commits.
+        subprocess.run(["git", "add", "--", file_path], check=True, env=env)
+        subprocess.run(
+            ["git", "commit", "--date", commit_time.isoformat(), "-m", message],
+            check=True,
+            env=env,
+            capture_output=True
+        )
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"Error committing: {e.stderr.decode() if e.stderr else str(e)}", file=sys.stderr)
+        return False
