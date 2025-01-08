@@ -125,3 +125,20 @@ def run_commit(commit_time: datetime, message: str, file_path: str = "gofault/RE
         "GIT_COMMITTER_DATE": commit_time.isoformat(),
         **os.environ
     }
+
+    try:
+        # Create or update a file
+        with open(file_path, "a" if os.path.exists(file_path) else "w") as f:
+            f.write(f"\n# Commit: {message}\n")
+
+        subprocess.run(["git", "add", "."], check=True, env=env)
+        subprocess.run(
+            ["git", "commit", "--date", commit_time.isoformat(), "-m", message],
+            check=True,
+            env=env,
+            capture_output=True
+        )
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"Error committing: {e.stderr.decode() if e.stderr else str(e)}", file=sys.stderr)
+        return False
