@@ -483,3 +483,11 @@ for projects that only want method and path:
 log := logger.New("[gofault] ", logger.LevelInfo)
 rtr.Middleware(logger.LoggingMiddleware(log))
 ```
+
+
+## What's new in v2.0.0
+
+### Timeouts
+
+`TimeoutMiddleware` cancels a request that outlives its deadline and answers
+with `504`:
