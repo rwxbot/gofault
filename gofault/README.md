@@ -507,3 +507,11 @@ request context:
 
 ```go
 func longHandler(ctx *core.Ctx) error {
+    select {
+    case <-ctx.Request.Context().Done():
+        return ctx.Request.Context().Err()
+    case result := <-work:
+        return controller.OK(ctx.Response, result)
+    }
+}
+```
