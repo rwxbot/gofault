@@ -491,3 +491,14 @@ rtr.Middleware(logger.LoggingMiddleware(log))
 
 `TimeoutMiddleware` cancels a request that outlives its deadline and answers
 with `504`:
+
+```go
+cfg := middleware.DefaultTimeoutConfig()
+cfg.Duration = 5 * time.Second
+cfg.ErrorMessage = "upstream too slow"
+
+mod.RegisterMiddleware(middleware.TimeoutMiddleware(cfg))
+```
+
+The handler runs on its own goroutine, so its output is buffered and published by
+a single goroutine. That keeps a handler which finishes late from writing to a
