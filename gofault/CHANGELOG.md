@@ -57,3 +57,7 @@
 
 ### Added
 - Request logger middleware
+
+## [v2.0.0]
+
+### Added
