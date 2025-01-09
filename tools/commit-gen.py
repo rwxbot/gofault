@@ -211,3 +211,10 @@ def main():
     if success > 0:
         tag_msg = f"Release {args.version} - minimal core with IoC, Module, Controller, Router"
         if create_tag(args.version, tag_msg, tag_date):
+            print(f"Created tag: {args.version}")
+        else:
+            print("Failed to create tag")
+
+
+if __name__ == "__main__":
+    main()
