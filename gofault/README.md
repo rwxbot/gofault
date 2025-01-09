@@ -502,3 +502,8 @@ mod.RegisterMiddleware(middleware.TimeoutMiddleware(cfg))
 
 The handler runs on its own goroutine, so its output is buffered and published by
 a single goroutine. That keeps a handler which finishes late from writing to a
+response that was already committed. Such a handler is expected to watch the
+request context:
+
+```go
+func longHandler(ctx *core.Ctx) error {
