@@ -19,3 +19,5 @@ type WebSocketConfig struct {
 	ReadBufferSize int
 	// WriteBufferSize is the buffer size for writing messages.
 	WriteBufferSize int
+	// ReadTimeout is the read deadline for the connection.
+	ReadTimeout time.Duration
