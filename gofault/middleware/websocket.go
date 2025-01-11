@@ -15,3 +15,5 @@ import (
 type WebSocketConfig struct {
 	// Enabled enables the WebSocket middleware.
 	Enabled bool
+	// ReadBufferSize is the buffer size for reading messages.
+	ReadBufferSize int
