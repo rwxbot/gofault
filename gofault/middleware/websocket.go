@@ -10,3 +10,6 @@ import (
 )
 
 // WebSocketConfig holds configuration for the WebSocket middleware.
+type WebSocketConfig struct {
+	// Enabled enables the WebSocket middleware.
+	Enabled bool
