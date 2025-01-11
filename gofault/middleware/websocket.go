@@ -15,3 +15,5 @@ type WebSocketConfig struct {
 	Enabled bool
 	// ReadBufferSize is the buffer size for reading messages.
 	ReadBufferSize int
+	// WriteBufferSize is the buffer size for writing messages.
+	WriteBufferSize int
