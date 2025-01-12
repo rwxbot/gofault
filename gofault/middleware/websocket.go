@@ -55,3 +55,4 @@ func SameOriginCheck(r *http.Request) bool {
 // DefaultWebSocketConfig returns a default WebSocket configuration.
 func DefaultWebSocketConfig() WebSocketConfig {
 	return WebSocketConfig{
+		Enabled:         true,
