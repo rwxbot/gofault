@@ -30,3 +30,4 @@ type WebSocketConfig struct {
 }
 
 // DefaultWebSocketConfig returns a default WebSocket configuration.
+func DefaultWebSocketConfig() WebSocketConfig {
