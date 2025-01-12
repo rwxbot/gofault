@@ -26,3 +26,5 @@ type WebSocketConfig struct {
 	// CheckOrigin controls origin validation.
 	CheckOrigin func(r *http.Request) bool
 }
+
+// DefaultWebSocketConfig returns a default WebSocket configuration.
