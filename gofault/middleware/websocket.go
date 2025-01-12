@@ -58,3 +58,6 @@ func DefaultWebSocketConfig() WebSocketConfig {
 		Enabled:         true,
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
+		ReadTimeout:     60 * time.Second,
+		WriteTimeout:    60 * time.Second,
+		PingInterval:    30 * time.Second,
