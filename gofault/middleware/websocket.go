@@ -25,3 +25,4 @@ type WebSocketConfig struct {
 	PingInterval time.Duration
 	// CheckOrigin controls origin validation.
 	CheckOrigin func(r *http.Request) bool
+}
