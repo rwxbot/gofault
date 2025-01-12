@@ -24,3 +24,6 @@ type WebSocketConfig struct {
 	// WriteTimeout is the write deadline for the connection.
 	WriteTimeout time.Duration
 	// PingInterval is the interval for sending ping frames.
+	PingInterval time.Duration
+	// CheckOrigin controls origin validation.
+	CheckOrigin func(r *http.Request) bool
