@@ -31,3 +31,5 @@ type WebSocketConfig struct {
 func DefaultWebSocketConfig() WebSocketConfig {
 	return WebSocketConfig{
 		Enabled:         true,
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
