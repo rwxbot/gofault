@@ -19,3 +19,6 @@ type WebSocketConfig struct {
 	WriteBufferSize int
 	// ReadTimeout is the read deadline for the connection.
 	ReadTimeout time.Duration
+	// WriteTimeout is the write deadline for the connection.
+	WriteTimeout time.Duration
+	// PingInterval is the interval for sending ping frames.
