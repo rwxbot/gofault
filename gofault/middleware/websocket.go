@@ -63,3 +63,4 @@ func DefaultWebSocketConfig() WebSocketConfig {
 		PingInterval:    30 * time.Second,
 		CheckOrigin:     nil, // default: same origin check
 	}
+}
