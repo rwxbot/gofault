@@ -61,8 +61,20 @@ func DefaultWebSocketConfig() WebSocketConfig {
 		ReadTimeout:     60 * time.Second,
 		WriteTimeout:    60 * time.Second,
 		PingInterval:    30 * time.Second,
-		CheckOrigin:     nil, // default: same origin check
+		CheckOrigin:     nil, // nil: SameOriginCheck (see WebSocketConfig.CheckOrigin)
 	}
 }
 
+// effectiveCheckOrigin resolves the origin policy for an upgrader. Passing
+// config.CheckOrigin straight through would let nil reach gorilla, whose nil
+// default accepts every origin.
+func effectiveCheckOrigin(config WebSocketConfig) func(*http.Request) bool {
+	if config.CheckOrigin != nil {
+		return config.CheckOrigin
+	}
+	return SameOriginCheck
+}
+
 // WebSocketHandler defines the interface for WebSocket message handlers.
+type WebSocketHandler interface {
+	// HandleMessage is called when a text or binary message is received.
