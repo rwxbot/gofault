@@ -61,3 +61,5 @@ func DefaultWebSocketConfig() WebSocketConfig {
 		ReadTimeout:     60 * time.Second,
 		WriteTimeout:    60 * time.Second,
 		PingInterval:    30 * time.Second,
+		CheckOrigin:     nil, // default: same origin check
+	}
