@@ -81,3 +81,6 @@ type WebSocketHandler interface {
 	HandleMessage(ctx *core.Ctx, conn *websocket.Conn, messageType int, data []byte) error
 	// HandleConnect is called when a new WebSocket connection is established.
 	HandleConnect(ctx *core.Ctx, conn *websocket.Conn) error
+	// HandleDisconnect is called when the WebSocket connection is closed.
+	HandleDisconnect(ctx *core.Ctx, conn *websocket.Conn)
+}
