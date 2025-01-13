@@ -39,3 +39,5 @@ func DefaultWebSocketConfig() WebSocketConfig {
 		CheckOrigin:     nil, // default: same origin check
 	}
 }
+
+// WebSocketHandler defines the interface for WebSocket message handlers.
