@@ -41,3 +41,5 @@ func DefaultWebSocketConfig() WebSocketConfig {
 }
 
 // WebSocketHandler defines the interface for WebSocket message handlers.
+type WebSocketHandler interface {
+	// HandleMessage is called when a text or binary message is received.
