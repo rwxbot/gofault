@@ -54,3 +54,4 @@ type WebSocketHandler interface {
 // Nil fields are treated as no-ops.
 type WebSocketHandlerFunc struct {
 	// OnMessage is called for each WebSocket message. Required.
+	OnMessage func(ctx *core.Ctx, conn *websocket.Conn, messageType int, data []byte) error
