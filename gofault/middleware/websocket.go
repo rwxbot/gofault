@@ -86,3 +86,4 @@ type WebSocketHandler interface {
 }
 
 // WebSocketHandlerFunc is an adapter that allows a plain function to satisfy WebSocketHandler.
+// Nil fields are treated as no-ops.
