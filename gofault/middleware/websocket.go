@@ -49,3 +49,5 @@ type WebSocketHandler interface {
 	// HandleDisconnect is called when the WebSocket connection is closed.
 	HandleDisconnect(ctx *core.Ctx, conn *websocket.Conn)
 }
+
+// WebSocketHandlerFunc is an adapter that allows a plain function to satisfy WebSocketHandler.
