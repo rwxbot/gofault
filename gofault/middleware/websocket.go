@@ -60,3 +60,5 @@ type WebSocketHandlerFunc struct {
 	// OnDisconnect is called when the connection is closed. Optional.
 	OnDisconnect func(ctx *core.Ctx, conn *websocket.Conn)
 }
+
+// HandleMessage implements WebSocketHandler.
