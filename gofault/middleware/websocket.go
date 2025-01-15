@@ -97,3 +97,4 @@ type WebSocketHandlerFunc struct {
 }
 
 // HandleMessage implements WebSocketHandler.
+func (h WebSocketHandlerFunc) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, messageType int, data []byte) error {
