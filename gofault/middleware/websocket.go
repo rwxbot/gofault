@@ -68,3 +68,5 @@ func (h WebSocketHandlerFunc) HandleMessage(ctx *core.Ctx, conn *websocket.Conn,
 	}
 	return h.OnMessage(ctx, conn, messageType, data)
 }
+
+// HandleConnect implements WebSocketHandler.
