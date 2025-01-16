@@ -109,3 +109,5 @@ func (h WebSocketHandlerFunc) HandleConnect(ctx *core.Ctx, conn *websocket.Conn)
 	if h.OnConnect == nil {
 		return nil
 	}
+	return h.OnConnect(ctx, conn)
+}
