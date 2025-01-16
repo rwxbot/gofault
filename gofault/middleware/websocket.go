@@ -76,3 +76,5 @@ func (h WebSocketHandlerFunc) HandleConnect(ctx *core.Ctx, conn *websocket.Conn)
 	}
 	return h.OnConnect(ctx, conn)
 }
+
+// HandleDisconnect implements WebSocketHandler.
