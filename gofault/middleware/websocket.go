@@ -67,3 +67,4 @@ func (h WebSocketHandlerFunc) HandleMessage(ctx *core.Ctx, conn *websocket.Conn,
 		return nil
 	}
 	return h.OnMessage(ctx, conn, messageType, data)
+}
