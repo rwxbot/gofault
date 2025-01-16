@@ -115,3 +115,6 @@ func (h WebSocketHandlerFunc) HandleConnect(ctx *core.Ctx, conn *websocket.Conn)
 // HandleDisconnect implements WebSocketHandler.
 func (h WebSocketHandlerFunc) HandleDisconnect(ctx *core.Ctx, conn *websocket.Conn) {
 	if h.OnDisconnect != nil {
+		h.OnDisconnect(ctx, conn)
+	}
+}
