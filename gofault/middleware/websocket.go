@@ -70,3 +70,4 @@ func (h WebSocketHandlerFunc) HandleMessage(ctx *core.Ctx, conn *websocket.Conn,
 }
 
 // HandleConnect implements WebSocketHandler.
+func (h WebSocketHandlerFunc) HandleConnect(ctx *core.Ctx, conn *websocket.Conn) error {
