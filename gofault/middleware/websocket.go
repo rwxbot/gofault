@@ -92,3 +92,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 
 	upgrader := websocket.Upgrader{
 		ReadBufferSize:  config.ReadBufferSize,
+		WriteBufferSize: config.WriteBufferSize,
