@@ -124,3 +124,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 	if !config.Enabled {
 		return nil
 	}
+
+	upgrader := websocket.Upgrader{
+		ReadBufferSize:  config.ReadBufferSize,
