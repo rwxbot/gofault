@@ -86,3 +86,4 @@ func (h WebSocketHandlerFunc) HandleDisconnect(ctx *core.Ctx, conn *websocket.Co
 
 // WebSocketMiddleware creates a middleware that upgrades HTTP to WebSocket.
 func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.MiddlewareFunc {
+	if !config.Enabled {
