@@ -83,3 +83,5 @@ func (h WebSocketHandlerFunc) HandleDisconnect(ctx *core.Ctx, conn *websocket.Co
 		h.OnDisconnect(ctx, conn)
 	}
 }
+
+// WebSocketMiddleware creates a middleware that upgrades HTTP to WebSocket.
