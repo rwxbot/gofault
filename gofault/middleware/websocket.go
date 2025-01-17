@@ -88,3 +88,4 @@ func (h WebSocketHandlerFunc) HandleDisconnect(ctx *core.Ctx, conn *websocket.Co
 func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
