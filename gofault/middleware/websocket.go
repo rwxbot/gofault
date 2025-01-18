@@ -135,3 +135,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		conn, err := upgrader.Upgrade(ctx.Response, ctx.Request, nil)
 		if err != nil {
 			return err
+		}
+		defer conn.Close()
