@@ -104,3 +104,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		defer conn.Close()
 
 		// Set deadlines
+		conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
