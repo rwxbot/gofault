@@ -95,3 +95,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		WriteBufferSize: config.WriteBufferSize,
 		CheckOrigin:     config.CheckOrigin,
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
+		conn, err := upgrader.Upgrade(ctx.Response, ctx.Request, nil)
