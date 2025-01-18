@@ -137,3 +137,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			return err
 		}
 		defer conn.Close()
+
+		// Set deadlines
