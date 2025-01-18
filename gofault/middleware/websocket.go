@@ -98,3 +98,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 
 	return func(ctx *core.Ctx, next core.Handler) error {
 		conn, err := upgrader.Upgrade(ctx.Response, ctx.Request, nil)
+		if err != nil {
+			return err
