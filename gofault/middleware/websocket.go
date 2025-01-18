@@ -140,3 +140,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 
 		// Set deadlines
 		conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
+		conn.SetWriteDeadline(time.Now().Add(config.WriteTimeout))
+
+		// Start ping handler
