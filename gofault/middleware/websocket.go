@@ -147,3 +147,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		var wg sync.WaitGroup
 		wg.Add(1)
 		go func() {
+			defer wg.Done()
+			ticker := time.NewTicker(config.PingInterval)
