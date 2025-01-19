@@ -110,3 +110,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		// Start ping handler
 		stopCh := make(chan struct{})
 		var wg sync.WaitGroup
+		wg.Add(1)
