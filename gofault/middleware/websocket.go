@@ -143,3 +143,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		conn.SetWriteDeadline(time.Now().Add(config.WriteTimeout))
 
 		// Start ping handler
+		stopCh := make(chan struct{})
+		var wg sync.WaitGroup
