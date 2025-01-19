@@ -114,3 +114,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		go func() {
 			defer wg.Done()
 			ticker := time.NewTicker(config.PingInterval)
+			defer ticker.Stop()
+			for {
+				select {
