@@ -160,3 +160,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 					return
 				}
 			}
+		}()
+
+		// Handle connect callback
