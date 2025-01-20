@@ -158,3 +158,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 					}
 				case <-stopCh:
 					return
+				}
+			}
