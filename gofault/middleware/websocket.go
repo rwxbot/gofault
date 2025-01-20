@@ -155,3 +155,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 				case <-ticker.C:
 					if err := conn.WriteControl(websocket.PingMessage, nil, time.Now().Add(config.WriteTimeout)); err != nil {
 						return
+					}
+				case <-stopCh:
+					return
