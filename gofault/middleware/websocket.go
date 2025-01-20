@@ -117,3 +117,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			defer ticker.Stop()
 			for {
 				select {
+				case <-ticker.C:
+					if err := conn.WriteControl(websocket.PingMessage, nil, time.Now().Add(config.WriteTimeout)); err != nil {
