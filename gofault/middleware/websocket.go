@@ -131,3 +131,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		if err := handler.HandleConnect(ctx, conn); err != nil {
 			close(stopCh)
 			wg.Wait()
+			return err
