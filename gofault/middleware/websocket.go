@@ -180,3 +180,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			wg.Wait()
 			return err
 		}
+
+		// Message read loop
