@@ -128,3 +128,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		}()
 
 		// Handle connect callback
+		if err := handler.HandleConnect(ctx, conn); err != nil {
+			close(stopCh)
+			wg.Wait()
