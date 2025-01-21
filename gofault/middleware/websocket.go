@@ -179,3 +179,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			close(stopCh)
 			wg.Wait()
 			return err
+		}
