@@ -148,3 +148,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 				break
 			}
 		}
+
+		close(stopCh)
