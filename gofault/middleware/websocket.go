@@ -146,3 +146,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			if err := handler.HandleMessage(ctx, conn, msgType, data); err != nil {
 				readErr = err
 				break
+			}
+		}
