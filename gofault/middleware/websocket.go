@@ -209,3 +209,6 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 
 		// Don't treat normal WebSocket close as an error
 		if websocket.IsUnexpectedCloseError(readErr, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
+			return readErr
+		}
+		return nil
