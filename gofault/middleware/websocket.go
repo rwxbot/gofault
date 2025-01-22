@@ -181,15 +181,23 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			return err
 		}
 
-		// Message read loop
-		var readErr error
+		// Message read loop. I/O errors and application errors are kept
+		// apart: IsUnexpectedCloseError only makes sense for close/protocol
+		// errors from ReadMessage, and feeding a handler's business error
+		// through it made every application failure return false and get
+		// silently dropped.
+		var ioErr, handlerErr error
 		for {
 			msgType, data, err := conn.ReadMessage()
 			if err != nil {
-				readErr = err
+				ioErr = err
 				break
 			}
-			conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
+			if config.ReadTimeout > 0 {
+				conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
+			}
 			if err := handler.HandleMessage(ctx, conn, msgType, data); err != nil {
-				readErr = err
+				handlerErr = err
 				break
+			}
+		}
