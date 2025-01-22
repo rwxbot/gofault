@@ -191,3 +191,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			}
 			conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
 			if err := handler.HandleMessage(ctx, conn, msgType, data); err != nil {
+				readErr = err
+				break
