@@ -204,3 +204,7 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 
 		close(stopCh)
 		wg.Wait()
+
+		handler.HandleDisconnect(ctx, conn)
+
+		// Don't treat normal WebSocket close as an error
