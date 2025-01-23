@@ -161,3 +161,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		return nil
 	}
 }
+
+// WebSocketHijackMiddleware creates a middleware that upgrades HTTP to WebSocket
