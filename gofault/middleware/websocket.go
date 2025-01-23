@@ -159,3 +159,5 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			return readErr
 		}
 		return nil
+	}
+}
