@@ -222,3 +222,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 // WebSocketHijackMiddleware creates a middleware that upgrades HTTP to WebSocket
 // and stores the connection in ctx.Locals for use by the next handler.
 // This enables WebSocket routes to be registered like regular HTTP routes.
+func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
