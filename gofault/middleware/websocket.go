@@ -220,3 +220,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 }
 
 // WebSocketHijackMiddleware creates a middleware that upgrades HTTP to WebSocket
+// and stores the connection in ctx.Locals for use by the next handler.
