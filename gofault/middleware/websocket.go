@@ -226,3 +226,6 @@ func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
 	}
+
+	upgrader := websocket.Upgrader{
+		ReadBufferSize:  config.ReadBufferSize,
