@@ -168,3 +168,4 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
