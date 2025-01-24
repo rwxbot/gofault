@@ -175,3 +175,5 @@ func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 		WriteBufferSize: config.WriteBufferSize,
 		CheckOrigin:     config.CheckOrigin,
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
