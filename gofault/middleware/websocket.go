@@ -236,3 +236,4 @@ func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
 		conn, err := upgrader.Upgrade(ctx.Response, ctx.Request, nil)
 		if err != nil {
+			return err
