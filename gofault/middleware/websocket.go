@@ -180,3 +180,4 @@ func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 		conn, err := upgrader.Upgrade(ctx.Response, ctx.Request, nil)
 		if err != nil {
 			return err
+		}
