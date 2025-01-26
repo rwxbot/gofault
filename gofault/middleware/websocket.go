@@ -249,3 +249,4 @@ func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 
 		return next(ctx)
 	}
+}
