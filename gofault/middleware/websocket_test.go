@@ -8,3 +8,6 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/gofault/gofault/core"
+	"github.com/gorilla/websocket"
