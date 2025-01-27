@@ -17,3 +17,6 @@ import (
 
 func TestDefaultWebSocketConfig(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
+	if !cfg.Enabled {
+		t.Error("expected Enabled to be true")
+	}
