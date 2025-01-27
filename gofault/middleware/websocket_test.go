@@ -13,3 +13,4 @@ import (
 
 	"github.com/gofault/gofault/core"
 	"github.com/gorilla/websocket"
+)
