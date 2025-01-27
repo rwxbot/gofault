@@ -22,3 +22,4 @@ func TestDefaultWebSocketConfig(t *testing.T) {
 	}
 	if cfg.ReadBufferSize != 1024 {
 		t.Errorf("expected ReadBufferSize 1024, got %d", cfg.ReadBufferSize)
+	}
