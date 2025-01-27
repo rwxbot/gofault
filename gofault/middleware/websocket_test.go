@@ -12,3 +12,5 @@ import (
 	"github.com/gofault/gofault/core"
 	"github.com/gorilla/websocket"
 )
+
+func TestDefaultWebSocketConfig(t *testing.T) {
