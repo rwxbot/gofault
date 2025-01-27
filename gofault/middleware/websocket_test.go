@@ -14,3 +14,4 @@ import (
 )
 
 func TestDefaultWebSocketConfig(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
