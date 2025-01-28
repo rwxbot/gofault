@@ -31,3 +31,6 @@ func TestDefaultWebSocketConfig(t *testing.T) {
 		t.Errorf("expected WriteTimeout 60s, got %v", cfg.WriteTimeout)
 	}
 	if cfg.PingInterval != 30*time.Second {
+		t.Errorf("expected PingInterval 30s, got %v", cfg.PingInterval)
+	}
+}
