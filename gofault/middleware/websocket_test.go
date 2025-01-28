@@ -24,3 +24,6 @@ func TestDefaultWebSocketConfig(t *testing.T) {
 	if cfg.WriteBufferSize != 1024 {
 		t.Errorf("expected WriteBufferSize 1024, got %d", cfg.WriteBufferSize)
 	}
+	if cfg.ReadTimeout != 60*time.Second {
+		t.Errorf("expected ReadTimeout 60s, got %v", cfg.ReadTimeout)
+	}
