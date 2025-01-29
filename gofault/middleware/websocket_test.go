@@ -41,3 +41,4 @@ func TestWebSocketMiddleware_Disabled(t *testing.T) {
 	if mw != nil {
 		t.Error("expected nil middleware when disabled")
 	}
+}
