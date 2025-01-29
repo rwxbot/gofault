@@ -36,3 +36,7 @@ func TestDefaultWebSocketConfig(t *testing.T) {
 		t.Errorf("expected PingInterval 30s, got %v", cfg.PingInterval)
 	}
 }
+
+func TestWebSocketMiddleware_Disabled(t *testing.T) {
+	cfg := WebSocketConfig{Enabled: false}
+	mw := WebSocketMiddleware(cfg, nil)
