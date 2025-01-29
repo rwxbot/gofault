@@ -38,3 +38,4 @@ func TestDefaultWebSocketConfig(t *testing.T) {
 func TestWebSocketMiddleware_Disabled(t *testing.T) {
 	cfg := WebSocketConfig{Enabled: false}
 	mw := WebSocketMiddleware(cfg, nil)
+	if mw != nil {
