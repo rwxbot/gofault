@@ -47,3 +47,6 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 	var called int32
 	var receivedMsg []byte
 	var receivedType int
+
+	handler := WebSocketHandlerFunc{
+		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
