@@ -50,3 +50,6 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 
 	handler := WebSocketHandlerFunc{
 		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
+			atomic.AddInt32(&called, 1)
+			receivedType = msgType
+			receivedMsg = data
