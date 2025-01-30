@@ -53,3 +53,4 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 			atomic.AddInt32(&called, 1)
 			receivedType = msgType
 			receivedMsg = data
+			return nil
