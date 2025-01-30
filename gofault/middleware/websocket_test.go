@@ -54,3 +54,4 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 			receivedType = msgType
 			receivedMsg = data
 			return nil
+		},
