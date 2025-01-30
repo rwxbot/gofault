@@ -57,3 +57,6 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 			receivedMsg = data
 			return nil
 		},
+	}
+
+	req := httptest.NewRequest("GET", "/ws", nil)
