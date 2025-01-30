@@ -47,3 +47,4 @@ func TestWebSocketMiddleware_Disabled(t *testing.T) {
 
 func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 	var called int32
+	var receivedMsg []byte
