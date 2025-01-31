@@ -64,3 +64,5 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 
 	err := handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("hello"))
 	if err != nil {
+		t.Fatalf("HandleMessage returned error: %v", err)
+	}
