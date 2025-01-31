@@ -68,3 +68,5 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 	if err != nil {
 		t.Fatalf("HandleMessage returned error: %v", err)
 	}
+	if atomic.LoadInt32(&called) != 1 {
+		t.Error("handler was not called")
