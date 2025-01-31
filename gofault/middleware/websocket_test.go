@@ -61,3 +61,6 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
 	conn := &websocket.Conn{}
+
+	err := handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("hello"))
+	if err != nil {
