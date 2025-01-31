@@ -70,3 +70,4 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 	}
 	if atomic.LoadInt32(&called) != 1 {
 		t.Error("handler was not called")
+	}
