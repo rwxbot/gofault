@@ -78,3 +78,5 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 		t.Errorf("expected 'hello', got '%s'", string(receivedMsg))
 	}
 }
+
+func TestWebSocketHandlerFunc_NilOnMessage(t *testing.T) {
