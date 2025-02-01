@@ -72,3 +72,6 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 	if receivedType != websocket.TextMessage {
 		t.Errorf("expected text message type, got %d", receivedType)
 	}
+	if string(receivedMsg) != "hello" {
+		t.Errorf("expected 'hello', got '%s'", string(receivedMsg))
+	}
