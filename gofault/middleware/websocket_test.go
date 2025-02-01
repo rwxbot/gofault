@@ -75,3 +75,4 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 	if string(receivedMsg) != "hello" {
 		t.Errorf("expected 'hello', got '%s'", string(receivedMsg))
 	}
+}
