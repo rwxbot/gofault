@@ -89,3 +89,4 @@ func TestWebSocketHandlerFunc_NilOnMessage(t *testing.T) {
 	if err != nil {
 		t.Errorf("HandleMessage with nil OnMessage returned error: %v", err)
 	}
+}
