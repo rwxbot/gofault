@@ -88,3 +88,6 @@ func TestWebSocketHandlerFunc_NilOnMessage(t *testing.T) {
 
 	// Nil OnMessage should not panic and should return nil
 	err := handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("hello"))
+	if err != nil {
+		t.Errorf("HandleMessage with nil OnMessage returned error: %v", err)
+	}
