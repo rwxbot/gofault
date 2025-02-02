@@ -78,3 +78,5 @@ func TestWebSocketHandlerFunc_HandleMessage(t *testing.T) {
 }
 
 func TestWebSocketHandlerFunc_NilOnMessage(t *testing.T) {
+	handler := WebSocketHandlerFunc{}
+	req := httptest.NewRequest("GET", "/ws", nil)
