@@ -85,3 +85,6 @@ func TestWebSocketHandlerFunc_NilOnMessage(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
 	conn := &websocket.Conn{}
+
+	// Nil OnMessage should not panic and should return nil
+	err := handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("hello"))
