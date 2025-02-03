@@ -94,3 +94,4 @@ func TestWebSocketHandlerFunc_NilOnMessage(t *testing.T) {
 }
 
 func TestWebSocketHandlerFunc_NilOnConnect(t *testing.T) {
+	handler := WebSocketHandlerFunc{}
