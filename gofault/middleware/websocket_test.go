@@ -100,3 +100,4 @@ func TestWebSocketHandlerFunc_NilOnConnect(t *testing.T) {
 
 	err := handler.HandleConnect(ctx, conn)
 	if err != nil {
+		t.Errorf("HandleConnect with nil OnConnect returned error: %v", err)
