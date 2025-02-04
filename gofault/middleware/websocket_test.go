@@ -99,3 +99,4 @@ func TestWebSocketHandlerFunc_NilOnConnect(t *testing.T) {
 	conn := &websocket.Conn{}
 
 	err := handler.HandleConnect(ctx, conn)
+	if err != nil {
