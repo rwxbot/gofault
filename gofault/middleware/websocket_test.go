@@ -106,3 +106,6 @@ func TestWebSocketHandlerFunc_NilOnConnect(t *testing.T) {
 
 func TestWebSocketHandlerFunc_NilOnDisconnect(t *testing.T) {
 	handler := WebSocketHandlerFunc{}
+	req := httptest.NewRequest("GET", "/ws", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
