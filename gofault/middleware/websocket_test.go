@@ -103,3 +103,6 @@ func TestWebSocketHandlerFunc_NilOnConnect(t *testing.T) {
 		t.Errorf("HandleConnect with nil OnConnect returned error: %v", err)
 	}
 }
+
+func TestWebSocketHandlerFunc_NilOnDisconnect(t *testing.T) {
+	handler := WebSocketHandlerFunc{}
