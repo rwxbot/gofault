@@ -116,3 +116,5 @@ func TestWebSocketHandlerFunc_NilOnDisconnect(t *testing.T) {
 }
 
 func TestWebSocketHandlerFunc_ImplementsInterface(t *testing.T) {
+	var _ WebSocketHandler = WebSocketHandlerFunc{}
+}
