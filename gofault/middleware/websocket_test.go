@@ -116,3 +116,5 @@ func TestWebSocketHandlerFunc_NilOnDisconnect(t *testing.T) {
 	// Should not panic
 	handler.HandleDisconnect(ctx, conn)
 }
+
+func TestWebSocketHandlerFunc_ImplementsInterface(t *testing.T) {
