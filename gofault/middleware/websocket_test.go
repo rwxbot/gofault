@@ -130,3 +130,4 @@ func TestWebSocketHijackMiddleware_Disabled(t *testing.T) {
 }
 
 func TestWebSocketMiddleware_CheckOriginNil(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
