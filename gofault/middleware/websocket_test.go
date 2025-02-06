@@ -128,3 +128,5 @@ func TestWebSocketHijackMiddleware_Disabled(t *testing.T) {
 		t.Error("expected nil middleware when disabled")
 	}
 }
+
+func TestWebSocketMiddleware_CheckOriginNil(t *testing.T) {
