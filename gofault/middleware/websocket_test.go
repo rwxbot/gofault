@@ -122,3 +122,4 @@ func TestWebSocketHandlerFunc_ImplementsInterface(t *testing.T) {
 func TestWebSocketHijackMiddleware_Disabled(t *testing.T) {
 	cfg := WebSocketConfig{Enabled: false}
 	mw := WebSocketHijackMiddleware(cfg)
+	if mw != nil {
