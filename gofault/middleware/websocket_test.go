@@ -118,3 +118,7 @@ func TestWebSocketHandlerFunc_NilOnDisconnect(t *testing.T) {
 func TestWebSocketHandlerFunc_ImplementsInterface(t *testing.T) {
 	var _ WebSocketHandler = WebSocketHandlerFunc{}
 }
+
+func TestWebSocketHijackMiddleware_Disabled(t *testing.T) {
+	cfg := WebSocketConfig{Enabled: false}
+	mw := WebSocketHijackMiddleware(cfg)
