@@ -134,3 +134,6 @@ func TestWebSocketMiddleware_CheckOriginNil(t *testing.T) {
 	cfg.CheckOrigin = nil
 
 	mw := WebSocketMiddleware(cfg, WebSocketHandlerFunc{})
+	if mw == nil {
+		t.Error("middleware should not be nil")
+	}
