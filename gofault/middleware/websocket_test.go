@@ -140,3 +140,7 @@ func TestWebSocketMiddleware_CheckOriginNil(t *testing.T) {
 func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
 	mw := WebSocketHijackMiddleware(cfg)
+
+	// Create a test server with proper WebSocket upgrade
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := core.NewCtx(w, r)
