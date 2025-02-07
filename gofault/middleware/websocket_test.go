@@ -136,3 +136,5 @@ func TestWebSocketMiddleware_CheckOriginNil(t *testing.T) {
 		t.Error("middleware should not be nil")
 	}
 }
+
+func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
