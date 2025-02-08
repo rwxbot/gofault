@@ -152,3 +152,6 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 			capturedConn, _ = c.Locals["ws_conn"].(*websocket.Conn)
 			capturedUpgrader, _ = c.Locals["ws_upgrader"].(*websocket.Upgrader)
 			if capturedConn == nil {
+				t.Error("connection not stored in ctx.Locals")
+			}
+			if capturedUpgrader == nil {
