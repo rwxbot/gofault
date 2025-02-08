@@ -146,3 +146,5 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 	// Create a test server with proper WebSocket upgrade
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
+		var capturedConn *websocket.Conn
+		var capturedUpgrader *websocket.Upgrader
