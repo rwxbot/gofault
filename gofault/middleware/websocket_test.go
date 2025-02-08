@@ -153,3 +153,6 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 				t.Error("connection not stored in ctx.Locals")
 			}
 			if capturedUpgrader == nil {
+				t.Error("upgrader not stored in ctx.Locals")
+			}
+			return nil
