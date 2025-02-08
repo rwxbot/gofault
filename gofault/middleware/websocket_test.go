@@ -146,3 +146,6 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 		ctx := core.NewCtx(w, r)
 		var capturedConn *websocket.Conn
 		var capturedUpgrader *websocket.Upgrader
+		mw(ctx, func(c *core.Ctx) error {
+			capturedConn, _ = c.Locals["ws_conn"].(*websocket.Conn)
+			capturedUpgrader, _ = c.Locals["ws_upgrader"].(*websocket.Upgrader)
