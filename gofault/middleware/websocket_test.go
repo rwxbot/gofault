@@ -151,3 +151,4 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 		mw(ctx, func(c *core.Ctx) error {
 			capturedConn, _ = c.Locals["ws_conn"].(*websocket.Conn)
 			capturedUpgrader, _ = c.Locals["ws_upgrader"].(*websocket.Upgrader)
+			if capturedConn == nil {
