@@ -161,3 +161,5 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 		})
 	}))
 	defer server.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
