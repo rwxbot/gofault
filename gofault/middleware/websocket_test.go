@@ -160,3 +160,4 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 			return nil
 		})
 	}))
+	defer server.Close()
