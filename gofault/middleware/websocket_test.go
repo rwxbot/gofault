@@ -172,3 +172,4 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 type mockWSHandler struct {
 	connectCount    int32
 	disconnectCount int32
+	messageCount    int32
