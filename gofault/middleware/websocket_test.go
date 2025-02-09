@@ -173,3 +173,4 @@ type mockWSHandler struct {
 	connectCount    int32
 	disconnectCount int32
 	messageCount    int32
+	mu              sync.Mutex
