@@ -164,3 +164,6 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 	conn, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
 	if err != nil {
 		t.Fatalf("dial error: %v", err)
+	}
+	defer conn.Close()
+}
