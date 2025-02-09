@@ -169,3 +169,6 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 }
 
 // mockWSHandler is a test implementation of WebSocketHandler.
+type mockWSHandler struct {
+	connectCount    int32
+	disconnectCount int32
