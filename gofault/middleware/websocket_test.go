@@ -169,3 +169,5 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 	}
 	defer conn.Close()
 }
+
+// mockWSHandler is a test implementation of WebSocketHandler.
