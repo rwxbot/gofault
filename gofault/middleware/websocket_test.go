@@ -178,3 +178,6 @@ type mockWSHandler struct {
 	mu              sync.Mutex
 	messages        []string
 }
+
+func (m *mockWSHandler) HandleConnect(ctx *core.Ctx, conn *websocket.Conn) error {
+	atomic.AddInt32(&m.connectCount, 1)
