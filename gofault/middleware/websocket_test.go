@@ -183,3 +183,6 @@ func (m *mockWSHandler) HandleConnect(ctx *core.Ctx, conn *websocket.Conn) error
 }
 
 func (m *mockWSHandler) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, messageType int, data []byte) error {
+	atomic.AddInt32(&m.messageCount, 1)
+	m.mu.Lock()
+	m.messages = append(m.messages, string(data))
