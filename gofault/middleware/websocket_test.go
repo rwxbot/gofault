@@ -188,3 +188,4 @@ func (m *mockWSHandler) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, messa
 	m.messages = append(m.messages, string(data))
 	m.mu.Unlock()
 	return nil
+}
