@@ -189,3 +189,5 @@ func (m *mockWSHandler) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, messa
 	m.mu.Unlock()
 	return nil
 }
+
+func (m *mockWSHandler) HandleDisconnect(ctx *core.Ctx, conn *websocket.Conn) {
