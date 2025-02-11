@@ -188,3 +188,5 @@ func (m *mockWSHandler) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, messa
 	atomic.AddInt32(&m.messageCount, 1)
 	m.mu.Lock()
 	m.messages = append(m.messages, string(data))
+	m.mu.Unlock()
+	return nil
