@@ -195,3 +195,5 @@ func (m *mockWSHandler) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, messa
 func (m *mockWSHandler) HandleDisconnect(ctx *core.Ctx, conn *websocket.Conn) {
 	atomic.AddInt32(&m.disconnectCount, 1)
 }
+
+func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
