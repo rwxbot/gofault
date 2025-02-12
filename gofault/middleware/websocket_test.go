@@ -202,3 +202,6 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 
 	// Echo handler: write back whatever we receive
 	handler := WebSocketHandlerFunc{
+		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
+			return conn.WriteMessage(msgType, data)
+		},
