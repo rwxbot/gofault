@@ -203,3 +203,5 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
 			return conn.WriteMessage(msgType, data)
 		},
+	}
+	mw := WebSocketMiddleware(cfg, handler)
