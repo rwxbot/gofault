@@ -205,3 +205,5 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 		},
 	}
 	mw := WebSocketMiddleware(cfg, handler)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
