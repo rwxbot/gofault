@@ -196,3 +196,4 @@ func (m *mockWSHandler) HandleDisconnect(ctx *core.Ctx, conn *websocket.Conn) {
 
 func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
+	cfg.PingInterval = 100 * time.Millisecond
