@@ -215,3 +215,5 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
 	conn, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
 	if err != nil {
+		t.Fatalf("dial error: %v", err)
+	}
