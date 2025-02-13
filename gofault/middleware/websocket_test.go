@@ -220,3 +220,6 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 		t.Fatalf("dial error: %v", err)
 	}
 	defer conn.Close()
+
+	err = conn.WriteMessage(websocket.TextMessage, []byte("hello"))
+	if err != nil {
