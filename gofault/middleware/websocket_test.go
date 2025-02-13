@@ -223,3 +223,5 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 
 	err = conn.WriteMessage(websocket.TextMessage, []byte("hello"))
 	if err != nil {
+		t.Fatalf("write error: %v", err)
+	}
