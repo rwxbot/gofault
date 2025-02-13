@@ -217,3 +217,4 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 	if err != nil {
 		t.Fatalf("dial error: %v", err)
 	}
+	defer conn.Close()
