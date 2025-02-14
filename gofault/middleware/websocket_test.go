@@ -225,3 +225,4 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 	}
 
 	msgType, data, err := conn.ReadMessage()
+	if err != nil {
