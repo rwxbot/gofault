@@ -235,3 +235,5 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 	}
 	if string(data) != "hello" {
 		t.Errorf("expected 'hello', got '%s'", string(data))
+	}
+}
