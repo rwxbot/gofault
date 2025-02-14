@@ -228,3 +228,6 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read error: %v", err)
 	}
+	if msgType != websocket.TextMessage {
+		t.Errorf("expected text message, got %d", msgType)
+	}
