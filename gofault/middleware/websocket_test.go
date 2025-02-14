@@ -231,3 +231,5 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 	if msgType != websocket.TextMessage {
 		t.Errorf("expected text message, got %d", msgType)
 	}
+	if string(data) != "hello" {
+		t.Errorf("expected 'hello', got '%s'", string(data))
