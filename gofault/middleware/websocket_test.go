@@ -245,3 +245,6 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
+		mw(ctx, func(c *core.Ctx) error { return nil })
+	}))
+	defer server.Close()
