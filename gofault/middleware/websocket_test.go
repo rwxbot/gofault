@@ -237,3 +237,6 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 		t.Errorf("expected 'hello', got '%s'", string(data))
 	}
 }
+
+func TestWebSocketMiddleware_ClientClose(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
