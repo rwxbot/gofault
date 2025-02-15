@@ -240,3 +240,4 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 
 func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
+	cfg.PingInterval = 200 * time.Millisecond
