@@ -260,3 +260,7 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 	time.Sleep(30 * time.Millisecond)
 
 	conn.Close()
+
+	time.Sleep(100 * time.Millisecond)
+
+	if atomic.LoadInt32(&handler.connectCount) != 1 {
