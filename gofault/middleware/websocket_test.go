@@ -258,3 +258,5 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 	}
 
 	time.Sleep(30 * time.Millisecond)
+
+	conn.Close()
