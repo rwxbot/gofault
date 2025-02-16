@@ -254,3 +254,5 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 	if err != nil {
 		t.Fatalf("dial error: %v", err)
 	}
+
+	time.Sleep(30 * time.Millisecond)
