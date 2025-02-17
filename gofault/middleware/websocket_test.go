@@ -275,3 +275,6 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 	handler := WebSocketHandlerFunc{
 		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
 			return conn.WriteMessage(msgType, data)
+		},
+	}
+	mw := WebSocketMiddleware(cfg, handler)
