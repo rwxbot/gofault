@@ -273,3 +273,6 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 
 func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
+
+	handler := WebSocketHandlerFunc{
+		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
