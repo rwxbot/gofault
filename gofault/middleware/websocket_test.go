@@ -270,3 +270,6 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 		t.Errorf("expected 1 disconnect, got %d", handler.disconnectCount)
 	}
 }
+
+func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
