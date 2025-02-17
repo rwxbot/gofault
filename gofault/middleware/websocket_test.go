@@ -278,3 +278,6 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 		},
 	}
 	mw := WebSocketMiddleware(cfg, handler)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := core.NewCtx(w, r)
