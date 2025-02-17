@@ -265,3 +265,6 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 
 	if atomic.LoadInt32(&handler.connectCount) != 1 {
 		t.Errorf("expected 1 connect, got %d", handler.connectCount)
+	}
+	if atomic.LoadInt32(&handler.disconnectCount) != 1 {
+		t.Errorf("expected 1 disconnect, got %d", handler.disconnectCount)
