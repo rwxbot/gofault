@@ -283,3 +283,4 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 		ctx := core.NewCtx(w, r)
 		mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
+	defer server.Close()
