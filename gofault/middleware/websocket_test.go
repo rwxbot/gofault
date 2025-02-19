@@ -296,3 +296,4 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 
 	tests := []string{"hello", "world", "websocket"}
 	for _, msg := range tests {
+		err = conn.WriteMessage(websocket.TextMessage, []byte(msg))
