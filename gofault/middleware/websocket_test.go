@@ -298,3 +298,4 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 	for _, msg := range tests {
 		err = conn.WriteMessage(websocket.TextMessage, []byte(msg))
 		if err != nil {
+			t.Fatalf("write error for '%s': %v", msg, err)
