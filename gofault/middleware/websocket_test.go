@@ -293,3 +293,6 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 		t.Fatalf("dial error: %v", err)
 	}
 	defer conn.Close()
+
+	tests := []string{"hello", "world", "websocket"}
+	for _, msg := range tests {
