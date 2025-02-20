@@ -298,3 +298,6 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 		if err != nil {
 			t.Fatalf("write error for '%s': %v", msg, err)
 		}
+		_, data, err := conn.ReadMessage()
+		if err != nil {
+			t.Fatalf("read error for '%s': %v", msg, err)
