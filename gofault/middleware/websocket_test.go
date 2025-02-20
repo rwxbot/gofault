@@ -303,3 +303,5 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 			t.Fatalf("read error for '%s': %v", msg, err)
 		}
 		if string(data) != msg {
+			t.Errorf("expected '%s', got '%s'", msg, string(data))
+		}
