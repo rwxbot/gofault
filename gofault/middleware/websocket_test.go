@@ -313,3 +313,5 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
 	var connectCalled int32
+
+	handler := WebSocketHandlerFunc{
