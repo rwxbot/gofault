@@ -308,3 +308,4 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 			t.Errorf("expected '%s', got '%s'", msg, string(data))
 		}
 	}
+}
