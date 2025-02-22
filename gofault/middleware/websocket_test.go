@@ -323,3 +323,4 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 			return conn.WriteMessage(msgType, data)
 		},
 	}
+	mw := WebSocketMiddleware(cfg, handler)
