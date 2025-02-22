@@ -316,3 +316,6 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 		OnConnect: func(ctx *core.Ctx, conn *websocket.Conn) error {
 			atomic.AddInt32(&connectCalled, 1)
 			return nil
+		},
+		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
+			return conn.WriteMessage(msgType, data)
