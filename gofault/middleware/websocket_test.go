@@ -329,3 +329,4 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 		ctx := core.NewCtx(w, r)
 		mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
+	defer server.Close()
