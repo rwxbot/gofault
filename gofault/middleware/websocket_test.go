@@ -322,3 +322,5 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 		},
 	}
 	mw := WebSocketMiddleware(cfg, handler)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
