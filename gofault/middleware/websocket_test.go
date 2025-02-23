@@ -330,3 +330,5 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 		mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
