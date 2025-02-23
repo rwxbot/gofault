@@ -342,3 +342,6 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 		t.Errorf("expected OnConnect called once, got %d", connectCalled)
 	}
 }
+
+func TestWebSocketHijackMiddleware_UpgradeError(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
