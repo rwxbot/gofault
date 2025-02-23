@@ -346,3 +346,5 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 func TestWebSocketHijackMiddleware_UpgradeError(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
 	mw := WebSocketHijackMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/ws", nil) // no WS headers
