@@ -340,3 +340,5 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 
 	if atomic.LoadInt32(&connectCalled) != 1 {
 		t.Errorf("expected OnConnect called once, got %d", connectCalled)
+	}
+}
