@@ -339,3 +339,6 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 	defer conn.Close()
 
 	time.Sleep(30 * time.Millisecond)
+
+	if atomic.LoadInt32(&connectCalled) != 1 {
+		t.Errorf("expected OnConnect called once, got %d", connectCalled)
