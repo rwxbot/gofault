@@ -352,3 +352,5 @@ func TestWebSocketHijackMiddleware_UpgradeError(t *testing.T) {
 	req := httptest.NewRequest("GET", "/ws", nil) // no WS headers
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	err := mw(ctx, func(c *core.Ctx) error { return nil })
