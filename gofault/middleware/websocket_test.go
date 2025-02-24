@@ -357,3 +357,5 @@ func TestWebSocketHijackMiddleware_UpgradeError(t *testing.T) {
 	// Upgrade without proper WS headers should fail
 	if err == nil {
 		t.Log("upgrade did not fail (may succeed with some implementations)")
+	}
+}
