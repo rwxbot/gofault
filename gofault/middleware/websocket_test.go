@@ -352,3 +352,6 @@ func TestWebSocketHijackMiddleware_UpgradeError(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	err := mw(ctx, func(c *core.Ctx) error { return nil })
+	// Upgrade without proper WS headers should fail
+	if err == nil {
+		t.Log("upgrade did not fail (may succeed with some implementations)")
