@@ -357,3 +357,7 @@ func TestWebSocketHijackMiddleware_UpgradeError(t *testing.T) {
 		t.Log("upgrade did not fail (may succeed with some implementations)")
 	}
 }
+
+func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
+	var disconnectCalled int32
