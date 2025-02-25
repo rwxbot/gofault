@@ -361,3 +361,7 @@ func TestWebSocketHijackMiddleware_UpgradeError(t *testing.T) {
 func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 	cfg := DefaultWebSocketConfig()
 	var disconnectCalled int32
+
+	handler := WebSocketHandlerFunc{
+		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
+			return nil
