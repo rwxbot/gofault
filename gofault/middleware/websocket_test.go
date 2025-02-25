@@ -368,3 +368,4 @@ func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 		},
 		OnDisconnect: func(ctx *core.Ctx, conn *websocket.Conn) {
 			atomic.AddInt32(&disconnectCalled, 1)
+		},
