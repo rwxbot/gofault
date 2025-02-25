@@ -367,3 +367,6 @@ func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 	handler := WebSocketHandlerFunc{
 		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
 			return nil
+		},
+		OnDisconnect: func(ctx *core.Ctx, conn *websocket.Conn) {
+			atomic.AddInt32(&disconnectCalled, 1)
