@@ -372,3 +372,6 @@ func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 			atomic.AddInt32(&disconnectCalled, 1)
 		},
 	}
+	mw := WebSocketMiddleware(cfg, handler)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
