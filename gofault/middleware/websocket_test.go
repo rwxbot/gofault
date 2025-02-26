@@ -393,3 +393,4 @@ func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 	if atomic.LoadInt32(&disconnectCalled) != 1 {
 		t.Errorf("expected OnDisconnect called once, got %d", disconnectCalled)
 	}
+}
