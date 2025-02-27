@@ -401,3 +401,4 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 			connectMsg = "connected"
 			return nil
 		},
+		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
