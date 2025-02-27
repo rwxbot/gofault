@@ -395,3 +395,5 @@ func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 
 func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 	var connectMsg, disconnectMsg, messageText string
+
+	handler := WebSocketHandlerFunc{
