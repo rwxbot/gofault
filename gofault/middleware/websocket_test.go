@@ -392,3 +392,6 @@ func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 		t.Errorf("expected OnDisconnect called once, got %d", disconnectCalled)
 	}
 }
+
+func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
+	var connectMsg, disconnectMsg, messageText string
