@@ -397,3 +397,6 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 	var connectMsg, disconnectMsg, messageText string
 
 	handler := WebSocketHandlerFunc{
+		OnConnect: func(ctx *core.Ctx, conn *websocket.Conn) error {
+			connectMsg = "connected"
+			return nil
