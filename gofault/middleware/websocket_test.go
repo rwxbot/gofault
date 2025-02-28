@@ -413,3 +413,4 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 	req := httptest.NewRequest("GET", "/ws", nil)
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+	conn := &websocket.Conn{}
