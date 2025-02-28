@@ -416,3 +416,5 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 	conn := &websocket.Conn{}
 
 	handler.HandleConnect(ctx, conn)
+	handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("test"))
+	handler.HandleDisconnect(ctx, conn)
