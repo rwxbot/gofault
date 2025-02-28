@@ -411,3 +411,6 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 			disconnectMsg = "disconnected"
 		},
 	}
+
+	req := httptest.NewRequest("GET", "/ws", nil)
+	rec := httptest.NewRecorder()
