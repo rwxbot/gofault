@@ -410,3 +410,4 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 		OnDisconnect: func(ctx *core.Ctx, conn *websocket.Conn) {
 			disconnectMsg = "disconnected"
 		},
+	}
