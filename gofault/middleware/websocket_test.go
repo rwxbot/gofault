@@ -426,3 +426,4 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 	}
 	if messageText != "test" {
 		t.Errorf("expected messageText 'test', got '%s'", messageText)
+	}
