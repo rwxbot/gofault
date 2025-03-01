@@ -418,3 +418,6 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 	handler.HandleConnect(ctx, conn)
 	handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("test"))
 	handler.HandleDisconnect(ctx, conn)
+
+	if connectMsg != "connected" {
+		t.Errorf("expected connectMsg 'connected', got '%s'", connectMsg)
