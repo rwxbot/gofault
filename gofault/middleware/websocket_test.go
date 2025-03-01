@@ -421,3 +421,4 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 
 	if connectMsg != "connected" {
 		t.Errorf("expected connectMsg 'connected', got '%s'", connectMsg)
+	}
