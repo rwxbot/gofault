@@ -428,3 +428,5 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 		t.Errorf("expected messageText 'test', got '%s'", messageText)
 	}
 	if disconnectMsg != "disconnected" {
+		t.Errorf("expected disconnectMsg 'disconnected', got '%s'", disconnectMsg)
+	}
