@@ -532,3 +532,13 @@ func (chatHandler) HandleConnect(ctx *core.Ctx, conn *websocket.Conn) error {
 }
 
 func (chatHandler) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, mt int, data []byte) error {
+    return conn.WriteMessage(mt, data) // echo
+}
+
+func (chatHandler) HandleDisconnect(ctx *core.Ctx, conn *websocket.Conn) {}
+
+cfg := middleware.DefaultWebSocketConfig()
+cfg.PingInterval = 30 * time.Second
+
+mod.RegisterMiddleware(middleware.WebSocketMiddleware(cfg, chatHandler{}))
+```
