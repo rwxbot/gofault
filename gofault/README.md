@@ -526,3 +526,9 @@ handler. Implement only the callbacks you need:
 
 ```go
 type chatHandler struct{}
+
+func (chatHandler) HandleConnect(ctx *core.Ctx, conn *websocket.Conn) error {
+    return nil
+}
+
+func (chatHandler) HandleMessage(ctx *core.Ctx, conn *websocket.Conn, mt int, data []byte) error {
