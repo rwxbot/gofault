@@ -515,3 +515,14 @@ func longHandler(ctx *core.Ctx) error {
     }
 }
 ```
+
+
+## What's new in v2.1.0
+
+### WebSocket
+
+`WebSocketMiddleware` upgrades the request and hands the connection to a
+handler. Implement only the callbacks you need:
+
+```go
+type chatHandler struct{}
