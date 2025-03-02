@@ -62,3 +62,8 @@
 
 ### Added
 - Timeout middleware
+
+## [v2.1.0]
+
+### Added
+- WebSocket upgrade middleware
