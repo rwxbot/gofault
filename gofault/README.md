@@ -542,3 +542,7 @@ cfg.PingInterval = 30 * time.Second
 
 mod.RegisterMiddleware(middleware.WebSocketMiddleware(cfg, chatHandler{}))
 ```
+
+`WebSocketHandlerFunc` adapts plain functions when a struct is overkill. The live
+connection is also reachable from later middleware and handlers through
+`ctx.Locals["ws_conn"]`.
