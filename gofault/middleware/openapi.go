@@ -5,3 +5,4 @@ import (
 	"net/http"
 
 	"github.com/gofault/gofault/core"
+)
