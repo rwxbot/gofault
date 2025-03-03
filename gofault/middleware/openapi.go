@@ -8,3 +8,6 @@ import (
 )
 
 // OpenAPIConfig holds configuration for the OpenAPI documentation middleware.
+type OpenAPIConfig struct {
+	// Enabled enables the OpenAPI middleware.
+	Enabled bool
