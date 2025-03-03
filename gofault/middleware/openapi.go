@@ -12,3 +12,5 @@ import (
 type OpenAPIConfig struct {
 	// Enabled enables the OpenAPI middleware.
 	Enabled bool
+	// Path is the URL path for the OpenAPI endpoint.
+	Path string
