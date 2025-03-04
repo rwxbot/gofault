@@ -21,3 +21,5 @@ type OpenAPIConfig struct {
 	// Description is the API description.
 	Description string
 }
+
+// DefaultOpenAPIConfig returns a default OpenAPI configuration.
