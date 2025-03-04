@@ -18,3 +18,5 @@ type OpenAPIConfig struct {
 	Title string
 	// Version is the API version.
 	Version string
+	// Description is the API description.
+	Description string
