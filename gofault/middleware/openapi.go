@@ -14,3 +14,6 @@ type OpenAPIConfig struct {
 	// Path is the URL path for the OpenAPI endpoint.
 	Path string
 	// Title is the API title.
+	Title string
+	// Version is the API version.
+	Version string
