@@ -22,3 +22,4 @@ type OpenAPIConfig struct {
 }
 
 // DefaultOpenAPIConfig returns a default OpenAPI configuration.
+func DefaultOpenAPIConfig() OpenAPIConfig {
