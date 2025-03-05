@@ -29,3 +29,4 @@ func DefaultOpenAPIConfig() OpenAPIConfig {
 		Path:        "/openapi.json",
 		Title:       "API",
 		Version:     "1.0.0",
+		Description: "API Documentation",
