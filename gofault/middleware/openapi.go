@@ -27,3 +27,4 @@ func DefaultOpenAPIConfig() OpenAPIConfig {
 		Enabled:     true,
 		Path:        "/openapi.json",
 		Title:       "API",
+		Version:     "1.0.0",
