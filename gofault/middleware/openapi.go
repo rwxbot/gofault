@@ -30,3 +30,5 @@ func DefaultOpenAPIConfig() OpenAPIConfig {
 		Title:       "API",
 		Version:     "1.0.0",
 		Description: "API Documentation",
+	}
+}
