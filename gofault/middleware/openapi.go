@@ -37,3 +37,4 @@ func DefaultOpenAPIConfig() OpenAPIConfig {
 func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 	if !config.Enabled {
 		return nil
+	}
