@@ -33,3 +33,6 @@ func DefaultOpenAPIConfig() OpenAPIConfig {
 }
 
 // OpenAPIMiddleware creates a middleware that serves OpenAPI specification.
+func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
+	if !config.Enabled {
+		return nil
