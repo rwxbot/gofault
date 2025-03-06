@@ -41,3 +41,6 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 
 	if config.Path == "" {
 		config.Path = "/openapi.json"
+	}
+
+	spec := map[string]any{
