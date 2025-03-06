@@ -31,3 +31,5 @@ func DefaultOpenAPIConfig() OpenAPIConfig {
 		Description: "API Documentation",
 	}
 }
+
+// OpenAPIMiddleware creates a middleware that serves OpenAPI specification.
