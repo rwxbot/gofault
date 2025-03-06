@@ -38,3 +38,6 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 	if !config.Enabled {
 		return nil
 	}
+
+	if config.Path == "" {
+		config.Path = "/openapi.json"
