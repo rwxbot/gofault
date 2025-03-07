@@ -45,3 +45,6 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 	spec := map[string]any{
 		"openapi": "3.0.0",
 		"info": map[string]any{
+			"title":       config.Title,
+			"version":     config.Version,
+			"description": config.Description,
