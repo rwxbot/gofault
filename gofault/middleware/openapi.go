@@ -51,3 +51,6 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 		},
 		"paths": map[string]any{},
 	}
+
+	return func(ctx *core.Ctx) error {
+		ctx.Response.Header().Set("Content-Type", "application/json")
