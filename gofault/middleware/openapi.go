@@ -48,3 +48,6 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 			"title":       config.Title,
 			"version":     config.Version,
 			"description": config.Description,
+		},
+		"paths": map[string]any{},
+	}
