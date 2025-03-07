@@ -54,3 +54,4 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 
 	return func(ctx *core.Ctx) error {
 		ctx.Response.Header().Set("Content-Type", "application/json")
+		ctx.Response.WriteHeader(http.StatusOK)
