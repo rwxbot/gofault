@@ -60,3 +60,4 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 }
 
 // OpenAPIDocument represents an OpenAPI 3.0 document.
+type OpenAPIDocument struct {
