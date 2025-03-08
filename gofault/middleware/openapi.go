@@ -58,3 +58,5 @@ func OpenAPIMiddleware(config OpenAPIConfig) core.Handler {
 		return json.NewEncoder(ctx.Response).Encode(spec)
 	}
 }
+
+// OpenAPIDocument represents an OpenAPI 3.0 document.
