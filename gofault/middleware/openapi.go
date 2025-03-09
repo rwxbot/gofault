@@ -77,3 +77,4 @@ func (d *OpenAPIDocument) AddPath(path string, method string, operation map[stri
 		d.Paths[path] = make(map[string]any)
 	}
 	d.Paths[path].(map[string]any)[method] = operation
+}
