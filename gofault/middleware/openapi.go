@@ -66,3 +66,5 @@ type OpenAPIDocument struct {
 	Paths      map[string]any `json:"paths"`
 	Components map[string]any `json:"components,omitempty"`
 }
+
+// AddPath adds a path to the OpenAPI document.
