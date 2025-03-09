@@ -68,3 +68,6 @@ type OpenAPIDocument struct {
 }
 
 // AddPath adds a path to the OpenAPI document.
+func (d *OpenAPIDocument) AddPath(path string, method string, operation map[string]any) {
+	if d.Paths == nil {
+		d.Paths = make(map[string]any)
