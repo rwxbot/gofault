@@ -73,3 +73,6 @@ func (d *OpenAPIDocument) AddPath(path string, method string, operation map[stri
 	if d.Paths == nil {
 		d.Paths = make(map[string]any)
 	}
+	if d.Paths[path] == nil {
+		d.Paths[path] = make(map[string]any)
+	}
