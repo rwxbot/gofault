@@ -80,3 +80,5 @@ func (d *OpenAPIDocument) AddPath(path string, method string, operation map[stri
 }
 
 // NewOpenAPIDocument creates a new OpenAPI document.
+func NewOpenAPIDocument(title, version, description string) *OpenAPIDocument {
+	return &OpenAPIDocument{
