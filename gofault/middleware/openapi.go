@@ -89,3 +89,5 @@ func NewOpenAPIDocument(title, version, description string) *OpenAPIDocument {
 		},
 		Paths:      make(map[string]any),
 		Components: make(map[string]any),
+	}
+}
