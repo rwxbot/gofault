@@ -84,3 +84,5 @@ func NewOpenAPIDocument(title, version, description string) *OpenAPIDocument {
 		OpenAPI: "3.0.0",
 		Info: map[string]any{
 			"title":       title,
+			"version":     version,
+			"description": description,
