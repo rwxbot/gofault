@@ -11,3 +11,7 @@ import (
 
 func TestDefaultOpenAPIConfig(t *testing.T) {
 	cfg := DefaultOpenAPIConfig()
+
+	if !cfg.Enabled {
+		t.Error("Enabled should be true")
+	}
