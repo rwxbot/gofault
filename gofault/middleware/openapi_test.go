@@ -16,3 +16,5 @@ func TestDefaultOpenAPIConfig(t *testing.T) {
 		t.Error("Enabled should be true")
 	}
 	if cfg.Path != "/openapi.json" {
+		t.Errorf("Path = %s, want /openapi.json", cfg.Path)
+	}
