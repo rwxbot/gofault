@@ -8,3 +8,6 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestDefaultOpenAPIConfig(t *testing.T) {
+	cfg := DefaultOpenAPIConfig()
