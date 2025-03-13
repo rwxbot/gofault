@@ -25,3 +25,7 @@ func TestDefaultOpenAPIConfig(t *testing.T) {
 		t.Errorf("Version = %s, want 1.0.0", cfg.Version)
 	}
 }
+
+func TestOpenAPIMiddleware_Disabled(t *testing.T) {
+	cfg := DefaultOpenAPIConfig()
+	cfg.Enabled = false
