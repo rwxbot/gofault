@@ -31,3 +31,4 @@ func TestOpenAPIMiddleware_Disabled(t *testing.T) {
 	cfg.Enabled = false
 
 	if handler := OpenAPIMiddleware(cfg); handler != nil {
+		t.Error("disabled middleware should return a nil handler")
