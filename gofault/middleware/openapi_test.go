@@ -29,3 +29,5 @@ func TestDefaultOpenAPIConfig(t *testing.T) {
 func TestOpenAPIMiddleware_Disabled(t *testing.T) {
 	cfg := DefaultOpenAPIConfig()
 	cfg.Enabled = false
+
+	if handler := OpenAPIMiddleware(cfg); handler != nil {
