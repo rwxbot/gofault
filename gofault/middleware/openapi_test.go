@@ -19,3 +19,5 @@ func TestDefaultOpenAPIConfig(t *testing.T) {
 		t.Errorf("Path = %s, want /openapi.json", cfg.Path)
 	}
 	if cfg.Title != "API" {
+		t.Errorf("Title = %s, want API", cfg.Title)
+	}
