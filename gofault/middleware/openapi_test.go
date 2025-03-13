@@ -24,3 +24,4 @@ func TestDefaultOpenAPIConfig(t *testing.T) {
 	if cfg.Version != "1.0.0" {
 		t.Errorf("Version = %s, want 1.0.0", cfg.Version)
 	}
+}
