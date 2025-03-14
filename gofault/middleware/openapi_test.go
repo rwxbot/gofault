@@ -36,3 +36,6 @@ func TestOpenAPIMiddleware_Disabled(t *testing.T) {
 }
 
 func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
+	cfg := DefaultOpenAPIConfig()
+
+	handler := OpenAPIMiddleware(cfg)
