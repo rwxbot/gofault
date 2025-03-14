@@ -43,3 +43,5 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 	req := httptest.NewRequest("GET", "/openapi.json", nil)
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	if err := handler(ctx); err != nil {
