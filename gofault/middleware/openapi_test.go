@@ -34,3 +34,5 @@ func TestOpenAPIMiddleware_Disabled(t *testing.T) {
 		t.Error("disabled middleware should return a nil handler")
 	}
 }
+
+func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
