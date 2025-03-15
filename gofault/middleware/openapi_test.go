@@ -50,3 +50,6 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 
 	if rec.Code != http.StatusOK {
 		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)
+	}
+
+	if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
