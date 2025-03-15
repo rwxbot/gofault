@@ -47,3 +47,6 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 	if err := handler(ctx); err != nil {
 		t.Fatalf("handler returned error: %v", err)
 	}
+
+	if rec.Code != http.StatusOK {
+		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)
