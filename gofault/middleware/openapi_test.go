@@ -53,3 +53,5 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 	}
 
 	if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
+		t.Errorf("Content-Type = %s, want application/json", ct)
+	}
