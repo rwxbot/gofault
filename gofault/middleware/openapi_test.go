@@ -58,3 +58,5 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 
 	var spec OpenAPIDocument
 	if err := json.Unmarshal(rec.Body.Bytes(), &spec); err != nil {
+		t.Fatalf("failed to unmarshal spec: %v", err)
+	}
