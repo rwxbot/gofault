@@ -62,3 +62,5 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 	}
 
 	if spec.OpenAPI != "3.0.0" {
+		t.Errorf("openapi = %s, want 3.0.0", spec.OpenAPI)
+	}
