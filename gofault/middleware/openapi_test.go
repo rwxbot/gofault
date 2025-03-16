@@ -65,3 +65,6 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 		t.Errorf("openapi = %s, want 3.0.0", spec.OpenAPI)
 	}
 	if spec.Info["title"] != cfg.Title {
+		t.Errorf("info.title = %v, want %s", spec.Info["title"], cfg.Title)
+	}
+	if spec.Info["version"] != cfg.Version {
