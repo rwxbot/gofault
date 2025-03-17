@@ -80,3 +80,6 @@ func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
 	if handler == nil {
 		t.Fatal("middleware should not be nil when Enabled is true")
 	}
+
+	req := httptest.NewRequest("GET", "/openapi.json", nil)
+	rec := httptest.NewRecorder()
