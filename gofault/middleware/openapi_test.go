@@ -75,3 +75,7 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
 	cfg := DefaultOpenAPIConfig()
 	cfg.Path = ""
+
+	handler := OpenAPIMiddleware(cfg)
+	if handler == nil {
+		t.Fatal("middleware should not be nil when Enabled is true")
