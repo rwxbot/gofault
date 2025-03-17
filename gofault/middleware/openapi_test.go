@@ -79,3 +79,4 @@ func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
 	handler := OpenAPIMiddleware(cfg)
 	if handler == nil {
 		t.Fatal("middleware should not be nil when Enabled is true")
+	}
