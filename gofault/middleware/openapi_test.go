@@ -71,3 +71,7 @@ func TestOpenAPIMiddleware_ServesSpec(t *testing.T) {
 		t.Errorf("info.version = %v, want %s", spec.Info["version"], cfg.Version)
 	}
 }
+
+func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
+	cfg := DefaultOpenAPIConfig()
+	cfg.Path = ""
