@@ -88,3 +88,5 @@ func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
 	if err := handler(ctx); err != nil {
 		t.Fatalf("handler returned error: %v", err)
 	}
+
+	if rec.Code != http.StatusOK {
