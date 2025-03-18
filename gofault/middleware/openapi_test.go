@@ -86,3 +86,5 @@ func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	if err := handler(ctx); err != nil {
+		t.Fatalf("handler returned error: %v", err)
+	}
