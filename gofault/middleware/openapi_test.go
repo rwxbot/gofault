@@ -98,3 +98,4 @@ func TestNewOpenAPIDocument(t *testing.T) {
 	doc := NewOpenAPIDocument("Example API", "2.0.0", "An example service")
 
 	if doc.OpenAPI != "3.0.0" {
+		t.Errorf("OpenAPI = %s, want 3.0.0", doc.OpenAPI)
