@@ -93,3 +93,5 @@ func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
 		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)
 	}
 }
+
+func TestNewOpenAPIDocument(t *testing.T) {
