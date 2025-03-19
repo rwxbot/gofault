@@ -95,3 +95,4 @@ func TestOpenAPIMiddleware_EmptyPathFallsBack(t *testing.T) {
 }
 
 func TestNewOpenAPIDocument(t *testing.T) {
+	doc := NewOpenAPIDocument("Example API", "2.0.0", "An example service")
