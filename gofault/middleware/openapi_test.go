@@ -101,3 +101,4 @@ func TestNewOpenAPIDocument(t *testing.T) {
 		t.Errorf("OpenAPI = %s, want 3.0.0", doc.OpenAPI)
 	}
 	if doc.Info["title"] != "Example API" {
+		t.Errorf("info.title = %v, want Example API", doc.Info["title"])
