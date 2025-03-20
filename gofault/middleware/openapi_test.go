@@ -102,3 +102,6 @@ func TestNewOpenAPIDocument(t *testing.T) {
 	}
 	if doc.Info["title"] != "Example API" {
 		t.Errorf("info.title = %v, want Example API", doc.Info["title"])
+	}
+	if doc.Paths == nil {
+		t.Error("Paths should be initialised")
