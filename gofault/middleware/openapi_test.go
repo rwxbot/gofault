@@ -108,3 +108,5 @@ func TestNewOpenAPIDocument(t *testing.T) {
 	}
 	if doc.Components == nil {
 		t.Error("Components should be initialised")
+	}
+}
