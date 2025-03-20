@@ -110,3 +110,5 @@ func TestNewOpenAPIDocument(t *testing.T) {
 		t.Error("Components should be initialised")
 	}
 }
+
+func TestOpenAPIDocument_AddPath(t *testing.T) {
