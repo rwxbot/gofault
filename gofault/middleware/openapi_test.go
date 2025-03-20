@@ -105,3 +105,5 @@ func TestNewOpenAPIDocument(t *testing.T) {
 	}
 	if doc.Paths == nil {
 		t.Error("Paths should be initialised")
+	}
+	if doc.Components == nil {
