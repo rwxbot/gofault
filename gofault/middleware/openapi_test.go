@@ -122,3 +122,5 @@ func TestOpenAPIDocument_AddPath(t *testing.T) {
 	if !ok {
 		t.Fatalf("Paths[/users] has type %T, want map[string]any", doc.Paths["/users"])
 	}
+	if len(paths) != 2 {
+		t.Errorf("methods on /users = %d, want 2", len(paths))
