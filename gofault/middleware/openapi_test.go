@@ -117,3 +117,5 @@ func TestOpenAPIDocument_AddPath(t *testing.T) {
 
 	doc.AddPath("/users", "get", op)
 	doc.AddPath("/users", "post", map[string]any{"summary": "Create user"})
+
+	paths, ok := doc.Paths["/users"].(map[string]any)
