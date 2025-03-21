@@ -124,3 +124,4 @@ func TestOpenAPIDocument_AddPath(t *testing.T) {
 	}
 	if len(paths) != 2 {
 		t.Errorf("methods on /users = %d, want 2", len(paths))
+	}
