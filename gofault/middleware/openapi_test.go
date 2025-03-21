@@ -112,3 +112,5 @@ func TestNewOpenAPIDocument(t *testing.T) {
 }
 
 func TestOpenAPIDocument_AddPath(t *testing.T) {
+	doc := NewOpenAPIDocument("Example API", "2.0.0", "An example service")
+	op := map[string]any{"summary": "List users"}
