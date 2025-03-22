@@ -132,3 +132,5 @@ func TestOpenAPIDocument_AddPath(t *testing.T) {
 
 func TestOpenAPIDocument_AddPath_LazyInit(t *testing.T) {
 	doc := &OpenAPIDocument{OpenAPI: "3.0.0"}
+
+	doc.AddPath("/health", "get", map[string]any{"summary": "Health probe"})
