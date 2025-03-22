@@ -129,3 +129,6 @@ func TestOpenAPIDocument_AddPath(t *testing.T) {
 		t.Error("GET operation was not stored")
 	}
 }
+
+func TestOpenAPIDocument_AddPath_LazyInit(t *testing.T) {
+	doc := &OpenAPIDocument{OpenAPI: "3.0.0"}
