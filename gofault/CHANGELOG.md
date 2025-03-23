@@ -67,3 +67,7 @@
 
 ### Added
 - WebSocket upgrade middleware
+
+## [v2.2.0]
+
+### Added
