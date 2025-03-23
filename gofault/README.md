@@ -546,3 +546,8 @@ mod.RegisterMiddleware(middleware.WebSocketMiddleware(cfg, chatHandler{}))
 `WebSocketHandlerFunc` adapts plain functions when a struct is overkill. The live
 connection is also reachable from later middleware and handlers through
 `ctx.Locals["ws_conn"]`.
+
+
+## What's new in v2.2.0
+
+### OpenAPI document
