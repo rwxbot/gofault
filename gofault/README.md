@@ -557,3 +557,13 @@ builds one programmatically:
 
 ```go
 doc := middleware.NewOpenAPIDocument("Example API", "1.0.0", "Internal API")
+doc.AddPath("/hello", "get", map[string]any{"summary": "Greet someone"})
+```
+
+```go
+cfg := middleware.DefaultOpenAPIConfig()
+cfg.Path = "/openapi.json"
+cfg.Title = "Example API"
+cfg.Version = "1.0.0"
+
+rtr.Handle("GET", cfg.Path, middleware.OpenAPIMiddleware(cfg))
