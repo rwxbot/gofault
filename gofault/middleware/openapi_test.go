@@ -138,3 +138,4 @@ func TestOpenAPIDocument_AddPath_LazyInit(t *testing.T) {
 	if len(doc.Paths) != 1 {
 		t.Errorf("Paths count = %d, want 1", len(doc.Paths))
 	}
+}
