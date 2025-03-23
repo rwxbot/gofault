@@ -551,3 +551,9 @@ connection is also reachable from later middleware and handlers through
 ## What's new in v2.2.0
 
 ### OpenAPI document
+
+`OpenAPIMiddleware` serves the specification as JSON, and `NewOpenAPIDocument`
+builds one programmatically:
+
+```go
+doc := middleware.NewOpenAPIDocument("Example API", "1.0.0", "Internal API")
