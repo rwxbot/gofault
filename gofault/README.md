@@ -567,3 +567,7 @@ cfg.Title = "Example API"
 cfg.Version = "1.0.0"
 
 rtr.Handle("GET", cfg.Path, middleware.OpenAPIMiddleware(cfg))
+```
+
+It is a `core.Handler` rather than a `MiddlewareFunc`, so it is mounted on a
+single route instead of wrapping the whole chain.
