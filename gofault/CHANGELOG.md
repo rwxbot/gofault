@@ -71,3 +71,4 @@
 ## [v2.2.0]
 
 ### Added
+- OpenAPI spec serving with bundled Swagger UI
