@@ -19,3 +19,5 @@ type MetricsConfig struct {
 	// SkipHealthCheck excludes the /health path from metrics.
 	SkipHealthCheck bool
 	// Buckets for the request duration histogram.
+	Buckets []float64
+}
