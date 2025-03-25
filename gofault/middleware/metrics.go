@@ -12,3 +12,5 @@ import (
 type MetricsConfig struct {
 	// Enabled enables the metrics middleware.
 	Enabled bool
+	// Namespace prefixes all metric names.
+	Namespace string
