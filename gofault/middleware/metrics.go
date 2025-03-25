@@ -15,3 +15,5 @@ type MetricsConfig struct {
 	Enabled bool
 	// Namespace prefixes all metric names.
 	Namespace string
+	// Subsystem further qualifies the metric.
+	Subsystem string
