@@ -10,3 +10,6 @@ import (
 )
 
 // MetricsConfig holds configuration for the metrics middleware.
+type MetricsConfig struct {
+	// Enabled enables the metrics middleware.
+	Enabled bool
