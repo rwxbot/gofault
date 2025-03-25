@@ -17,3 +17,5 @@ type MetricsConfig struct {
 	// Subsystem further qualifies the metric.
 	Subsystem string
 	// SkipHealthCheck excludes the /health path from metrics.
+	SkipHealthCheck bool
+	// Buckets for the request duration histogram.
