@@ -16,3 +16,4 @@ type MetricsConfig struct {
 	Namespace string
 	// Subsystem further qualifies the metric.
 	Subsystem string
+	// SkipHealthCheck excludes the /health path from metrics.
