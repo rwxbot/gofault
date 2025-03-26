@@ -27,3 +27,5 @@ type MetricsConfig struct {
 func DefaultMetricsConfig() MetricsConfig {
 	return MetricsConfig{
 		Enabled:         true,
+		Namespace:       "gofault",
+		Subsystem:       "http",
