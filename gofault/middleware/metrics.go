@@ -23,3 +23,4 @@ type MetricsConfig struct {
 }
 
 // DefaultMetricsConfig returns a default metrics configuration.
+func DefaultMetricsConfig() MetricsConfig {
