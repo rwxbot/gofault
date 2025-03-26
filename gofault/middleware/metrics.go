@@ -29,3 +29,4 @@ func DefaultMetricsConfig() MetricsConfig {
 		Enabled:         true,
 		Namespace:       "gofault",
 		Subsystem:       "http",
+		SkipHealthCheck: true,
