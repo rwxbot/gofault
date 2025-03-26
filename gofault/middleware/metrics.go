@@ -22,3 +22,5 @@ type MetricsConfig struct {
 	// Buckets for the request duration histogram.
 	Buckets []float64
 }
+
+// DefaultMetricsConfig returns a default metrics configuration.
