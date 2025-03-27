@@ -40,3 +40,5 @@ type httpMetrics struct {
 	requestDuration  *prometheus.HistogramVec
 	requestsInFlight prometheus.Gauge
 }
+
+// newHttpMetrics creates metrics and registers them with the provided registry.
