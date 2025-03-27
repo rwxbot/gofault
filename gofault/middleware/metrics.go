@@ -38,3 +38,4 @@ func DefaultMetricsConfig() MetricsConfig {
 type httpMetrics struct {
 	requestsTotal    *prometheus.CounterVec
 	requestDuration  *prometheus.HistogramVec
+	requestsInFlight prometheus.Gauge
