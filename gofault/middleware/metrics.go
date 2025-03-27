@@ -34,3 +34,6 @@ func DefaultMetricsConfig() MetricsConfig {
 }
 
 // httpMetrics holds all Prometheus metrics for a given namespace/subsystem.
+type httpMetrics struct {
+	requestsTotal    *prometheus.CounterVec
+	requestDuration  *prometheus.HistogramVec
