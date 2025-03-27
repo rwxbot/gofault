@@ -41,3 +41,4 @@ type httpMetrics struct {
 }
 
 // newHttpMetrics creates metrics and registers them with the provided registry.
+func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *prometheus.Registry) httpMetrics {
