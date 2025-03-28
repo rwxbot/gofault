@@ -48,3 +48,6 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 
 	requestsTotal := prometheus.NewCounterVec(
 		prometheus.CounterOpts{
+			Namespace: namespace,
+			Subsystem: subsystem,
+			Name:      "requests_total",
