@@ -51,3 +51,6 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 			Namespace: namespace,
 			Subsystem: subsystem,
 			Name:      "requests_total",
+			Help:      "Total number of HTTP requests.",
+		},
+		[]string{"method", "path", "status"},
