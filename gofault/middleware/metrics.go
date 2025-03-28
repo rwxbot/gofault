@@ -45,3 +45,6 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 	if len(buckets) == 0 {
 		buckets = []float64{.005, .01, .025, .05, .1, .25, .5, 1, 2.5, 5, 10}
 	}
+
+	requestsTotal := prometheus.NewCounterVec(
+		prometheus.CounterOpts{
