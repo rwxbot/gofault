@@ -45,3 +45,4 @@ type httpMetrics struct {
 func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *prometheus.Registry) httpMetrics {
 	if len(buckets) == 0 {
 		buckets = []float64{.005, .01, .025, .05, .1, .25, .5, 1, 2.5, 5, 10}
+	}
