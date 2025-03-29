@@ -70,3 +70,6 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 			Namespace: namespace,
 			Subsystem: subsystem,
 			Name:      "requests_in_flight",
+			Help:      "Number of HTTP requests currently being processed.",
+		},
+	)
