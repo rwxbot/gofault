@@ -63,3 +63,5 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 			Help:      "HTTP request duration in seconds.",
 			Buckets:   buckets,
 		},
+		[]string{"method", "path", "status"},
+	)
