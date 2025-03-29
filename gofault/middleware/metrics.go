@@ -66,3 +66,5 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 		},
 		[]string{"method", "path", "status"},
 	)
+	requestsInFlight := prometheus.NewGauge(
+		prometheus.GaugeOpts{
