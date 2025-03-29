@@ -54,3 +54,6 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 			Help:      "Total number of HTTP requests.",
 		},
 		[]string{"method", "path", "status"},
+	)
+	requestDuration := prometheus.NewHistogramVec(
+		prometheus.HistogramOpts{
