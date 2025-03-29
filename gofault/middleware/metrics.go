@@ -60,3 +60,6 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 		prometheus.HistogramOpts{
 			Namespace: namespace,
 			Subsystem: subsystem,
+			Name:      "request_duration_seconds",
+			Help:      "HTTP request duration in seconds.",
+			Buckets:   buckets,
