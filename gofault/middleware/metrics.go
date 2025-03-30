@@ -74,3 +74,5 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 			Help:      "Number of HTTP requests currently being processed.",
 		},
 	)
+
+	registry.MustRegister(requestsTotal, requestDuration, requestsInFlight)
