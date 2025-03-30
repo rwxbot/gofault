@@ -75,3 +75,5 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 	)
 
 	registry.MustRegister(requestsTotal, requestDuration, requestsInFlight)
+
+	return httpMetrics{
