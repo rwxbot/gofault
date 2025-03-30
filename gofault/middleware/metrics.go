@@ -79,3 +79,4 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 	return httpMetrics{
 		requestsTotal:    requestsTotal,
 		requestDuration:  requestDuration,
+		requestsInFlight: requestsInFlight,
