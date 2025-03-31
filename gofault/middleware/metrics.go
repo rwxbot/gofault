@@ -86,3 +86,5 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 
 // MetricsMiddleware creates a middleware that records HTTP request metrics.
 // Returns the middleware and the registry that holds the metrics.
+func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.Registry) {
+	if !config.Enabled {
