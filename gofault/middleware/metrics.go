@@ -89,3 +89,6 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 	if !config.Enabled {
 		return nil, nil
 	}
+
+	namespace := config.Namespace
+	if namespace == "" {
