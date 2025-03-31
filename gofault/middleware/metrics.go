@@ -82,3 +82,5 @@ func newHttpMetrics(namespace, subsystem string, buckets []float64, registry *pr
 		requestsInFlight: requestsInFlight,
 	}
 }
+
+// MetricsMiddleware creates a middleware that records HTTP request metrics.
