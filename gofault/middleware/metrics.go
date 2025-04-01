@@ -92,3 +92,5 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 
 	namespace := config.Namespace
 	if namespace == "" {
+		namespace = "gofault"
+	}
