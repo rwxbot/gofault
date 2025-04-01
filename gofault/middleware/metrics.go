@@ -96,3 +96,5 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 	}
 	subsystem := config.Subsystem
 	if subsystem == "" {
+		subsystem = "http"
+	}
