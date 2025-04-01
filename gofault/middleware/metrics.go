@@ -100,3 +100,4 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 	}
 
 	registry := prometheus.NewRegistry()
+	m := newHttpMetrics(namespace, subsystem, config.Buckets, registry)
