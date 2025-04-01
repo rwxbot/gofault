@@ -99,3 +99,5 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 	if subsystem == "" {
 		subsystem = "http"
 	}
+
+	registry := prometheus.NewRegistry()
