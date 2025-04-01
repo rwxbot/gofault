@@ -95,3 +95,5 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 	if namespace == "" {
 		namespace = "gofault"
 	}
+	subsystem := config.Subsystem
+	if subsystem == "" {
