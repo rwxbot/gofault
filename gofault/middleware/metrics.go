@@ -106,3 +106,4 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		// Skip health check endpoint to avoid noise
 		if config.SkipHealthCheck && ctx.Request.URL.Path == "/health" {
 			return next(ctx)
+		}
