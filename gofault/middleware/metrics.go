@@ -101,3 +101,6 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 
 	registry := prometheus.NewRegistry()
 	m := newHttpMetrics(namespace, subsystem, config.Buckets, registry)
+
+	return func(ctx *core.Ctx, next core.Handler) error {
+		// Skip health check endpoint to avoid noise
