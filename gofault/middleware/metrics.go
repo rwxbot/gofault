@@ -109,3 +109,4 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		}
 
 		path := normalizePath(ctx.Request.URL.Path)
+		method := ctx.Request.Method
