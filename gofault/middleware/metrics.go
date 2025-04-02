@@ -107,3 +107,5 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		if config.SkipHealthCheck && ctx.Request.URL.Path == "/health" {
 			return next(ctx)
 		}
+
+		path := normalizePath(ctx.Request.URL.Path)
