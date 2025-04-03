@@ -125,3 +125,6 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		m.requestsTotal.WithLabelValues(method, path, status).Inc()
 		m.requestDuration.WithLabelValues(method, path, status).Observe(duration)
 		m.requestsInFlight.Dec()
+
+		return err
+	}, registry
