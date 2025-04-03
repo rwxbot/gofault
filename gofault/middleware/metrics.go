@@ -122,3 +122,7 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		if ctx.StatusCode == 0 {
 			status = "0"
 		}
+
+		m.requestsTotal.WithLabelValues(method, path, status).Inc()
+		m.requestDuration.WithLabelValues(method, path, status).Observe(duration)
+		m.requestsInFlight.Dec()
