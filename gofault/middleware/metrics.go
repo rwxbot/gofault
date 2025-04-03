@@ -117,3 +117,6 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		err := next(ctx)
 
 		duration := time.Since(start).Seconds()
+		status := strconv.Itoa(ctx.StatusCode)
+		if ctx.StatusCode == 0 {
+			status = "0"
