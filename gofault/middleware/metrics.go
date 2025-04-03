@@ -121,3 +121,4 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		status := strconv.Itoa(ctx.StatusCode)
 		if ctx.StatusCode == 0 {
 			status = "0"
+		}
