@@ -128,3 +128,4 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 
 		return err
 	}, registry
+}
