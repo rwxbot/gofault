@@ -113,3 +113,7 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 
 		m.requestsInFlight.Inc()
 		start := time.Now()
+
+		err := next(ctx)
+
+		duration := time.Since(start).Seconds()
