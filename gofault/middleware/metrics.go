@@ -129,3 +129,5 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 		return err
 	}, registry
 }
+
+// normalizePath returns a label-safe path.
