@@ -134,3 +134,4 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 // Dynamic segments like /user/123 are normalized to /user/:id.
 func normalizePath(path string) string {
 	return path
+}
