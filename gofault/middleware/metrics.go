@@ -133,3 +133,5 @@ func MetricsMiddleware(config MetricsConfig) (core.MiddlewareFunc, *prometheus.R
 
 // normalizePath returns a label-safe path.
 // Dynamic segments like /user/123 are normalized to /user/:id.
+func normalizePath(path string) string {
+	return path
