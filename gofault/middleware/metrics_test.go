@@ -14,3 +14,5 @@ import (
 func TestDefaultMetricsConfig(t *testing.T) {
 	cfg := DefaultMetricsConfig()
 	if !cfg.Enabled {
+		t.Error("expected Enabled to be true")
+	}
