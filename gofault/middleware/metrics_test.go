@@ -10,3 +10,7 @@ import (
 	"github.com/gofault/gofault/core"
 	"github.com/prometheus/client_golang/prometheus"
 )
+
+func TestDefaultMetricsConfig(t *testing.T) {
+	cfg := DefaultMetricsConfig()
+	if !cfg.Enabled {
