@@ -22,3 +22,6 @@ func TestDefaultMetricsConfig(t *testing.T) {
 	if cfg.Subsystem != "http" {
 		t.Errorf("expected subsystem 'http', got '%s'", cfg.Subsystem)
 	}
+	if !cfg.SkipHealthCheck {
+		t.Error("expected SkipHealthCheck to be true")
+	}
