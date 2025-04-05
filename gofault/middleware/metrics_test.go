@@ -19,3 +19,6 @@ func TestDefaultMetricsConfig(t *testing.T) {
 	if cfg.Namespace != "gofault" {
 		t.Errorf("expected namespace 'gofault', got '%s'", cfg.Namespace)
 	}
+	if cfg.Subsystem != "http" {
+		t.Errorf("expected subsystem 'http', got '%s'", cfg.Subsystem)
+	}
