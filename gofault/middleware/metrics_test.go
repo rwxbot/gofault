@@ -16,3 +16,6 @@ func TestDefaultMetricsConfig(t *testing.T) {
 	if !cfg.Enabled {
 		t.Error("expected Enabled to be true")
 	}
+	if cfg.Namespace != "gofault" {
+		t.Errorf("expected namespace 'gofault', got '%s'", cfg.Namespace)
+	}
