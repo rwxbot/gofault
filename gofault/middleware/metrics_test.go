@@ -26,3 +26,4 @@ func TestDefaultMetricsConfig(t *testing.T) {
 		t.Error("expected SkipHealthCheck to be true")
 	}
 	if len(cfg.Buckets) == 0 {
+		t.Error("expected non-empty Buckets")
