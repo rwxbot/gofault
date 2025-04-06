@@ -25,3 +25,4 @@ func TestDefaultMetricsConfig(t *testing.T) {
 	if !cfg.SkipHealthCheck {
 		t.Error("expected SkipHealthCheck to be true")
 	}
+	if len(cfg.Buckets) == 0 {
