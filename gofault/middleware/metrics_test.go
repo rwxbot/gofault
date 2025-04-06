@@ -31,3 +31,5 @@ func TestDefaultMetricsConfig(t *testing.T) {
 }
 
 func TestMetricsMiddleware_Disabled(t *testing.T) {
+	cfg := MetricsConfig{Enabled: false}
+	mw, reg := MetricsMiddleware(cfg)
