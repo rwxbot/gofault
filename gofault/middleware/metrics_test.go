@@ -27,3 +27,5 @@ func TestDefaultMetricsConfig(t *testing.T) {
 	}
 	if len(cfg.Buckets) == 0 {
 		t.Error("expected non-empty Buckets")
+	}
+}
