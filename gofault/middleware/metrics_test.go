@@ -29,3 +29,5 @@ func TestDefaultMetricsConfig(t *testing.T) {
 		t.Error("expected non-empty Buckets")
 	}
 }
+
+func TestMetricsMiddleware_Disabled(t *testing.T) {
