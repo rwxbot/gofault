@@ -33,3 +33,6 @@ func TestDefaultMetricsConfig(t *testing.T) {
 func TestMetricsMiddleware_Disabled(t *testing.T) {
 	cfg := MetricsConfig{Enabled: false}
 	mw, reg := MetricsMiddleware(cfg)
+	if mw != nil {
+		t.Error("expected nil middleware when disabled")
+	}
