@@ -37,3 +37,6 @@ func TestMetricsMiddleware_Disabled(t *testing.T) {
 		t.Error("expected nil middleware when disabled")
 	}
 	if reg != nil {
+		t.Error("expected nil registry when disabled")
+	}
+}
