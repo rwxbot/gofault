@@ -40,3 +40,6 @@ func TestMetricsMiddleware_Disabled(t *testing.T) {
 		t.Error("expected nil registry when disabled")
 	}
 }
+
+func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
+	cfg := DefaultMetricsConfig()
