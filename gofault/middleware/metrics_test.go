@@ -44,3 +44,5 @@ func TestMetricsMiddleware_Disabled(t *testing.T) {
 func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	cfg := DefaultMetricsConfig()
 	cfg.SkipHealthCheck = false // record all paths
+
+	mw, registry := MetricsMiddleware(cfg)
