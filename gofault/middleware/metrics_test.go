@@ -51,3 +51,5 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	}
 
 	req := httptest.NewRequest("GET", "/test", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
