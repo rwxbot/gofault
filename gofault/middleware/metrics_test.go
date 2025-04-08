@@ -55,3 +55,4 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
+	mw(ctx, func(c *core.Ctx) error {
