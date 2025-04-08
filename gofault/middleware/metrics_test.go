@@ -56,3 +56,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 
 	var called bool
 	mw(ctx, func(c *core.Ctx) error {
+		called = true
+		c.StatusCode = http.StatusOK
+		return nil
