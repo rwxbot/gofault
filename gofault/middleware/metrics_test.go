@@ -46,3 +46,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	cfg.SkipHealthCheck = false // record all paths
 
 	mw, registry := MetricsMiddleware(cfg)
+	if mw == nil {
+		t.Fatal("middleware is nil")
+	}
