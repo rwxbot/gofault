@@ -49,3 +49,5 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	if mw == nil {
 		t.Fatal("middleware is nil")
 	}
+
+	req := httptest.NewRequest("GET", "/test", nil)
