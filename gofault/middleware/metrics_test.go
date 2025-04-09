@@ -68,3 +68,5 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	// Collect metrics from registry
 	mfs, err := registry.Gather()
 	if err != nil {
+		t.Fatalf("gather error: %v", err)
+	}
