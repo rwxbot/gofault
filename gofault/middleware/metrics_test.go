@@ -62,3 +62,4 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	})
 
 	if !called {
+		t.Error("next handler was not called")
