@@ -59,3 +59,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 		called = true
 		c.StatusCode = http.StatusOK
 		return nil
+	})
+
+	if !called {
