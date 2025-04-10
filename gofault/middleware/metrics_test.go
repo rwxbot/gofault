@@ -70,3 +70,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	if err != nil {
 		t.Fatalf("gather error: %v", err)
 	}
+
+	totalFound := false
+	for _, mf := range mfs {
