@@ -76,3 +76,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 		if mf.GetName() == "gofault_http_requests_total" {
 			totalFound = true
 			metrics := mf.GetMetric()
+			if len(metrics) == 0 {
+				t.Error("no request metrics recorded")
+			}
