@@ -85,3 +85,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 				}
 			}
 		}
+	}
+	if !totalFound {
+		t.Error("requests_total metric not found")
