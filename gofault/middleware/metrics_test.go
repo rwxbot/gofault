@@ -90,3 +90,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 		t.Error("requests_total metric not found")
 	}
 }
+
+func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
+	cfg := DefaultMetricsConfig()
