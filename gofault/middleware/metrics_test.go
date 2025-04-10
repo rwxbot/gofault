@@ -79,3 +79,6 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 			if len(metrics) == 0 {
 				t.Error("no request metrics recorded")
 			}
+			for _, m := range metrics {
+				if m.GetCounter().GetValue() != 1 {
+					t.Errorf("expected counter value 1, got %f", m.GetCounter().GetValue())
