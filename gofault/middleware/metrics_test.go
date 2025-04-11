@@ -96,3 +96,6 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 	cfg.SkipHealthCheck = true
 
 	mw, registry := MetricsMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/health", nil)
+	rec := httptest.NewRecorder()
