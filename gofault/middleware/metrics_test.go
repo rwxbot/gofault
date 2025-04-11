@@ -94,3 +94,5 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 	cfg := DefaultMetricsConfig()
 	cfg.SkipHealthCheck = true
+
+	mw, registry := MetricsMiddleware(cfg)
