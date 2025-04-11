@@ -100,3 +100,6 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 	req := httptest.NewRequest("GET", "/health", nil)
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	var called bool
+	mw(ctx, func(c *core.Ctx) error {
