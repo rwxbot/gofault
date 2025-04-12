@@ -105,3 +105,6 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 	mw(ctx, func(c *core.Ctx) error {
 		called = true
 		return nil
+	})
+
+	if !called {
