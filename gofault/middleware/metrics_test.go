@@ -110,3 +110,6 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 	if !called {
 		t.Error("health check should not be skipped")
 	}
+
+	mfs, err := registry.Gather()
+	if err != nil {
