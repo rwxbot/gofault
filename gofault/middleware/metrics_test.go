@@ -124,3 +124,5 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 					if label.GetName() == "path" && label.GetValue() == "/health" {
 						t.Error("/health should not be recorded")
 					}
+				}
+			}
