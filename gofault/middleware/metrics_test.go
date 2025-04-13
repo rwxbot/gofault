@@ -115,3 +115,6 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 	if err != nil {
 		t.Fatalf("gather error: %v", err)
 	}
+
+	for _, mf := range mfs {
+		if mf.GetName() == "gofault_http_requests_total" {
