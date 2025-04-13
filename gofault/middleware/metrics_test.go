@@ -118,3 +118,6 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 
 	for _, mf := range mfs {
 		if mf.GetName() == "gofault_http_requests_total" {
+			metrics := mf.GetMetric()
+			for _, m := range metrics {
+				for _, label := range m.GetLabel() {
