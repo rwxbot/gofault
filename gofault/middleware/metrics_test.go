@@ -136,3 +136,5 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 	cfg.Subsystem = "api"
 
 	mw, registry := MetricsMiddleware(cfg)
+	if mw == nil {
+		t.Fatal("middleware is nil")
