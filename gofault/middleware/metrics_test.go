@@ -126,3 +126,5 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 					}
 				}
 			}
+		}
+	}
