@@ -133,3 +133,6 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 	cfg := DefaultMetricsConfig()
 	cfg.Namespace = "myapp"
+	cfg.Subsystem = "api"
+
+	mw, registry := MetricsMiddleware(cfg)
