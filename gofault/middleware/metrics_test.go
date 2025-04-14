@@ -138,3 +138,6 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 	mw, registry := MetricsMiddleware(cfg)
 	if mw == nil {
 		t.Fatal("middleware is nil")
+	}
+
+	req := httptest.NewRequest("GET", "/test", nil)
