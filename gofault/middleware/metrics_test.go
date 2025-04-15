@@ -146,3 +146,5 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 
 	mw(ctx, func(c *core.Ctx) error {
 		c.StatusCode = http.StatusOK
+		return nil
+	})
