@@ -148,3 +148,6 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 		c.StatusCode = http.StatusOK
 		return nil
 	})
+
+	mfs, err := registry.Gather()
+	if err != nil {
