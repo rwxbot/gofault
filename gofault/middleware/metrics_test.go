@@ -151,3 +151,5 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 
 	mfs, err := registry.Gather()
 	if err != nil {
+		t.Fatalf("gather error: %v", err)
+	}
