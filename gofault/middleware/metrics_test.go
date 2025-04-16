@@ -162,3 +162,5 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 		}
 	}
 }
+
+func TestMetricsMiddleware_InflightGauge(t *testing.T) {
