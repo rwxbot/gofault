@@ -153,3 +153,6 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 	if err != nil {
 		t.Fatalf("gather error: %v", err)
 	}
+
+	for _, mf := range mfs {
+		name := mf.GetName()
