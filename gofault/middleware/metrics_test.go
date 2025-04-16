@@ -159,3 +159,5 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 		// Should have requests_total, request_duration_seconds, and requests_in_flight
 		if name != "myapp_api_requests_total" && name != "myapp_api_request_duration_seconds" && name != "myapp_api_requests_in_flight" {
 			t.Errorf("unexpected metric name: %s", name)
+		}
+	}
