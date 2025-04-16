@@ -161,3 +161,4 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 			t.Errorf("unexpected metric name: %s", name)
 		}
 	}
+}
