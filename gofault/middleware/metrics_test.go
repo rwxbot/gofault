@@ -168,3 +168,5 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 	cfg.SkipHealthCheck = false
 
 	mw, registry := MetricsMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/slow", nil)
