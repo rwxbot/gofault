@@ -175,3 +175,7 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 
 	var start time.Time
 	doneCh := make(chan struct{})
+
+	mw(ctx, func(c *core.Ctx) error {
+		start = time.Now()
+		go func() {
