@@ -170,3 +170,5 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 	mw, registry := MetricsMiddleware(cfg)
 
 	req := httptest.NewRequest("GET", "/slow", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
