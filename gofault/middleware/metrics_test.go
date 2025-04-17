@@ -172,3 +172,6 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 	req := httptest.NewRequest("GET", "/slow", nil)
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	var start time.Time
+	doneCh := make(chan struct{})
