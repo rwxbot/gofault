@@ -183,3 +183,4 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 			close(doneCh)
 		}()
 		<-doneCh
+		c.StatusCode = http.StatusOK
