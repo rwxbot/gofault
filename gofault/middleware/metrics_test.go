@@ -186,3 +186,6 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 		c.StatusCode = http.StatusOK
 		return nil
 	})
+
+	// While inside handler, in-flight should be 1
+	elapsed := time.Since(start)
