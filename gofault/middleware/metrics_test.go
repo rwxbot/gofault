@@ -189,3 +189,5 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 
 	// While inside handler, in-flight should be 1
 	elapsed := time.Since(start)
+	if elapsed < 20*time.Millisecond {
+		// We're still in the handler - check gauge
