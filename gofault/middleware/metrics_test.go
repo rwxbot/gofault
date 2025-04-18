@@ -182,3 +182,4 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 			time.Sleep(20 * time.Millisecond)
 			close(doneCh)
 		}()
+		<-doneCh
