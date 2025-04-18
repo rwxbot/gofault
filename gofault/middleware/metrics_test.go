@@ -179,3 +179,6 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 	mw(ctx, func(c *core.Ctx) error {
 		start = time.Now()
 		go func() {
+			time.Sleep(20 * time.Millisecond)
+			close(doneCh)
+		}()
