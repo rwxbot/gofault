@@ -191,3 +191,6 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 	elapsed := time.Since(start)
 	if elapsed < 20*time.Millisecond {
 		// We're still in the handler - check gauge
+		mfs, _ := registry.Gather()
+		for _, mf := range mfs {
+			if mf.GetName() == "gofault_http_requests_in_flight" {
