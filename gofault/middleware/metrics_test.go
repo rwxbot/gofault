@@ -195,3 +195,4 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 		for _, mf := range mfs {
 			if mf.GetName() == "gofault_http_requests_in_flight" {
 				val := mf.GetMetric()[0].GetGauge().GetValue()
+				if val != 1 {
