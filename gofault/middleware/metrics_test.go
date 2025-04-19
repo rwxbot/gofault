@@ -198,3 +198,4 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 				if val != 1 {
 					t.Logf("in-flight gauge during request: %f", val)
 				}
+			}
