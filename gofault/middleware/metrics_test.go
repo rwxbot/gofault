@@ -202,3 +202,5 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 		}
 	}
 }
+
+func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
