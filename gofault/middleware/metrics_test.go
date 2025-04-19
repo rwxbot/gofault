@@ -199,3 +199,4 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 					t.Logf("in-flight gauge during request: %f", val)
 				}
 			}
+		}
