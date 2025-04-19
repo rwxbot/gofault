@@ -200,3 +200,5 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 				}
 			}
 		}
+	}
+}
