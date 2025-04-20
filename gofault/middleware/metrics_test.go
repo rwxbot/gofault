@@ -204,3 +204,5 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 }
 
 func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
+	cfg := DefaultMetricsConfig()
+	cfg.Buckets = []float64{0.001, 0.01, 0.1, 1}
