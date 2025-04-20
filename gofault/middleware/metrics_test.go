@@ -212,3 +212,6 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test", nil)
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	mw(ctx, func(c *core.Ctx) error {
+		c.StatusCode = http.StatusOK
