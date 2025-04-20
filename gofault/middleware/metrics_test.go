@@ -208,3 +208,5 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 	cfg.Buckets = []float64{0.001, 0.01, 0.1, 1}
 
 	mw, registry := MetricsMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/test", nil)
