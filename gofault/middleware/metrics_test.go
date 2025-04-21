@@ -216,3 +216,6 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 	mw(ctx, func(c *core.Ctx) error {
 		c.StatusCode = http.StatusOK
 		return nil
+	})
+
+	mfs, err := registry.Gather()
