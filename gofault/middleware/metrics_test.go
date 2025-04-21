@@ -219,3 +219,6 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 	})
 
 	mfs, err := registry.Gather()
+	if err != nil {
+		t.Fatalf("gather error: %v", err)
+	}
