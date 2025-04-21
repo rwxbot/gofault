@@ -222,3 +222,5 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 	if err != nil {
 		t.Fatalf("gather error: %v", err)
 	}
+
+	for _, mf := range mfs {
