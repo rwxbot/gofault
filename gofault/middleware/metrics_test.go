@@ -230,3 +230,4 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 			_ = m.GetHistogram().GetBucket()
 		}
 	}
+}
