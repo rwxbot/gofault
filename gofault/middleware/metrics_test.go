@@ -224,3 +224,4 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 	}
 
 	for _, mf := range mfs {
+		if mf.GetName() == "gofault_http_request_duration_seconds" {
