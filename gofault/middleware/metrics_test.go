@@ -228,3 +228,5 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 			m := mf.GetMetric()[0]
 			// Verify bucket count matches our custom buckets
 			_ = m.GetHistogram().GetBucket()
+		}
+	}
