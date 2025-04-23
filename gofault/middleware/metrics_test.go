@@ -234,3 +234,4 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 
 func TestMetricsMiddleware_StatusCode(t *testing.T) {
 	cfg := DefaultMetricsConfig()
+	cfg.SkipHealthCheck = false
