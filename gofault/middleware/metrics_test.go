@@ -246,3 +246,4 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 		{"/ok", "GET", 200},
 		{"/notfound", "GET", 404},
 		{"/error", "POST", 500},
+	}
