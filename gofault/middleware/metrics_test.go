@@ -239,3 +239,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 	mw, registry := MetricsMiddleware(cfg)
 
 	tests := []struct {
+		path   string
+		method string
