@@ -241,3 +241,6 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 	tests := []struct {
 		path   string
 		method string
+		code   int
+	}{
+		{"/ok", "GET", 200},
