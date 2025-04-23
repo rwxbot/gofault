@@ -237,3 +237,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 	cfg.SkipHealthCheck = false
 
 	mw, registry := MetricsMiddleware(cfg)
+
+	tests := []struct {
