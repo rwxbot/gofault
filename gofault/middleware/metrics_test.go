@@ -257,3 +257,6 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 			c.StatusCode = tt.code
 			return nil
 		})
+	}
+
+	mfs, _ := registry.Gather()
