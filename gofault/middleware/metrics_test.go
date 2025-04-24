@@ -249,3 +249,6 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		req := httptest.NewRequest(tt.method, tt.path, nil)
+		rec := httptest.NewRecorder()
+		ctx := core.NewCtx(rec, req)
