@@ -265,3 +265,6 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 			found := make(map[string]bool)
 			for _, m := range mf.GetMetric() {
 				var path, method, status string
+				for _, label := range m.GetLabel() {
+					if label.GetName() == "path" {
+						path = label.GetValue()
