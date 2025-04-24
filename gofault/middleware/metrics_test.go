@@ -252,3 +252,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 		req := httptest.NewRequest(tt.method, tt.path, nil)
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
+
+		mw(ctx, func(c *core.Ctx) error {
