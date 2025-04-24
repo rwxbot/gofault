@@ -262,3 +262,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 	mfs, _ := registry.Gather()
 	for _, mf := range mfs {
 		if mf.GetName() == "gofault_http_requests_total" {
+			found := make(map[string]bool)
+			for _, m := range mf.GetMetric() {
