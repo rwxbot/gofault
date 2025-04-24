@@ -264,3 +264,4 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 		if mf.GetName() == "gofault_http_requests_total" {
 			found := make(map[string]bool)
 			for _, m := range mf.GetMetric() {
+				var path, method, status string
