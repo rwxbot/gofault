@@ -254,3 +254,6 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 		ctx := core.NewCtx(rec, req)
 
 		mw(ctx, func(c *core.Ctx) error {
+			c.StatusCode = tt.code
+			return nil
+		})
