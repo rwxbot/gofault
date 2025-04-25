@@ -268,3 +268,4 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 				for _, label := range m.GetLabel() {
 					if label.GetName() == "path" {
 						path = label.GetValue()
+					}
