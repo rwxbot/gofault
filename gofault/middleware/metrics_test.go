@@ -276,3 +276,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 						status = label.GetValue()
 					}
 				}
+				found[path+method+status] = true
+			}
