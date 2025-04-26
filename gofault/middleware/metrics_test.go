@@ -281,3 +281,6 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 			for _, tt := range tests {
 				key := tt.path + tt.method + strconv.Itoa(tt.code)
 				if !found[key] {
+					t.Logf("metric for %s %s %d not found", tt.method, tt.path, tt.code)
+				}
+			}
