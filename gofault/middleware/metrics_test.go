@@ -285,3 +285,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 				}
 			}
 		}
+	}
+}
