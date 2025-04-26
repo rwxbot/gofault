@@ -278,3 +278,4 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 				}
 				found[path+method+status] = true
 			}
+			for _, tt := range tests {
