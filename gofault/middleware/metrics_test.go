@@ -279,3 +279,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 				found[path+method+status] = true
 			}
 			for _, tt := range tests {
+				key := tt.path + tt.method + strconv.Itoa(tt.code)
+				if !found[key] {
