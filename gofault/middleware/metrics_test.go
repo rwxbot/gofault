@@ -292,3 +292,6 @@ func TestMetricsMiddleware_NilBuckets(t *testing.T) {
 	cfg := MetricsConfig{Enabled: true, Buckets: nil}
 	mw, _ := MetricsMiddleware(cfg)
 	if mw == nil {
+		t.Error("middleware should not be nil even with nil buckets")
+	}
+}
