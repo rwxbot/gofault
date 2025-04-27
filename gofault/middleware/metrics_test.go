@@ -287,3 +287,5 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 		}
 	}
 }
+
+func TestMetricsMiddleware_NilBuckets(t *testing.T) {
