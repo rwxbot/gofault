@@ -295,3 +295,6 @@ func TestMetricsMiddleware_NilBuckets(t *testing.T) {
 		t.Error("middleware should not be nil even with nil buckets")
 	}
 }
+
+func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
+	cfg := MetricsConfig{Enabled: true, Buckets: nil}
