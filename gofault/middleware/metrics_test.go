@@ -289,3 +289,6 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 }
 
 func TestMetricsMiddleware_NilBuckets(t *testing.T) {
+	cfg := MetricsConfig{Enabled: true, Buckets: nil}
+	mw, _ := MetricsMiddleware(cfg)
+	if mw == nil {
