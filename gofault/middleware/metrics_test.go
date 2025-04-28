@@ -300,3 +300,7 @@ func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 	cfg := MetricsConfig{Enabled: true, Buckets: nil}
 	// Should not panic and should use defaults
 	mw, registry := MetricsMiddleware(cfg)
+
+	req := httptest.NewRequest("GET", "/test", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
