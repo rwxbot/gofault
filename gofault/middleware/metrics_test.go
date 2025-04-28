@@ -307,3 +307,5 @@ func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 
 	mw(ctx, func(c *core.Ctx) error {
 		c.StatusCode = 200
+		return nil
+	})
