@@ -309,3 +309,5 @@ func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 		c.StatusCode = 200
 		return nil
 	})
+
+	mfs, _ := registry.Gather()
