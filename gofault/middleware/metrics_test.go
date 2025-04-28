@@ -298,3 +298,5 @@ func TestMetricsMiddleware_NilBuckets(t *testing.T) {
 
 func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 	cfg := MetricsConfig{Enabled: true, Buckets: nil}
+	// Should not panic and should use defaults
+	mw, registry := MetricsMiddleware(cfg)
