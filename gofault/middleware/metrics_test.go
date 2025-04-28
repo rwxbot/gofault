@@ -311,3 +311,4 @@ func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 	})
 
 	mfs, _ := registry.Gather()
+	if len(mfs) == 0 {
