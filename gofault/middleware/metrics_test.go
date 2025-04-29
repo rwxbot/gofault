@@ -312,3 +312,6 @@ func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 
 	mfs, _ := registry.Gather()
 	if len(mfs) == 0 {
+		t.Error("expected metrics to be gathered")
+	}
+}
