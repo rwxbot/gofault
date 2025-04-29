@@ -315,3 +315,5 @@ func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 		t.Error("expected metrics to be gathered")
 	}
 }
+
+func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
