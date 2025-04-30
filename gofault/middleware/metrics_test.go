@@ -327,3 +327,6 @@ func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	mw(ctx, func(c *core.Ctx) error {
+		// StatusCode not set, remains 0
+		return nil
+	})
