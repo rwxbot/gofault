@@ -330,3 +330,6 @@ func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
 		// StatusCode not set, remains 0
 		return nil
 	})
+
+	mfs, _ := registry.Gather()
+	for _, mf := range mfs {
