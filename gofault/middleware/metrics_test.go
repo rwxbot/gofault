@@ -339,3 +339,5 @@ func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
 					if label.GetName() == "status" && label.GetValue() == "0" {
 						return // found, ok
 					}
+				}
+			}
