@@ -344,3 +344,7 @@ func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
 		}
 	}
 }
+
+func TestNewHttpMetrics_Registry(t *testing.T) {
+	// Test with a fresh registry instead of global
+	reg := prometheus.NewRegistry()
