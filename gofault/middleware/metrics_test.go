@@ -341,3 +341,5 @@ func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
 					}
 				}
 			}
+		}
+	}
