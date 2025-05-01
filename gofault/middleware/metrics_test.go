@@ -336,3 +336,6 @@ func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
 		if mf.GetName() == "gofault_http_requests_total" {
 			for _, m := range mf.GetMetric() {
 				for _, label := range m.GetLabel() {
+					if label.GetName() == "status" && label.GetValue() == "0" {
+						return // found, ok
+					}
