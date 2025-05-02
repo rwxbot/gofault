@@ -351,3 +351,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	namespace := "testapp"
 	subsystem := "http"
 	buckets := []float64{0.005, 0.01, 0.05, 0.1}
+
+	counter := prometheus.NewCounterVec(
+		prometheus.CounterOpts{
