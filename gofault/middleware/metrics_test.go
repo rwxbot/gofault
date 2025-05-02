@@ -357,3 +357,4 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 			Namespace: namespace,
 			Subsystem: subsystem,
 			Name:      "requests_total",
+		},
