@@ -359,3 +359,4 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 			Name:      "requests_total",
 		},
 		[]string{"method", "path", "status"},
+	)
