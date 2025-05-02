@@ -355,3 +355,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	counter := prometheus.NewCounterVec(
 		prometheus.CounterOpts{
 			Namespace: namespace,
+			Subsystem: subsystem,
+			Name:      "requests_total",
