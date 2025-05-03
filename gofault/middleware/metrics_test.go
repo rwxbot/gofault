@@ -367,3 +367,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 			Name:      "request_duration_seconds",
 			Buckets:   buckets,
 		},
+		[]string{"method", "path", "status"},
+	)
+	gauge := prometheus.NewGauge(
