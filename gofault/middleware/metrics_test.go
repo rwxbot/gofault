@@ -364,3 +364,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 		prometheus.HistogramOpts{
 			Namespace: namespace,
 			Subsystem: subsystem,
+			Name:      "request_duration_seconds",
+			Buckets:   buckets,
+		},
