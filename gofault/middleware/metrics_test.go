@@ -360,3 +360,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 		},
 		[]string{"method", "path", "status"},
 	)
+	histogram := prometheus.NewHistogramVec(
+		prometheus.HistogramOpts{
