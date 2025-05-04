@@ -373,3 +373,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 		prometheus.GaugeOpts{
 			Namespace: namespace,
 			Subsystem: subsystem,
+			Name:      "requests_in_flight",
+		},
