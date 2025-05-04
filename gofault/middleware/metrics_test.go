@@ -372,3 +372,4 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	gauge := prometheus.NewGauge(
 		prometheus.GaugeOpts{
 			Namespace: namespace,
+			Subsystem: subsystem,
