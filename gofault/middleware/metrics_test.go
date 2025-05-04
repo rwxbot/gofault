@@ -376,3 +376,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 			Name:      "requests_in_flight",
 		},
 	)
+
+	reg.MustRegister(counter, histogram, gauge)
