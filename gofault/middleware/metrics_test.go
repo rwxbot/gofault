@@ -375,3 +375,4 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 			Subsystem: subsystem,
 			Name:      "requests_in_flight",
 		},
+	)
