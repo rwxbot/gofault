@@ -378,3 +378,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	)
 
 	reg.MustRegister(counter, histogram, gauge)
+
+	counter.WithLabelValues("GET", "/test", "200").Inc()
