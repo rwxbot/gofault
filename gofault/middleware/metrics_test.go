@@ -391,3 +391,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	found := make(map[string]bool)
 	for _, mf := range mfs {
 		found[mf.GetName()] = true
+	}
+
+	if !found["testapp_http_requests_total"] {
