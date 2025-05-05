@@ -384,3 +384,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	gauge.Inc()
 
 	mfs, err := reg.Gather()
+	if err != nil {
+		t.Fatalf("gather error: %v", err)
