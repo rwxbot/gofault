@@ -387,3 +387,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	if err != nil {
 		t.Fatalf("gather error: %v", err)
 	}
+
+	found := make(map[string]bool)
+	for _, mf := range mfs {
