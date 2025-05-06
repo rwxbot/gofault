@@ -396,3 +396,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	if !found["testapp_http_requests_total"] {
 		t.Error("counter metric not found")
 	}
+	if !found["testapp_http_request_duration_seconds"] {
+		t.Error("histogram metric not found")
