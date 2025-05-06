@@ -403,3 +403,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 		t.Error("gauge metric not found")
 	}
 }
+
+func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
+	cfg := DefaultMetricsConfig()
