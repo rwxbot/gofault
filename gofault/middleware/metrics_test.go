@@ -394,3 +394,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	}
 
 	if !found["testapp_http_requests_total"] {
+		t.Error("counter metric not found")
+	}
