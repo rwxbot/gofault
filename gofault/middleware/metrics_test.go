@@ -401,3 +401,5 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	}
 	if !found["testapp_http_requests_in_flight"] {
 		t.Error("gauge metric not found")
+	}
+}
