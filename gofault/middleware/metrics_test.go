@@ -398,3 +398,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 	}
 	if !found["testapp_http_request_duration_seconds"] {
 		t.Error("histogram metric not found")
+	}
+	if !found["testapp_http_requests_in_flight"] {
+		t.Error("gauge metric not found")
