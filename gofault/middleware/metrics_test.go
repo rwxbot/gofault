@@ -419,3 +419,6 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 			ctx := core.NewCtx(rec, req)
 
 			mw(ctx, func(c *core.Ctx) error {
+				c.StatusCode = http.StatusOK
+				time.Sleep(10 * time.Millisecond)
+				return nil
