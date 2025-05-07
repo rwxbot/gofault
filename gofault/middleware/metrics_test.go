@@ -423,3 +423,6 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 				time.Sleep(10 * time.Millisecond)
 				return nil
 			})
+			doneCh <- struct{}{}
+		}()
+	}
