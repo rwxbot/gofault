@@ -411,3 +411,6 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 	mw, registry := MetricsMiddleware(cfg)
 
 	doneCh := make(chan struct{}, 5)
+
+	for i := 0; i < 5; i++ {
+		go func() {
