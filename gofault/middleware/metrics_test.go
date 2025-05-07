@@ -414,3 +414,5 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 
 	for i := 0; i < 5; i++ {
 		go func() {
+			req := httptest.NewRequest("GET", "/concurrent", nil)
+			rec := httptest.NewRecorder()
