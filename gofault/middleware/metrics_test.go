@@ -422,3 +422,4 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 				c.StatusCode = http.StatusOK
 				time.Sleep(10 * time.Millisecond)
 				return nil
+			})
