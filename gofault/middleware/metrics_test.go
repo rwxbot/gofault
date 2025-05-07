@@ -406,3 +406,6 @@ func TestNewHttpMetrics_Registry(t *testing.T) {
 
 func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 	cfg := DefaultMetricsConfig()
+	cfg.SkipHealthCheck = false
+
+	mw, registry := MetricsMiddleware(cfg)
