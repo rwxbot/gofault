@@ -409,3 +409,5 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 	cfg.SkipHealthCheck = false
 
 	mw, registry := MetricsMiddleware(cfg)
+
+	doneCh := make(chan struct{}, 5)
