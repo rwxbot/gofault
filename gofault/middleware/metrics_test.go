@@ -430,3 +430,5 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 	for i := 0; i < 5; i++ {
 		<-doneCh
 	}
+
+	mfs, _ := registry.Gather()
