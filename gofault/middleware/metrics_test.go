@@ -434,3 +434,6 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 	mfs, _ := registry.Gather()
 	for _, mf := range mfs {
 		if mf.GetName() == "gofault_http_requests_total" {
+			for _, m := range mf.GetMetric() {
+				val := m.GetCounter().GetValue()
+				if val != 5 {
