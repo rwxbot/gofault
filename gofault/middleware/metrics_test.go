@@ -437,3 +437,5 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 			for _, m := range mf.GetMetric() {
 				val := m.GetCounter().GetValue()
 				if val != 5 {
+					t.Errorf("expected 5 total requests, got %f", val)
+				}
