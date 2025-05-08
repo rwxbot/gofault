@@ -426,3 +426,6 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 			doneCh <- struct{}{}
 		}()
 	}
+
+	for i := 0; i < 5; i++ {
+		<-doneCh
