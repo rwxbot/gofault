@@ -440,3 +440,4 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 					t.Errorf("expected 5 total requests, got %f", val)
 				}
 			}
+		}
