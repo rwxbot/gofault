@@ -441,3 +441,5 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 				}
 			}
 		}
+	}
+}
