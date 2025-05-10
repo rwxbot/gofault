@@ -579,3 +579,10 @@ single route instead of wrapping the whole chain.
 
 `MetricsMiddleware` returns the middleware together with the registry it wrote
 to, so the scrape endpoint can expose exactly that registry:
+
+```go
+cfg := middleware.DefaultMetricsConfig()
+cfg.Namespace = "gofault"
+cfg.Subsystem = "http"
+
+mw, registry := middleware.MetricsMiddleware(cfg)
