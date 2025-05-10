@@ -586,3 +586,11 @@ cfg.Namespace = "gofault"
 cfg.Subsystem = "http"
 
 mw, registry := middleware.MetricsMiddleware(cfg)
+
+mod.RegisterMiddleware(mw)
+rtr.Handle("GET", "/metrics",
+    promhttp.HandlerFor(registry, promhttp.HandlerOpts{}).ServeHTTP)
+```
+
+The registry is scoped to the middleware rather than the process-wide default,
+which keeps tests and multiple apps from leaking series into each other.
