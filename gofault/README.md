@@ -571,3 +571,11 @@ rtr.Handle("GET", cfg.Path, middleware.OpenAPIMiddleware(cfg))
 
 It is a `core.Handler` rather than a `MiddlewareFunc`, so it is mounted on a
 single route instead of wrapping the whole chain.
+
+
+## What's new in v2.3.0
+
+### Prometheus metrics
+
+`MetricsMiddleware` returns the middleware together with the registry it wrote
+to, so the scrape endpoint can expose exactly that registry:
