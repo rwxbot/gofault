@@ -72,3 +72,8 @@
 
 ### Added
 - OpenAPI spec serving with bundled Swagger UI
+
+## [v2.3.0]
+
+### Added
+- Prometheus metrics middleware
