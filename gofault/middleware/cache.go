@@ -7,3 +7,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// CacheConfig holds configuration for the cache middleware.
