@@ -10,3 +10,5 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/gofault/gofault/core"
