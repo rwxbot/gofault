@@ -23,3 +23,5 @@ type CacheConfig struct {
 	// SkipFunc is an optional function to determine if a request should be skipped.
 	SkipFunc func(*core.Ctx) bool
 }
+
+// DefaultCacheConfig returns a default cache configuration.
