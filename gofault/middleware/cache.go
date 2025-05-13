@@ -37,3 +37,6 @@ func DefaultCacheConfig() CacheConfig {
 	return CacheConfig{
 		TTL:     5 * time.Minute,
 		MaxSize: 1000,
+		SkipFunc: func(ctx *core.Ctx) bool {
+			// Skip non-GET requests by default
+			return ctx.Request.Method != "GET"
