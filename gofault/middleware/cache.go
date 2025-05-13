@@ -25,3 +25,4 @@ type CacheConfig struct {
 }
 
 // DefaultCacheConfig returns a default cache configuration.
+func DefaultCacheConfig() CacheConfig {
