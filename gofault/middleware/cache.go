@@ -20,9 +20,18 @@ type CacheConfig struct {
 	TTL time.Duration
 	// MaxSize is the maximum number of entries in the cache (0 = unlimited).
 	MaxSize int
+	// MaxBodyBytes caps how much of a response body is buffered for
+	// caching (0 = DefaultMaxBodyBytes). A response larger than this is
+	// streamed to the client instead: buffering unbounded bodies let one
+	// large download pin the whole entry in memory.
+	MaxBodyBytes int
 	// SkipFunc is an optional function to determine if a request should be skipped.
 	SkipFunc func(*core.Ctx) bool
 }
 
+// DefaultMaxBodyBytes is the body size cap applied when MaxBodyBytes is 0.
+const DefaultMaxBodyBytes = 256 * 1024
+
 // DefaultCacheConfig returns a default cache configuration.
 func DefaultCacheConfig() CacheConfig {
+	return CacheConfig{
