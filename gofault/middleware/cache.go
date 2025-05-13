@@ -26,3 +26,6 @@ func DefaultCacheConfig() CacheConfig {
 		SkipFunc: func(ctx *core.Ctx) bool {
 			// Skip non-GET requests by default
 			return ctx.Request.Method != "GET"
+		},
+	}
+}
