@@ -43,3 +43,5 @@ func DefaultCacheConfig() CacheConfig {
 		},
 	}
 }
+
+// cacheEntry represents a cached response.
