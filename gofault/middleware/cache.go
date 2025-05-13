@@ -35,3 +35,5 @@ const DefaultMaxBodyBytes = 256 * 1024
 // DefaultCacheConfig returns a default cache configuration.
 func DefaultCacheConfig() CacheConfig {
 	return CacheConfig{
+		TTL:     5 * time.Minute,
+		MaxSize: 1000,
