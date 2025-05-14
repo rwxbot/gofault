@@ -38,3 +38,5 @@ type cacheEntry struct {
 	Created    time.Time
 	Expires    time.Time
 }
+
+// InMemoryCache implements a simple in-memory cache with TTL and size limits.
