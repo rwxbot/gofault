@@ -37,3 +37,4 @@ type cacheEntry struct {
 	Headers    map[string]string
 	Created    time.Time
 	Expires    time.Time
+}
