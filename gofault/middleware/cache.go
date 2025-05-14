@@ -46,3 +46,6 @@ func DefaultCacheConfig() CacheConfig {
 
 // cacheEntry represents a cached response.
 type cacheEntry struct {
+	Value      []byte
+	StatusCode int
+	Headers    map[string]string
