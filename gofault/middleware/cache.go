@@ -49,3 +49,5 @@ type cacheEntry struct {
 	Value      []byte
 	StatusCode int
 	Headers    map[string]string
+	Created    time.Time
+	Expires    time.Time
