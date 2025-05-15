@@ -72,3 +72,5 @@ type InMemoryCache struct {
 	entries map[string]*cacheEntry
 	config  CacheConfig
 }
+
+// NewInMemoryCache creates a new in-memory cache.
