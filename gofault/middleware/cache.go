@@ -71,3 +71,4 @@ type InMemoryCache struct {
 	mu      sync.RWMutex
 	entries map[string]*cacheEntry
 	config  CacheConfig
+}
