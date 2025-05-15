@@ -41,3 +41,4 @@ type cacheEntry struct {
 
 // InMemoryCache implements a simple in-memory cache with TTL and size limits.
 type InMemoryCache struct {
+	mu      sync.RWMutex
