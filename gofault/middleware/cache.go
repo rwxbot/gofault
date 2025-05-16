@@ -58,3 +58,4 @@ func NewInMemoryCache(config CacheConfig) *InMemoryCache {
 }
 
 // Get retrieves a cached entry by key.
+func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
