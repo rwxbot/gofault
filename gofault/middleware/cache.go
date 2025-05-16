@@ -77,3 +77,6 @@ type InMemoryCache struct {
 func NewInMemoryCache(config CacheConfig) *InMemoryCache {
 	if config.TTL == 0 {
 		config.TTL = 5 * time.Minute
+	}
+	return &InMemoryCache{
+		entries: make(map[string]*cacheEntry),
