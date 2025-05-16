@@ -47,3 +47,6 @@ type InMemoryCache struct {
 }
 
 // NewInMemoryCache creates a new in-memory cache.
+func NewInMemoryCache(config CacheConfig) *InMemoryCache {
+	if config.TTL == 0 {
+		config.TTL = 5 * time.Minute
