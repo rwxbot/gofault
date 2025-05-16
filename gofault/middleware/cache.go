@@ -80,3 +80,6 @@ func NewInMemoryCache(config CacheConfig) *InMemoryCache {
 	}
 	return &InMemoryCache{
 		entries: make(map[string]*cacheEntry),
+		config:  config,
+	}
+}
