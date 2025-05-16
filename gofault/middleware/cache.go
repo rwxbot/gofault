@@ -56,3 +56,5 @@ func NewInMemoryCache(config CacheConfig) *InMemoryCache {
 		config:  config,
 	}
 }
+
+// Get retrieves a cached entry by key.
