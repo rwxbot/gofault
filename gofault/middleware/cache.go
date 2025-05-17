@@ -64,3 +64,5 @@ func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
 
 	entry, exists := c.entries[key]
 	if !exists {
+		return nil, 0, nil, false
+	}
