@@ -88,3 +88,6 @@ func NewInMemoryCache(config CacheConfig) *InMemoryCache {
 func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
+
+	entry, exists := c.entries[key]
+	if !exists {
