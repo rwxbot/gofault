@@ -98,3 +98,5 @@ func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
 	if time.Now().After(entry.Expires) {
 		return nil, 0, nil, false
 	}
+
+	return entry.Value, entry.StatusCode, entry.Headers, true
