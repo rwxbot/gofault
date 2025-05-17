@@ -70,3 +70,4 @@ func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
 	// Check expiration
 	if time.Now().After(entry.Expires) {
 		return nil, 0, nil, false
+	}
