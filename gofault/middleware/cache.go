@@ -78,3 +78,4 @@ func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
 // Set stores a value in the cache.
 func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers map[string]string) {
 	c.mu.Lock()
+	defer c.mu.Unlock()
