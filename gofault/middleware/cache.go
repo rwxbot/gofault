@@ -81,3 +81,6 @@ func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers ma
 	defer c.mu.Unlock()
 
 	// Evict oldest entries if at capacity
+	if c.config.MaxSize > 0 && len(c.entries) >= c.config.MaxSize {
+		c.evictOldest()
+	}
