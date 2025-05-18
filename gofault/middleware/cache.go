@@ -79,3 +79,5 @@ func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
 func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers map[string]string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+
+	// Evict oldest entries if at capacity
