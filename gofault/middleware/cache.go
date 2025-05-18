@@ -73,3 +73,4 @@ func (c *InMemoryCache) Get(key string) ([]byte, int, map[string]string, bool) {
 	}
 
 	return entry.Value, entry.StatusCode, entry.Headers, true
+}
