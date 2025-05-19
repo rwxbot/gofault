@@ -87,3 +87,5 @@ func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers ma
 
 	now := time.Now()
 	c.entries[key] = &cacheEntry{
+		Value:      value,
+		StatusCode: statusCode,
