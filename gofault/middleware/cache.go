@@ -84,3 +84,6 @@ func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers ma
 	if c.config.MaxSize > 0 && len(c.entries) >= c.config.MaxSize {
 		c.evictOldest()
 	}
+
+	now := time.Now()
+	c.entries[key] = &cacheEntry{
