@@ -117,3 +117,6 @@ func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers ma
 		Value:      value,
 		StatusCode: statusCode,
 		Headers:    headers,
+		Created:    now,
+		Expires:    now.Add(c.config.TTL),
+	}
