@@ -116,3 +116,4 @@ func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers ma
 	c.entries[key] = &cacheEntry{
 		Value:      value,
 		StatusCode: statusCode,
+		Headers:    headers,
