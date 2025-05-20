@@ -100,3 +100,4 @@ func (c *InMemoryCache) Delete(key string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	delete(c.entries, key)
+}
