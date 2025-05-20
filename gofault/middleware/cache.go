@@ -106,3 +106,5 @@ func (c *InMemoryCache) Delete(key string) {
 func (c *InMemoryCache) Clear() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	c.entries = make(map[string]*cacheEntry)
+}
