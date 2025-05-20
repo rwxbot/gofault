@@ -128,3 +128,5 @@ func (c *InMemoryCache) Delete(key string) {
 	defer c.mu.Unlock()
 	delete(c.entries, key)
 }
+
+// Clear removes all entries from the cache.
