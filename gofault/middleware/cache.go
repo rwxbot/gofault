@@ -123,3 +123,4 @@ func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers ma
 }
 
 // Delete removes an entry from the cache.
+func (c *InMemoryCache) Delete(key string) {
