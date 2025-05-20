@@ -121,3 +121,5 @@ func (c *InMemoryCache) Set(key string, value []byte, statusCode int, headers ma
 		Expires:    now.Add(c.config.TTL),
 	}
 }
+
+// Delete removes an entry from the cache.
