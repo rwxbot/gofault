@@ -103,3 +103,6 @@ func (c *InMemoryCache) Delete(key string) {
 }
 
 // Clear removes all entries from the cache.
+func (c *InMemoryCache) Clear() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
