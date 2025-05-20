@@ -108,3 +108,5 @@ func (c *InMemoryCache) Clear() {
 	defer c.mu.Unlock()
 	c.entries = make(map[string]*cacheEntry)
 }
+
+// Size returns the number of entries in the cache.
