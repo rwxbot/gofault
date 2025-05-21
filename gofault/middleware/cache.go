@@ -114,3 +114,4 @@ func (c *InMemoryCache) Size() int {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return len(c.entries)
+}
