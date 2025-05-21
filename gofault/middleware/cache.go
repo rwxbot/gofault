@@ -115,3 +115,5 @@ func (c *InMemoryCache) Size() int {
 	defer c.mu.RUnlock()
 	return len(c.entries)
 }
+
+// evictOldest removes the oldest entry from the cache.
