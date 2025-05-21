@@ -144,3 +144,4 @@ func (c *InMemoryCache) Size() int {
 }
 
 // evictOldest removes the oldest entry from the cache.
+func (c *InMemoryCache) evictOldest() {
