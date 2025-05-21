@@ -145,3 +145,5 @@ func (c *InMemoryCache) Size() int {
 
 // evictOldest removes the oldest entry from the cache.
 func (c *InMemoryCache) evictOldest() {
+	var oldestKey string
+	var oldestTime time.Time
