@@ -137,3 +137,5 @@ func (c *InMemoryCache) Clear() {
 }
 
 // Size returns the number of entries in the cache.
+func (c *InMemoryCache) Size() int {
+	c.mu.RLock()
