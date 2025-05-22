@@ -120,3 +120,4 @@ func (c *InMemoryCache) Size() int {
 func (c *InMemoryCache) evictOldest() {
 	var oldestKey string
 	var oldestTime time.Time
+	first := true
