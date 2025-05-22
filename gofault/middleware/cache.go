@@ -125,3 +125,6 @@ func (c *InMemoryCache) evictOldest() {
 	for key, entry := range c.entries {
 		if first || entry.Created.Before(oldestTime) {
 			oldestKey = key
+			oldestTime = entry.Created
+			first = false
+		}
