@@ -129,3 +129,6 @@ func (c *InMemoryCache) evictOldest() {
 			first = false
 		}
 	}
+
+	if oldestKey != "" {
+		delete(c.entries, oldestKey)
