@@ -128,3 +128,4 @@ func (c *InMemoryCache) evictOldest() {
 			oldestTime = entry.Created
 			first = false
 		}
+	}
