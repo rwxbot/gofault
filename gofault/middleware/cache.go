@@ -161,3 +161,5 @@ func (c *InMemoryCache) evictOldest() {
 		delete(c.entries, oldestKey)
 	}
 }
+
+// CacheMiddleware creates a caching middleware.
