@@ -167,3 +167,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 	if config.SkipFunc == nil {
 		config.SkipFunc = DefaultCacheConfig().SkipFunc
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
