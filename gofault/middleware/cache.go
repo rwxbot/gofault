@@ -163,3 +163,5 @@ func (c *InMemoryCache) evictOldest() {
 }
 
 // CacheMiddleware creates a caching middleware.
+func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFunc {
+	if config.SkipFunc == nil {
