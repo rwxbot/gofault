@@ -167,5 +167,10 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 	if config.SkipFunc == nil {
 		config.SkipFunc = DefaultCacheConfig().SkipFunc
 	}
+	maxBody := config.MaxBodyBytes
+	if maxBody <= 0 {
+		maxBody = DefaultMaxBodyBytes
+	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {
+		// Check if we should skip caching
