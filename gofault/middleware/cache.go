@@ -143,3 +143,6 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 
 	return func(ctx *core.Ctx, next core.Handler) error {
 		// Check if we should skip caching
+		if config.SkipFunc(ctx) {
+			return next(ctx)
+		}
