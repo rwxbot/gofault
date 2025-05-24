@@ -189,3 +189,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 				ctx.Response.Header().Set(k, v)
 			}
 			ctx.Response.WriteHeader(statusCode)
+			ctx.Response.Write(body)
+			return nil
