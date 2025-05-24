@@ -179,3 +179,4 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 		}
 
 		// Generate cache key
+		cacheKey := generateCacheKey(ctx)
