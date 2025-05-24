@@ -155,3 +155,4 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 			// Serve from cache
 			ctx.Response.Header().Set("X-Cache", "HIT")
 			for k, v := range headers {
+				ctx.Response.Header().Set(k, v)
