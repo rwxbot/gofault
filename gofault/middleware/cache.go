@@ -183,3 +183,6 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 
 		// Try to get from cache
 		if body, statusCode, headers, ok := cache.Get(cacheKey); ok {
+			// Serve from cache
+			ctx.Response.Header().Set("X-Cache", "HIT")
+			for k, v := range headers {
