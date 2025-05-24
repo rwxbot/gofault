@@ -158,3 +158,5 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 				ctx.Response.Header().Set(k, v)
 			}
 			ctx.Response.WriteHeader(statusCode)
+			ctx.Response.Write(body)
+			return nil
