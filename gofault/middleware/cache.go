@@ -160,3 +160,6 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 			ctx.Response.WriteHeader(statusCode)
 			ctx.Response.Write(body)
 			return nil
+		}
+
+		// Capture response
