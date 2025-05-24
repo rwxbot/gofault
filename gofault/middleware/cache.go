@@ -148,3 +148,4 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 		}
 
 		// Generate cache key
+		cacheKey := generateCacheKey(ctx)
