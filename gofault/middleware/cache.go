@@ -149,3 +149,6 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 
 		// Generate cache key
 		cacheKey := generateCacheKey(ctx)
+
+		// Try to get from cache
+		if body, statusCode, headers, ok := cache.Get(cacheKey); ok {
