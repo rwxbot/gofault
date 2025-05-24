@@ -156,3 +156,5 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 			ctx.Response.Header().Set("X-Cache", "HIT")
 			for k, v := range headers {
 				ctx.Response.Header().Set(k, v)
+			}
+			ctx.Response.WriteHeader(statusCode)
