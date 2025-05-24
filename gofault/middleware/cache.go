@@ -146,3 +146,5 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 		if config.SkipFunc(ctx) {
 			return next(ctx)
 		}
+
+		// Generate cache key
