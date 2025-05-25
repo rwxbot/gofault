@@ -171,3 +171,6 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 		ctx.Response = rec
 
 		// Call next handler
+		err := next(ctx)
+
+		// Cache the response if successful
