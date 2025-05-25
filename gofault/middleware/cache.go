@@ -200,3 +200,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 			body:           []byte{},
 		}
 		ctx.Response = rec
+
+		// Call next handler
