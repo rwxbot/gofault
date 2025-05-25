@@ -168,3 +168,4 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 			statusCode:     200,
 			body:           []byte{},
 		}
+		ctx.Response = rec
