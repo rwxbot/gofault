@@ -199,3 +199,4 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 			statusCode:     200,
 			body:           []byte{},
 		}
+		ctx.Response = rec
