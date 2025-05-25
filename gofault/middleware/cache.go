@@ -169,3 +169,5 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 			body:           []byte{},
 		}
 		ctx.Response = rec
+
+		// Call next handler
