@@ -202,3 +202,6 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 		ctx.Response = rec
 
 		// Call next handler
+		err := next(ctx)
+
+		// Cache the response if successful
