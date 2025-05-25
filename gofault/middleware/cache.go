@@ -208,3 +208,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 		if err == nil && rec.statusCode < 400 {
 			headers := make(map[string]string)
 			for k, v := range rec.Header() {
+				if len(v) > 0 {
+					headers[k] = v[0]
