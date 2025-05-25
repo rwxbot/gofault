@@ -179,3 +179,5 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 			for k, v := range rec.Header() {
 				if len(v) > 0 {
 					headers[k] = v[0]
+				}
+			}
