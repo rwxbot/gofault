@@ -194,3 +194,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 		}
 
 		// Capture response
+		rec := &responseCapture{
+			ResponseWriter: ctx.Response,
