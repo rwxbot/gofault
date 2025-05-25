@@ -165,3 +165,6 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 		// Capture response
 		rec := &responseCapture{
 			ResponseWriter: ctx.Response,
+			statusCode:     200,
+			body:           []byte{},
+		}
