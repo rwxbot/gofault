@@ -198,26 +198,65 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 			ResponseWriter: ctx.Response,
 			statusCode:     200,
 			body:           []byte{},
+			headers:        make(http.Header),
+			maxBody:        maxBody,
 		}
 		ctx.Response = rec
+		// Restore the real writer before returning, so anything writing to the
+		// response after this middleware returns (the router's exception filter,
+		// for one) is not captured into this handler instead of reaching the
+		// client.
+		defer func() { ctx.Response = rec.ResponseWriter }()
 
 		// Call next handler
 		err := next(ctx)
 
+		// The capture buffers everything: Header() hands out the private map,
+		// so the handler's headers only reach the real writer if we copy them
+		// before the status line is committed. Delegating WriteHeader/Write
+		// directly used to commit the real response while the handler's
+		// headers were still sitting in the private map — every header a
+		// handler set (Content-Type included) was dropped on a MISS.
+		if err != nil {
+			// Discard the buffered output and let the router's error path
+			// (exception filter or 500) answer; replaying a half-written
+			// 2xx would commit a status line the filter cannot retract.
+			return err
+		}
+
+		// A response that outgrew the buffer was already streamed to the
+		// client; it must not be replayed or cached.
+		if rec.streamed {
+			return nil
+		}
+
+		for k, values := range rec.headers {
+			for _, v := range values {
+				rec.ResponseWriter.Header().Add(k, v)
+			}
+		}
+		// Only cacheable responses carry the MISS marker, matching the old
+		// semantics: an error response is replayed untouched and never
+		// enters the cache.
+		cacheable := rec.statusCode < 400 && !uncacheableResponse(rec.headers)
+		if cacheable {
+			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
+		}
+		rec.ResponseWriter.WriteHeader(rec.statusCode)
+		if len(rec.body) > 0 {
+			_, _ = rec.ResponseWriter.Write(rec.body)
+		}
+
 		// Cache the response if successful
-		if err == nil && rec.statusCode < 400 {
+		if cacheable {
 			headers := make(map[string]string)
-			for k, v := range rec.Header() {
+			for k, v := range rec.headers {
 				if len(v) > 0 {
 					headers[k] = v[0]
 				}
 			}
 			cache.Set(cacheKey, rec.body, rec.statusCode, headers)
-			// Copy captured headers to actual response
-			for k, v := range rec.Header() {
-				for _, val := range v {
-					rec.ResponseWriter.Header().Add(k, val)
-				}
-			}
-			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
 		}
+
+		return err
+	}
