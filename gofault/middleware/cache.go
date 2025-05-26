@@ -212,3 +212,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 					headers[k] = v[0]
 				}
 			}
+			cache.Set(cacheKey, rec.body, rec.statusCode, headers)
+			// Copy captured headers to actual response
