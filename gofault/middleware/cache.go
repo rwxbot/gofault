@@ -184,3 +184,6 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 			cache.Set(cacheKey, rec.body, rec.statusCode, headers)
 			// Copy captured headers to actual response
 			for k, v := range rec.Header() {
+				for _, val := range v {
+					rec.ResponseWriter.Header().Add(k, val)
+				}
