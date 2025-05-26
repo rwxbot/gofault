@@ -187,3 +187,5 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 				for _, val := range v {
 					rec.ResponseWriter.Header().Add(k, val)
 				}
+			}
+			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
