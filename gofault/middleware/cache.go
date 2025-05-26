@@ -261,3 +261,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 		return err
 	}
 }
+
+// generateCacheKey generates a cache key from the request.
