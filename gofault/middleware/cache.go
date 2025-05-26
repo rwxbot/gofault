@@ -220,3 +220,4 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 				}
 			}
 			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
+		}
