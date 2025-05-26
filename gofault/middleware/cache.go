@@ -189,3 +189,4 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 				}
 			}
 			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
+		}
