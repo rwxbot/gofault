@@ -218,3 +218,5 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 				for _, val := range v {
 					rec.ResponseWriter.Header().Add(k, val)
 				}
+			}
+			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
