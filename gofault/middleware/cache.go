@@ -198,3 +198,4 @@ func CacheMiddleware(cache *InMemoryCache, config CacheConfig) core.MiddlewareFu
 // generateCacheKey generates a cache key from the request.
 func generateCacheKey(ctx *core.Ctx) string {
 	return ctx.Request.Method + ":" + ctx.Request.URL.Path + ":" + ctx.Request.URL.RawQuery
+}
