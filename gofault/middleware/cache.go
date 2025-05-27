@@ -202,3 +202,6 @@ func generateCacheKey(ctx *core.Ctx) string {
 
 // responseCapture captures the response for caching.
 type responseCapture struct {
+	http.ResponseWriter
+	statusCode int
+	body       []byte
