@@ -201,3 +201,4 @@ func generateCacheKey(ctx *core.Ctx) string {
 }
 
 // responseCapture captures the response for caching.
+type responseCapture struct {
