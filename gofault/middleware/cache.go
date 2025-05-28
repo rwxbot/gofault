@@ -274,3 +274,7 @@ type responseCapture struct {
 	body       []byte
 	headers    http.Header
 }
+
+func (r *responseCapture) WriteHeader(statusCode int) {
+	r.statusCode = statusCode
+	r.ResponseWriter.WriteHeader(statusCode)
