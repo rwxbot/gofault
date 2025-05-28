@@ -216,3 +216,4 @@ func (r *responseCapture) WriteHeader(statusCode int) {
 func (r *responseCapture) Write(b []byte) (int, error) {
 	r.body = append(r.body, b...)
 	return r.ResponseWriter.Write(b)
+}
