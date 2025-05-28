@@ -278,3 +278,4 @@ type responseCapture struct {
 func (r *responseCapture) WriteHeader(statusCode int) {
 	r.statusCode = statusCode
 	r.ResponseWriter.WriteHeader(statusCode)
+}
