@@ -206,3 +206,4 @@ type responseCapture struct {
 	statusCode int
 	body       []byte
 	headers    http.Header
+}
