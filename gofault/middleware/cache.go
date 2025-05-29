@@ -219,3 +219,4 @@ func (r *responseCapture) Write(b []byte) (int, error) {
 }
 
 func (r *responseCapture) Header() http.Header {
+	if r.headers == nil {
