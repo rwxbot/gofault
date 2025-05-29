@@ -381,3 +381,29 @@ func (r *responseCapture) Header() http.Header {
 		r.headers = make(http.Header)
 	}
 	return r.headers
+}
+
+// Flush makes the capture satisfy http.Flusher explicitly: a handler that
+// type-asserts ctx.Response to http.Flusher used to fail under the cache
+// middleware. Flushing commits the buffered response and opts the request
+// out of caching — a streaming handler's response is on the wire already.
+func (r *responseCapture) Flush() {
+	if !r.streamed {
+		r.streamOut()
+		r.streamed = true
+	}
+	if f, ok := r.ResponseWriter.(http.Flusher); ok {
+		f.Flush()
+	}
+}
+
+// Hijack makes the capture satisfy http.Hijacker, delegating to the real
+// writer when it supports it. A hijacked connection is never cached.
+func (r *responseCapture) Hijack() (net.Conn, *bufio.ReadWriter, error) {
+	h, ok := r.ResponseWriter.(http.Hijacker)
+	if !ok {
+		return nil, nil, fmt.Errorf("middleware/cache: underlying ResponseWriter does not implement http.Hijacker")
+	}
+	r.streamed = true
+	return h.Hijack()
+}
