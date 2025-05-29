@@ -262,25 +262,118 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 	}
 }
 
+// uncacheableResponse reports whether the handler's own headers forbid
+// caching. A handler that sets Cache-Control: no-store, no-cache or private
+// — a per-user dashboard, a session endpoint — used to be cached anyway:
+// the cacheability check looked only at the status code, and the next
+// request, authenticated or not, was served the first caller's body.
+// A response carrying Vary is also skipped: the key cannot know which
+// request headers the response varies on.
+func uncacheableResponse(h http.Header) bool {
+	if len(h.Values("Vary")) > 0 {
+		return true
+	}
+	for _, cc := range h.Values("Cache-Control") {
+		for _, directive := range strings.Split(cc, ",") {
+			switch strings.ToLower(strings.TrimSpace(directive)) {
+			case "no-store", "no-cache", "private", "max-age=0":
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // generateCacheKey generates a cache key from the request.
+//
+// Host is part of the key: without it, a deployment behind a reverse proxy
+// or any multi-host setup collides distinct tenants onto one entry — a
+// request to a.example.com/foo could be served the body cached for
+// b.example.com/foo.
+//
+// The request's credentials (Authorization, Cookie) are hashed into the key:
+// a key built only from Host+Method+Path+Query serves the first caller's
+// authenticated body to every later caller hitting the same URL, including
+// unauthenticated ones. Hashing keeps raw secrets out of the key — keys are
+// stored verbatim, including in a shared Redis backend.
 func generateCacheKey(ctx *core.Ctx) string {
-	return ctx.Request.Method + ":" + ctx.Request.URL.Path + ":" + ctx.Request.URL.RawQuery
+	key := ctx.Request.Host + "|" + ctx.Request.Method + ":" + ctx.Request.URL.Path + ":" + ctx.Request.URL.RawQuery
+
+	auth := ctx.Request.Header.Get("Authorization")
+	cookie := ctx.Request.Header.Get("Cookie")
+	if auth != "" || cookie != "" {
+		sum := sha256.Sum256([]byte(auth + "\x00" + cookie))
+		key += "|cred:" + hex.EncodeToString(sum[:])
+	}
+	return key
 }
 
 // responseCapture captures the response for caching.
+//
+// responseCapture buffers a handler's response so it can be cached and then
+// replayed onto the real writer. Nothing touches the real ResponseWriter
+// until the middleware replays it: delegating WriteHeader/Write directly
+// while Header() returned a private map committed the status line before the
+// handler's headers existed, so those headers were silently dropped.
+//
+// Buffering is capped at maxBody bytes. A response that outgrows the cap —
+// or that Flushes, or hijacks the connection — is streamed to the client
+// instead and excluded from the cache: embedding http.ResponseWriter does
+// NOT make the capture satisfy http.Flusher or http.Hijacker (the method
+// set comes from the static embedded type), so handlers that type-assert
+// those interfaces used to fail outright under the cache middleware.
 type responseCapture struct {
 	http.ResponseWriter
-	statusCode int
-	body       []byte
-	headers    http.Header
+	statusCode  int
+	wroteHeader bool
+	body        []byte
+	headers     http.Header
+	maxBody     int
+	streamed    bool // bytes already reached the client; the response will not be cached
+}
+
+// streamOut commits the buffered response onto the real writer.
+func (r *responseCapture) streamOut() {
+	for k, values := range r.headers {
+		for _, v := range values {
+			r.ResponseWriter.Header().Add(k, v)
+		}
+	}
+	if !r.wroteHeader {
+		r.statusCode = http.StatusOK
+		r.wroteHeader = true
+	}
+	r.ResponseWriter.WriteHeader(r.statusCode)
+	if len(r.body) > 0 {
+		_, _ = r.ResponseWriter.Write(r.body)
+		r.body = nil
+	}
 }
 
 func (r *responseCapture) WriteHeader(statusCode int) {
-	r.statusCode = statusCode
-	r.ResponseWriter.WriteHeader(statusCode)
+	if !r.wroteHeader {
+		r.statusCode = statusCode
+		r.wroteHeader = true
+	}
 }
 
 func (r *responseCapture) Write(b []byte) (int, error) {
+	if r.streamed {
+		// Past the cap (or past a Flush/Hijack): the response is being
+		// streamed, pass writes straight through.
+		return r.ResponseWriter.Write(b)
+	}
+	if !r.wroteHeader {
+		r.statusCode = http.StatusOK
+		r.wroteHeader = true
+	}
+	if len(r.body)+len(b) > r.maxBody {
+		r.streamOut()
+		r.streamed = true
+		return r.ResponseWriter.Write(b)
+	}
 	r.body = append(r.body, b...)
-	return r.ResponseWriter.Write(b)
+	return len(b), nil
 }
+
+func (r *responseCapture) Header() http.Header {
