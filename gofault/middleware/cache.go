@@ -223,3 +223,4 @@ func (r *responseCapture) Header() http.Header {
 		r.headers = make(http.Header)
 	}
 	return r.headers
+}
