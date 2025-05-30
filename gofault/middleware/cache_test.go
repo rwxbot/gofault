@@ -12,3 +12,6 @@ import (
 
 func TestNewInMemoryCache(t *testing.T) {
 	cfg := DefaultCacheConfig()
+	cache := NewInMemoryCache(cfg)
+
+	if cache == nil {
