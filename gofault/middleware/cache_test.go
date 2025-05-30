@@ -7,3 +7,6 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestNewInMemoryCache(t *testing.T) {
+	cfg := DefaultCacheConfig()
