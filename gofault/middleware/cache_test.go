@@ -15,3 +15,6 @@ func TestNewInMemoryCache(t *testing.T) {
 	cache := NewInMemoryCache(cfg)
 
 	if cache == nil {
+		t.Fatal("cache should not be nil")
+	}
+	if cache.entries == nil {
