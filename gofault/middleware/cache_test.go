@@ -16,3 +16,6 @@ func TestNewInMemoryCache(t *testing.T) {
 		t.Fatal("cache should not be nil")
 	}
 	if cache.entries == nil {
+		t.Error("entries map should be initialized")
+	}
+}
