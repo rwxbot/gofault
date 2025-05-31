@@ -21,3 +21,6 @@ func TestNewInMemoryCache(t *testing.T) {
 		t.Error("entries map should be initialized")
 	}
 }
+
+func TestInMemoryCache_SetAndGet(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
