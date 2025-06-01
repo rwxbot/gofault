@@ -26,3 +26,5 @@ func TestInMemoryCache_SetAndGet(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
 
 	cache.Set("key1", []byte("value1"), 200, map[string]string{"Content-Type": "text/plain"})
+
+	value, statusCode, headers, ok := cache.Get("key1")
