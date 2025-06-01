@@ -28,3 +28,6 @@ func TestInMemoryCache_SetAndGet(t *testing.T) {
 	value, statusCode, headers, ok := cache.Get("key1")
 	if !ok {
 		t.Fatal("key1 should exist in cache")
+	}
+	if string(value) != "value1" {
+		t.Errorf("value = %s, want value1", string(value))
