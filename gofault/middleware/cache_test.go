@@ -33,3 +33,4 @@ func TestInMemoryCache_SetAndGet(t *testing.T) {
 	}
 	if string(value) != "value1" {
 		t.Errorf("value = %s, want value1", string(value))
+	}
