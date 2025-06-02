@@ -44,3 +44,5 @@ func TestInMemoryCache_SetAndGet(t *testing.T) {
 
 func TestInMemoryCache_GetNotFound(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
+
+	_, _, _, ok := cache.Get("nonexistent")
