@@ -39,3 +39,6 @@ func TestInMemoryCache_SetAndGet(t *testing.T) {
 		t.Errorf("Content-Type = %s, want text/plain", headers["Content-Type"])
 	}
 }
+
+func TestInMemoryCache_GetNotFound(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
