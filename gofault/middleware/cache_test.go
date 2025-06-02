@@ -36,3 +36,6 @@ func TestInMemoryCache_SetAndGet(t *testing.T) {
 		t.Errorf("statusCode = %d, want 200", statusCode)
 	}
 	if headers["Content-Type"] != "text/plain" {
+		t.Errorf("Content-Type = %s, want text/plain", headers["Content-Type"])
+	}
+}
