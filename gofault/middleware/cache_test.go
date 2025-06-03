@@ -50,3 +50,6 @@ func TestInMemoryCache_GetNotFound(t *testing.T) {
 		t.Error("nonexistent key should not be found")
 	}
 }
+
+func TestInMemoryCache_Delete(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
