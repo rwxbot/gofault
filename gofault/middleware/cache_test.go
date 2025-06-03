@@ -45,3 +45,5 @@ func TestInMemoryCache_GetNotFound(t *testing.T) {
 
 	_, _, _, ok := cache.Get("nonexistent")
 	if ok {
+		t.Error("nonexistent key should not be found")
+	}
