@@ -51,3 +51,5 @@ func TestInMemoryCache_GetNotFound(t *testing.T) {
 
 func TestInMemoryCache_Delete(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
+
+	cache.Set("key1", []byte("value1"), 200, nil)
