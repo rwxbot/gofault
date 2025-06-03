@@ -55,3 +55,6 @@ func TestInMemoryCache_Delete(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
 
 	cache.Set("key1", []byte("value1"), 200, nil)
+	cache.Delete("key1")
+
+	_, _, _, ok := cache.Get("key1")
