@@ -56,3 +56,5 @@ func TestInMemoryCache_Delete(t *testing.T) {
 	cache.Delete("key1")
 
 	_, _, _, ok := cache.Get("key1")
+	if ok {
+		t.Error("key1 should be deleted")
