@@ -67,3 +67,6 @@ func TestInMemoryCache_Clear(t *testing.T) {
 	cache.Set("key1", []byte("value1"), 200, nil)
 	cache.Set("key2", []byte("value2"), 200, nil)
 	cache.Clear()
+
+	if cache.Size() != 0 {
+		t.Errorf("Size = %d, want 0", cache.Size())
