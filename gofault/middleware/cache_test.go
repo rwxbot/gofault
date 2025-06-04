@@ -60,3 +60,6 @@ func TestInMemoryCache_Delete(t *testing.T) {
 		t.Error("key1 should be deleted")
 	}
 }
+
+func TestInMemoryCache_Clear(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
