@@ -67,3 +67,5 @@ func TestInMemoryCache_Clear(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
 
 	cache.Set("key1", []byte("value1"), 200, nil)
+	cache.Set("key2", []byte("value2"), 200, nil)
+	cache.Clear()
