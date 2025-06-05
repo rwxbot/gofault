@@ -76,3 +76,6 @@ func TestInMemoryCache_Clear(t *testing.T) {
 func TestInMemoryCache_Expiry(t *testing.T) {
 	cfg := DefaultCacheConfig()
 	cfg.TTL = 100 * time.Millisecond
+	cache := NewInMemoryCache(cfg)
+
+	cache.Set("key1", []byte("value1"), 200, nil)
