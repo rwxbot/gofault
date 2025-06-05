@@ -83,3 +83,4 @@ func TestInMemoryCache_Expiry(t *testing.T) {
 	cache.Set("key1", []byte("value1"), 200, nil)
 
 	// Should exist immediately
+	_, _, _, ok := cache.Get("key1")
