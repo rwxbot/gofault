@@ -86,3 +86,4 @@ func TestInMemoryCache_Expiry(t *testing.T) {
 	_, _, _, ok := cache.Get("key1")
 	if !ok {
 		t.Fatal("key1 should exist immediately after set")
+	}
