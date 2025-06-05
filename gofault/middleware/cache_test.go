@@ -79,3 +79,5 @@ func TestInMemoryCache_Expiry(t *testing.T) {
 	cache := NewInMemoryCache(cfg)
 
 	cache.Set("key1", []byte("value1"), 200, nil)
+
+	// Should exist immediately
