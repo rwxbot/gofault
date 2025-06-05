@@ -90,3 +90,6 @@ func TestInMemoryCache_Expiry(t *testing.T) {
 
 	// Wait for expiry
 	time.Sleep(150 * time.Millisecond)
+
+	// Should be expired
+	_, _, _, ok = cache.Get("key1")
