@@ -72,3 +72,7 @@ func TestInMemoryCache_Clear(t *testing.T) {
 		t.Errorf("Size = %d, want 0", cache.Size())
 	}
 }
+
+func TestInMemoryCache_Expiry(t *testing.T) {
+	cfg := DefaultCacheConfig()
+	cfg.TTL = 100 * time.Millisecond
