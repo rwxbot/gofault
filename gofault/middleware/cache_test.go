@@ -85,3 +85,6 @@ func TestInMemoryCache_Expiry(t *testing.T) {
 	if !ok {
 		t.Fatal("key1 should exist immediately after set")
 	}
+
+	// Wait for expiry
+	time.Sleep(150 * time.Millisecond)
