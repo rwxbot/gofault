@@ -97,3 +97,6 @@ func TestInMemoryCache_Expiry(t *testing.T) {
 }
 
 func TestInMemoryCache_MaxSize(t *testing.T) {
+	cfg := DefaultCacheConfig()
+	cfg.MaxSize = 3
+	cache := NewInMemoryCache(cfg)
