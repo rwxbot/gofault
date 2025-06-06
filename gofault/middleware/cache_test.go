@@ -94,3 +94,4 @@ func TestInMemoryCache_Expiry(t *testing.T) {
 	if ok {
 		t.Error("key1 should be expired")
 	}
+}
