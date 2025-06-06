@@ -107,3 +107,6 @@ func TestInMemoryCache_MaxSize(t *testing.T) {
 	cache.Set("key2", []byte("value2"), 200, nil)
 	cache.Set("key3", []byte("value3"), 200, nil)
 	cache.Set("key4", []byte("value4"), 200, nil) // Should evict key1
+
+	if cache.Size() != 3 {
+		t.Errorf("Size = %d, want 3", cache.Size())
