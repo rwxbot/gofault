@@ -112,3 +112,4 @@ func TestInMemoryCache_MaxSize(t *testing.T) {
 
 	// key1 should be evicted
 	_, _, _, ok := cache.Get("key1")
+	if ok {
