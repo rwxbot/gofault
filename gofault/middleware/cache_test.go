@@ -109,3 +109,5 @@ func TestInMemoryCache_MaxSize(t *testing.T) {
 	if cache.Size() != 3 {
 		t.Errorf("Size = %d, want 3", cache.Size())
 	}
+
+	// key1 should be evicted
