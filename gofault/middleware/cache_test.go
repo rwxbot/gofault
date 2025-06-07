@@ -119,3 +119,4 @@ func TestInMemoryCache_MaxSize(t *testing.T) {
 	// key2, key3, key4 should exist
 	_, _, _, ok = cache.Get("key4")
 	if !ok {
+		t.Error("key4 should exist")
