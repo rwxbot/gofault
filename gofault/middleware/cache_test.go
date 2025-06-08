@@ -134,3 +134,4 @@ func TestDefaultCacheConfig(t *testing.T) {
 	}
 	if cfg.SkipFunc == nil {
 		t.Error("SkipFunc should not be nil")
+	}
