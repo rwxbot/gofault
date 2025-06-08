@@ -122,3 +122,6 @@ func TestInMemoryCache_MaxSize(t *testing.T) {
 		t.Error("key4 should exist")
 	}
 }
+
+func TestDefaultCacheConfig(t *testing.T) {
+	cfg := DefaultCacheConfig()
