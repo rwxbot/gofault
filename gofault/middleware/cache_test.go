@@ -133,3 +133,6 @@ func TestDefaultCacheConfig(t *testing.T) {
 	}
 	if cfg.MaxSize != 1000 {
 		t.Errorf("MaxSize = %d, want 1000", cfg.MaxSize)
+	}
+	if cfg.SkipFunc == nil {
+		t.Error("SkipFunc should not be nil")
