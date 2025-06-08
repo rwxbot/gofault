@@ -130,3 +130,5 @@ func TestDefaultCacheConfig(t *testing.T) {
 
 	if cfg.TTL != 5*time.Minute {
 		t.Errorf("TTL = %v, want 5m", cfg.TTL)
+	}
+	if cfg.MaxSize != 1000 {
