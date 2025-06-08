@@ -132,3 +132,4 @@ func TestDefaultCacheConfig(t *testing.T) {
 		t.Errorf("TTL = %v, want 5m", cfg.TTL)
 	}
 	if cfg.MaxSize != 1000 {
+		t.Errorf("MaxSize = %d, want 1000", cfg.MaxSize)
