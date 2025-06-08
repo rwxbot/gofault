@@ -127,3 +127,6 @@ func TestInMemoryCache_MaxSize(t *testing.T) {
 
 func TestDefaultCacheConfig(t *testing.T) {
 	cfg := DefaultCacheConfig()
+
+	if cfg.TTL != 5*time.Minute {
+		t.Errorf("TTL = %v, want 5m", cfg.TTL)
