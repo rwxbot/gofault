@@ -146,3 +146,7 @@ func TestDefaultCacheConfig(t *testing.T) {
 func TestGenerateCacheKey(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test?foo=bar", nil)
 	ctx := &core.Ctx{Request: req}
+
+	key := generateCacheKey(ctx)
+	expected := "GET:/test:foo=bar"
+	if key != expected {
