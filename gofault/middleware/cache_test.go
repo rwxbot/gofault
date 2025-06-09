@@ -150,3 +150,5 @@ func TestGenerateCacheKey(t *testing.T) {
 	key := generateCacheKey(ctx)
 	expected := "GET:/test:foo=bar"
 	if key != expected {
+		t.Errorf("cacheKey = %s, want %s", key, expected)
+	}
