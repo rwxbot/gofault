@@ -143,3 +143,4 @@ func TestDefaultCacheConfig(t *testing.T) {
 	if !cfg.SkipFunc(ctx) {
 		t.Error("SkipFunc should return true for POST")
 	}
+}
