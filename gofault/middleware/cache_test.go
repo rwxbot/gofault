@@ -142,3 +142,7 @@ func TestDefaultCacheConfig(t *testing.T) {
 		t.Error("SkipFunc should return true for POST")
 	}
 }
+
+func TestGenerateCacheKey(t *testing.T) {
+	req := httptest.NewRequest("GET", "/test?foo=bar", nil)
+	ctx := &core.Ctx{Request: req}
