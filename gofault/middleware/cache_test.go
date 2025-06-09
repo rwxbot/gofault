@@ -138,3 +138,5 @@ func TestDefaultCacheConfig(t *testing.T) {
 		t.Error("SkipFunc should not be nil")
 	}
 	// Verify SkipFunc returns true for non-GET methods
+	req := httptest.NewRequest("POST", "/test", nil)
+	ctx := &core.Ctx{Request: req}
