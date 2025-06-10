@@ -161,3 +161,6 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 		return false // Don't skip any requests
 	}
 	middleware := CacheMiddleware(cache, cfg)
+
+	req := httptest.NewRequest("GET", "/test", nil)
+	rec := httptest.NewRecorder()
