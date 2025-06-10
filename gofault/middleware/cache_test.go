@@ -154,3 +154,4 @@ func TestGenerateCacheKey(t *testing.T) {
 	if key != expected {
 		t.Errorf("cacheKey = %s, want %s", key, expected)
 	}
+}
