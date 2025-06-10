@@ -176,3 +176,4 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
 	cfg := DefaultCacheConfig()
 	cfg.SkipFunc = func(ctx *core.Ctx) bool {
+		return false // Don't skip any requests
