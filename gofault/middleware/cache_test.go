@@ -150,11 +150,29 @@ func TestGenerateCacheKey(t *testing.T) {
 	ctx := &core.Ctx{Request: req}
 
 	key := generateCacheKey(ctx)
-	expected := "GET:/test:foo=bar"
+	// httptest.NewRequest sets Host to example.com.
+	expected := "example.com|GET:/test:foo=bar"
 	if key != expected {
 		t.Errorf("cacheKey = %s, want %s", key, expected)
 	}
 }
 
+// Host must be part of the key: behind a reverse proxy, two tenants with the
+// same path must not share one cache entry.
+func TestGenerateCacheKey_DistinguishesHost(t *testing.T) {
+	reqA := httptest.NewRequest("GET", "/foo", nil)
+	reqA.Host = "a.example.com"
+	reqB := httptest.NewRequest("GET", "/foo", nil)
+	reqB.Host = "b.example.com"
+
+	ka := generateCacheKey(&core.Ctx{Request: reqA})
+	kb := generateCacheKey(&core.Ctx{Request: reqB})
+	if ka == kb {
+		t.Errorf("different hosts must not share a cache key: %s == %s", ka, kb)
+	}
+}
+
 func TestCacheMiddleware_Integration(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
+	cfg := DefaultCacheConfig()
+	cfg.SkipFunc = func(ctx *core.Ctx) bool {
