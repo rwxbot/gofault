@@ -164,3 +164,6 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/test", nil)
 	rec := httptest.NewRecorder()
+	ctx := &core.Ctx{Request: req, Response: rec}
+
+	// First request - should be MISS
