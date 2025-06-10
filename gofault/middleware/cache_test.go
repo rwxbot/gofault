@@ -159,3 +159,5 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	cfg := DefaultCacheConfig()
 	cfg.SkipFunc = func(ctx *core.Ctx) bool {
 		return false // Don't skip any requests
+	}
+	middleware := CacheMiddleware(cache, cfg)
