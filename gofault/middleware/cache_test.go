@@ -155,3 +155,6 @@ func TestGenerateCacheKey(t *testing.T) {
 		t.Errorf("cacheKey = %s, want %s", key, expected)
 	}
 }
+
+func TestCacheMiddleware_Integration(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
