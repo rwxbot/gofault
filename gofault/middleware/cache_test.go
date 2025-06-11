@@ -174,3 +174,5 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 		ctx.Response.Write([]byte("Hello"))
 		return nil
 	})
+
+	if err != nil {
