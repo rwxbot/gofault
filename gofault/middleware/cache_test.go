@@ -169,3 +169,4 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	// First request - should be MISS
 	handlerCalled := false
 	err := middleware(ctx, func(ctx *core.Ctx) error {
+		handlerCalled = true
