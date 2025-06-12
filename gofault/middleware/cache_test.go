@@ -182,3 +182,5 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 		t.Error("handler should be called")
 	}
 	if rec.Header().Get("X-Cache") != "MISS" {
+		t.Errorf("X-Cache = %s, want MISS", rec.Header().Get("X-Cache"))
+	}
