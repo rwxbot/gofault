@@ -206,3 +206,4 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	// Second request - should be HIT
 	req2 := httptest.NewRequest("GET", "/test", nil)
 	rec2 := httptest.NewRecorder()
+	ctx2 := &core.Ctx{Request: req2, Response: rec2}
