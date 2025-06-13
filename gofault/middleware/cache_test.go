@@ -211,3 +211,5 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	handlerCalled = false
 	err = middleware(ctx2, func(ctx *core.Ctx) error {
 		handlerCalled = true
+		ctx.Response.WriteHeader(200)
+		ctx.Response.Write([]byte("Hello"))
