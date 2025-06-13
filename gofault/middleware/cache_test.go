@@ -192,3 +192,4 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 
 	handlerCalled = false
 	err = middleware(ctx2, func(ctx *core.Ctx) error {
+		handlerCalled = true
