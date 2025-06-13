@@ -199,3 +199,4 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	})
 
 	if err != nil {
+		t.Errorf("unexpected error: %v", err)
