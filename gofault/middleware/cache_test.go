@@ -202,3 +202,6 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 	if handlerCalled {
+		t.Error("handler should NOT be called on cache hit")
+	}
+	if rec2.Header().Get("X-Cache") != "HIT" {
