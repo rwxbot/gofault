@@ -223,3 +223,6 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 		t.Error("handler should NOT be called on cache hit")
 	}
 	if rec2.Header().Get("X-Cache") != "HIT" {
+		t.Errorf("X-Cache = %s, want HIT", rec2.Header().Get("X-Cache"))
+	}
+	if rec2.Body.String() != "Hello" {
