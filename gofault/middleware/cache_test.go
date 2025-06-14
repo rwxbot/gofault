@@ -226,3 +226,4 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 		t.Errorf("X-Cache = %s, want HIT", rec2.Header().Get("X-Cache"))
 	}
 	if rec2.Body.String() != "Hello" {
+		t.Errorf("Body = %s, want Hello", rec2.Body.String())
