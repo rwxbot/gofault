@@ -209,3 +209,5 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	}
 	if rec2.Body.String() != "Hello" {
 		t.Errorf("Body = %s, want Hello", rec2.Body.String())
+	}
+}
