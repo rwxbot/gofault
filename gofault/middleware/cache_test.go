@@ -215,3 +215,7 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 func TestCacheMiddleware_SkipPOST(t *testing.T) {
 	cache := NewInMemoryCache(DefaultCacheConfig())
 	middleware := CacheMiddleware(cache, DefaultCacheConfig())
+
+	req := httptest.NewRequest("POST", "/test", nil)
+	rec := httptest.NewRecorder()
+	ctx := &core.Ctx{Request: req, Response: rec}
