@@ -219,3 +219,6 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 	req := httptest.NewRequest("POST", "/test", nil)
 	rec := httptest.NewRecorder()
 	ctx := &core.Ctx{Request: req, Response: rec}
+
+	handlerCalled := false
+	err := middleware(ctx, func(ctx *core.Ctx) error {
