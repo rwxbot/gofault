@@ -230,3 +230,6 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 	if !handlerCalled {
+		t.Error("handler should be called for POST")
+	}
+	if rec.Header().Get("X-Cache") != "" {
