@@ -225,3 +225,5 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 		handlerCalled = true
 		return nil
 	})
+
+	if err != nil {
