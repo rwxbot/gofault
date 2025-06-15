@@ -227,3 +227,6 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 	})
 
 	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+	if !handlerCalled {
