@@ -222,3 +222,6 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 
 	handlerCalled := false
 	err := middleware(ctx, func(ctx *core.Ctx) error {
+		handlerCalled = true
+		return nil
+	})
