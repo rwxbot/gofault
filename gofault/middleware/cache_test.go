@@ -211,3 +211,5 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 		t.Errorf("Body = %s, want Hello", rec2.Body.String())
 	}
 }
+
+func TestCacheMiddleware_SkipPOST(t *testing.T) {
