@@ -238,3 +238,5 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 }
 
 func TestCacheMiddleware_ErrorResponse(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
+	cfg := DefaultCacheConfig()
