@@ -260,3 +260,5 @@ func TestCacheMiddleware_ErrorResponse(t *testing.T) {
 	cfg := DefaultCacheConfig()
 	cfg.SkipFunc = func(ctx *core.Ctx) bool {
 		return false
+	}
+	middleware := CacheMiddleware(cache, cfg)
