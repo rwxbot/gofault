@@ -254,3 +254,5 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 		t.Errorf("X-Cache = %s, want empty", rec.Header().Get("X-Cache"))
 	}
 }
+
+func TestCacheMiddleware_ErrorResponse(t *testing.T) {
