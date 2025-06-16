@@ -251,3 +251,6 @@ func TestCacheMiddleware_SkipPOST(t *testing.T) {
 		t.Error("handler should be called for POST")
 	}
 	if rec.Header().Get("X-Cache") != "" {
+		t.Errorf("X-Cache = %s, want empty", rec.Header().Get("X-Cache"))
+	}
+}
