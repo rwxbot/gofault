@@ -246,3 +246,5 @@ func TestCacheMiddleware_ErrorResponse(t *testing.T) {
 	middleware := CacheMiddleware(cache, cfg)
 
 	req := httptest.NewRequest("GET", "/test", nil)
+	rec := httptest.NewRecorder()
+	ctx := &core.Ctx{Request: req, Response: rec}
