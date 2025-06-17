@@ -244,3 +244,5 @@ func TestCacheMiddleware_ErrorResponse(t *testing.T) {
 		return false
 	}
 	middleware := CacheMiddleware(cache, cfg)
+
+	req := httptest.NewRequest("GET", "/test", nil)
