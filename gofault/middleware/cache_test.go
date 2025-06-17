@@ -250,3 +250,5 @@ func TestCacheMiddleware_ErrorResponse(t *testing.T) {
 	ctx := &core.Ctx{Request: req, Response: rec}
 
 	// Return 500 error
+	middleware(ctx, func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(500)
