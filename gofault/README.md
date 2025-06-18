@@ -601,3 +601,8 @@ which keeps tests and multiple apps from leaking series into each other.
 ### Response caching
 
 `CacheMiddleware` takes the store explicitly, so its lifetime is visible at the
+call site. `SkipFunc` excludes requests that must never be cached:
+
+```go
+cfg := middleware.DefaultCacheConfig()
+cfg.TTL = 30 * time.Second
