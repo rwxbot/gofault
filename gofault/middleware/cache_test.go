@@ -273,3 +273,7 @@ func TestCacheMiddleware_ErrorResponse(t *testing.T) {
 		ctx.Response.Write([]byte("Error"))
 		return nil
 	})
+
+	// Should not cache error responses
+	if rec.Header().Get("X-Cache") != "" {
+		t.Errorf("X-Cache = %s, want empty (errors should not be cached)", rec.Header().Get("X-Cache"))
