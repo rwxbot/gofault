@@ -606,3 +606,10 @@ call site. `SkipFunc` excludes requests that must never be cached:
 ```go
 cfg := middleware.DefaultCacheConfig()
 cfg.TTL = 30 * time.Second
+cfg.MaxSize = 1000
+cfg.SkipFunc = func(ctx *core.Ctx) bool {
+    return ctx.Request.Header.Get("Authorization") != ""
+}
+
+store := middleware.NewInMemoryCache(cfg)
+mod.RegisterMiddleware(middleware.CacheMiddleware(store, cfg))
