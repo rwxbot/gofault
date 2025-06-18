@@ -594,3 +594,10 @@ rtr.Handle("GET", "/metrics",
 
 The registry is scoped to the middleware rather than the process-wide default,
 which keeps tests and multiple apps from leaking series into each other.
+
+
+## What's new in v2.4.0
+
+### Response caching
+
+`CacheMiddleware` takes the store explicitly, so its lifetime is visible at the
