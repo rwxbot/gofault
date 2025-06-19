@@ -77,3 +77,7 @@
 
 ### Added
 - Prometheus metrics middleware
+
+## [v2.4.0]
+
+### Added
