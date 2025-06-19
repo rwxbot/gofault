@@ -1,0 +1,1 @@
+// Package middleware provides common HTTP middleware for gofault.
