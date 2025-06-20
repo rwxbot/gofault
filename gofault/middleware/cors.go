@@ -2,5 +2,8 @@
 package middleware
 
 import (
+	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/gofault/gofault/core"
