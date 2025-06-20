@@ -13,3 +13,4 @@ import (
 type CORSConfig struct {
 	AllowOrigins     []string
 	AllowMethods     []string
+	AllowHeaders     []string
