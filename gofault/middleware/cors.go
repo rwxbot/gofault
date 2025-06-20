@@ -7,3 +7,4 @@ import (
 	"strings"
 
 	"github.com/gofault/gofault/core"
+)
