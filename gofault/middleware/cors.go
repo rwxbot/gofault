@@ -14,3 +14,4 @@ type CORSConfig struct {
 	AllowOrigins     []string
 	AllowMethods     []string
 	AllowHeaders     []string
+	ExposeHeaders    []string
