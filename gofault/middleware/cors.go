@@ -4,3 +4,5 @@ package middleware
 import (
 	"strconv"
 	"strings"
+
+	"github.com/gofault/gofault/core"
