@@ -8,3 +8,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// CORSConfig holds CORS configuration options.
