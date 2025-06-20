@@ -9,3 +9,5 @@ import (
 )
 
 // CORSConfig holds CORS configuration options.
+type CORSConfig struct {
+	AllowOrigins     []string
