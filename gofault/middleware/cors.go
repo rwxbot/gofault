@@ -23,3 +23,5 @@ type CORSConfig struct {
 func DefaultCORSConfig() CORSConfig {
 	return CORSConfig{
 		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
