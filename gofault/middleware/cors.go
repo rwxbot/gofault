@@ -19,3 +19,6 @@ type CORSConfig struct {
 }
 
 // DefaultCORSConfig returns the default CORS configuration.
+func DefaultCORSConfig() CORSConfig {
+	return CORSConfig{
+		AllowOrigins:     []string{"*"},
