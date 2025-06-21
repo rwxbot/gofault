@@ -27,3 +27,5 @@ func DefaultCORSConfig() CORSConfig {
 		ExposeHeaders:    []string{},
 		AllowCredentials: false,
 		MaxAge:           86400,
+	}
+}
