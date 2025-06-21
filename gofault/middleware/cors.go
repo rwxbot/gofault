@@ -18,3 +18,5 @@ type CORSConfig struct {
 	AllowCredentials bool
 	MaxAge           int
 }
+
+// DefaultCORSConfig returns the default CORS configuration.
