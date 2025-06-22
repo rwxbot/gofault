@@ -32,3 +32,5 @@ func DefaultCORSConfig() CORSConfig {
 
 // CORS creates a CORS middleware with the given configuration.
 func CORS(cfg CORSConfig) core.MiddlewareFunc {
+	return func(ctx *core.Ctx, next core.Handler) error {
+		origin := ctx.Request.Header.Get("Origin")
