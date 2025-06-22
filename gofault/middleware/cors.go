@@ -31,3 +31,4 @@ func DefaultCORSConfig() CORSConfig {
 }
 
 // CORS creates a CORS middleware with the given configuration.
+func CORS(cfg CORSConfig) core.MiddlewareFunc {
