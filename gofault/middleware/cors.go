@@ -36,3 +36,4 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 		origin := ctx.Request.Header.Get("Origin")
 
 		// Check if origin is allowed
+		allowedOrigin := ""
