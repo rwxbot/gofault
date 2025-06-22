@@ -30,3 +30,5 @@ func DefaultCORSConfig() CORSConfig {
 		MaxAge:           86400,
 	}
 }
+
+// CORS creates a CORS middleware with the given configuration.
