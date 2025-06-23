@@ -42,3 +42,4 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 				allowedOrigin = o
 				break
 			}
+			// Support wildcard subdomain matching
