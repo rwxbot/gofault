@@ -38,3 +38,6 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 		// Check if origin is allowed
 		allowedOrigin := ""
 		for _, o := range cfg.AllowOrigins {
+			if o == "*" || o == origin {
+				allowedOrigin = o
+				break
