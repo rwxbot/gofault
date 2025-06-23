@@ -41,3 +41,4 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 			if o == "*" || o == origin {
 				allowedOrigin = o
 				break
+			}
