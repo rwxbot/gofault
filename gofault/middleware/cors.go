@@ -68,3 +68,5 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 				}
 			}
 		}
+
+		if allowedOrigin != "" {
