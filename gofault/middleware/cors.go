@@ -46,3 +46,5 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 			if strings.HasPrefix(o, "*.") && strings.HasSuffix(origin, strings.TrimPrefix(o, "*.")) {
 				allowedOrigin = origin
 				break
+			}
+		}
