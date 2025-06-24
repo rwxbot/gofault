@@ -48,3 +48,5 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 				break
 			}
 		}
+
+		if allowedOrigin != "" {
