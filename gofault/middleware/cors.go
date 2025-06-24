@@ -45,3 +45,5 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 			}
 			// Support wildcard subdomain matching
 			if strings.HasPrefix(o, "*.") && strings.HasSuffix(origin, strings.TrimPrefix(o, "*.")) {
+				allowedOrigin = origin
+				break
