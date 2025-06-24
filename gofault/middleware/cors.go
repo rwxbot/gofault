@@ -71,3 +71,4 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 
 		if allowedOrigin != "" {
 			ctx.Response.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+			if cfg.AllowCredentials {
