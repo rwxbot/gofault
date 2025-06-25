@@ -58,3 +58,6 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 				ctx.Response.Header().Set("Access-Control-Expose-Headers", strings.Join(cfg.ExposeHeaders, ", "))
 			}
 			if cfg.MaxAge > 0 {
+				ctx.Response.Header().Set("Access-Control-Max-Age", strconv.Itoa(cfg.MaxAge))
+			}
+		}
