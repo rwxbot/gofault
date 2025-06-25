@@ -64,20 +64,39 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 				domain := strings.TrimPrefix(o, "*.")
 				if strings.HasSuffix(origin, "."+domain) {
 					allowedOrigin = origin
+					exactMatch = true
 					break
 				}
 			}
 		}
 
 		if allowedOrigin != "" {
-			ctx.Response.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
-			if cfg.AllowCredentials {
-				ctx.Response.Header().Set("Access-Control-Allow-Credentials", "true")
+			if allowedOrigin == "*" && cfg.AllowCredentials {
+				// "*" with credentials is rejected by every browser, so the
+				// configured wildcard degrades to echoing the request's
+				// origin. The response is now origin-specific: Vary: Origin
+				// below is what keeps a shared cache honest about that.
+				// A request without an Origin header is not a CORS request;
+				// echoing an empty origin would only produce a header no
+				// browser accepts, so the whole block is skipped.
+				allowedOrigin = origin
+				exactMatch = true
 			}
-			if len(cfg.ExposeHeaders) > 0 {
-				ctx.Response.Header().Set("Access-Control-Expose-Headers", strings.Join(cfg.ExposeHeaders, ", "))
-			}
-			if cfg.MaxAge > 0 {
-				ctx.Response.Header().Set("Access-Control-Max-Age", strconv.Itoa(cfg.MaxAge))
+			if allowedOrigin != "" {
+				ctx.Response.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+				if allowedOrigin != "*" || exactMatch {
+					ctx.Response.Header().Add("Vary", "Origin")
+				}
+				if cfg.AllowCredentials {
+					ctx.Response.Header().Set("Access-Control-Allow-Credentials", "true")
+				}
+				if len(cfg.ExposeHeaders) > 0 {
+					ctx.Response.Header().Set("Access-Control-Expose-Headers", strings.Join(cfg.ExposeHeaders, ", "))
+				}
+				if cfg.MaxAge > 0 {
+					ctx.Response.Header().Set("Access-Control-Max-Age", strconv.Itoa(cfg.MaxAge))
+				}
 			}
 		}
+
+		// Handle preflight request
