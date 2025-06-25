@@ -63,3 +63,4 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 		}
 
 		// Handle preflight request
+		if ctx.Request.Method == "OPTIONS" {
