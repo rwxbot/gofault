@@ -65,3 +65,6 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 		// Handle preflight request
 		if ctx.Request.Method == "OPTIONS" {
 			if len(cfg.AllowMethods) > 0 {
+				ctx.Response.Header().Set("Access-Control-Allow-Methods", strings.Join(cfg.AllowMethods, ", "))
+			}
+			if len(cfg.AllowHeaders) > 0 {
