@@ -75,3 +75,6 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 				ctx.Response.Header().Set("Access-Control-Allow-Credentials", "true")
 			}
 			if len(cfg.ExposeHeaders) > 0 {
+				ctx.Response.Header().Set("Access-Control-Expose-Headers", strings.Join(cfg.ExposeHeaders, ", "))
+			}
+			if cfg.MaxAge > 0 {
