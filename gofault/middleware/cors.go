@@ -73,3 +73,7 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 			ctx.StatusCode = 204
 			return nil
 		}
+
+		return next(ctx)
+	}
+}
