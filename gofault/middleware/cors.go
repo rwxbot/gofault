@@ -111,3 +111,7 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 			ctx.Response.WriteHeader(http.StatusNoContent)
 			return nil
 		}
+
+		return next(ctx)
+	}
+}
