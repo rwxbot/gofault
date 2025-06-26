@@ -71,3 +71,5 @@ func CORS(cfg CORSConfig) core.MiddlewareFunc {
 				ctx.Response.Header().Set("Access-Control-Allow-Headers", strings.Join(cfg.AllowHeaders, ", "))
 			}
 			ctx.StatusCode = 204
+			return nil
+		}
