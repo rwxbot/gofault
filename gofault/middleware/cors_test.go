@@ -10,3 +10,5 @@ import (
 )
 
 func TestCORS_DefaultConfig(t *testing.T) {
+	cfg := DefaultCORSConfig()
+	if len(cfg.AllowOrigins) != 1 || cfg.AllowOrigins[0] != "*" {
