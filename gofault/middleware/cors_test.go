@@ -18,3 +18,4 @@ func TestCORS_DefaultConfig(t *testing.T) {
 		t.Errorf("default AllowMethods should have 6 methods, got %d", len(cfg.AllowMethods))
 	}
 	if cfg.MaxAge != 86400 {
+		t.Errorf("default MaxAge should be 86400, got %d", cfg.MaxAge)
