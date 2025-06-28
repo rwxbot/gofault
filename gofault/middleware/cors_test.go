@@ -15,3 +15,4 @@ func TestCORS_DefaultConfig(t *testing.T) {
 	}
 	if len(cfg.AllowMethods) != 6 {
 		t.Errorf("default AllowMethods should have 6 methods, got %d", len(cfg.AllowMethods))
+	}
