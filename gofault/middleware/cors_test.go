@@ -29,3 +29,4 @@ func TestCORS_PreflightRequest(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		t.Error("next should not be called for OPTIONS preflight")
 		return nil
+	}
