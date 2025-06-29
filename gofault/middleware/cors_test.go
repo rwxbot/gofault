@@ -29,3 +29,6 @@ func TestCORS_PreflightRequest(t *testing.T) {
 		t.Error("next should not be called for OPTIONS preflight")
 		return nil
 	}
+
+	req := httptest.NewRequest("OPTIONS", "/api/test", nil)
+	req.Header.Set("Origin", "http://example.com")
