@@ -23,3 +23,4 @@ func TestCORS_DefaultConfig(t *testing.T) {
 
 func TestCORS_PreflightRequest(t *testing.T) {
 	cfg := DefaultCORSConfig()
+	middleware := CORS(cfg)
