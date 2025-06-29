@@ -20,3 +20,6 @@ func TestCORS_DefaultConfig(t *testing.T) {
 		t.Errorf("default MaxAge should be 86400, got %d", cfg.MaxAge)
 	}
 }
+
+func TestCORS_PreflightRequest(t *testing.T) {
+	cfg := DefaultCORSConfig()
