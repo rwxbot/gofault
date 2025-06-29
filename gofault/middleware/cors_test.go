@@ -24,3 +24,6 @@ func TestCORS_DefaultConfig(t *testing.T) {
 func TestCORS_PreflightRequest(t *testing.T) {
 	cfg := DefaultCORSConfig()
 	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
+		t.Error("next should not be called for OPTIONS preflight")
