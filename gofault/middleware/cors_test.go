@@ -35,3 +35,6 @@ func TestCORS_PreflightRequest(t *testing.T) {
 	req.Header.Set("Origin", "http://example.com")
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := middleware(ctx, next)
+	if err != nil {
