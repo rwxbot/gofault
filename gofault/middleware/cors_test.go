@@ -38,3 +38,5 @@ func TestCORS_PreflightRequest(t *testing.T) {
 
 	err := middleware(ctx, next)
 	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
