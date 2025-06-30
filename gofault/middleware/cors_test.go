@@ -40,3 +40,4 @@ func TestCORS_PreflightRequest(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 	if ctx.StatusCode != 204 {
+		t.Errorf("StatusCode = %d, want 204", ctx.StatusCode)
