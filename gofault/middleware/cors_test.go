@@ -42,3 +42,7 @@ func TestCORS_PreflightRequest(t *testing.T) {
 	if ctx.StatusCode != 204 {
 		t.Errorf("StatusCode = %d, want 204", ctx.StatusCode)
 	}
+
+	// Check headers
+	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "*" {
+		t.Errorf("Access-Control-Allow-Origin = %s, want *", got)
