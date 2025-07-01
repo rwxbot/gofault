@@ -56,3 +56,6 @@ func TestCORS_PreflightRequest(t *testing.T) {
 func TestCORS_AllowOrigin(t *testing.T) {
 	cfg := CORSConfig{
 		AllowOrigins: []string{"http://example.com"},
+		AllowMethods: []string{"GET", "POST"},
+		AllowHeaders: []string{"Content-Type"},
+	}
