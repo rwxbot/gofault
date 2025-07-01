@@ -48,3 +48,6 @@ func TestCORS_PreflightRequest(t *testing.T) {
 		t.Errorf("Access-Control-Allow-Origin = %s, want *", got)
 	}
 	if got := w.Header().Get("Access-Control-Allow-Methods"); got == "" {
+		t.Error("Access-Control-Allow-Methods should be set")
+	}
+}
