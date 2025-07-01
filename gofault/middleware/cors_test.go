@@ -52,3 +52,7 @@ func TestCORS_PreflightRequest(t *testing.T) {
 		t.Error("Access-Control-Allow-Methods should be set")
 	}
 }
+
+func TestCORS_AllowOrigin(t *testing.T) {
+	cfg := CORSConfig{
+		AllowOrigins: []string{"http://example.com"},
