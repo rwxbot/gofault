@@ -59,3 +59,6 @@ func TestCORS_AllowOrigin(t *testing.T) {
 		AllowMethods: []string{"GET", "POST"},
 		AllowHeaders: []string{"Content-Type"},
 	}
+	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
