@@ -75,3 +75,7 @@ func TestCORS_AllowOrigin(t *testing.T) {
 		t.Errorf("Access-Control-Allow-Origin = %s, want http://example.com", got)
 	}
 }
+
+func TestCORS_WildcardOrigin(t *testing.T) {
+	cfg := CORSConfig{
+		AllowOrigins: []string{"*"},
