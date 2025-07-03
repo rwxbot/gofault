@@ -74,3 +74,4 @@ func TestCORS_AllowOrigin(t *testing.T) {
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "http://example.com" {
 		t.Errorf("Access-Control-Allow-Origin = %s, want http://example.com", got)
 	}
+}
