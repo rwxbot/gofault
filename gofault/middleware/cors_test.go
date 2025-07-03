@@ -80,3 +80,5 @@ func TestCORS_AllowOrigin(t *testing.T) {
 func TestCORS_WildcardOrigin(t *testing.T) {
 	cfg := CORSConfig{
 		AllowOrigins: []string{"*"},
+	}
+	middleware := CORS(cfg)
