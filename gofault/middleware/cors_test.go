@@ -88,3 +88,5 @@ func TestCORS_WildcardOrigin(t *testing.T) {
 	}
 
 	req := httptest.NewRequest("GET", "/api/test", nil)
+	req.Header.Set("Origin", "http://any-origin.com")
+	w := httptest.NewRecorder()
