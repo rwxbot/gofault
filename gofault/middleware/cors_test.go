@@ -85,3 +85,6 @@ func TestCORS_WildcardOrigin(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		return nil
+	}
+
+	req := httptest.NewRequest("GET", "/api/test", nil)
