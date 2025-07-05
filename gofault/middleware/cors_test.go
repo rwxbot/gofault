@@ -101,3 +101,6 @@ func TestCORS_WildcardOrigin(t *testing.T) {
 
 func TestCORS_SubdomainWildcard(t *testing.T) {
 	cfg := CORSConfig{
+		AllowOrigins: []string{"*.example.com"},
+	}
+	middleware := CORS(cfg)
