@@ -98,3 +98,6 @@ func TestCORS_WildcardOrigin(t *testing.T) {
 		t.Errorf("Access-Control-Allow-Origin = %s, want *", got)
 	}
 }
+
+func TestCORS_SubdomainWildcard(t *testing.T) {
+	cfg := CORSConfig{
