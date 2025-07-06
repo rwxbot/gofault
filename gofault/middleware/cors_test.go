@@ -106,3 +106,5 @@ func TestCORS_SubdomainWildcard(t *testing.T) {
 	middleware := CORS(cfg)
 
 	next := func(ctx *core.Ctx) error {
+		return nil
+	}
