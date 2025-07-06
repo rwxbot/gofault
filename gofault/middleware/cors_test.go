@@ -110,3 +110,4 @@ func TestCORS_SubdomainWildcard(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/api/test", nil)
 	req.Header.Set("Origin", "http://api.example.com")
+	w := httptest.NewRecorder()
