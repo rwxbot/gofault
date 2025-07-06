@@ -103,3 +103,5 @@ func TestCORS_SubdomainWildcard(t *testing.T) {
 		AllowOrigins: []string{"*.example.com"},
 	}
 	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
