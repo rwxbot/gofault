@@ -118,3 +118,4 @@ func TestCORS_SubdomainWildcard(t *testing.T) {
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "http://api.example.com" {
 		t.Errorf("Access-Control-Allow-Origin = %s, want http://api.example.com", got)
 	}
+}
