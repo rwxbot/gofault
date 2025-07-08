@@ -131,3 +131,6 @@ func TestCORS_DisallowedOrigin(t *testing.T) {
 	}
 
 	req := httptest.NewRequest("GET", "/api/test", nil)
+	req.Header.Set("Origin", "http://disallowed.com")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
