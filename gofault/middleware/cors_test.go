@@ -124,3 +124,4 @@ func TestCORS_DisallowedOrigin(t *testing.T) {
 	cfg := CORSConfig{
 		AllowOrigins: []string{"http://allowed.com"},
 	}
+	middleware := CORS(cfg)
