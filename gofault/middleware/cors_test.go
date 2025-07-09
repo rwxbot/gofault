@@ -135,3 +135,5 @@ func TestCORS_DisallowedOrigin(t *testing.T) {
 	req.Header.Set("Origin", "http://disallowed.com")
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
