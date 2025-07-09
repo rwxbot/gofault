@@ -138,3 +138,4 @@ func TestCORS_DisallowedOrigin(t *testing.T) {
 	middleware(ctx, next)
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "" {
+		t.Errorf("Access-Control-Allow-Origin = %s, want empty", got)
