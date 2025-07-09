@@ -148,3 +148,4 @@ func TestCORS_Credentials(t *testing.T) {
 		AllowOrigins:     []string{"http://example.com"},
 		AllowCredentials: true,
 	}
+	middleware := CORS(cfg)
