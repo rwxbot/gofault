@@ -143,3 +143,6 @@ func TestCORS_DisallowedOrigin(t *testing.T) {
 }
 
 func TestCORS_Credentials(t *testing.T) {
+	cfg := CORSConfig{
+		AllowOrigins:     []string{"http://example.com"},
+		AllowCredentials: true,
