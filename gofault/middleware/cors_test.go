@@ -141,3 +141,5 @@ func TestCORS_DisallowedOrigin(t *testing.T) {
 		t.Errorf("Access-Control-Allow-Origin = %s, want empty", got)
 	}
 }
+
+func TestCORS_Credentials(t *testing.T) {
