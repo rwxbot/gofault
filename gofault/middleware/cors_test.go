@@ -148,3 +148,5 @@ func TestCORS_Credentials(t *testing.T) {
 		AllowCredentials: true,
 	}
 	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
