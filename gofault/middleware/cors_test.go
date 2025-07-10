@@ -156,3 +156,5 @@ func TestCORS_Credentials(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/api/test", nil)
 	req.Header.Set("Origin", "http://example.com")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
