@@ -160,3 +160,6 @@ func TestCORS_Credentials(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	if got := w.Header().Get("Access-Control-Allow-Credentials"); got != "true" {
+		t.Errorf("Access-Control-Allow-Credentials = %s, want true", got)
