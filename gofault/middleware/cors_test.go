@@ -171,3 +171,4 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 		AllowOrigins:  []string{"*"},
 		ExposeHeaders: []string{"X-Custom-Header", "X-Request-ID"},
 	}
+	middleware := CORS(cfg)
