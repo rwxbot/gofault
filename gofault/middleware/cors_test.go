@@ -165,3 +165,6 @@ func TestCORS_Credentials(t *testing.T) {
 		t.Errorf("Access-Control-Allow-Credentials = %s, want true", got)
 	}
 }
+
+func TestCORS_ExposeHeaders(t *testing.T) {
+	cfg := CORSConfig{
