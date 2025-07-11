@@ -180,3 +180,5 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 	req := httptest.NewRequest("GET", "/api/test", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
