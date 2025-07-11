@@ -168,3 +168,6 @@ func TestCORS_Credentials(t *testing.T) {
 
 func TestCORS_ExposeHeaders(t *testing.T) {
 	cfg := CORSConfig{
+		AllowOrigins:  []string{"*"},
+		ExposeHeaders: []string{"X-Custom-Header", "X-Request-ID"},
+	}
