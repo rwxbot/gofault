@@ -172,3 +172,5 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 		ExposeHeaders: []string{"X-Custom-Header", "X-Request-ID"},
 	}
 	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
