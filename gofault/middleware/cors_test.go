@@ -183,3 +183,4 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 	middleware(ctx, next)
 
 	expected := "X-Custom-Header, X-Request-ID"
+	if got := w.Header().Get("Access-Control-Expose-Headers"); got != expected {
