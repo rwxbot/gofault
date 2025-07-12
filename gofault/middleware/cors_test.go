@@ -181,3 +181,5 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, next)
+
+	expected := "X-Custom-Header, X-Request-ID"
