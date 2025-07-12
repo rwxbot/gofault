@@ -185,3 +185,5 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 	expected := "X-Custom-Header, X-Request-ID"
 	if got := w.Header().Get("Access-Control-Expose-Headers"); got != expected {
 		t.Errorf("Access-Control-Expose-Headers = %s, want %s", got, expected)
+	}
+}
