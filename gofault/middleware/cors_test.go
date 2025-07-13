@@ -206,3 +206,6 @@ func TestCORS_ForwardToNext(t *testing.T) {
 
 	err := middleware(ctx, next)
 	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+	if !nextCalled {
