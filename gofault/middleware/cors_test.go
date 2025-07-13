@@ -187,3 +187,7 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 		t.Errorf("Access-Control-Expose-Headers = %s, want %s", got, expected)
 	}
 }
+
+func TestCORS_ForwardToNext(t *testing.T) {
+	cfg := DefaultCORSConfig()
+	middleware := CORS(cfg)
