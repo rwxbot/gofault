@@ -205,3 +205,4 @@ func TestCORS_ForwardToNext(t *testing.T) {
 	ctx.StatusCode = http.StatusCreated
 
 	err := middleware(ctx, next)
+	if err != nil {
