@@ -194,3 +194,5 @@ func TestCORS_ForwardToNext(t *testing.T) {
 
 	nextCalled := false
 	next := func(ctx *core.Ctx) error {
+		nextCalled = true
+		return nil
