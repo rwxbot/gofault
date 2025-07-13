@@ -197,3 +197,6 @@ func TestCORS_ForwardToNext(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		nextCalled = true
 		return nil
+	}
+
+	req := httptest.NewRequest("POST", "/api/test", nil)
