@@ -199,3 +199,5 @@ func TestCORS_ForwardToNext(t *testing.T) {
 	}
 
 	req := httptest.NewRequest("POST", "/api/test", nil)
+	req.Header.Set("Origin", "http://example.com")
+	w := httptest.NewRecorder()
