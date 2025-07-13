@@ -203,3 +203,5 @@ func TestCORS_ForwardToNext(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 	ctx.StatusCode = http.StatusCreated
+
+	err := middleware(ctx, next)
