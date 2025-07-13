@@ -191,3 +191,6 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 func TestCORS_ForwardToNext(t *testing.T) {
 	cfg := DefaultCORSConfig()
 	middleware := CORS(cfg)
+
+	nextCalled := false
+	next := func(ctx *core.Ctx) error {
