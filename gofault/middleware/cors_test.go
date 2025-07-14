@@ -212,3 +212,5 @@ func TestCORS_ForwardToNext(t *testing.T) {
 		t.Error("next handler should be called")
 	}
 	if ctx.StatusCode != http.StatusCreated {
+		t.Errorf("StatusCode = %d, want %d", ctx.StatusCode, http.StatusCreated)
+	}
