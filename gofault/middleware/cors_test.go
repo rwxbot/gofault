@@ -210,3 +210,6 @@ func TestCORS_ForwardToNext(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 	if !nextCalled {
+		t.Error("next handler should be called")
+	}
+	if ctx.StatusCode != http.StatusCreated {
