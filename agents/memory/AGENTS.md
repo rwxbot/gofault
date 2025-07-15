@@ -30,3 +30,22 @@
 | v3.2.0 | ✅ 完成 | Static Files |
 | v3.3.0 | ✅ 完成 | gRPC |
 | v3.4.0 | ✅ 完成 | API Versioning |
+
+## 核心接口
+
+```go
+type Module interface {
+    Name() string
+    Controllers() []Controller
+    Providers() []Provider
+    Middleware() []MiddlewareFunc
+}
+
+type Controller interface {
+    Routes() []Route    // 返回路由列表
+    Prefix() string     // 路由前缀
+}
+
+type Provider interface {
+    Provide() any
+}
