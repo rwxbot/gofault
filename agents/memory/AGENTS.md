@@ -65,3 +65,9 @@ type Handler func(ctx *Ctx) error
 ## 仓库
 
 单一 Git 仓库 `gofault-all`，框架代码位于 `gofault/` 子目录（不再嵌套独立仓库）。远程：`rwx-robot-home/gofault-home`。
+
+## 外部化约定
+
+- 所有决策立即写入 `agents/memory/AGENTS.md` 或 `agents/skills/`
+- 进度日志追加 `agents/memory/YYYY-MM-DD.md`
+- 任何外部动作（推送远端、发布）前须显式确认
