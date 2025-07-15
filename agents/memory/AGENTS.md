@@ -16,3 +16,17 @@
 - 非 Go 生态的模块与文件后缀
 
 只使用纯 Go 惯用法：interface、组合、struct tag、functional options。
+
+## 当前状态
+
+| 版本 | 状态 | 说明 |
+|------|------|------|
+| v0.1.0 | ✅ 完成 | 最小内核：IoC + Module/Controller + HTTP 路由 |
+| v0.5.0 | ✅ 完成 | 构造器注入完善 + Middleware 链 + Exception Filter + 生命周期钩子 |
+| v1.0.0–v2.8.0 | ✅ 完成 | 中间件集合 |
+| v2.9.0 | ✅ 完成 | File Upload |
+| v3.0.0 | ✅ 完成 | GORM |
+| v3.1.0 | ✅ 完成 | Redis |
+| v3.2.0 | ✅ 完成 | Static Files |
+| v3.3.0 | ✅ 完成 | gRPC |
+| v3.4.0 | ✅ 完成 | API Versioning |
