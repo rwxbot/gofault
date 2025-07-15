@@ -614,3 +614,8 @@ cfg.SkipFunc = func(ctx *core.Ctx) bool {
 store := middleware.NewInMemoryCache(cfg)
 mod.RegisterMiddleware(middleware.CacheMiddleware(store, cfg))
 ```
+
+
+## What's new in v2.5.0
+
+### CORS
