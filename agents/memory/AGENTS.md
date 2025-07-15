@@ -49,3 +49,7 @@ type Controller interface {
 type Provider interface {
     Provide() any
 }
+
+type MiddlewareFunc func(ctx *Ctx, next Handler) error
+type Handler func(ctx *Ctx) error
+```
