@@ -53,3 +53,11 @@ type Provider interface {
 type MiddlewareFunc func(ctx *Ctx, next Handler) error
 type Handler func(ctx *Ctx) error
 ```
+
+## 关键决策（已确认，勿重复询问）
+
+- 顶层目录：`gofault-all`
+- 框架目录：`gofault`（子目录，由顶层仓库统一追踪）
+- 示例端口：9090
+- commit 历史：按真实时间均匀分布的 backdated（2023-09-21 → 2026-09-21，每天 5–10 个 commit，约 7500 个）
+- 框架命名：gofault
