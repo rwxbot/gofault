@@ -61,3 +61,7 @@ type Handler func(ctx *Ctx) error
 - 示例端口：9090
 - commit 历史：按真实时间均匀分布的 backdated（2023-09-21 → 2026-09-21，每天 5–10 个 commit，约 7500 个）
 - 框架命名：gofault
+
+## 仓库
+
+单一 Git 仓库 `gofault-all`，框架代码位于 `gofault/` 子目录（不再嵌套独立仓库）。远程：`rwx-robot-home/gofault-home`。
