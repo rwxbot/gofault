@@ -82,3 +82,8 @@
 
 ### Added
 - Cache middleware
+
+## [v2.5.0]
+
+### Added
+- CORS middleware
