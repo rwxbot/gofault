@@ -631,3 +631,4 @@ cfg.AllowHeaders = []string{"Content-Type", "Authorization"}
 cfg.AllowCredentials = true
 
 mod.RegisterMiddleware(middleware.CORS(cfg))
+```
