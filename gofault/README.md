@@ -625,3 +625,9 @@ matched explicitly — nothing is wildcarded implicitly:
 
 ```go
 cfg := middleware.DefaultCORSConfig()
+cfg.AllowOrigins = []string{"https://app.example.com"}
+cfg.AllowMethods = []string{"GET", "POST"}
+cfg.AllowHeaders = []string{"Content-Type", "Authorization"}
+cfg.AllowCredentials = true
+
+mod.RegisterMiddleware(middleware.CORS(cfg))
