@@ -619,3 +619,9 @@ mod.RegisterMiddleware(middleware.CacheMiddleware(store, cfg))
 ## What's new in v2.5.0
 
 ### CORS
+
+`CORS` answers preflight requests and sets the response headers. Origins are
+matched explicitly — nothing is wildcarded implicitly:
+
+```go
+cfg := middleware.DefaultCORSConfig()
