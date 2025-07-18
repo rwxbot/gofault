@@ -15,3 +15,5 @@ import (
 )
 
 // JWTConfig holds JWT authentication configuration.
+type JWTConfig struct {
+	Secret    []byte
