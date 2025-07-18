@@ -12,3 +12,5 @@ import (
 	"github.com/gofault/gofault/core"
 	"github.com/gofault/gofault/exception"
 )
+
+// JWTConfig holds JWT authentication configuration.
