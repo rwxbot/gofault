@@ -19,3 +19,5 @@ type JWTConfig struct {
 	Algorithm string // HS256 only for simplicity
 	TokenName string
 }
+
+// DefaultJWTConfig returns default JWT configuration.
