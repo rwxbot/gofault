@@ -26,3 +26,6 @@ func DefaultJWTConfig(secret []byte) JWTConfig {
 	return JWTConfig{
 		Secret:    secret,
 		Algorithm: "HS256",
+		TokenName: "token",
+	}
+}
