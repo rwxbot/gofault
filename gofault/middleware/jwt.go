@@ -23,3 +23,5 @@ type JWTConfig struct {
 // DefaultJWTConfig returns default JWT configuration.
 func DefaultJWTConfig(secret []byte) JWTConfig {
 	return JWTConfig{
+		Secret:    secret,
+		Algorithm: "HS256",
