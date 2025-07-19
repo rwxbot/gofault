@@ -33,3 +33,4 @@ func DefaultJWTConfig(secret []byte) JWTConfig {
 type Claims struct {
 	Subject   string   `json:"sub"`
 	UserID    string   `json:"uid"`
+	Roles     []string `json:"roles"`
