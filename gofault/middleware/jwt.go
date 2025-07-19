@@ -50,3 +50,5 @@ type Claims struct {
 	Subject   string   `json:"sub"`
 	UserID    string   `json:"uid"`
 	Roles     []string `json:"roles"`
+	ExpiresAt int64    `json:"exp"`
+	IssuedAt  int64    `json:"iat"`
