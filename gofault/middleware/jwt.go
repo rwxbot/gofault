@@ -44,3 +44,5 @@ func DefaultJWTConfig(secret []byte) JWTConfig {
 		RequireExpiry:   true,
 	}
 }
+
+// Claims represents JWT claims.
