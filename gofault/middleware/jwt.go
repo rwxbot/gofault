@@ -28,3 +28,5 @@ func DefaultJWTConfig(secret []byte) JWTConfig {
 		TokenName: "token",
 	}
 }
+
+// Claims represents JWT claims.
