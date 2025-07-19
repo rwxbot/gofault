@@ -30,3 +30,6 @@ func DefaultJWTConfig(secret []byte) JWTConfig {
 }
 
 // Claims represents JWT claims.
+type Claims struct {
+	Subject   string   `json:"sub"`
+	UserID    string   `json:"uid"`
