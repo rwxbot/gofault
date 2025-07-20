@@ -38,3 +38,5 @@ type Claims struct {
 	IssuedAt  int64    `json:"iat"`
 	Issuer    string   `json:"iss"`
 }
+
+// IsValid checks if claims are valid.
