@@ -46,3 +46,5 @@ func (c *Claims) IsValid() bool {
 	}
 	return time.Now().Unix() < c.ExpiresAt
 }
+
+// JWTAuth creates JWT authentication middleware.
