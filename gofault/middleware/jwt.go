@@ -42,3 +42,5 @@ type Claims struct {
 // IsValid checks if claims are valid.
 func (c *Claims) IsValid() bool {
 	if c.ExpiresAt == 0 {
+		return true
+	}
