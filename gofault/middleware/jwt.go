@@ -48,3 +48,6 @@ func (c *Claims) IsValid() bool {
 }
 
 // JWTAuth creates JWT authentication middleware.
+func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
+	if cfg.TokenName == "" {
+		cfg.TokenName = "token"
