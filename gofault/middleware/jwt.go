@@ -51,3 +51,6 @@ func (c *Claims) IsValid() bool {
 func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 	if cfg.TokenName == "" {
 		cfg.TokenName = "token"
+	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
