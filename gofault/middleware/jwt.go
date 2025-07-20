@@ -62,3 +62,5 @@ func (c *Claims) IsValid() bool {
 	if c.ExpiresAt == 0 {
 		return true
 	}
+	return time.Now().Unix() < c.ExpiresAt
+}
