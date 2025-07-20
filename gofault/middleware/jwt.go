@@ -66,6 +66,23 @@ func (c *Claims) IsValid() bool {
 }
 
 // JWTAuth creates JWT authentication middleware.
+//
+// A misconfigured secret or an unsupported algorithm yields a middleware that
+// rejects every request with a diagnostic rather than nil. Returning nil was
+// worse than it looks: the documented usage is to register whatever this
+// returns, so callers that never checked for nil put a nil in the chain and
+// panicked on the first request.
 func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
+	switch {
+	case len(cfg.Secret) == 0:
+		return misconfiguredJWTMiddleware("jwt: secret is empty")
+	case cfg.Algorithm == "":
+		cfg.Algorithm = jwtAlgHS256
+	case cfg.Algorithm != jwtAlgHS256:
+		return misconfiguredJWTMiddleware("jwt: unsupported algorithm " + cfg.Algorithm)
+	}
 	if cfg.TokenName == "" {
 		cfg.TokenName = "token"
+	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
