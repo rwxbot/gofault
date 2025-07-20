@@ -55,6 +55,10 @@ type Claims struct {
 	Issuer    string   `json:"iss"`
 }
 
-// IsValid checks if claims are valid.
+// IsValid reports whether the claims are within their validity window.
+// A zero ExpiresAt means "no expiry recorded"; callers that require a bounded
+// lifetime must check that separately (see JWTConfig.RequireExpiry).
 func (c *Claims) IsValid() bool {
 	if c.ExpiresAt == 0 {
+		return true
+	}
