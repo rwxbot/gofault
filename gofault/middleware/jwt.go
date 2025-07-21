@@ -95,3 +95,6 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 		if err != nil {
 			return exception.Unauthorized("invalid token: " + err.Error())
 		}
+
+		if !claims.IsValid() {
+			return exception.Unauthorized("token expired")
