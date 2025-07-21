@@ -62,3 +62,4 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 		claims, err := parseToken(token, cfg)
 		if err != nil {
 			return exception.Unauthorized("invalid token: " + err.Error())
+		}
