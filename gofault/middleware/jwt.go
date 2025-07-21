@@ -58,3 +58,5 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 		if token == "" {
 			return exception.Unauthorized("missing authentication token")
 		}
+
+		claims, err := parseToken(token, cfg)
