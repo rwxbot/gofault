@@ -86,3 +86,4 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {
+		token := extractToken(ctx, cfg)
