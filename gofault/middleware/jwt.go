@@ -67,3 +67,7 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 		if !claims.IsValid() {
 			return exception.Unauthorized("token expired")
 		}
+
+		// Hand the verified claims to downstream handlers. Without this the
+		// middleware authenticates the caller but nothing downstream can read
+		// who the caller is.
