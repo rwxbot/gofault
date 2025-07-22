@@ -78,3 +78,4 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 }
 
 // GetClaims returns the claims verified by JWTAuth, or nil when the route is not
+// protected by it.
