@@ -75,3 +75,4 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 
 		return next(ctx)
 	}
+}
