@@ -107,3 +107,4 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 		// Hand the verified claims to downstream handlers. Without this the
 		// middleware authenticates the caller but nothing downstream can read
 		// who the caller is.
+		ctx.SetLocal("claims", claims)
