@@ -72,3 +72,6 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 		// middleware authenticates the caller but nothing downstream can read
 		// who the caller is.
 		ctx.SetLocal("claims", claims)
+
+		return next(ctx)
+	}
