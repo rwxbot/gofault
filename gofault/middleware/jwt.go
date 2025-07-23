@@ -85,3 +85,5 @@ func GetClaims(ctx *core.Ctx) *Claims {
 	}
 	return nil
 }
+
+// extractToken extracts JWT from request.
