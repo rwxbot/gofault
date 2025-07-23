@@ -152,3 +152,5 @@ func LegacyJWTConfig(secret []byte) JWTConfig {
 // GetClaims returns the claims verified by JWTAuth, or nil when the route is not
 // protected by it.
 func GetClaims(ctx *core.Ctx) *Claims {
+	if claims, ok := ctx.Locals["claims"].(*Claims); ok {
+		return claims
