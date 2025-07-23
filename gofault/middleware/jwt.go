@@ -82,3 +82,6 @@ func JWTAuth(cfg JWTConfig) core.MiddlewareFunc {
 func GetClaims(ctx *core.Ctx) *Claims {
 	if claims, ok := ctx.Locals["claims"].(*Claims); ok {
 		return claims
+	}
+	return nil
+}
