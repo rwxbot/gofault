@@ -154,3 +154,6 @@ func LegacyJWTConfig(secret []byte) JWTConfig {
 func GetClaims(ctx *core.Ctx) *Claims {
 	if claims, ok := ctx.Locals["claims"].(*Claims); ok {
 		return claims
+	}
+	return nil
+}
