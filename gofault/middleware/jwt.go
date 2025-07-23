@@ -89,3 +89,4 @@ func GetClaims(ctx *core.Ctx) *Claims {
 // extractToken extracts JWT from request.
 func extractToken(ctx *core.Ctx, cfg JWTConfig) string {
 	auth := ctx.Request.Header.Get("Authorization")
+	if auth != "" {
