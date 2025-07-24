@@ -162,3 +162,6 @@ func GetClaims(ctx *core.Ctx) *Claims {
 func extractToken(ctx *core.Ctx, cfg JWTConfig) string {
 	auth := ctx.Request.Header.Get("Authorization")
 	if auth != "" {
+		parts := strings.SplitN(auth, " ", 2)
+		if len(parts) == 2 && strings.EqualFold(parts[0], "bearer") {
+			return parts[1]
