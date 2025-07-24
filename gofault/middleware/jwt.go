@@ -99,3 +99,5 @@ func extractToken(ctx *core.Ctx, cfg JWTConfig) string {
 }
 
 // parseToken parses and verifies JWT token.
+func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
+	parts := strings.Split(tokenString, ".")
