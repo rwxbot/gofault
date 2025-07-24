@@ -168,3 +168,4 @@ func extractToken(ctx *core.Ctx, cfg JWTConfig) string {
 		}
 	}
 	return ctx.Request.URL.Query().Get(cfg.TokenName)
+}
