@@ -166,3 +166,5 @@ func extractToken(ctx *core.Ctx, cfg JWTConfig) string {
 		if len(parts) == 2 && strings.EqualFold(parts[0], "bearer") {
 			return parts[1]
 		}
+	}
+	return ctx.Request.URL.Query().Get(cfg.TokenName)
