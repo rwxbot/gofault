@@ -182,3 +182,6 @@ type jwtHeader struct {
 // parseToken parses and verifies JWT token.
 func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
 	parts := strings.Split(tokenString, ".")
+	if len(parts) != 3 {
+		return nil, errors.New("invalid token format")
+	}
