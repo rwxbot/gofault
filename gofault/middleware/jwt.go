@@ -167,5 +167,16 @@ func extractToken(ctx *core.Ctx, cfg JWTConfig) string {
 			return parts[1]
 		}
 	}
-	return ctx.Request.URL.Query().Get(cfg.TokenName)
+	if cfg.AllowQueryToken {
+		return ctx.Request.URL.Query().Get(cfg.TokenName)
+	}
+	return ""
 }
+
+// jwtHeader is the subset of the JOSE header this package reads.
+type jwtHeader struct {
+	Alg string `json:"alg"`
+	Typ string `json:"typ"`
+}
+
+// parseToken parses and verifies JWT token.
