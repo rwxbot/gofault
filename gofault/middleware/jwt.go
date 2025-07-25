@@ -110,3 +110,5 @@ func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
 	// Verify signature
 	expectedSig := sign([]byte(header+"."+payload), cfg.Secret)
 	sigBytes, err := base64.RawURLEncoding.DecodeString(sigEncoded)
+	if err != nil {
+		return nil, errors.New("invalid signature encoding")
