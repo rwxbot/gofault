@@ -185,3 +185,5 @@ func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
 	if len(parts) != 3 {
 		return nil, errors.New("invalid token format")
 	}
+
+	header, payload, sigEncoded := parts[0], parts[1], parts[2]
