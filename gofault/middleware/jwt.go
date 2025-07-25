@@ -187,3 +187,7 @@ func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
 	}
 
 	header, payload, sigEncoded := parts[0], parts[1], parts[2]
+
+	// Verify signature
+	expectedSig := sign([]byte(header+"."+payload), cfg.Secret)
+	sigBytes, err := base64.RawURLEncoding.DecodeString(sigEncoded)
