@@ -197,3 +197,19 @@ func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
 	if !hmac.Equal(sigBytes, expectedSig) {
 		return nil, errors.New("invalid signature")
 	}
+
+	// The signature is checked first so an unauthenticated token can never
+	// influence the claims we act on. Once it holds, confirm the header
+	// actually declares the algorithm we signed with rather than trusting the
+	// token's own claim about itself.
+	hdr := &jwtHeader{}
+	if err := decodeBase64URL(header, hdr); err != nil {
+		return nil, errors.New("invalid header encoding")
+	}
+	if hdr.Alg != cfg.Algorithm {
+		return nil, errors.New("unsupported algorithm")
+	}
+
+	// Decode payload
+	claims := &Claims{}
+	if err := decodeBase64URL(payload, claims); err != nil {
