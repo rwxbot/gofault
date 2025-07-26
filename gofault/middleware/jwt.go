@@ -122,3 +122,6 @@ func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
 	if err := decodeBase64URL(payload, claims); err != nil {
 		return nil, err
 	}
+
+	return claims, nil
+}
