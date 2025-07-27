@@ -225,3 +225,5 @@ func sign(data, secret []byte) []byte {
 	h.Write(data)
 	return h.Sum(nil)
 }
+
+// decodeBase64URL decodes base64url encoded string into v.
