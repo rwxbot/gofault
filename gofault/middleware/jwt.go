@@ -221,3 +221,6 @@ func parseToken(tokenString string, cfg JWTConfig) (*Claims, error) {
 
 // sign creates HMAC SHA256 signature.
 func sign(data, secret []byte) []byte {
+	h := hmac.New(sha256.New, secret)
+	h.Write(data)
+	return h.Sum(nil)
