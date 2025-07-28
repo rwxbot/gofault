@@ -138,3 +138,5 @@ func decodeBase64URL(encoded string, v interface{}) error {
 	data, err := base64.RawURLEncoding.DecodeString(encoded)
 	if err != nil {
 		return err
+	}
+	return json.Unmarshal(data, v)
