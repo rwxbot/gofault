@@ -233,3 +233,4 @@ func decodeBase64URL(encoded string, v interface{}) error {
 		return err
 	}
 	return json.Unmarshal(data, v)
+}
