@@ -141,3 +141,5 @@ func decodeBase64URL(encoded string, v interface{}) error {
 	}
 	return json.Unmarshal(data, v)
 }
+
+// GenerateToken creates a new JWT token.
