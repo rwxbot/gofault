@@ -135,3 +135,4 @@ func sign(data, secret []byte) []byte {
 
 // decodeBase64URL decodes base64url encoded string into v.
 func decodeBase64URL(encoded string, v interface{}) error {
+	data, err := base64.RawURLEncoding.DecodeString(encoded)
