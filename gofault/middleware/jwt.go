@@ -150,3 +150,5 @@ func GenerateToken(claims *Claims, secret []byte, algorithm string) (string, err
 		claims.IssuedAt = time.Now().Unix()
 	}
 	if claims.ExpiresAt == 0 {
+		claims.ExpiresAt = time.Now().Add(24 * time.Hour).Unix()
+	}
