@@ -235,8 +235,30 @@ func decodeBase64URL(encoded string, v interface{}) error {
 	return json.Unmarshal(data, v)
 }
 
-// GenerateToken creates a new JWT token.
+// GenerateToken creates a new JWT token signed with algorithm. Only HS256 is
+// supported; an empty value defaults to it and anything else returns an error
+// rather than silently signing with HS256 under a different label.
 func GenerateToken(claims *Claims, secret []byte, algorithm string) (string, error) {
-	header := base64.RawURLEncoding.EncodeToString([]byte(`{"alg":"HS256","typ":"JWT"}`))
+	if len(secret) == 0 {
+		return "", errors.New("jwt: secret must not be empty")
+	}
+	if algorithm == "" {
+		algorithm = jwtAlgHS256
+	}
+	if algorithm != jwtAlgHS256 {
+		return "", fmt.Errorf("jwt: unsupported algorithm %q (only %s supported)", algorithm, jwtAlgHS256)
+	}
+	if claims == nil {
+		return "", errors.New("jwt: claims must not be nil")
+	}
+
+	headerJSON, err := json.Marshal(&jwtHeader{Alg: algorithm, Typ: "JWT"})
+	if err != nil {
+		return "", err
+	}
+	header := base64.RawURLEncoding.EncodeToString(headerJSON)
 
 	if claims.IssuedAt == 0 {
+		claims.IssuedAt = time.Now().Unix()
+	}
+	if claims.ExpiresAt == 0 {
