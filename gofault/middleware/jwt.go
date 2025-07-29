@@ -236,3 +236,4 @@ func decodeBase64URL(encoded string, v interface{}) error {
 }
 
 // GenerateToken creates a new JWT token.
+func GenerateToken(claims *Claims, secret []byte, algorithm string) (string, error) {
