@@ -147,3 +147,6 @@ func GenerateToken(claims *Claims, secret []byte, algorithm string) (string, err
 	header := base64.RawURLEncoding.EncodeToString([]byte(`{"alg":"HS256","typ":"JWT"}`))
 
 	if claims.IssuedAt == 0 {
+		claims.IssuedAt = time.Now().Unix()
+	}
+	if claims.ExpiresAt == 0 {
