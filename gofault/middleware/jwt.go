@@ -264,3 +264,7 @@ func GenerateToken(claims *Claims, secret []byte, algorithm string) (string, err
 	if claims.ExpiresAt == 0 {
 		claims.ExpiresAt = time.Now().Add(24 * time.Hour).Unix()
 	}
+
+	payloadBytes, err := json.Marshal(claims)
+	if err != nil {
+		return "", err
