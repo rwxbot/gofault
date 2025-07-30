@@ -268,3 +268,4 @@ func GenerateToken(claims *Claims, secret []byte, algorithm string) (string, err
 	payloadBytes, err := json.Marshal(claims)
 	if err != nil {
 		return "", err
+	}
