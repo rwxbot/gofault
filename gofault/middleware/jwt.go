@@ -161,3 +161,6 @@ func GenerateToken(claims *Claims, secret []byte, algorithm string) (string, err
 
 	sig := sign([]byte(header+"."+payload), secret)
 	sigEncoded := base64.RawURLEncoding.EncodeToString(sig)
+
+	return header + "." + payload + "." + sigEncoded, nil
+}
