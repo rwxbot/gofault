@@ -1,7 +1,13 @@
 package middleware
 
 import (
+	"encoding/base64"
+	"encoding/json"
+	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 	"time"
+
+	"github.com/gofault/gofault/core"
