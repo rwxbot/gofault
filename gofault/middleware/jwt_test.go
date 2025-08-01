@@ -5,3 +5,5 @@ import (
 	"net/url"
 	"testing"
 	"time"
+
+	"github.com/gofault/gofault/core"
