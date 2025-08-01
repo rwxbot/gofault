@@ -19,3 +19,4 @@ func TestJWTAuth_MissingToken(t *testing.T) {
 	middleware := JWTAuth(cfg)
 
 	req := httptest.NewRequest("GET", "/test", nil)
+	ctx := &core.Ctx{Request: req}
