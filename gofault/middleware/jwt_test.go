@@ -15,3 +15,5 @@ import (
 )
 
 func TestJWTAuth_MissingToken(t *testing.T) {
+	cfg := DefaultJWTConfig([]byte("secret"))
+	middleware := JWTAuth(cfg)
