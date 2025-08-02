@@ -20,3 +20,6 @@ func TestJWTAuth_MissingToken(t *testing.T) {
 	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
 	if err == nil {
 		t.Fatal("expected unauthorized error")
+	}
+
+	httpErr, ok := exception.HTTPExceptionOf(err)
