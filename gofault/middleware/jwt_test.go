@@ -27,3 +27,6 @@ func TestJWTAuth_MissingToken(t *testing.T) {
 	}
 
 	httpErr, ok := exception.HTTPExceptionOf(err)
+	if !ok {
+		t.Fatalf("expected HTTPException, got %T", err)
+	}
