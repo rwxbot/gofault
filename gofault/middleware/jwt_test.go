@@ -30,3 +30,4 @@ func TestJWTAuth_MissingToken(t *testing.T) {
 	if !ok {
 		t.Fatalf("expected HTTPException, got %T", err)
 	}
+	if httpErr.GetStatusCode() != 401 {
