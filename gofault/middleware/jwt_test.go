@@ -16,3 +16,6 @@ func TestJWTAuth_MissingToken(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/test", nil)
 	ctx := &core.Ctx{Request: req}
+
+	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
+	if err == nil {
