@@ -28,3 +28,5 @@ func TestJWTAuth_MissingToken(t *testing.T) {
 	}
 	if httpErr.GetStatusCode() != 401 {
 		t.Errorf("status = %d, want 401", httpErr.GetStatusCode())
+	}
+}
