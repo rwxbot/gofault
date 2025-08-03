@@ -34,3 +34,6 @@ func TestJWTAuth_MissingToken(t *testing.T) {
 		t.Errorf("status = %d, want 401", httpErr.GetStatusCode())
 	}
 }
+
+func TestJWTAuth_ValidToken(t *testing.T) {
+	secret := []byte("test-secret")
