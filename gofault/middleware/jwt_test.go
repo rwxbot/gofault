@@ -43,3 +43,5 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 	}
 	token, err := GenerateToken(claims, secret, "HS256")
 	if err != nil {
+		t.Fatalf("failed to generate token: %v", err)
+	}
