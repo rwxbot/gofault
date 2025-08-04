@@ -40,3 +40,5 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 		Subject:   "user123",
 		UserID:    "1",
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
+	}
+	token, err := GenerateToken(claims, secret, "HS256")
