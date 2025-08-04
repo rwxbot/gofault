@@ -45,3 +45,7 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to generate token: %v", err)
 	}
+
+	req := httptest.NewRequest("GET", "/test", nil)
+	req.Header.Set("Authorization", "Bearer "+token)
+	ctx := &core.Ctx{Request: req}
