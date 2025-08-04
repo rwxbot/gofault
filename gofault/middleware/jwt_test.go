@@ -43,3 +43,4 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 	claims := &Claims{
 		Subject:   "user123",
 		UserID:    "1",
+		ExpiresAt: time.Now().Add(time.Hour).Unix(),
