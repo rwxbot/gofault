@@ -53,3 +53,7 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test", nil)
 	req.Header.Set("Authorization", "Bearer "+token)
 	ctx := &core.Ctx{Request: req}
+
+	nextCalled := false
+	err = middleware(ctx, func(ctx *core.Ctx) error {
+		nextCalled = true
