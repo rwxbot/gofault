@@ -59,3 +59,5 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 		nextCalled = true
 		return nil
 	})
+
+	if err != nil {
