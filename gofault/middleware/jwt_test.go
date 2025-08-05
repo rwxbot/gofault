@@ -59,3 +59,4 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
+	if !nextCalled {
