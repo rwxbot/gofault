@@ -64,3 +64,6 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 	if !nextCalled {
+		t.Error("next handler should be called")
+	}
+}
