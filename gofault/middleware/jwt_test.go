@@ -63,3 +63,7 @@ func TestJWTAuth_ValidToken(t *testing.T) {
 		t.Error("next handler should be called")
 	}
 }
+
+func TestJWTAuth_ExpiredToken(t *testing.T) {
+	secret := []byte("test-secret")
+	cfg := DefaultJWTConfig(secret)
