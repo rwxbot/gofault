@@ -76,3 +76,4 @@ func TestJWTAuth_ExpiredToken(t *testing.T) {
 	claims := &Claims{
 		Subject:   "user123",
 		ExpiresAt: time.Now().Add(-time.Hour).Unix(), // Expired
+	}
