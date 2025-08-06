@@ -78,3 +78,5 @@ func TestJWTAuth_ExpiredToken(t *testing.T) {
 		ExpiresAt: time.Now().Add(-time.Hour).Unix(), // Expired
 	}
 	token, _ := GenerateToken(claims, secret, "HS256")
+
+	req := httptest.NewRequest("GET", "/test", nil)
