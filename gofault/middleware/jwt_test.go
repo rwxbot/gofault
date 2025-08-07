@@ -84,3 +84,7 @@ func TestJWTAuth_ExpiredToken(t *testing.T) {
 		t.Fatal("expected error for expired token")
 	}
 }
+
+func TestJWTAuth_InvalidSignature(t *testing.T) {
+	secret := []byte("test-secret")
+	cfg := DefaultJWTConfig(secret)
