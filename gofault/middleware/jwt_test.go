@@ -76,3 +76,5 @@ func TestJWTAuth_ExpiredToken(t *testing.T) {
 	token, _ := GenerateToken(claims, secret, "HS256")
 
 	req := httptest.NewRequest("GET", "/test", nil)
+	req.Header.Set("Authorization", "Bearer "+token)
+	ctx := &core.Ctx{Request: req}
