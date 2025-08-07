@@ -91,3 +91,6 @@ func TestJWTAuth_InvalidSignature(t *testing.T) {
 	middleware := JWTAuth(cfg)
 
 	claims := &Claims{
+		Subject:   "user123",
+		ExpiresAt: time.Now().Add(time.Hour).Unix(),
+	}
