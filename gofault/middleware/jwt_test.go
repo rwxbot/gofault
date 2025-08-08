@@ -97,3 +97,4 @@ func TestJWTAuth_InvalidSignature(t *testing.T) {
 	token, _ := GenerateToken(claims, []byte("wrong-secret"), "HS256")
 
 	req := httptest.NewRequest("GET", "/test", nil)
+	req.Header.Set("Authorization", "Bearer "+token)
