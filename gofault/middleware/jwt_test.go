@@ -95,3 +95,5 @@ func TestJWTAuth_InvalidSignature(t *testing.T) {
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
 	}
 	token, _ := GenerateToken(claims, []byte("wrong-secret"), "HS256")
+
+	req := httptest.NewRequest("GET", "/test", nil)
