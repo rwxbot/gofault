@@ -94,3 +94,4 @@ func TestJWTAuth_InvalidSignature(t *testing.T) {
 		Subject:   "user123",
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
 	}
+	token, _ := GenerateToken(claims, []byte("wrong-secret"), "HS256")
