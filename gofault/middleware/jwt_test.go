@@ -110,3 +110,7 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 	secret := []byte("test-secret")
 	cfg := DefaultJWTConfig(secret)
 	middleware := JWTAuth(cfg)
+
+	claims := &Claims{
+		Subject:   "user123",
+		ExpiresAt: time.Now().Add(time.Hour).Unix(),
