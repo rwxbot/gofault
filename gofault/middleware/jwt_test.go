@@ -105,3 +105,6 @@ func TestJWTAuth_InvalidSignature(t *testing.T) {
 		t.Fatal("expected error for invalid signature")
 	}
 }
+
+func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
+	secret := []byte("test-secret")
