@@ -112,3 +112,5 @@ func TestJWTAuth_InvalidSignature(t *testing.T) {
 
 func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 	secret := []byte("test-secret")
+	cfg := DefaultJWTConfig(secret)
+	middleware := JWTAuth(cfg)
