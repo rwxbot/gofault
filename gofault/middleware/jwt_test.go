@@ -118,3 +118,5 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 	claims := &Claims{
 		Subject:   "user123",
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
+	}
+	token, _ := GenerateToken(claims, secret, "HS256")
