@@ -99,3 +99,7 @@ func TestJWTAuth_InvalidSignature(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test", nil)
 	req.Header.Set("Authorization", "Bearer "+token)
 	ctx := &core.Ctx{Request: req}
+
+	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
+	if err == nil {
+		t.Fatal("expected error for invalid signature")
