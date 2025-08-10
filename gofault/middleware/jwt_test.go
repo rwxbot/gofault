@@ -130,3 +130,5 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 }
+
+func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
