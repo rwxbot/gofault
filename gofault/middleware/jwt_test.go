@@ -122,3 +122,5 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 	ctx := &core.Ctx{Request: req}
 
 	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
