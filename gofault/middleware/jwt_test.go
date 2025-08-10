@@ -124,3 +124,5 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test", nil)
 	req.Header.Set("Authorization", "BEARER "+token)
 	ctx := &core.Ctx{Request: req}
+
+	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
