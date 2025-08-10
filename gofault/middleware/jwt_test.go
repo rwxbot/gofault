@@ -116,3 +116,7 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
 	}
 	token, _ := GenerateToken(claims, secret, "HS256")
+
+	req := httptest.NewRequest("GET", "/test", nil)
+	req.Header.Set("Authorization", "BEARER "+token)
+	ctx := &core.Ctx{Request: req}
