@@ -139,3 +139,4 @@ func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
 	token, _ := GenerateToken(claims, secret, "HS256")
 
 	req := httptest.NewRequest("GET", "/test?token="+url.QueryEscape(token), nil)
+	ctx := &core.Ctx{Request: req}
