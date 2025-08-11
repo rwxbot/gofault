@@ -136,3 +136,6 @@ func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
 		Subject:   "user123",
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
 	}
+	token, _ := GenerateToken(claims, secret, "HS256")
+
+	req := httptest.NewRequest("GET", "/test?token="+url.QueryEscape(token), nil)
