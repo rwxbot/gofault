@@ -129,3 +129,5 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 
 func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
 	secret := []byte("test-secret")
+	cfg := DefaultJWTConfig(secret)
+	middleware := JWTAuth(cfg)
