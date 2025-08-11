@@ -131,7 +131,32 @@ func TestJWTAuth_BearerCaseInsensitive(t *testing.T) {
 	}
 }
 
-func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
+// Query-string tokens are off by default because they leak into access logs,
+// Referer headers and browser history.
+func TestJWTAuth_TokenFromQueryParamDisabledByDefault(t *testing.T) {
+	secret := []byte("test-secret")
+	middleware := JWTAuth(DefaultJWTConfig(secret))
+
+	claims := &Claims{
+		Subject:   "user123",
+		ExpiresAt: time.Now().Add(time.Hour).Unix(),
+	}
+	token, _ := GenerateToken(claims, secret, "HS256")
+
+	req := httptest.NewRequest("GET", "/test?token="+url.QueryEscape(token), nil)
+	ctx := &core.Ctx{Request: req}
+
+	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
+	if err == nil {
+		t.Fatal("expected rejection of query token, got nil")
+	}
+}
+
+func TestJWTAuth_TokenFromQueryParamAllowedWhenOptedIn(t *testing.T) {
 	secret := []byte("test-secret")
 	cfg := DefaultJWTConfig(secret)
+	cfg.AllowQueryToken = true
 	middleware := JWTAuth(cfg)
+
+	claims := &Claims{
+		Subject:   "user123",
