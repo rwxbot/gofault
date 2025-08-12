@@ -152,3 +152,6 @@ func TestClaims_IsValid(t *testing.T) {
 		name      string
 		expiresAt int64
 		want      bool
+	}{
+		{"no expiry", 0, true},
+		{"future expiry", time.Now().Add(time.Hour).Unix(), true},
