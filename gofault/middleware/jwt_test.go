@@ -171,3 +171,4 @@ func TestJWTAuth_TokenFromQueryParamAllowedWhenOptedIn(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
+}
