@@ -140,3 +140,5 @@ func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/test?token="+url.QueryEscape(token), nil)
 	ctx := &core.Ctx{Request: req}
+
+	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
