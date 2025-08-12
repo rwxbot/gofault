@@ -146,3 +146,5 @@ func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 }
+
+func TestClaims_IsValid(t *testing.T) {
