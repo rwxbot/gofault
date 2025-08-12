@@ -150,3 +150,5 @@ func TestJWTAuth_TokenFromQueryParam(t *testing.T) {
 func TestClaims_IsValid(t *testing.T) {
 	tests := []struct {
 		name      string
+		expiresAt int64
+		want      bool
