@@ -365,3 +365,4 @@ func TestClaims_IsValid(t *testing.T) {
 				t.Errorf("IsValid() = %v, want %v", got, tt.want)
 			}
 		})
+	}
