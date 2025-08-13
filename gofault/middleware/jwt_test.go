@@ -362,3 +362,6 @@ func TestClaims_IsValid(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &Claims{ExpiresAt: tt.expiresAt}
 			if got := c.IsValid(); got != tt.want {
+				t.Errorf("IsValid() = %v, want %v", got, tt.want)
+			}
+		})
