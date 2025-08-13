@@ -155,3 +155,5 @@ func TestClaims_IsValid(t *testing.T) {
 	}{
 		{"no expiry", 0, true},
 		{"future expiry", time.Now().Add(time.Hour).Unix(), true},
+		{"past expiry", time.Now().Add(-time.Hour).Unix(), false},
+	}
