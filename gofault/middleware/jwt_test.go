@@ -179,3 +179,6 @@ func TestGenerateToken(t *testing.T) {
 	}
 
 	token, err := GenerateToken(claims, secret, "HS256")
+	if err != nil {
+		t.Fatalf("GenerateToken() error = %v", err)
+	}
