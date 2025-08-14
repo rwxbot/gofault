@@ -167,3 +167,6 @@ func TestClaims_IsValid(t *testing.T) {
 		})
 	}
 }
+
+func TestGenerateToken(t *testing.T) {
+	secret := []byte("test-secret")
