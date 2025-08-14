@@ -377,3 +377,5 @@ func TestGenerateToken(t *testing.T) {
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
 		Issuer:    "test",
 	}
+
+	token, err := GenerateToken(claims, secret, "HS256")
