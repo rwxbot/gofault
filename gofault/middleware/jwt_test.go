@@ -166,3 +166,4 @@ func TestClaims_IsValid(t *testing.T) {
 			}
 		})
 	}
+}
