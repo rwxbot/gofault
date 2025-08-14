@@ -373,3 +373,6 @@ func TestGenerateToken(t *testing.T) {
 	claims := &Claims{
 		Subject:   "user123",
 		UserID:    "1",
+		Roles:     []string{"admin", "user"},
+		ExpiresAt: time.Now().Add(time.Hour).Unix(),
+		Issuer:    "test",
