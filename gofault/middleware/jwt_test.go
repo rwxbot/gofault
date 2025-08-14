@@ -176,3 +176,4 @@ func TestGenerateToken(t *testing.T) {
 		Roles:     []string{"admin", "user"},
 		ExpiresAt: time.Now().Add(time.Hour).Unix(),
 		Issuer:    "test",
+	}
