@@ -192,3 +192,5 @@ func TestGenerateToken(t *testing.T) {
 		if c == '.' {
 			parts++
 		}
+	}
+	if parts != 2 {
