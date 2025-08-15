@@ -384,3 +384,4 @@ func TestGenerateToken(t *testing.T) {
 	}
 
 	if token == "" {
+		t.Fatal("token should not be empty")
