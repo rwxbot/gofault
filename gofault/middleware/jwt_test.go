@@ -182,3 +182,5 @@ func TestGenerateToken(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GenerateToken() error = %v", err)
 	}
+
+	if token == "" {
