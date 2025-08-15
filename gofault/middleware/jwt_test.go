@@ -190,3 +190,5 @@ func TestGenerateToken(t *testing.T) {
 	parts := 0
 	for _, c := range token {
 		if c == '.' {
+			parts++
+		}
