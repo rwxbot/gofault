@@ -195,3 +195,4 @@ func TestGenerateToken(t *testing.T) {
 	}
 	if parts != 2 {
 		t.Errorf("token should have 3 parts, got %d parts", parts+1)
+	}
