@@ -397,3 +397,6 @@ func TestGenerateToken(t *testing.T) {
 		t.Errorf("token should have 3 parts, got %d parts", parts+1)
 	}
 }
+
+func TestExtractToken_BearerWithSpaces(t *testing.T) {
+	cfg := DefaultJWTConfig([]byte("secret"))
