@@ -200,3 +200,5 @@ func TestGenerateToken(t *testing.T) {
 
 func TestExtractToken_BearerWithSpaces(t *testing.T) {
 	cfg := DefaultJWTConfig([]byte("secret"))
+
+	// Test various Bearer formats
