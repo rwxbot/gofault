@@ -408,3 +408,4 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 	}{
 		{"Bearer token123", "token123"},
 		{"bearer token456", "token456"},
+		{"BEARER token789", "token789"},
