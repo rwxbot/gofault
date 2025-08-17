@@ -407,3 +407,4 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 		expect string
 	}{
 		{"Bearer token123", "token123"},
+		{"bearer token456", "token456"},
