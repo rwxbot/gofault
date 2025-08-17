@@ -411,3 +411,5 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 		{"BEARER token789", "token789"},
 		{"Basic token", ""}, // Wrong scheme
 		{"token", ""},       // No scheme
+		{"", ""},            // Empty
+	}
