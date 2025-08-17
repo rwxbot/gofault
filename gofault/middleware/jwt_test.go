@@ -415,3 +415,4 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		req := httptest.NewRequest("GET", "/test", nil)
