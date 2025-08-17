@@ -405,3 +405,5 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 	tests := []struct {
 		auth   string
 		expect string
+	}{
+		{"Bearer token123", "token123"},
