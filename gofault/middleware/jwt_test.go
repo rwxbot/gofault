@@ -413,3 +413,5 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 		{"token", ""},       // No scheme
 		{"", ""},            // Empty
 	}
+
+	for _, tt := range tests {
