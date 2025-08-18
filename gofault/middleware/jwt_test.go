@@ -220,3 +220,6 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 			req.Header.Set("Authorization", tt.auth)
 		}
 		ctx := &core.Ctx{Request: req}
+
+		got := extractToken(ctx, cfg)
+		if got != tt.expect {
