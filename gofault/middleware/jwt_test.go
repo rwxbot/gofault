@@ -425,3 +425,5 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 		if got != tt.expect {
 			t.Errorf("extractToken(%q) = %q, want %q", tt.auth, got, tt.expect)
 		}
+	}
+}
