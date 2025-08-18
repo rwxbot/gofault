@@ -418,3 +418,4 @@ func TestExtractToken_BearerWithSpaces(t *testing.T) {
 		req := httptest.NewRequest("GET", "/test", nil)
 		if tt.auth != "" {
 			req.Header.Set("Authorization", tt.auth)
+		}
