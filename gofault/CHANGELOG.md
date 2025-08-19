@@ -87,3 +87,7 @@
 
 ### Added
 - CORS middleware
+
+## [v2.6.0]
+
+### Added
