@@ -653,3 +653,11 @@ Verified claims are published on the request, so handlers can see who called:
 ```go
 claims := middleware.GetClaims(ctx)
 if claims == nil {
+    return exception.Unauthorized("not authenticated")
+}
+return controller.OK(ctx.Response, map[string]string{"user": claims.UserID})
+```
+
+Tokens are issued by the same package:
+
+```go
