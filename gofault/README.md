@@ -632,3 +632,8 @@ cfg.AllowCredentials = true
 
 mod.RegisterMiddleware(middleware.CORS(cfg))
 ```
+
+
+## What's new in v2.6.0
+
+### JWT authentication
