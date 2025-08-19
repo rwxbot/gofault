@@ -661,3 +661,9 @@ return controller.OK(ctx.Response, map[string]string{"user": claims.UserID})
 Tokens are issued by the same package:
 
 ```go
+token, err := middleware.GenerateToken(&middleware.Claims{
+    Subject: "user-42",
+    UserID:  "42",
+    Roles:   []string{"admin"},
+}, secret, "HS256")
+```
