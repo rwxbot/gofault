@@ -91,3 +91,4 @@
 ## [v2.6.0]
 
 ### Added
+- JWT authentication middleware
