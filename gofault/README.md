@@ -647,3 +647,9 @@ cfg.TokenName = "access_token"
 
 mod.RegisterMiddleware(middleware.JWTAuth(cfg))
 ```
+
+Verified claims are published on the request, so handlers can see who called:
+
+```go
+claims := middleware.GetClaims(ctx)
+if claims == nil {
