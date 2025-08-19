@@ -637,3 +637,13 @@ mod.RegisterMiddleware(middleware.CORS(cfg))
 ## What's new in v2.6.0
 
 ### JWT authentication
+
+`JWTAuth` verifies the bearer token (or the configured query parameter) and
+rejects the request when it is missing, malformed or expired:
+
+```go
+cfg := middleware.DefaultJWTConfig([]byte(os.Getenv("JWT_SECRET")))
+cfg.TokenName = "access_token"
+
+mod.RegisterMiddleware(middleware.JWTAuth(cfg))
+```
