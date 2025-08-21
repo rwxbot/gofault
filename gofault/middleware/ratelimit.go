@@ -9,3 +9,4 @@ import (
 )
 
 // RateLimiterConfig holds rate limiter configuration.
+type RateLimiterConfig struct {
