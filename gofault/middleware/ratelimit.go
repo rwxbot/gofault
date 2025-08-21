@@ -7,3 +7,5 @@ import (
 	"github.com/gofault/gofault/core"
 	"github.com/gofault/gofault/exception"
 )
+
+// RateLimiterConfig holds rate limiter configuration.
