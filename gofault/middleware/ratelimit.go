@@ -13,3 +13,4 @@ type RateLimiterConfig struct {
 	// RequestsPerSecond is the number of requests allowed per second per key.
 	RequestsPerSecond float64
 	// BurstSize is the maximum burst size (number of requests that can be made at once).
+	BurstSize int
