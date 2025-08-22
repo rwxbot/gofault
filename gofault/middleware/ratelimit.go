@@ -29,3 +29,6 @@ type RateLimiterConfig struct {
 	RequestsPerSecond float64
 	// BurstSize is the maximum burst size (number of requests that can be made at once).
 	BurstSize int
+	// KeyFunc extracts the rate limit key from the request (e.g., IP address).
+	KeyFunc func(*core.Ctx) string
+}
