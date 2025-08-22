@@ -17,3 +17,5 @@ type RateLimiterConfig struct {
 	// KeyFunc extracts the rate limit key from the request (e.g., IP address).
 	KeyFunc func(*core.Ctx) string
 }
+
+// DefaultKeyFunc returns the client IP as the rate limit key.
