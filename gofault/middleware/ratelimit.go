@@ -21,3 +21,6 @@ type RateLimiterConfig struct {
 // DefaultKeyFunc returns the client IP as the rate limit key.
 func DefaultKeyFunc(ctx *core.Ctx) string {
 	ip := ctx.Request.Header.Get("X-Forwarded-For")
+	if ip == "" {
+		ip = ctx.Request.Header.Get("X-Real-IP")
+	}
