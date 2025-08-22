@@ -42,3 +42,4 @@ func DefaultKeyFunc(ctx *core.Ctx) string {
 	if ip == "" {
 		ip = ctx.Request.RemoteAddr
 	}
+	return ip
