@@ -39,3 +39,6 @@ func DefaultKeyFunc(ctx *core.Ctx) string {
 	if ip == "" {
 		ip = ctx.Request.Header.Get("X-Real-IP")
 	}
+	if ip == "" {
+		ip = ctx.Request.RemoteAddr
+	}
