@@ -31,3 +31,4 @@ func DefaultKeyFunc(ctx *core.Ctx) string {
 }
 
 // RateLimiter implements a token bucket rate limiter.
+type RateLimiter struct {
