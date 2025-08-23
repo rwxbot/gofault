@@ -28,3 +28,4 @@ func DefaultKeyFunc(ctx *core.Ctx) string {
 		ip = ctx.Request.RemoteAddr
 	}
 	return ip
+}
