@@ -79,3 +79,4 @@ func defaultKeyFuncFor(trustedNets []*net.IPNet) func(*core.Ctx) string {
 }
 
 // RateLimiter implements a token bucket rate limiter.
+type RateLimiter struct {
