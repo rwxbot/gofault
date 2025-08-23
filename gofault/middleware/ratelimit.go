@@ -83,3 +83,4 @@ type RateLimiter struct {
 	config  RateLimiterConfig
 	buckets map[string]*tokenBucket
 	mu      sync.RWMutex
+}
