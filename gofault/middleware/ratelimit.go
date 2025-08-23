@@ -36,3 +36,7 @@ type RateLimiter struct {
 	buckets map[string]*tokenBucket
 	mu      sync.RWMutex
 }
+
+type tokenBucket struct {
+	tokens     float64
+	lastUpdate time.Time
