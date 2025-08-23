@@ -83,4 +83,13 @@ type RateLimiter struct {
 	config  RateLimiterConfig
 	buckets map[string]*tokenBucket
 	mu      sync.RWMutex
+
+	// stopOnce guards Close so it is safe to call more than once, which matters
+	// because App.Stop may run alongside an explicit shutdown.
+	stopOnce sync.Once
+	stopped  chan struct{}
 }
+
+type tokenBucket struct {
+	tokens     float64
+	lastUpdate time.Time
