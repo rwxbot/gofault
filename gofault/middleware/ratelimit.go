@@ -29,3 +29,5 @@ func DefaultKeyFunc(ctx *core.Ctx) string {
 	}
 	return ip
 }
+
+// RateLimiter implements a token bucket rate limiter.
