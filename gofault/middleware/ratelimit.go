@@ -93,3 +93,4 @@ type RateLimiter struct {
 type tokenBucket struct {
 	tokens     float64
 	lastUpdate time.Time
+}
