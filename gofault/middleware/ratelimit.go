@@ -32,3 +32,6 @@ func DefaultKeyFunc(ctx *core.Ctx) string {
 
 // RateLimiter implements a token bucket rate limiter.
 type RateLimiter struct {
+	config  RateLimiterConfig
+	buckets map[string]*tokenBucket
+	mu      sync.RWMutex
