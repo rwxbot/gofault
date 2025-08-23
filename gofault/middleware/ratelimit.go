@@ -31,16 +31,51 @@ type RateLimiterConfig struct {
 	BurstSize int
 	// KeyFunc extracts the rate limit key from the request (e.g., IP address).
 	KeyFunc func(*core.Ctx) string
+	// MaxKeys caps how many distinct keys are tracked. A client that rotates
+	// keys (a spoofed X-Forwarded-For, say) would otherwise grow the map
+	// without bound, since timed-out buckets are only reaped on a timer.
+	// 0 uses DefaultMaxRateLimitKeys.
+	MaxKeys int
+	// TrustedProxies lists CIDR ranges or IPs of reverse proxies between the
+	// internet and this server. Only used when KeyFunc is nil: the default
+	// key function then resolves the client through those proxies (same
+	// right-to-left X-Forwarded-For walk as IPFilterMiddleware). With this
+	// list empty the TCP remote address is the key, because proxy headers
+	// are attacker-controlled and a client rotating a forged
+	// "X-Forwarded-For" would otherwise get a fresh bucket per request.
+	TrustedProxies []string
 }
 
+// DefaultMaxRateLimitKeys bounds per-key tracking so a rotating-key client
+// cannot exhaust memory faster than the cleanup ticker can reap it.
+const DefaultMaxRateLimitKeys = 10000
+
 // DefaultKeyFunc returns the client IP as the rate limit key.
+//
+// It uses the TCP remote address and deliberately ignores X-Forwarded-For and
+// X-Real-IP: those headers are attacker-controlled, and a client that rotates
+// a forged header value would get a fresh bucket per request and sail past
+// the limiter (MaxKeys only caps memory, not the bypass). When the server
+// sits behind a reverse proxy, configure RateLimiterConfig.TrustedProxies (or
+// pass a custom KeyFunc) so the key resolves through the proxy chain instead.
 func DefaultKeyFunc(ctx *core.Ctx) string {
-	ip := ctx.Request.Header.Get("X-Forwarded-For")
-	if ip == "" {
-		ip = ctx.Request.Header.Get("X-Real-IP")
-	}
-	if ip == "" {
-		ip = ctx.Request.RemoteAddr
-	}
-	return ip
+	return ctx.Request.RemoteAddr
 }
+
+// defaultKeyFuncFor builds the default key function for a set of trusted
+// proxy nets. With no trusted proxies it is DefaultKeyFunc; with them the
+// client is resolved via getClientIP, which walks X-Forwarded-For right to
+// left exactly like IPFilterMiddleware does.
+func defaultKeyFuncFor(trustedNets []*net.IPNet) func(*core.Ctx) string {
+	if len(trustedNets) == 0 {
+		return DefaultKeyFunc
+	}
+	return func(ctx *core.Ctx) string {
+		if ip := getClientIP(ctx, trustedNets); ip != nil {
+			return ip.String()
+		}
+		return ctx.Request.RemoteAddr
+	}
+}
+
+// RateLimiter implements a token bucket rate limiter.
