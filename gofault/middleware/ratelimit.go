@@ -44,3 +44,6 @@ type tokenBucket struct {
 
 // NewRateLimiter creates a new rate limiter.
 func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
+	if cfg.KeyFunc == nil {
+		cfg.KeyFunc = DefaultKeyFunc
+	}
