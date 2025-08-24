@@ -47,3 +47,5 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	if cfg.KeyFunc == nil {
 		cfg.KeyFunc = DefaultKeyFunc
 	}
+	if cfg.BurstSize == 0 {
+		cfg.BurstSize = 10
