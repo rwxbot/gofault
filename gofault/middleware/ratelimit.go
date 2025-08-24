@@ -94,3 +94,5 @@ type tokenBucket struct {
 	tokens     float64
 	lastUpdate time.Time
 }
+
+// NewRateLimiter creates a new rate limiter.
