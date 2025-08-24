@@ -96,4 +96,12 @@ type tokenBucket struct {
 }
 
 // NewRateLimiter creates a new rate limiter.
+//
+// The limiter starts a background goroutine to reap idle buckets. Call Close
+// when the limiter is no longer needed; without it the goroutine runs for the
+// life of the process, so constructing one per tenant leaks one goroutine each
+// time.
 func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
+	if cfg.KeyFunc == nil {
+		cfg.KeyFunc = DefaultKeyFunc
+	}
