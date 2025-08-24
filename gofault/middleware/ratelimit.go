@@ -49,3 +49,6 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	}
 	if cfg.BurstSize == 0 {
 		cfg.BurstSize = 10
+	}
+	if cfg.RequestsPerSecond == 0 {
+		cfg.RequestsPerSecond = 100
