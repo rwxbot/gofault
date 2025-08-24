@@ -103,5 +103,7 @@ type tokenBucket struct {
 // time.
 func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	if cfg.KeyFunc == nil {
-		cfg.KeyFunc = DefaultKeyFunc
+		cfg.KeyFunc = defaultKeyFuncFor(parseIPPatterns(cfg.TrustedProxies))
 	}
+	if cfg.BurstSize == 0 {
+		cfg.BurstSize = 10
