@@ -113,3 +113,5 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	}
 
 	rl := &RateLimiter{
+		config:  cfg,
+		buckets: make(map[string]*tokenBucket),
