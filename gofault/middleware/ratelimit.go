@@ -116,3 +116,5 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 		config:  cfg,
 		buckets: make(map[string]*tokenBucket),
 	}
+
+	// Start cleanup goroutine
