@@ -53,3 +53,5 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	if cfg.RequestsPerSecond == 0 {
 		cfg.RequestsPerSecond = 100
 	}
+
+	rl := &RateLimiter{
