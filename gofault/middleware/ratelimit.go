@@ -60,3 +60,6 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	}
 
 	// Start cleanup goroutine
+	go rl.cleanup()
+
+	return rl
