@@ -111,16 +111,27 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	if cfg.RequestsPerSecond == 0 {
 		cfg.RequestsPerSecond = 100
 	}
+	if cfg.MaxKeys <= 0 {
+		cfg.MaxKeys = DefaultMaxRateLimitKeys
+	}
 
 	rl := &RateLimiter{
 		config:  cfg,
 		buckets: make(map[string]*tokenBucket),
+		stopped: make(chan struct{}),
 	}
 
-	// Start cleanup goroutine
 	go rl.cleanup()
 
 	return rl
 }
 
+// Close stops the background cleanup goroutine. It is safe to call more than
+// once.
+func (rl *RateLimiter) Close() {
+	rl.stopOnce.Do(func() { close(rl.stopped) })
+}
+
 // Allow checks if a request should be allowed.
+func (rl *RateLimiter) Allow(key string) bool {
+	rl.mu.Lock()
