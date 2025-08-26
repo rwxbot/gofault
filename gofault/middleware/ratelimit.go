@@ -71,3 +71,6 @@ func (rl *RateLimiter) Allow(key string) bool {
 	defer rl.mu.Unlock()
 
 	now := time.Now()
+	bucket, exists := rl.buckets[key]
+
+	if !exists {
