@@ -64,3 +64,5 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 
 	return rl
 }
+
+// Allow checks if a request should be allowed.
