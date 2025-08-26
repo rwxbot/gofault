@@ -63,3 +63,4 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 	go rl.cleanup()
 
 	return rl
+}
