@@ -136,3 +136,5 @@ func (rl *RateLimiter) Close() {
 func (rl *RateLimiter) Allow(key string) bool {
 	rl.mu.Lock()
 	defer rl.mu.Unlock()
+
+	now := time.Now()
