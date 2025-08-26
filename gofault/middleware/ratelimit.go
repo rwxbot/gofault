@@ -68,3 +68,4 @@ func NewRateLimiter(cfg RateLimiterConfig) *RateLimiter {
 // Allow checks if a request should be allowed.
 func (rl *RateLimiter) Allow(key string) bool {
 	rl.mu.Lock()
+	defer rl.mu.Unlock()
