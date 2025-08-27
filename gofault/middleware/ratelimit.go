@@ -85,3 +85,5 @@ func (rl *RateLimiter) Allow(key string) bool {
 	// Calculate tokens to add based on elapsed time
 	elapsed := now.Sub(bucket.lastUpdate).Seconds()
 	bucket.tokens += elapsed * rl.config.RequestsPerSecond
+	if bucket.tokens > float64(rl.config.BurstSize) {
+		bucket.tokens = float64(rl.config.BurstSize)
