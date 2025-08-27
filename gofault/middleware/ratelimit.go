@@ -80,3 +80,6 @@ func (rl *RateLimiter) Allow(key string) bool {
 		}
 		rl.buckets[key] = bucket
 		return true
+	}
+
+	// Calculate tokens to add based on elapsed time
