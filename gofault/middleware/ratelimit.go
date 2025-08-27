@@ -141,5 +141,11 @@ func (rl *RateLimiter) Allow(key string) bool {
 	bucket, exists := rl.buckets[key]
 
 	if !exists {
+		// Keep the map bounded: a client rotating keys must not be able to grow
+		// it faster than the reaper can shrink it.
+		if len(rl.buckets) >= rl.config.MaxKeys {
+			rl.evictOldestLocked()
+		}
 		bucket = &tokenBucket{
 			tokens:     float64(rl.config.BurstSize) - 1,
+			lastUpdate: now,
