@@ -150,3 +150,5 @@ func (rl *RateLimiter) Allow(key string) bool {
 			tokens:     float64(rl.config.BurstSize) - 1,
 			lastUpdate: now,
 		}
+		rl.buckets[key] = bucket
+		return true
