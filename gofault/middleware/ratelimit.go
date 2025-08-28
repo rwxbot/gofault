@@ -93,3 +93,6 @@ func (rl *RateLimiter) Allow(key string) bool {
 	if bucket.tokens >= 1 {
 		bucket.tokens--
 		return true
+	}
+
+	return false
