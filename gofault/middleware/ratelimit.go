@@ -159,3 +159,4 @@ func (rl *RateLimiter) Allow(key string) bool {
 	bucket.tokens += elapsed * rl.config.RequestsPerSecond
 	if bucket.tokens > float64(rl.config.BurstSize) {
 		bucket.tokens = float64(rl.config.BurstSize)
+	}
