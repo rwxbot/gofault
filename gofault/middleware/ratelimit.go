@@ -88,3 +88,4 @@ func (rl *RateLimiter) Allow(key string) bool {
 	if bucket.tokens > float64(rl.config.BurstSize) {
 		bucket.tokens = float64(rl.config.BurstSize)
 	}
+	bucket.lastUpdate = now
