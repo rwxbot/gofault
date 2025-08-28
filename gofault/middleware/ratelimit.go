@@ -96,3 +96,4 @@ func (rl *RateLimiter) Allow(key string) bool {
 	}
 
 	return false
+}
