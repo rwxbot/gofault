@@ -174,3 +174,6 @@ func (rl *RateLimiter) Allow(key string) bool {
 func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
 		key := rl.config.KeyFunc(ctx)
+
+		if !rl.Allow(key) {
+			return exception.TooManyRequests("rate limit exceeded")
