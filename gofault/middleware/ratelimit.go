@@ -108,3 +108,5 @@ func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
 		}
 
 		return next(ctx)
+	}
+}
