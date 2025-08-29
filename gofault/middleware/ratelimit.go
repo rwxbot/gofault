@@ -105,3 +105,6 @@ func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
 
 		if !rl.Allow(key) {
 			return exception.TooManyRequests("rate limit exceeded")
+		}
+
+		return next(ctx)
