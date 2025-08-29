@@ -169,3 +169,5 @@ func (rl *RateLimiter) Allow(key string) bool {
 
 	return false
 }
+
+// Middleware creates a rate limiting middleware.
