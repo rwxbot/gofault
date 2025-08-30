@@ -112,3 +112,4 @@ func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
 }
 
 // cleanup removes stale buckets periodically.
+func (rl *RateLimiter) cleanup() {
