@@ -191,3 +191,4 @@ func (rl *RateLimiter) cleanup() {
 	for range ticker.C {
 		rl.mu.Lock()
 		now := time.Now()
+		for key, bucket := range rl.buckets {
