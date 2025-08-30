@@ -120,3 +120,5 @@ func (rl *RateLimiter) cleanup() {
 		rl.mu.Lock()
 		now := time.Now()
 		for key, bucket := range rl.buckets {
+			// Remove buckets that haven't been used for 10 minutes
+			if now.Sub(bucket.lastUpdate) > 10*time.Minute {
