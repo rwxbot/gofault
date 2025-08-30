@@ -117,3 +117,5 @@ func (rl *RateLimiter) cleanup() {
 	defer ticker.Stop()
 
 	for range ticker.C {
+		rl.mu.Lock()
+		now := time.Now()
