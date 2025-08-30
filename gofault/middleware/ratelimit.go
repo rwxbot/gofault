@@ -110,3 +110,5 @@ func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
 		return next(ctx)
 	}
 }
+
+// cleanup removes stale buckets periodically.
