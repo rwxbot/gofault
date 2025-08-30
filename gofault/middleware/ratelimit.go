@@ -124,3 +124,6 @@ func (rl *RateLimiter) cleanup() {
 			if now.Sub(bucket.lastUpdate) > 10*time.Minute {
 				delete(rl.buckets, key)
 			}
+		}
+		rl.mu.Unlock()
+	}
