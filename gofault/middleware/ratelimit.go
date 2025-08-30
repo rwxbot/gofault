@@ -115,3 +115,5 @@ func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
 func (rl *RateLimiter) cleanup() {
 	ticker := time.NewTicker(5 * time.Minute)
 	defer ticker.Stop()
+
+	for range ticker.C {
