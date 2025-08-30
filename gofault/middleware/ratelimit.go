@@ -185,3 +185,5 @@ func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
 
 // cleanup removes stale buckets periodically.
 func (rl *RateLimiter) cleanup() {
+	ticker := time.NewTicker(5 * time.Minute)
+	defer ticker.Stop()
