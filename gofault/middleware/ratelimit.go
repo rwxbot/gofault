@@ -122,3 +122,5 @@ func (rl *RateLimiter) cleanup() {
 		for key, bucket := range rl.buckets {
 			// Remove buckets that haven't been used for 10 minutes
 			if now.Sub(bucket.lastUpdate) > 10*time.Minute {
+				delete(rl.buckets, key)
+			}
