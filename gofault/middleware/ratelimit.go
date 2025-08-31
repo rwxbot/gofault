@@ -170,32 +170,74 @@ func (rl *RateLimiter) Allow(key string) bool {
 	return false
 }
 
-// Middleware creates a rate limiting middleware.
-func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
-	return func(ctx *core.Ctx, next core.Handler) error {
-		key := rl.config.KeyFunc(ctx)
+// evictOldestLocked drops the least recently used bucket. The caller holds
+// rl.mu. Evicting one keeps the map at MaxKeys without needing a full sort.
+func (rl *RateLimiter) evictOldestLocked() {
+	var oldestKey string
+	var oldest time.Time
 
-		if !rl.Allow(key) {
+	for k, b := range rl.buckets {
+		if oldestKey == "" || b.lastUpdate.Before(oldest) {
+			oldestKey, oldest = k, b.lastUpdate
+		}
+	}
+	if oldestKey == "" {
+		return
+	}
+
+	delete(rl.buckets, oldestKey)
+}
+
+// Middleware creates a rate limiting middleware for this limiter.
+// For a distributable limiter use RateLimitMiddleware.
+func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
+	return RateLimitMiddleware(rl, rl.config.KeyFunc)
+}
+
+// RateLimitMiddleware builds rate limiting middleware over any Limiter, so the
+// same wiring works with an in-process or a shared implementation.
+//
+// When the key function fails to produce a key the request is allowed through:
+// failing open keeps a config bug from becoming a total outage, and the lease
+// is to the caller to choose a sane key function.
+func RateLimitMiddleware(l Limiter, keyFn func(*core.Ctx) string) core.MiddlewareFunc {
+	if keyFn == nil {
+		keyFn = DefaultKeyFunc
+	}
+	return func(ctx *core.Ctx, next core.Handler) error {
+		if !l.Allow(keyFn(ctx)) {
 			return exception.TooManyRequests("rate limit exceeded")
 		}
-
 		return next(ctx)
 	}
 }
 
-// cleanup removes stale buckets periodically.
+// Len returns the number of tracked keys. Exposed for tests and metrics.
+func (rl *RateLimiter) Len() int {
+	rl.mu.RLock()
+	defer rl.mu.RUnlock()
+	return len(rl.buckets)
+}
+
+// cleanup removes stale buckets periodically until Close is called.
 func (rl *RateLimiter) cleanup() {
 	ticker := time.NewTicker(5 * time.Minute)
 	defer ticker.Stop()
 
-	for range ticker.C {
-		rl.mu.Lock()
-		now := time.Now()
-		for key, bucket := range rl.buckets {
-			// Remove buckets that haven't been used for 10 minutes
-			if now.Sub(bucket.lastUpdate) > 10*time.Minute {
-				delete(rl.buckets, key)
+	for {
+		select {
+		case <-rl.stopped:
+			return
+		case <-ticker.C:
+			rl.mu.Lock()
+			now := time.Now()
+			for key, bucket := range rl.buckets {
+				// Remove buckets that haven't been used for 10 minutes
+				if now.Sub(bucket.lastUpdate) > 10*time.Minute {
+					delete(rl.buckets, key)
+				}
 			}
+			rl.mu.Unlock()
 		}
-		rl.mu.Unlock()
 	}
+}
