@@ -21,3 +21,6 @@ func TestRateLimiter_Allow(t *testing.T) {
 			t.Errorf("request %d should be allowed", i+1)
 		}
 	}
+
+	// 6th request should be denied
+	if rl.Allow("test-key") {
