@@ -16,3 +16,4 @@ func TestRateLimiter_Allow(t *testing.T) {
 	rl := NewRateLimiter(cfg)
 
 	// First 5 requests should be allowed (burst)
+	for i := 0; i < 5; i++ {
