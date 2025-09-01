@@ -13,3 +13,6 @@ func TestRateLimiter_Allow(t *testing.T) {
 		BurstSize:         5,
 		KeyFunc:           func(ctx *core.Ctx) string { return "test-key" },
 	}
+	rl := NewRateLimiter(cfg)
+
+	// First 5 requests should be allowed (burst)
