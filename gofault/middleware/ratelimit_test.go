@@ -27,3 +27,6 @@ func TestRateLimiter_Allow(t *testing.T) {
 		t.Error("6th request should be denied")
 	}
 }
+
+func TestRateLimiter_TokenRefill(t *testing.T) {
+	cfg := RateLimiterConfig{
