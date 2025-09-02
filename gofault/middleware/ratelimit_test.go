@@ -33,3 +33,5 @@ func TestRateLimiter_TokenRefill(t *testing.T) {
 		RequestsPerSecond: 100,
 		BurstSize:         2,
 		KeyFunc:           func(ctx *core.Ctx) string { return "test-key" },
+	}
+	rl := NewRateLimiter(cfg)
