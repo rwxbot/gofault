@@ -35,3 +35,6 @@ func TestRateLimiter_TokenRefill(t *testing.T) {
 		KeyFunc:           func(ctx *core.Ctx) string { return "test-key" },
 	}
 	rl := NewRateLimiter(cfg)
+
+	// Use up burst
+	rl.Allow("test-key")
