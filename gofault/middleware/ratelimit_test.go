@@ -30,3 +30,4 @@ func TestRateLimiter_Allow(t *testing.T) {
 
 func TestRateLimiter_TokenRefill(t *testing.T) {
 	cfg := RateLimiterConfig{
+		RequestsPerSecond: 100,
