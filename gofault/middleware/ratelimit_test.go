@@ -43,3 +43,4 @@ func TestRateLimiter_TokenRefill(t *testing.T) {
 	// Should be denied
 	if rl.Allow("test-key") {
 		t.Error("should be denied after burst")
+	}
