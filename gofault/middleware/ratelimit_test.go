@@ -45,3 +45,5 @@ func TestRateLimiter_TokenRefill(t *testing.T) {
 		t.Error("should be denied after burst")
 	}
 }
+
+func TestRateLimiter_DifferentKeys(t *testing.T) {
