@@ -38,3 +38,4 @@ func TestRateLimiter_TokenRefill(t *testing.T) {
 
 	// Use up burst
 	rl.Allow("test-key")
+	rl.Allow("test-key")
