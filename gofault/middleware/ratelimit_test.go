@@ -51,3 +51,4 @@ func TestRateLimiter_DifferentKeys(t *testing.T) {
 		RequestsPerSecond: 10,
 		BurstSize:         2,
 		KeyFunc:           func(ctx *core.Ctx) string { return ctx.Request.RemoteAddr },
+	}
