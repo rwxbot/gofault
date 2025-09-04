@@ -49,3 +49,5 @@ func TestRateLimiter_TokenRefill(t *testing.T) {
 func TestRateLimiter_DifferentKeys(t *testing.T) {
 	cfg := RateLimiterConfig{
 		RequestsPerSecond: 10,
+		BurstSize:         2,
+		KeyFunc:           func(ctx *core.Ctx) string { return ctx.Request.RemoteAddr },
