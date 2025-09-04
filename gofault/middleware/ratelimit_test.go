@@ -53,3 +53,6 @@ func TestRateLimiter_DifferentKeys(t *testing.T) {
 		KeyFunc:           func(ctx *core.Ctx) string { return ctx.Request.RemoteAddr },
 	}
 	rl := NewRateLimiter(cfg)
+
+	// key1 uses burst
+	rl.Allow("key1")
