@@ -62,3 +62,4 @@ func TestRateLimiter_DifferentKeys(t *testing.T) {
 	if !rl.Allow("key2") {
 		t.Error("key2 should be allowed")
 	}
+}
