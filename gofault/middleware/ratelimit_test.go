@@ -66,3 +66,5 @@ func TestRateLimiter_DifferentKeys(t *testing.T) {
 
 func TestRateLimiter_Middleware(t *testing.T) {
 	cfg := RateLimiterConfig{
+		RequestsPerSecond: 10,
+		BurstSize:         2,
