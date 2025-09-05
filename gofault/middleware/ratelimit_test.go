@@ -63,3 +63,6 @@ func TestRateLimiter_DifferentKeys(t *testing.T) {
 		t.Error("key2 should be allowed")
 	}
 }
+
+func TestRateLimiter_Middleware(t *testing.T) {
+	cfg := RateLimiterConfig{
