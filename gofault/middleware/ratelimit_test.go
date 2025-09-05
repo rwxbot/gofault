@@ -56,3 +56,6 @@ func TestRateLimiter_DifferentKeys(t *testing.T) {
 
 	// key1 uses burst
 	rl.Allow("key1")
+	rl.Allow("key1")
+
+	// key2 should still have its own burst
