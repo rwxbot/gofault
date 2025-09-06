@@ -71,3 +71,4 @@ func TestRateLimiter_Middleware(t *testing.T) {
 		KeyFunc:           func(ctx *core.Ctx) string { return "test-ip" },
 	}
 	rl := NewRateLimiter(cfg)
+	middleware := rl.Middleware()
