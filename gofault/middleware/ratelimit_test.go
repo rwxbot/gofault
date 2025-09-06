@@ -72,3 +72,6 @@ func TestRateLimiter_Middleware(t *testing.T) {
 	}
 	rl := NewRateLimiter(cfg)
 	middleware := rl.Middleware()
+
+	// First two requests OK
+	for i := 0; i < 2; i++ {
