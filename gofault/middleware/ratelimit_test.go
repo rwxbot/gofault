@@ -79,3 +79,4 @@ func TestRateLimiter_Middleware(t *testing.T) {
 		ctx := &core.Ctx{Request: req}
 		err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
 		if err != nil {
+			t.Errorf("request %d unexpected error: %v", i+1, err)
