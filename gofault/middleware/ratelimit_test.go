@@ -75,3 +75,5 @@ func TestRateLimiter_Middleware(t *testing.T) {
 
 	// First two requests OK
 	for i := 0; i < 2; i++ {
+		req := httptest.NewRequest("GET", "/test", nil)
+		ctx := &core.Ctx{Request: req}
