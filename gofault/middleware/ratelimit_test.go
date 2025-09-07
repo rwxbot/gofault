@@ -82,3 +82,5 @@ func TestRateLimiter_Middleware(t *testing.T) {
 			t.Errorf("request %d unexpected error: %v", i+1, err)
 		}
 	}
+
+	// Third should be rate limited
