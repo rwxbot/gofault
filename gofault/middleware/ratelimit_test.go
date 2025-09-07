@@ -91,3 +91,7 @@ func TestRateLimiter_Middleware(t *testing.T) {
 		t.Error("expected rate limit error")
 	}
 }
+
+func TestRateLimiter_DefaultConfig(t *testing.T) {
+	cfg := RateLimiterConfig{}
+	rl := NewRateLimiter(cfg)
