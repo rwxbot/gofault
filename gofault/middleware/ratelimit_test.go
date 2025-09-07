@@ -95,3 +95,6 @@ func TestRateLimiter_Middleware(t *testing.T) {
 func TestRateLimiter_DefaultConfig(t *testing.T) {
 	cfg := RateLimiterConfig{}
 	rl := NewRateLimiter(cfg)
+
+	if rl.config.BurstSize != 10 {
+		t.Errorf("default BurstSize = %d, want 10", rl.config.BurstSize)
