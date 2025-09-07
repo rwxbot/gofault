@@ -86,3 +86,5 @@ func TestRateLimiter_Middleware(t *testing.T) {
 	// Third should be rate limited
 	req := httptest.NewRequest("GET", "/test", nil)
 	ctx := &core.Ctx{Request: req}
+	err := middleware(ctx, func(ctx *core.Ctx) error { return nil })
+	if err == nil {
