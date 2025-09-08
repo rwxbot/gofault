@@ -98,3 +98,6 @@ func TestRateLimiter_DefaultConfig(t *testing.T) {
 
 	if rl.config.BurstSize != 10 {
 		t.Errorf("default BurstSize = %d, want 10", rl.config.BurstSize)
+	}
+	if rl.config.RequestsPerSecond != 100 {
+		t.Errorf("default RequestsPerSecond = %f, want 100", rl.config.RequestsPerSecond)
