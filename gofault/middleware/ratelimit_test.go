@@ -101,3 +101,6 @@ func TestRateLimiter_DefaultConfig(t *testing.T) {
 	}
 	if rl.config.RequestsPerSecond != 100 {
 		t.Errorf("default RequestsPerSecond = %f, want 100", rl.config.RequestsPerSecond)
+	}
+	if rl.config.KeyFunc == nil {
+		t.Error("default KeyFunc should not be nil")
