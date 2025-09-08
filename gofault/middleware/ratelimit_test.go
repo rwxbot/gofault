@@ -106,3 +106,6 @@ func TestRateLimiter_DefaultConfig(t *testing.T) {
 		t.Error("default KeyFunc should not be nil")
 	}
 }
+
+func TestDefaultKeyFunc(t *testing.T) {
+	req := httptest.NewRequest("GET", "/", nil)
