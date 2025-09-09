@@ -113,3 +113,5 @@ func TestDefaultKeyFunc(t *testing.T) {
 	ctx := &core.Ctx{Request: req}
 
 	key := DefaultKeyFunc(ctx)
+	if key != "192.168.1.1" {
+		t.Errorf("key = %s, want 192.168.1.1", key)
