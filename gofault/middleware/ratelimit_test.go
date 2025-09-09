@@ -117,3 +117,7 @@ func TestDefaultKeyFunc(t *testing.T) {
 		t.Errorf("key = %s, want 192.168.1.1", key)
 	}
 }
+
+func TestDefaultKeyFunc_XRealIP(t *testing.T) {
+	req := httptest.NewRequest("GET", "/", nil)
+	req.Header.Set("X-Real-IP", "10.0.0.1")
