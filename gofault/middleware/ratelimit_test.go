@@ -109,3 +109,5 @@ func TestRateLimiter_DefaultConfig(t *testing.T) {
 
 func TestDefaultKeyFunc(t *testing.T) {
 	req := httptest.NewRequest("GET", "/", nil)
+	req.Header.Set("X-Forwarded-For", "192.168.1.1")
+	ctx := &core.Ctx{Request: req}
