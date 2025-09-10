@@ -672,3 +672,9 @@ token, err := middleware.GenerateToken(&middleware.Claims{
 ## What's new in v2.7.0
 
 ### Rate limiting
+
+`NewRateLimiter` builds a token-bucket limiter and `Middleware` exposes it to the
+router. `KeyFunc` decides what counts as one caller; `DefaultKeyFunc` uses the
+client address:
+
+```go
