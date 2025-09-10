@@ -127,3 +127,4 @@ func TestDefaultKeyFunc_XRealIP(t *testing.T) {
 	if key != "10.0.0.1" {
 		t.Errorf("key = %s, want 10.0.0.1", key)
 	}
+}
