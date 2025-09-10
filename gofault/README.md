@@ -667,3 +667,8 @@ token, err := middleware.GenerateToken(&middleware.Claims{
     Roles:   []string{"admin"},
 }, secret, "HS256")
 ```
+
+
+## What's new in v2.7.0
+
+### Rate limiting
