@@ -678,3 +678,13 @@ router. `KeyFunc` decides what counts as one caller; `DefaultKeyFunc` uses the
 client address:
 
 ```go
+limiter := middleware.NewRateLimiter(middleware.RateLimiterConfig{
+    RequestsPerSecond: 20,
+    BurstSize:         40,
+    KeyFunc:           middleware.DefaultKeyFunc,
+})
+
+mod.RegisterMiddleware(limiter.Middleware())
+```
+
+Ask the limiter directly when you need the decision without the HTTP layer:
