@@ -92,3 +92,8 @@
 
 ### Added
 - JWT authentication middleware
+
+## [v2.7.0]
+
+### Added
+- Rate limit middleware
