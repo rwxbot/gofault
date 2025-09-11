@@ -688,3 +688,9 @@ mod.RegisterMiddleware(limiter.Middleware())
 ```
 
 Ask the limiter directly when you need the decision without the HTTP layer:
+
+```go
+if !limiter.Allow("tenant-7") {
+    return exception.TooManyRequests("slow down")
+}
+```
