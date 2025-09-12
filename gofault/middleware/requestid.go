@@ -10,3 +10,4 @@ import (
 const (
 	// RequestIDHeader is the header name for request ID.
 	RequestIDHeader = "X-Request-ID"
+)
