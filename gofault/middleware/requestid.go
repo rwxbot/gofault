@@ -5,3 +5,4 @@ import (
 	"encoding/hex"
 
 	"github.com/gofault/gofault/core"
+)
