@@ -13,3 +13,6 @@ const (
 )
 
 // RequestID generates a unique request ID and adds it to the context.
+func RequestID() core.MiddlewareFunc {
+	return func(ctx *core.Ctx, next core.Handler) error {
+		requestID := ctx.Request.Header.Get(RequestIDHeader)
