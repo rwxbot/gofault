@@ -16,3 +16,5 @@ const (
 func RequestID() core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
 		requestID := ctx.Request.Header.Get(RequestIDHeader)
+		if requestID == "" {
+			requestID = generateID()
