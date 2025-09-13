@@ -27,3 +27,6 @@ func RequestID() core.MiddlewareFunc {
 }
 
 // generateID creates a random 16-byte hex string.
+func generateID() string {
+	b := make([]byte, 16)
+	rand.Read(b)
