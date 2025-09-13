@@ -23,3 +23,5 @@ func RequestID() core.MiddlewareFunc {
 		ctx.Response.Header().Set(RequestIDHeader, requestID)
 
 		return next(ctx)
+	}
+}
