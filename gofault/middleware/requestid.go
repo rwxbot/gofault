@@ -18,3 +18,6 @@ func RequestID() core.MiddlewareFunc {
 		requestID := ctx.Request.Header.Get(RequestIDHeader)
 		if requestID == "" {
 			requestID = generateID()
+		}
+
+		ctx.Response.Header().Set(RequestIDHeader, requestID)
