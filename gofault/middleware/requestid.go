@@ -25,3 +25,5 @@ func RequestID() core.MiddlewareFunc {
 		return next(ctx)
 	}
 }
+
+// generateID creates a random 16-byte hex string.
