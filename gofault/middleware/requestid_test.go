@@ -6,3 +6,6 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestRequestID_GeneratesNewID(t *testing.T) {
+	middleware := RequestID()
