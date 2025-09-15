@@ -9,3 +9,6 @@ import (
 
 func TestRequestID_GeneratesNewID(t *testing.T) {
 	middleware := RequestID()
+
+	req := httptest.NewRequest("GET", "/test", nil)
+	w := httptest.NewRecorder()
