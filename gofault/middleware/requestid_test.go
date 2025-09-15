@@ -12,3 +12,4 @@ func TestRequestID_GeneratesNewID(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/test", nil)
 	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
