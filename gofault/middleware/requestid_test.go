@@ -17,3 +17,4 @@ func TestRequestID_GeneratesNewID(t *testing.T) {
 	middleware(ctx, func(ctx *core.Ctx) error { return nil })
 
 	respHeader := w.Header().Get(RequestIDHeader)
+	if respHeader == "" {
