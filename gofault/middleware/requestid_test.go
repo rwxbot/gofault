@@ -18,3 +18,6 @@ func TestRequestID_GeneratesNewID(t *testing.T) {
 
 	respHeader := w.Header().Get(RequestIDHeader)
 	if respHeader == "" {
+		t.Error("X-Request-ID should be set")
+	}
+	if len(respHeader) != 32 { // 16 bytes = 32 hex chars
