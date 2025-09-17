@@ -33,3 +33,5 @@ func TestRequestID_UsesProvidedID(t *testing.T) {
 	req.Header.Set(RequestIDHeader, providedID)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, func(ctx *core.Ctx) error { return nil })
