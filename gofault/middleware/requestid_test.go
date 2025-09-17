@@ -30,3 +30,6 @@ func TestRequestID_UsesProvidedID(t *testing.T) {
 
 	providedID := "custom-request-id-12345"
 	req := httptest.NewRequest("GET", "/test", nil)
+	req.Header.Set(RequestIDHeader, providedID)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
