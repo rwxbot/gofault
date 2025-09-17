@@ -27,3 +27,6 @@ func TestRequestID_GeneratesNewID(t *testing.T) {
 
 func TestRequestID_UsesProvidedID(t *testing.T) {
 	middleware := RequestID()
+
+	providedID := "custom-request-id-12345"
+	req := httptest.NewRequest("GET", "/test", nil)
