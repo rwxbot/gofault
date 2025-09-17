@@ -24,3 +24,6 @@ func TestRequestID_GeneratesNewID(t *testing.T) {
 		t.Errorf("X-Request-ID length = %d, want 32", len(respHeader))
 	}
 }
+
+func TestRequestID_UsesProvidedID(t *testing.T) {
+	middleware := RequestID()
