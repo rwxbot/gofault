@@ -35,3 +35,7 @@ func TestRequestID_UsesProvidedID(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	middleware(ctx, func(ctx *core.Ctx) error { return nil })
+
+	respHeader := w.Header().Get(RequestIDHeader)
+	if respHeader != providedID {
+		t.Errorf("X-Request-ID = %s, want %s", respHeader, providedID)
