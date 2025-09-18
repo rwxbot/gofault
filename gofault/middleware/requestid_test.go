@@ -39,3 +39,5 @@ func TestRequestID_UsesProvidedID(t *testing.T) {
 	respHeader := w.Header().Get(RequestIDHeader)
 	if respHeader != providedID {
 		t.Errorf("X-Request-ID = %s, want %s", respHeader, providedID)
+	}
+}
