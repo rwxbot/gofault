@@ -41,3 +41,6 @@ func TestRequestID_UsesProvidedID(t *testing.T) {
 		t.Errorf("X-Request-ID = %s, want %s", respHeader, providedID)
 	}
 }
+
+func TestRequestID_ForwardsToNext(t *testing.T) {
+	middleware := RequestID()
