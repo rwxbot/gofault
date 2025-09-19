@@ -54,3 +54,7 @@ func TestRequestID_ForwardsToNext(t *testing.T) {
 		nextCalled = true
 		return nil
 	})
+
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
