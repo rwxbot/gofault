@@ -44,3 +44,6 @@ func TestRequestID_UsesProvidedID(t *testing.T) {
 
 func TestRequestID_ForwardsToNext(t *testing.T) {
 	middleware := RequestID()
+
+	nextCalled := false
+	req := httptest.NewRequest("GET", "/test", nil)
