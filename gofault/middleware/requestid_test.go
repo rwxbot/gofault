@@ -49,3 +49,5 @@ func TestRequestID_ForwardsToNext(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := middleware(ctx, func(ctx *core.Ctx) error {
