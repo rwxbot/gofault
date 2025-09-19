@@ -52,3 +52,5 @@ func TestRequestID_ForwardsToNext(t *testing.T) {
 
 	err := middleware(ctx, func(ctx *core.Ctx) error {
 		nextCalled = true
+		return nil
+	})
