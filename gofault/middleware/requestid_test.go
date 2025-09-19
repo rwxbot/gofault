@@ -47,3 +47,4 @@ func TestRequestID_ForwardsToNext(t *testing.T) {
 
 	nextCalled := false
 	req := httptest.NewRequest("GET", "/test", nil)
+	w := httptest.NewRecorder()
