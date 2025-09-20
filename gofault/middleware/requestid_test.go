@@ -61,3 +61,4 @@ func TestRequestID_ForwardsToNext(t *testing.T) {
 	if !nextCalled {
 		t.Error("next handler should be called")
 	}
+}
