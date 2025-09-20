@@ -62,3 +62,5 @@ func TestRequestID_ForwardsToNext(t *testing.T) {
 		t.Error("next handler should be called")
 	}
 }
+
+func TestRequestIDHeader_Constant(t *testing.T) {
