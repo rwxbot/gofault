@@ -64,3 +64,4 @@ func TestRequestID_ForwardsToNext(t *testing.T) {
 }
 
 func TestRequestIDHeader_Constant(t *testing.T) {
+	if RequestIDHeader != "X-Request-ID" {
