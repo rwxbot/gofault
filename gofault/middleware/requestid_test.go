@@ -75,3 +75,6 @@ func TestGenerateID_Uniqueness(t *testing.T) {
 		id := generateID()
 		if ids[id] {
 			t.Fatal("generated duplicate ID")
+		}
+		ids[id] = true
+		if len(id) != 32 {
