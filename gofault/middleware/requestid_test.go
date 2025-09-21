@@ -67,3 +67,4 @@ func TestRequestIDHeader_Constant(t *testing.T) {
 	if RequestIDHeader != "X-Request-ID" {
 		t.Errorf("RequestIDHeader = %s, want X-Request-ID", RequestIDHeader)
 	}
+}
