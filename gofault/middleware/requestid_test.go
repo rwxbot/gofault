@@ -73,3 +73,5 @@ func TestGenerateID_Uniqueness(t *testing.T) {
 	ids := make(map[string]bool)
 	for i := 0; i < 1000; i++ {
 		id := generateID()
+		if ids[id] {
+			t.Fatal("generated duplicate ID")
