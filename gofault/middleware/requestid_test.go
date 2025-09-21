@@ -68,3 +68,5 @@ func TestRequestIDHeader_Constant(t *testing.T) {
 		t.Errorf("RequestIDHeader = %s, want X-Request-ID", RequestIDHeader)
 	}
 }
+
+func TestGenerateID_Uniqueness(t *testing.T) {
