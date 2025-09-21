@@ -70,3 +70,4 @@ func TestRequestIDHeader_Constant(t *testing.T) {
 }
 
 func TestGenerateID_Uniqueness(t *testing.T) {
+	ids := make(map[string]bool)
