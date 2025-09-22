@@ -706,3 +706,7 @@ otherwise, then echoes it on the response so a client can quote it:
 ```go
 mod.RegisterMiddleware(middleware.RequestID())
 ```
+
+Downstream middleware and handlers read the same value straight off the header,
+which makes a request traceable through logs without threading a context value
+through every call.
