@@ -694,3 +694,8 @@ if !limiter.Allow("tenant-7") {
     return exception.TooManyRequests("slow down")
 }
 ```
+
+
+## What's new in v2.8.0
+
+### Request IDs
