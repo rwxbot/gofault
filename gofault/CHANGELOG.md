@@ -97,3 +97,8 @@
 
 ### Added
 - Rate limit middleware
+
+## [v2.8.0]
+
+### Added
+- Request ID middleware
