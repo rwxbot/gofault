@@ -80,3 +80,5 @@ func TestGenerateID_Uniqueness(t *testing.T) {
 		if len(id) != 32 {
 			t.Errorf("ID length = %d, want 32", len(id))
 		}
+	}
+}
