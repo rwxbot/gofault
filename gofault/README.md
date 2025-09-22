@@ -699,3 +699,10 @@ if !limiter.Allow("tenant-7") {
 ## What's new in v2.8.0
 
 ### Request IDs
+
+`RequestID` honours an inbound `X-Request-ID` when present and generates one
+otherwise, then echoes it on the response so a client can quote it:
+
+```go
+mod.RegisterMiddleware(middleware.RequestID())
+```
