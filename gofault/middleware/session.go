@@ -12,3 +12,4 @@ import (
 )
 
 // SessionConfig holds session configuration.
+type SessionConfig struct {
