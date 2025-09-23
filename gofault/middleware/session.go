@@ -7,3 +7,5 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/gofault/gofault/core"
