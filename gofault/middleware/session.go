@@ -10,3 +10,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// SessionConfig holds session configuration.
