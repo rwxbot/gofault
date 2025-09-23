@@ -13,3 +13,6 @@ import (
 
 // SessionConfig holds session configuration.
 type SessionConfig struct {
+	Name     string
+	MaxAge   int    // Session max age in seconds (0 = until browser closes)
+	Path     string // Cookie path
