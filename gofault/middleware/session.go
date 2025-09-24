@@ -17,3 +17,6 @@ type SessionConfig struct {
 	MaxAge   int    // Session max age in seconds (0 = until browser closes)
 	Path     string // Cookie path
 	Domain   string // Cookie domain
+	Secure   bool   // Secure cookie flag
+	HTTPOnly bool   // HTTPOnly flag
+}
