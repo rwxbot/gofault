@@ -22,3 +22,6 @@ type SessionConfig struct {
 }
 
 // DefaultSessionConfig returns default session configuration.
+func DefaultSessionConfig() SessionConfig {
+	return SessionConfig{
+		Name:     "gofault_session",
