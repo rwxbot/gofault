@@ -20,3 +20,5 @@ type SessionConfig struct {
 	Secure   bool   // Secure cookie flag
 	HTTPOnly bool   // HTTPOnly flag
 }
+
+// DefaultSessionConfig returns default session configuration.
