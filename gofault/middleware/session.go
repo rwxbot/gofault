@@ -26,3 +26,4 @@ func DefaultSessionConfig() SessionConfig {
 	return SessionConfig{
 		Name:     "gofault_session",
 		MaxAge:   86400, // 24 hours
+		Path:     "/",
