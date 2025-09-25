@@ -30,3 +30,5 @@ func DefaultSessionConfig() SessionConfig {
 		HTTPOnly: true,
 	}
 }
+
+// Session represents a user session.
