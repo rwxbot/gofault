@@ -34,3 +34,6 @@ func DefaultSessionConfig() SessionConfig {
 // Session represents a user session.
 type Session struct {
 	ID      string
+	Values  map[string]any
+	Created time.Time
+	Expires time.Time
