@@ -33,3 +33,4 @@ func DefaultSessionConfig() SessionConfig {
 
 // Session represents a user session.
 type Session struct {
+	ID      string
