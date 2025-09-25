@@ -29,3 +29,4 @@ func DefaultSessionConfig() SessionConfig {
 		Path:     "/",
 		HTTPOnly: true,
 	}
+}
