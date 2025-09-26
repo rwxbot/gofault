@@ -38,3 +38,5 @@ type Session struct {
 	Created time.Time
 	Expires time.Time
 }
+
+// SessionStore manages sessions in memory.
