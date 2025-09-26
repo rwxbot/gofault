@@ -42,3 +42,4 @@ type Session struct {
 // SessionStore manages sessions in memory.
 type SessionStore struct {
 	sessions map[string]*Session
+	mu       sync.RWMutex
