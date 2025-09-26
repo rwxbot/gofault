@@ -43,3 +43,5 @@ type Session struct {
 type SessionStore struct {
 	sessions map[string]*Session
 	mu       sync.RWMutex
+	config   SessionConfig
+}
