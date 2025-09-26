@@ -37,3 +37,4 @@ type Session struct {
 	Values  map[string]any
 	Created time.Time
 	Expires time.Time
+}
