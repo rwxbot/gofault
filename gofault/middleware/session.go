@@ -56,3 +56,5 @@ func NewSessionStore(cfg SessionConfig) *SessionStore {
 		config:   cfg,
 	}
 }
+
+// GetSession retrieves a session by ID.
