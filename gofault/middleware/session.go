@@ -50,3 +50,6 @@ type SessionStore struct {
 func NewSessionStore(cfg SessionConfig) *SessionStore {
 	if cfg.Name == "" {
 		cfg = DefaultSessionConfig()
+	}
+	return &SessionStore{
+		sessions: make(map[string]*Session),
