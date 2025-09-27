@@ -45,3 +45,5 @@ type SessionStore struct {
 	mu       sync.RWMutex
 	config   SessionConfig
 }
+
+// NewSessionStore creates a new session store.
