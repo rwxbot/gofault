@@ -53,3 +53,4 @@ func NewSessionStore(cfg SessionConfig) *SessionStore {
 	}
 	return &SessionStore{
 		sessions: make(map[string]*Session),
+		config:   cfg,
