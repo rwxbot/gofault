@@ -47,3 +47,6 @@ type SessionStore struct {
 }
 
 // NewSessionStore creates a new session store.
+func NewSessionStore(cfg SessionConfig) *SessionStore {
+	if cfg.Name == "" {
+		cfg = DefaultSessionConfig()
