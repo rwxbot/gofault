@@ -61,3 +61,6 @@ func NewSessionStore(cfg SessionConfig) *SessionStore {
 func (s *SessionStore) GetSession(id string) (*Session, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
+
+	session, exists := s.sessions[id]
+	if !exists {
