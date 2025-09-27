@@ -58,3 +58,6 @@ func NewSessionStore(cfg SessionConfig) *SessionStore {
 }
 
 // GetSession retrieves a session by ID.
+func (s *SessionStore) GetSession(id string) (*Session, bool) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
