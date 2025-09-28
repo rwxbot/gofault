@@ -64,3 +64,5 @@ func (s *SessionStore) GetSession(id string) (*Session, bool) {
 
 	session, exists := s.sessions[id]
 	if !exists {
+		return nil, false
+	}
