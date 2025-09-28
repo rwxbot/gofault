@@ -66,3 +66,7 @@ func (s *SessionStore) GetSession(id string) (*Session, bool) {
 	if !exists {
 		return nil, false
 	}
+
+	if !session.Expires.IsZero() && time.Now().After(session.Expires) {
+		return nil, false
+	}
