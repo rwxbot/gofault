@@ -80,3 +80,5 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	session := &Session{
