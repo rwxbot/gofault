@@ -133,3 +133,6 @@ func (s *SessionStore) GetSession(id string) (*Session, bool) {
 }
 
 // CreateSession creates a new session.
+func (s *SessionStore) CreateSession() (*Session, error) {
+	id, err := generateSessionID()
+	if err != nil {
