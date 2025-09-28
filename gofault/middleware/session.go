@@ -131,3 +131,5 @@ func (s *SessionStore) GetSession(id string) (*Session, bool) {
 
 	return session, true
 }
+
+// CreateSession creates a new session.
