@@ -140,3 +140,5 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 	}
 
 	session := &Session{
+		ID:      id,
+		Values:  make(map[string]any),
