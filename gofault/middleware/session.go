@@ -78,3 +78,5 @@ func (s *SessionStore) GetSession(id string) (*Session, bool) {
 func (s *SessionStore) CreateSession() (*Session, error) {
 	id, err := generateSessionID()
 	if err != nil {
+		return nil, err
+	}
