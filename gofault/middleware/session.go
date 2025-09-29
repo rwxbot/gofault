@@ -94,3 +94,5 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 
 	return session, nil
 }
+
+// DeleteSession removes a session.
