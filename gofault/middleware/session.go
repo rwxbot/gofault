@@ -84,3 +84,5 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 	session := &Session{
 		ID:      id,
 		Values:  make(map[string]any),
+		Created: time.Now(),
+		Expires: time.Now().Add(time.Duration(s.config.MaxAge) * time.Second),
