@@ -147,3 +147,4 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 	}
 
 	s.mu.Lock()
+	s.sessions[id] = session
