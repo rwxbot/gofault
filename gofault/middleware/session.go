@@ -87,3 +87,5 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 		Created: time.Now(),
 		Expires: time.Now().Add(time.Duration(s.config.MaxAge) * time.Second),
 	}
+
+	s.mu.Lock()
