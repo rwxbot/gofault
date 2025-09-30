@@ -103,3 +103,5 @@ func (s *SessionStore) DeleteSession(id string) {
 }
 
 // SessionMiddleware creates session handling middleware.
+func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
+	return func(ctx *core.Ctx, next core.Handler) error {
