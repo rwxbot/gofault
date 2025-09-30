@@ -143,21 +143,99 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 		ID:      id,
 		Values:  make(map[string]any),
 		Created: time.Now(),
-		Expires: time.Now().Add(time.Duration(s.config.MaxAge) * time.Second),
+	}
+	// A zero MaxAge means the session lasts until the browser is closed, per the
+	// field's own documentation, so Expires stays the zero value and the expiry
+	// checks skip it. Adding 0 used to produce an expiry of now, which made
+	// the session expire immediately instead.
+	if s.config.MaxAge > 0 {
+		session.Expires = time.Now().Add(time.Duration(s.config.MaxAge) * time.Second)
 	}
 
 	s.mu.Lock()
+	// Drop expired entries first so the cap cannot be reached entirely by dead
+	// sessions, which would evict live ones. This scan is throttled because it
+	// is O(n) and runs on the request path.
+	if len(s.sessions) >= s.config.MaxSessions {
+		if time.Since(s.lastReap) > reapInterval {
+			s.reapExpiredLocked(time.Now())
+			s.lastReap = time.Now()
+		}
+	}
+	for len(s.sessions) >= s.config.MaxSessions {
+		if !s.evictOldestLocked() {
+			break
+		}
+	}
 	s.sessions[id] = session
+	s.order = append(s.order, id)
 	s.mu.Unlock()
 
 	return session, nil
 }
 
 // DeleteSession removes a session.
+//
+// It stays in the order queue, which is harmless: evictOldestLocked skips IDs
+// that are no longer in the map.
 func (s *SessionStore) DeleteSession(id string) {
 	s.mu.Lock()
 	delete(s.sessions, id)
 	s.mu.Unlock()
 }
 
+// Len reports how many sessions are held.
+func (s *SessionStore) Len() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return len(s.sessions)
+}
+
+// reapExpiredLocked drops expired sessions. Requires s.mu held for writing.
+func (s *SessionStore) reapExpiredLocked(now time.Time) {
+	for id, session := range s.sessions {
+		if !session.Expires.IsZero() && now.After(session.Expires) {
+			delete(s.sessions, id)
+		}
+	}
+}
+
+// evictOldestLocked drops the oldest session and reports whether it removed one.
+// Requires s.mu held for writing.
+//
+// Stale IDs at the front are discarded as they are found, so the queue does not
+// grow without bound as sessions expire.
+func (s *SessionStore) evictOldestLocked() bool {
+	for len(s.order) > 0 {
+		oldest := s.order[0]
+		s.order = s.order[1:]
+
+		if _, live := s.sessions[oldest]; live {
+			delete(s.sessions, oldest)
+			return true
+		}
+	}
+	return false
+}
+
+// reap drops expired sessions periodically until Close is called.
+func (s *SessionStore) reap() {
+	ticker := time.NewTicker(time.Minute)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-s.stopped:
+			return
+		case <-ticker.C:
+			s.mu.Lock()
+			s.reapExpiredLocked(time.Now())
+			s.order = s.order[:0]
+			s.mu.Unlock()
+		}
+	}
+}
+
 // SessionMiddleware creates session handling middleware.
+func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
+	return func(ctx *core.Ctx, next core.Handler) error {
