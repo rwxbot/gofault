@@ -239,3 +239,4 @@ func (s *SessionStore) reap() {
 // SessionMiddleware creates session handling middleware.
 func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
+		cookie, err := ctx.Request.Cookie(store.config.Name)
