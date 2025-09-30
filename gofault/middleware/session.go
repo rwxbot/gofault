@@ -109,3 +109,6 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 		var session *Session
 
 		if err == nil && cookie != nil && cookie.Value != "" {
+			if s, exists := store.GetSession(cookie.Value); exists {
+				session = s
+			}
