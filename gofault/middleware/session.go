@@ -240,3 +240,6 @@ func (s *SessionStore) reap() {
 func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
 		cookie, err := ctx.Request.Cookie(store.config.Name)
+		var session *Session
+
+		if err == nil && cookie != nil && cookie.Value != "" {
