@@ -159,3 +159,5 @@ func (s *SessionStore) DeleteSession(id string) {
 	delete(s.sessions, id)
 	s.mu.Unlock()
 }
+
+// SessionMiddleware creates session handling middleware.
