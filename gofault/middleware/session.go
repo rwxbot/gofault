@@ -157,3 +157,4 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 func (s *SessionStore) DeleteSession(id string) {
 	s.mu.Lock()
 	delete(s.sessions, id)
+	s.mu.Unlock()
