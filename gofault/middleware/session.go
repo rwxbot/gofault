@@ -128,3 +128,4 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 			Name:     store.config.Name,
 			Value:    session.ID,
 			Path:     store.config.Path,
+			Domain:   store.config.Domain,
