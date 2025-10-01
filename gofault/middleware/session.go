@@ -120,3 +120,5 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 				return err
 			}
 		}
+
+		err = next(ctx)
