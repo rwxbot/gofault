@@ -125,3 +125,6 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 
 		// Set session cookie
 		httpCookie := &http.Cookie{
+			Name:     store.config.Name,
+			Value:    session.ID,
+			Path:     store.config.Path,
