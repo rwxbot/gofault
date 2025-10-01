@@ -118,3 +118,5 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 			session, err = store.CreateSession()
 			if err != nil {
 				return err
+			}
+		}
