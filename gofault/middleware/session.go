@@ -255,7 +255,19 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 			}
 		}
 
+		// Publish the session so downstream handlers can read it via GetSession.
+		ctx.SetLocal("session", session)
+
 		err = next(ctx)
 
-		// Set session cookie
+		// Only set the cookie when the request succeeded. On error the response
+		// may already carry an error body, and issuing a fresh session would
+		// suggest the request was accepted.
+		if err != nil {
+			return err
+		}
+
 		httpCookie := &http.Cookie{
+			Name:     store.config.Name,
+			Value:    session.ID,
+			Path:     store.config.Path,
