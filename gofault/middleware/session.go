@@ -122,3 +122,6 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 		}
 
 		err = next(ctx)
+
+		// Set session cookie
+		httpCookie := &http.Cookie{
