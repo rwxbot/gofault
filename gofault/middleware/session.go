@@ -130,3 +130,6 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 			Path:     store.config.Path,
 			Domain:   store.config.Domain,
 			MaxAge:   store.config.MaxAge,
+			Secure:   store.config.Secure,
+			HttpOnly: store.config.HTTPOnly,
+		}
