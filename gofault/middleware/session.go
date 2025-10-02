@@ -133,3 +133,5 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 			Secure:   store.config.Secure,
 			HttpOnly: store.config.HTTPOnly,
 		}
+
+		ctx.Response.Header().Set("Set-Cookie", formatCookie(httpCookie))
