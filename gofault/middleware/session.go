@@ -278,3 +278,7 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 		}
 
 		ctx.Response.Header().Set("Set-Cookie", formatCookie(httpCookie))
+
+		return err
+	}
+}
