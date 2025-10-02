@@ -284,3 +284,5 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 		return nil
 	}
 }
+
+// formatCookie formats a cookie as a Set-Cookie header value.
