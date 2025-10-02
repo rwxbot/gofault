@@ -272,3 +272,4 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 			Value:    session.ID,
 			Path:     store.config.Path,
 			Domain:   store.config.Domain,
+			MaxAge:   store.config.MaxAge,
