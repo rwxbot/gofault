@@ -277,8 +277,10 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 			HttpOnly: store.config.HTTPOnly,
 		}
 
-		ctx.Response.Header().Set("Set-Cookie", formatCookie(httpCookie))
+		// Add rather than Set: a handler may already have set its own cookies,
+		// and Set would replace them.
+		ctx.Response.Header().Add("Set-Cookie", formatCookie(httpCookie))
 
-		return err
+		return nil
 	}
 }
