@@ -291,3 +291,6 @@ func formatCookie(c *http.Cookie) string {
 	if c.Path != "" {
 		s += "; Path=" + c.Path
 	}
+	if c.Domain != "" {
+		s += "; Domain=" + c.Domain
+	}
