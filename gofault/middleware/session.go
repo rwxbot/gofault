@@ -288,3 +288,6 @@ func SessionMiddleware(store *SessionStore) core.MiddlewareFunc {
 // formatCookie formats a cookie as a Set-Cookie header value.
 func formatCookie(c *http.Cookie) string {
 	s := c.Name + "=" + c.Value
+	if c.Path != "" {
+		s += "; Path=" + c.Path
+	}
