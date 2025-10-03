@@ -149,3 +149,4 @@ func formatCookie(c *http.Cookie) string {
 	if c.Domain != "" {
 		s += "; Domain=" + c.Domain
 	}
+	if c.MaxAge > 0 {
