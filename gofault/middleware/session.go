@@ -153,3 +153,6 @@ func formatCookie(c *http.Cookie) string {
 		s += "; Max-Age=" + strconv.Itoa(c.MaxAge)
 	}
 	if c.Secure {
+		s += "; Secure"
+	}
+	if c.HttpOnly {
