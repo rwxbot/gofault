@@ -302,3 +302,5 @@ func formatCookie(c *http.Cookie) string {
 	}
 	if c.HttpOnly {
 		s += "; HttpOnly"
+	}
+	return s
