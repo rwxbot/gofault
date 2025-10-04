@@ -156,3 +156,4 @@ func formatCookie(c *http.Cookie) string {
 		s += "; Secure"
 	}
 	if c.HttpOnly {
+		s += "; HttpOnly"
