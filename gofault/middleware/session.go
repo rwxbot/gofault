@@ -165,3 +165,5 @@ func formatCookie(c *http.Cookie) string {
 func generateSessionID() (string, error) {
 	b := make([]byte, 32)
 	if _, err := rand.Read(b); err != nil {
+		return "", err
+	}
