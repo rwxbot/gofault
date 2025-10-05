@@ -162,3 +162,5 @@ func formatCookie(c *http.Cookie) string {
 }
 
 // generateSessionID generates a random session ID.
+func generateSessionID() (string, error) {
+	b := make([]byte, 32)
