@@ -171,3 +171,4 @@ func generateSessionID() (string, error) {
 }
 
 // Session type for context
+type sessionKey struct{}
