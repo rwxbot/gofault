@@ -314,3 +314,5 @@ func generateSessionID() (string, error) {
 	}
 	return hex.EncodeToString(b), nil
 }
+
+// Session type for context
