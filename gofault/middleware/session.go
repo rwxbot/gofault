@@ -176,3 +176,5 @@ type sessionKey struct{}
 // GetSession retrieves session from context.
 func GetSession(ctx *core.Ctx) *Session {
 	session, _ := getSessionFromContext(ctx.Request.Context())
+	return session
+}
