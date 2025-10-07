@@ -323,3 +323,5 @@ func GetSession(ctx *core.Ctx) *Session {
 	session, _ := getSessionFromContext(ctx.Request.Context())
 	return session
 }
+
+// getSessionFromContext retrieves session from context.
