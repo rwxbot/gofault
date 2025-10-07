@@ -182,3 +182,4 @@ func GetSession(ctx *core.Ctx) *Session {
 // getSessionFromContext retrieves session from context.
 func getSessionFromContext(ctx core.Context) (*Session, bool) {
 	return nil, false
+}
