@@ -190,3 +190,6 @@ func (s *Session) SetValue(key string, value any) {
 }
 
 // GetValue retrieves a value from the session.
+func (s *Session) GetValue(key string) (any, bool) {
+	v, ok := s.Values[key]
+	return v, ok
