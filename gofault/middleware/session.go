@@ -188,3 +188,5 @@ func getSessionFromContext(ctx core.Context) (*Session, bool) {
 func (s *Session) SetValue(key string, value any) {
 	s.Values[key] = value
 }
+
+// GetValue retrieves a value from the session.
