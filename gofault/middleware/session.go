@@ -328,3 +328,5 @@ func GetSession(ctx *core.Ctx) *Session {
 func getSessionFromContext(ctx core.Context) (*Session, bool) {
 	return nil, false
 }
+
+// SetValue sets a value in the session.
