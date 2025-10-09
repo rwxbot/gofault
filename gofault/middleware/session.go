@@ -339,3 +339,5 @@ func (s *Session) GetValue(key string) (any, bool) {
 	v, ok := s.Values[key]
 	return v, ok
 }
+
+// DeleteValue removes a value from the session.
