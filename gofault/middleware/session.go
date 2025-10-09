@@ -315,29 +315,43 @@ func generateSessionID() (string, error) {
 	return hex.EncodeToString(b), nil
 }
 
-// Session type for context
-type sessionKey struct{}
-
-// GetSession retrieves session from context.
+// GetSession retrieves the session attached to the request by
+// SessionMiddleware. It returns nil when the route is not protected by it.
 func GetSession(ctx *core.Ctx) *Session {
-	session, _ := getSessionFromContext(ctx.Request.Context())
-	return session
+	if ctx == nil || ctx.Locals == nil {
+		return nil
+	}
+	if s, ok := ctx.Locals["session"].(*Session); ok {
+		return s
+	}
+	return nil
 }
 
-// getSessionFromContext retrieves session from context.
-func getSessionFromContext(ctx core.Context) (*Session, bool) {
-	return nil, false
-}
-
-// SetValue sets a value in the session.
+// SetValue stores a value in the session.
 func (s *Session) SetValue(key string, value any) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	s.Values[key] = value
 }
 
 // GetValue retrieves a value from the session.
 func (s *Session) GetValue(key string) (any, bool) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
 	v, ok := s.Values[key]
 	return v, ok
 }
 
 // DeleteValue removes a value from the session.
+func (s *Session) DeleteValue(key string) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	delete(s.Values, key)
+}
+
+// Len reports how many values the session holds.
+func (s *Session) Len() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return len(s.Values)
+}
