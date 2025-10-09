@@ -196,3 +196,6 @@ func (s *Session) GetValue(key string) (any, bool) {
 }
 
 // DeleteValue removes a value from the session.
+func (s *Session) DeleteValue(key string) {
+	delete(s.Values, key)
+}
