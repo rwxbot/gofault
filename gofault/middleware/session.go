@@ -193,3 +193,4 @@ func (s *Session) SetValue(key string, value any) {
 func (s *Session) GetValue(key string) (any, bool) {
 	v, ok := s.Values[key]
 	return v, ok
+}
