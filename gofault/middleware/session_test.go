@@ -8,3 +8,6 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestNewSessionStore(t *testing.T) {
+	cfg := DefaultSessionConfig()
