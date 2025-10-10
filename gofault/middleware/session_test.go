@@ -11,3 +11,4 @@ import (
 
 func TestNewSessionStore(t *testing.T) {
 	cfg := DefaultSessionConfig()
+	store := NewSessionStore(cfg)
