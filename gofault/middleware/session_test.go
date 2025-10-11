@@ -16,3 +16,6 @@ func TestNewSessionStore(t *testing.T) {
 	if store == nil {
 		t.Fatal("store should not be nil")
 	}
+	if store.sessions == nil {
+		t.Error("sessions map should be initialized")
+	}
