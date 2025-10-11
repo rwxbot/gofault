@@ -26,3 +26,5 @@ func TestSessionStore_CreateSession(t *testing.T) {
 
 	session, err := store.CreateSession()
 	if err != nil {
+		t.Fatalf("CreateSession() error = %v", err)
+	}
