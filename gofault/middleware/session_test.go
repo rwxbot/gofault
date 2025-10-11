@@ -23,3 +23,6 @@ func TestNewSessionStore(t *testing.T) {
 
 func TestSessionStore_CreateSession(t *testing.T) {
 	store := NewSessionStore(DefaultSessionConfig())
+
+	session, err := store.CreateSession()
+	if err != nil {
