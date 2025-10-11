@@ -28,3 +28,6 @@ func TestSessionStore_CreateSession(t *testing.T) {
 	if err != nil {
 		t.Fatalf("CreateSession() error = %v", err)
 	}
+
+	if session.ID == "" {
+		t.Error("session ID should not be empty")
