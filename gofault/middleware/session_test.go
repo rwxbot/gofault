@@ -19,3 +19,4 @@ func TestNewSessionStore(t *testing.T) {
 	if store.sessions == nil {
 		t.Error("sessions map should be initialized")
 	}
+}
