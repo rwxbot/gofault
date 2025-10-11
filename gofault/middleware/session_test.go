@@ -33,3 +33,5 @@ func TestSessionStore_CreateSession(t *testing.T) {
 		t.Error("session ID should not be empty")
 	}
 	if len(session.ID) != 64 { // 32 bytes = 64 hex chars
+		t.Errorf("session ID length = %d, want 64", len(session.ID))
+	}
