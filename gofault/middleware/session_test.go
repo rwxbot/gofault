@@ -20,3 +20,6 @@ func TestNewSessionStore(t *testing.T) {
 		t.Error("sessions map should be initialized")
 	}
 }
+
+func TestSessionStore_CreateSession(t *testing.T) {
+	store := NewSessionStore(DefaultSessionConfig())
