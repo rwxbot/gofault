@@ -35,3 +35,4 @@ func TestSessionStore_CreateSession(t *testing.T) {
 	if len(session.ID) != 64 { // 32 bytes = 64 hex chars
 		t.Errorf("session ID length = %d, want 64", len(session.ID))
 	}
+	if session.Values == nil {
