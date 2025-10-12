@@ -39,3 +39,6 @@ func TestSessionStore_CreateSession(t *testing.T) {
 		t.Error("session Values should be initialized")
 	}
 	if session.Created.IsZero() {
+		t.Error("session Created should be set")
+	}
+}
