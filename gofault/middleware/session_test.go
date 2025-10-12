@@ -36,3 +36,5 @@ func TestSessionStore_CreateSession(t *testing.T) {
 		t.Errorf("session ID length = %d, want 64", len(session.ID))
 	}
 	if session.Values == nil {
+		t.Error("session Values should be initialized")
+	}
