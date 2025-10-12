@@ -38,3 +38,4 @@ func TestSessionStore_CreateSession(t *testing.T) {
 	if session.Values == nil {
 		t.Error("session Values should be initialized")
 	}
+	if session.Created.IsZero() {
