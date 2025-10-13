@@ -48,3 +48,6 @@ func TestSessionStore_GetSession(t *testing.T) {
 
 	// Create a session
 	session, _ := store.CreateSession()
+
+	// Retrieve it
+	got, exists := store.GetSession(session.ID)
