@@ -47,3 +47,4 @@ func TestSessionStore_GetSession(t *testing.T) {
 	store := NewSessionStore(DefaultSessionConfig())
 
 	// Create a session
+	session, _ := store.CreateSession()
