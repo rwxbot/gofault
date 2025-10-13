@@ -52,3 +52,5 @@ func TestSessionStore_GetSession(t *testing.T) {
 	// Retrieve it
 	got, exists := store.GetSession(session.ID)
 	if !exists {
+		t.Fatal("session should exist")
+	}
