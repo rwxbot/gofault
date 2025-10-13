@@ -42,3 +42,5 @@ func TestSessionStore_CreateSession(t *testing.T) {
 		t.Error("session Created should be set")
 	}
 }
+
+func TestSessionStore_GetSession(t *testing.T) {
