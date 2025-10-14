@@ -64,3 +64,5 @@ func TestSessionStore_GetSession_NotFound(t *testing.T) {
 
 	_, exists := store.GetSession("nonexistent")
 	if exists {
+		t.Error("nonexistent session should not exist")
+	}
