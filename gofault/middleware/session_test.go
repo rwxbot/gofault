@@ -58,3 +58,6 @@ func TestSessionStore_GetSession(t *testing.T) {
 		t.Errorf("got ID = %s, want %s", got.ID, session.ID)
 	}
 }
+
+func TestSessionStore_GetSession_NotFound(t *testing.T) {
+	store := NewSessionStore(DefaultSessionConfig())
