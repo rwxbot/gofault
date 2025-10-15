@@ -77,3 +77,5 @@ func TestSessionStore_DeleteSession(t *testing.T) {
 	_, exists := store.GetSession(session.ID)
 	if exists {
 		t.Error("session should be deleted")
+	}
+}
