@@ -67,3 +67,6 @@ func TestSessionStore_GetSession_NotFound(t *testing.T) {
 		t.Error("nonexistent session should not exist")
 	}
 }
+
+func TestSessionStore_DeleteSession(t *testing.T) {
+	store := NewSessionStore(DefaultSessionConfig())
