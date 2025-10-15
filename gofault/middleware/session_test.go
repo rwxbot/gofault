@@ -75,3 +75,4 @@ func TestSessionStore_DeleteSession(t *testing.T) {
 	store.DeleteSession(session.ID)
 
 	_, exists := store.GetSession(session.ID)
+	if exists {
