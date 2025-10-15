@@ -70,3 +70,6 @@ func TestSessionStore_GetSession_NotFound(t *testing.T) {
 
 func TestSessionStore_DeleteSession(t *testing.T) {
 	store := NewSessionStore(DefaultSessionConfig())
+
+	session, _ := store.CreateSession()
+	store.DeleteSession(session.ID)
