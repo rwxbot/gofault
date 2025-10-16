@@ -79,3 +79,5 @@ func TestSessionStore_DeleteSession(t *testing.T) {
 		t.Error("session should be deleted")
 	}
 }
+
+func TestSession_SetValue(t *testing.T) {
