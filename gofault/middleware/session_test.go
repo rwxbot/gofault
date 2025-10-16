@@ -81,3 +81,4 @@ func TestSessionStore_DeleteSession(t *testing.T) {
 }
 
 func TestSession_SetValue(t *testing.T) {
+	session := &Session{Values: make(map[string]any)}
