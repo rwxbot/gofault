@@ -101,3 +101,6 @@ func TestSession_DeleteValue(t *testing.T) {
 	session.DeleteValue("temp")
 
 	if _, ok := session.GetValue("temp"); ok {
+		t.Error("temp value should be deleted")
+	}
+}
