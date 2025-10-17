@@ -93,3 +93,7 @@ func TestSession_SetValue(t *testing.T) {
 		t.Errorf("name = %v, want John", v)
 	}
 }
+
+func TestSession_DeleteValue(t *testing.T) {
+	session := &Session{Values: make(map[string]any)}
+	session.SetValue("temp", "data")
