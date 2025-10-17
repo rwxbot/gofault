@@ -90,3 +90,5 @@ func TestSession_SetValue(t *testing.T) {
 		t.Errorf("user_id = %v, want 123", v)
 	}
 	if v, ok := session.GetValue("name"); !ok || v != "John" {
+		t.Errorf("name = %v, want John", v)
+	}
