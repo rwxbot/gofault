@@ -97,3 +97,7 @@ func TestSession_SetValue(t *testing.T) {
 func TestSession_DeleteValue(t *testing.T) {
 	session := &Session{Values: make(map[string]any)}
 	session.SetValue("temp", "data")
+
+	session.DeleteValue("temp")
+
+	if _, ok := session.GetValue("temp"); ok {
