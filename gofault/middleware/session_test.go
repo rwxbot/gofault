@@ -109,3 +109,7 @@ func TestSession_Expires(t *testing.T) {
 	cfg := DefaultSessionConfig()
 	cfg.MaxAge = 3600 // 1 hour
 	store := NewSessionStore(cfg)
+
+	session, _ := store.CreateSession()
+
+	expectedExpiry := session.Created.Add(time.Duration(cfg.MaxAge) * time.Second)
