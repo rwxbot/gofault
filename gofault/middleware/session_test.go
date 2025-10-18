@@ -104,3 +104,7 @@ func TestSession_DeleteValue(t *testing.T) {
 		t.Error("temp value should be deleted")
 	}
 }
+
+func TestSession_Expires(t *testing.T) {
+	cfg := DefaultSessionConfig()
+	cfg.MaxAge = 3600 // 1 hour
