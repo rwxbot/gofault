@@ -108,3 +108,4 @@ func TestSession_DeleteValue(t *testing.T) {
 func TestSession_Expires(t *testing.T) {
 	cfg := DefaultSessionConfig()
 	cfg.MaxAge = 3600 // 1 hour
+	store := NewSessionStore(cfg)
