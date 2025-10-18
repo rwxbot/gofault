@@ -113,3 +113,6 @@ func TestSession_Expires(t *testing.T) {
 	session, _ := store.CreateSession()
 
 	expectedExpiry := session.Created.Add(time.Duration(cfg.MaxAge) * time.Second)
+	if session.Expires.Unix() != expectedExpiry.Unix() {
+		t.Errorf("Expires = %v, want %v", session.Expires, expectedExpiry)
+	}
