@@ -117,3 +117,6 @@ func TestSession_Expires(t *testing.T) {
 		t.Errorf("Expires = %v, want %v", session.Expires, expectedExpiry)
 	}
 }
+
+func TestDefaultSessionConfig(t *testing.T) {
+	cfg := DefaultSessionConfig()
