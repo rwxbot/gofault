@@ -126,3 +126,6 @@ func TestDefaultSessionConfig(t *testing.T) {
 	}
 	if cfg.MaxAge != 86400 {
 		t.Errorf("MaxAge = %d, want 86400", cfg.MaxAge)
+	}
+	if cfg.Path != "/" {
+		t.Errorf("Path = %s, want /", cfg.Path)
