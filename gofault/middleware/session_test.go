@@ -120,3 +120,5 @@ func TestSession_Expires(t *testing.T) {
 
 func TestDefaultSessionConfig(t *testing.T) {
 	cfg := DefaultSessionConfig()
+
+	if cfg.Name != "gofault_session" {
