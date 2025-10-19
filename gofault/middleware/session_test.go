@@ -116,3 +116,4 @@ func TestSession_Expires(t *testing.T) {
 	if session.Expires.Unix() != expectedExpiry.Unix() {
 		t.Errorf("Expires = %v, want %v", session.Expires, expectedExpiry)
 	}
+}
