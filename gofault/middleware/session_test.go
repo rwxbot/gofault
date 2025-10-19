@@ -129,3 +129,5 @@ func TestDefaultSessionConfig(t *testing.T) {
 	}
 	if cfg.Path != "/" {
 		t.Errorf("Path = %s, want /", cfg.Path)
+	}
+	if !cfg.HTTPOnly {
