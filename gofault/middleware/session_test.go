@@ -125,3 +125,4 @@ func TestDefaultSessionConfig(t *testing.T) {
 		t.Errorf("Name = %s, want gofault_session", cfg.Name)
 	}
 	if cfg.MaxAge != 86400 {
+		t.Errorf("MaxAge = %d, want 86400", cfg.MaxAge)
