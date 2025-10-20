@@ -137,3 +137,5 @@ func TestDefaultSessionConfig(t *testing.T) {
 
 func TestGenerateSessionID(t *testing.T) {
 	id1, err := generateSessionID()
+	if err != nil {
+		t.Fatalf("generateSessionID() error = %v", err)
