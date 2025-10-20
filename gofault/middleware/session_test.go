@@ -133,3 +133,4 @@ func TestDefaultSessionConfig(t *testing.T) {
 	if !cfg.HTTPOnly {
 		t.Error("HTTPOnly should be true")
 	}
+}
