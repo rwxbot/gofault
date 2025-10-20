@@ -131,3 +131,5 @@ func TestDefaultSessionConfig(t *testing.T) {
 		t.Errorf("Path = %s, want /", cfg.Path)
 	}
 	if !cfg.HTTPOnly {
+		t.Error("HTTPOnly should be true")
+	}
