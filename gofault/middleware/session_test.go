@@ -134,3 +134,6 @@ func TestDefaultSessionConfig(t *testing.T) {
 		t.Error("HTTPOnly should be true")
 	}
 }
+
+func TestGenerateSessionID(t *testing.T) {
+	id1, err := generateSessionID()
