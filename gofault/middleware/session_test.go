@@ -150,3 +150,7 @@ func TestGenerateSessionID(t *testing.T) {
 		t.Errorf("ID length = %d, want 64", len(id1))
 	}
 }
+
+func TestFormatCookie(t *testing.T) {
+	c := &http.Cookie{
+		Name:     "session",
