@@ -156,3 +156,4 @@ func TestFormatCookie(t *testing.T) {
 		Name:     "session",
 		Value:    "abc123",
 		Path:     "/",
+		MaxAge:   3600,
