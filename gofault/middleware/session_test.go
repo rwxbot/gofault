@@ -154,3 +154,4 @@ func TestGenerateSessionID(t *testing.T) {
 func TestFormatCookie(t *testing.T) {
 	c := &http.Cookie{
 		Name:     "session",
+		Value:    "abc123",
