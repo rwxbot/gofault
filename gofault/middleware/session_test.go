@@ -148,3 +148,5 @@ func TestGenerateSessionID(t *testing.T) {
 	}
 	if len(id1) != 64 {
 		t.Errorf("ID length = %d, want 64", len(id1))
+	}
+}
