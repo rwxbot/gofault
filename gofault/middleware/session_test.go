@@ -142,3 +142,5 @@ func TestGenerateSessionID(t *testing.T) {
 	}
 
 	id2, _ := generateSessionID()
+
+	if id1 == id2 {
