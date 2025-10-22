@@ -165,3 +165,6 @@ func TestFormatCookie(t *testing.T) {
 
 	expected := "session=abc123; Path=/; Max-Age=3600; Secure; HttpOnly"
 	if formatted != expected {
+		t.Errorf("formatCookie() = %s, want %s", formatted, expected)
+	}
+}
