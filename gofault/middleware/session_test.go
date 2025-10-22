@@ -160,3 +160,5 @@ func TestFormatCookie(t *testing.T) {
 		Secure:   true,
 		HttpOnly: true,
 	}
+
+	formatted := formatCookie(c)
