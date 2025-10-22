@@ -162,3 +162,6 @@ func TestFormatCookie(t *testing.T) {
 	}
 
 	formatted := formatCookie(c)
+
+	expected := "session=abc123; Path=/; Max-Age=3600; Secure; HttpOnly"
+	if formatted != expected {
