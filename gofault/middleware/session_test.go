@@ -159,3 +159,4 @@ func TestFormatCookie(t *testing.T) {
 		MaxAge:   3600,
 		Secure:   true,
 		HttpOnly: true,
+	}
