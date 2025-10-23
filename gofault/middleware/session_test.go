@@ -168,3 +168,5 @@ func TestFormatCookie(t *testing.T) {
 		t.Errorf("formatCookie() = %s, want %s", formatted, expected)
 	}
 }
+
+func TestSessionMiddleware_Integration(t *testing.T) {
