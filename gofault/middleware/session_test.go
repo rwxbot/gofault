@@ -170,3 +170,5 @@ func TestFormatCookie(t *testing.T) {
 }
 
 func TestSessionMiddleware_Integration(t *testing.T) {
+	store := NewSessionStore(DefaultSessionConfig())
+	middleware := SessionMiddleware(store)
