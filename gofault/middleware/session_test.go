@@ -174,3 +174,5 @@ func TestSessionMiddleware_Integration(t *testing.T) {
 	middleware := SessionMiddleware(store)
 
 	req := httptest.NewRequest("GET", "/test", nil)
+	rec := httptest.NewRecorder()
+	ctx := &core.Ctx{Request: req, Response: rec}
