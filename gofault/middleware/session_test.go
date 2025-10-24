@@ -179,3 +179,4 @@ func TestSessionMiddleware_Integration(t *testing.T) {
 
 	nextCalled := false
 	err := middleware(ctx, func(ctx *core.Ctx) error {
+		nextCalled = true
