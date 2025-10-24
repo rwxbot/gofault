@@ -182,3 +182,5 @@ func TestSessionMiddleware_Integration(t *testing.T) {
 		nextCalled = true
 		return nil
 	})
+
+	if err != nil {
