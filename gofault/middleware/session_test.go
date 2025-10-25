@@ -188,3 +188,5 @@ func TestSessionMiddleware_Integration(t *testing.T) {
 	}
 	if !nextCalled {
 		t.Error("next handler should be called")
+	}
+}
