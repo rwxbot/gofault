@@ -8,3 +8,5 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/gofault/gofault/core"
