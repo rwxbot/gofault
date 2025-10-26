@@ -11,3 +11,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// UploadConfig holds configuration for the upload middleware.
