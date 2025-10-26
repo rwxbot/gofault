@@ -17,3 +17,5 @@ import (
 )
 
 // UploadConfig holds configuration for the upload middleware.
+type UploadConfig struct {
+	// Enabled enables the upload middleware.
