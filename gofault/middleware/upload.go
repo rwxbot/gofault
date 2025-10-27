@@ -17,3 +17,4 @@ type UploadConfig struct {
 	// Enabled enables the upload middleware.
 	Enabled bool
 	// MaxSize is the maximum file size in bytes (0 = unlimited).
+	MaxSize int64
