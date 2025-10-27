@@ -22,3 +22,6 @@ type UploadConfig struct {
 	Enabled bool
 	// MaxSize is the maximum file size in bytes (0 = unlimited).
 	MaxSize int64
+	// AllowedTypes is a list of allowed MIME types. If empty, all types are allowed.
+	AllowedTypes []string
+	// AllowedExtensions is a list of allowed file extensions (case-insensitive).
