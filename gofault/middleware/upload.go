@@ -21,3 +21,5 @@ type UploadConfig struct {
 	// AllowedTypes is a list of allowed MIME types. If empty, all types are allowed.
 	AllowedTypes []string
 	// AllowedExtensions is a list of allowed file extensions (case-insensitive).
+	AllowedExtensions []string
+	// Storage is the storage backend for uploaded files.
