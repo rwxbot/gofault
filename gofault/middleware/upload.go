@@ -31,3 +31,6 @@ type UploadConfig struct {
 }
 
 // DefaultUploadConfig returns a default upload configuration.
+func DefaultUploadConfig() UploadConfig {
+	return UploadConfig{
+		Enabled:           true,
