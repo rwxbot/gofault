@@ -29,3 +29,5 @@ type UploadConfig struct {
 	// SkipFunc returns true to skip uploading for a given request.
 	SkipFunc func(*core.Ctx) bool
 }
+
+// DefaultUploadConfig returns a default upload configuration.
