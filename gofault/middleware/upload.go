@@ -30,3 +30,6 @@ type UploadConfig struct {
 	Storage StorageBackend
 	// FieldName is the form field name for file uploads (default: "file").
 	FieldName string
+	// SkipFunc returns true to skip uploading for a given request.
+	SkipFunc func(*core.Ctx) bool
+}
