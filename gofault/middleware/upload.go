@@ -23,3 +23,6 @@ type UploadConfig struct {
 	// AllowedExtensions is a list of allowed file extensions (case-insensitive).
 	AllowedExtensions []string
 	// Storage is the storage backend for uploaded files.
+	Storage StorageBackend
+	// FieldName is the form field name for file uploads (default: "file").
+	FieldName string
