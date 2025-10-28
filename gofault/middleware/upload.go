@@ -38,3 +38,5 @@ func DefaultUploadConfig() UploadConfig {
 		AllowedTypes:      nil,
 		AllowedExtensions: nil,
 		Storage:           nil, // must be set by caller
+		FieldName:         "file",
+		SkipFunc:          nil,
