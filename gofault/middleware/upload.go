@@ -45,3 +45,4 @@ func DefaultUploadConfig() UploadConfig {
 		FieldName:         "file",
 		SkipFunc:          nil,
 	}
+}
