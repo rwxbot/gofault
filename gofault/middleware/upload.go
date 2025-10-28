@@ -34,3 +34,5 @@ type UploadConfig struct {
 func DefaultUploadConfig() UploadConfig {
 	return UploadConfig{
 		Enabled:           true,
+		MaxSize:           10 * 1024 * 1024, // 10MB
+		AllowedTypes:      nil,
