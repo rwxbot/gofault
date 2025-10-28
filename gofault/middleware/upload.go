@@ -42,3 +42,5 @@ func DefaultUploadConfig() UploadConfig {
 		SkipFunc:          nil,
 	}
 }
+
+// FileInfo holds information about an uploaded file.
