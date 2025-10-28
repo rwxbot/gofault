@@ -40,3 +40,5 @@ func DefaultUploadConfig() UploadConfig {
 		Enabled:           true,
 		MaxSize:           10 * 1024 * 1024, // 10MB
 		AllowedTypes:      nil,
+		AllowedExtensions: nil,
+		Storage:           nil, // must be set by caller
