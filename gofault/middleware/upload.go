@@ -44,3 +44,5 @@ func DefaultUploadConfig() UploadConfig {
 }
 
 // FileInfo holds information about an uploaded file.
+type FileInfo struct {
+	// FieldName is the form field name.
