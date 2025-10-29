@@ -60,3 +60,6 @@ type FileInfo struct {
 }
 
 // StorageBackend is the interface for file storage backends.
+type StorageBackend interface {
+	// Store saves a file and returns its stored path.
+	Store(file *multipart.FileHeader, dir string) (string, error)
