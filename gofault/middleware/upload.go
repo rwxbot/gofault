@@ -55,3 +55,6 @@ type FileInfo struct {
 	ContentType string
 	// StoredPath is the path where the file was stored.
 	StoredPath string
+	// Extension is the file extension.
+	Extension string
+}
