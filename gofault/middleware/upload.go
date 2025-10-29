@@ -62,3 +62,5 @@ type FileInfo struct {
 	// Extension is the file extension.
 	Extension string
 }
+
+// StorageBackend is the interface for file storage backends.
