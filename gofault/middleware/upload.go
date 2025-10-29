@@ -64,3 +64,5 @@ type StorageBackend interface {
 	// Store saves a file and returns its stored path.
 	Store(file *multipart.FileHeader, dir string) (string, error)
 	// Delete removes a stored file.
+	Delete(path string) error
+}
