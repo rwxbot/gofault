@@ -53,3 +53,5 @@ type FileInfo struct {
 	Size int64
 	// ContentType is the MIME type.
 	ContentType string
+	// StoredPath is the path where the file was stored.
+	StoredPath string
