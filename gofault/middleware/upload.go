@@ -55,3 +55,5 @@ type FileInfo struct {
 	FileName string
 	// Size is the file size in bytes.
 	Size int64
+	// ContentType is the MIME type.
+	ContentType string
