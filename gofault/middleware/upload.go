@@ -49,3 +49,5 @@ type FileInfo struct {
 	FieldName string
 	// FileName is the original file name.
 	FileName string
+	// Size is the file size in bytes.
+	Size int64
