@@ -71,3 +71,6 @@ type StorageBackend interface {
 type LocalStorage struct {
 	// BaseDir is the base directory for storing files.
 	BaseDir string
+	// Permissions for created directories and files.
+	Perm os.FileMode
+}
