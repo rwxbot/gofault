@@ -70,3 +70,5 @@ type StorageBackend interface {
 	// Delete removes a stored file.
 	Delete(path string) error
 }
+
+// LocalStorage implements StorageBackend using the local filesystem.
