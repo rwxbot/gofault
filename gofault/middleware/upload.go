@@ -78,3 +78,5 @@ type LocalStorage struct {
 	// Permissions for created directories and files.
 	Perm os.FileMode
 }
+
+// NewLocalStorage creates a new LocalStorage backend.
