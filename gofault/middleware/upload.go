@@ -68,3 +68,4 @@ type StorageBackend interface {
 }
 
 // LocalStorage implements StorageBackend using the local filesystem.
+type LocalStorage struct {
