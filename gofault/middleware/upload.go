@@ -69,3 +69,5 @@ type StorageBackend interface {
 
 // LocalStorage implements StorageBackend using the local filesystem.
 type LocalStorage struct {
+	// BaseDir is the base directory for storing files.
+	BaseDir string
