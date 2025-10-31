@@ -86,3 +86,5 @@ func NewLocalStorage(baseDir string) *LocalStorage {
 // Store saves a file to the local filesystem.
 func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, error) {
 	src, err := file.Open()
+	if err != nil {
+		return "", fmt.Errorf("open uploaded file: %w", err)
