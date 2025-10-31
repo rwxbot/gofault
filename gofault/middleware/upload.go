@@ -79,3 +79,6 @@ type LocalStorage struct {
 func NewLocalStorage(baseDir string) *LocalStorage {
 	return &LocalStorage{
 		BaseDir: baseDir,
+		Perm:    0755,
+	}
+}
