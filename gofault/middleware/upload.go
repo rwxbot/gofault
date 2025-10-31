@@ -76,3 +76,6 @@ type LocalStorage struct {
 }
 
 // NewLocalStorage creates a new LocalStorage backend.
+func NewLocalStorage(baseDir string) *LocalStorage {
+	return &LocalStorage{
+		BaseDir: baseDir,
