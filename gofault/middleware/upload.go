@@ -88,3 +88,5 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 	src, err := file.Open()
 	if err != nil {
 		return "", fmt.Errorf("open uploaded file: %w", err)
+	}
+	defer src.Close()
