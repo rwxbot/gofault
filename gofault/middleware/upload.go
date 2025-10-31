@@ -92,3 +92,4 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 	defer src.Close()
 
 	// Ensure parent directory exists
+	fullDir := filepath.Join(s.BaseDir, dir)
