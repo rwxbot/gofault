@@ -86,3 +86,5 @@ func NewLocalStorage(baseDir string) *LocalStorage {
 		Perm:    0755,
 	}
 }
+
+// Store saves a file to the local filesystem.
