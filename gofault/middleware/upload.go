@@ -90,3 +90,5 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 		return "", fmt.Errorf("open uploaded file: %w", err)
 	}
 	defer src.Close()
+
+	// Ensure parent directory exists
