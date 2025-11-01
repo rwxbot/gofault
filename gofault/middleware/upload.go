@@ -99,3 +99,4 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 	fullDir := filepath.Join(s.BaseDir, dir)
 	if err := os.MkdirAll(fullDir, s.Perm); err != nil {
 		return "", fmt.Errorf("create directory: %w", err)
+	}
