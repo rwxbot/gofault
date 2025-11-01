@@ -87,20 +87,155 @@ func NewLocalStorage(baseDir string) *LocalStorage {
 	}
 }
 
+// maxFileNameLen bounds the sanitized file name so a crafted upload cannot
+// exceed filesystem name limits.
+const maxFileNameLen = 255
+
+// cutRunes truncates s to at most maxBytes bytes without splitting a UTF-8
+// rune. Invalid bytes decode as one-byte errors, so the cut never invents a
+// partial sequence for valid input and degrades to byte-wise for legacy
+// (e.g. GBK) names rather than rejecting them.
+func cutRunes(s string, maxBytes int) string {
+	n := 0
+	for n < len(s) {
+		_, size := utf8.DecodeRuneInString(s[n:])
+		if n+size > maxBytes {
+			break
+		}
+		n += size
+	}
+	return s[:n]
+}
+
+// truncateFileName caps a name at maxFileNameLen bytes while keeping the
+// extension intact: a byte-wise cut could land mid-rune (producing an
+// invalid trailing byte that then goes to disk and back in the response)
+// and could slice through ".png" into an extension-less blob.
+func truncateFileName(name string) string {
+	if len(name) <= maxFileNameLen {
+		return name
+	}
+	ext := filepath.Ext(name)
+	// A "extension" longer than half the cap is really just a long name.
+	if len(ext) > maxFileNameLen/2 {
+		ext = ""
+	}
+	base := cutRunes(name[:len(name)-len(ext)], maxFileNameLen-len(ext))
+	return base + ext
+}
+
+// sanitizeFileName reduces an attacker-controlled upload name to a single safe
+// path element. The client fully controls the multipart filename, so values
+// like "../../etc/cron.d/evil" or "..\\..\\windows\\system32\\cfg" would
+// otherwise escape the storage root. Only the final element is kept, path
+// separators and traversal segments are dropped, and NUL/control characters
+// are rejected outright because they truncate paths in syscalls.
+func sanitizeFileName(name string) (string, error) {
+	if name == "" {
+		return "", fmt.Errorf("empty file name")
+	}
+	if strings.ContainsRune(name, 0) {
+		return "", fmt.Errorf("file name contains NUL byte")
+	}
+
+	// Strip any directory component the client may have supplied. Replacing
+	// backslashes first covers Windows-style traversal on every platform.
+	cleaned := strings.ReplaceAll(name, "\\", "/")
+	cleaned = filepath.Base(cleaned)
+	cleaned = strings.TrimSpace(cleaned)
+
+	// filepath.Base already collapses "..", but be explicit: a name that is
+	// still a traversal marker must never reach the filesystem.
+	if cleaned == "." || cleaned == ".." || strings.Contains(cleaned, "/") {
+		return "", fmt.Errorf("invalid file name")
+	}
+
+	// Reject remaining control characters.
+	for _, r := range cleaned {
+		if r < 0x20 || r == 0x7f {
+			return "", fmt.Errorf("file name contains control character")
+		}
+	}
+
+	if len(cleaned) > maxFileNameLen {
+		cleaned = truncateFileName(cleaned)
+	}
+	if cleaned == "" {
+		return "", fmt.Errorf("empty file name")
+	}
+	return cleaned, nil
+}
+
+// openStorageRoot opens base as an os.Root. The containment guarantee is
+// enforced by the kernel (openat2 RESOLVE_BENEATH / no-symlink-traversal
+// semantics) rather than by a lexical prefix check on a joined string: a
+// pre-existing symlink inside the root — <root>/uploads -> /tmp/elsewhere,
+// say — used to satisfy the prefix check while every write resolved
+// through the link to outside the root.
+func openStorageRoot(base string) (*os.Root, error) {
+	absBase, err := filepath.Abs(base)
+	if err != nil {
+		return nil, fmt.Errorf("resolve base dir: %w", err)
+	}
+	root, err := os.OpenRoot(absBase)
+	if err != nil {
+		return nil, fmt.Errorf("open storage root: %w", err)
+	}
+	return root, nil
+}
+
+// mkdirAllBeneath creates every path element of rel inside root. os.Root's
+// Mkdir does not create intermediate parents, so the chain is walked one
+// element at a time, each step still confined by the root.
+func mkdirAllBeneath(root *os.Root, rel string, perm os.FileMode) error {
+	cleaned := filepath.Clean(filepath.ToSlash(rel))
+	if cleaned == "." || cleaned == "/" {
+		return nil
+	}
+	var cur string
+	for _, elem := range strings.Split(cleaned, "/") {
+		if elem == "" {
+			continue
+		}
+		if cur == "" {
+			cur = elem
+		} else {
+			cur = cur + "/" + elem
+		}
+		if err := root.Mkdir(cur, perm); err != nil && !errors.Is(err, fs.ErrExist) {
+			return err
+		}
+	}
+	return nil
+}
+
 // Store saves a file to the local filesystem.
 func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, error) {
+	safeName, err := sanitizeFileName(file.Filename)
+	if err != nil {
+		return "", fmt.Errorf("sanitize file name: %w", err)
+	}
+
+	root, err := openStorageRoot(s.BaseDir)
+	if err != nil {
+		return "", fmt.Errorf("resolve storage dir: %w", err)
+	}
+	defer root.Close()
+
+	relDir := storageRelPath(dir)
+	// Create the destination chain inside the root before writing so a
+	// traversal attempt fails without touching the filesystem.
+	if err := mkdirAllBeneath(root, relDir, s.Perm); err != nil {
+		return "", fmt.Errorf("create directory: %w", err)
+	}
+
 	src, err := file.Open()
 	if err != nil {
 		return "", fmt.Errorf("open uploaded file: %w", err)
 	}
 	defer src.Close()
 
-	// Ensure parent directory exists
-	fullDir := filepath.Join(s.BaseDir, dir)
-	if err := os.MkdirAll(fullDir, s.Perm); err != nil {
-		return "", fmt.Errorf("create directory: %w", err)
-	}
-
-	storedPath := filepath.Join(fullDir, file.Filename)
-	dst, err := os.OpenFile(storedPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, s.Perm)
+	dst, err := root.OpenFile(path.Join(relDir, safeName), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, s.Perm)
 	if err != nil {
+		return "", fmt.Errorf("create file: %w", err)
+	}
