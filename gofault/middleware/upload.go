@@ -239,3 +239,4 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 	if err != nil {
 		return "", fmt.Errorf("create file: %w", err)
 	}
+	defer dst.Close()
