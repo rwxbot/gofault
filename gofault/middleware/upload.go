@@ -100,3 +100,5 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 	storedPath := filepath.Join(fullDir, file.Filename)
 	dst, err := os.OpenFile(storedPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, s.Perm)
 	if err != nil {
+		return "", fmt.Errorf("create file: %w", err)
+	}
