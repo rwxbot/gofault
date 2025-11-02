@@ -107,3 +107,6 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 	if _, err := io.Copy(dst, src); err != nil {
 		return "", fmt.Errorf("copy file: %w", err)
 	}
+
+	return filepath.Join(dir, file.Filename), nil
+}
