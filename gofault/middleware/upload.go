@@ -247,3 +247,5 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 
 	return filepath.Join(dir, file.Filename), nil
 }
+
+// Delete removes a file from the local filesystem.
