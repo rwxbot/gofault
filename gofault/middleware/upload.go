@@ -240,3 +240,7 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 		return "", fmt.Errorf("create file: %w", err)
 	}
 	defer dst.Close()
+
+	if _, err := io.Copy(dst, src); err != nil {
+		return "", fmt.Errorf("copy file: %w", err)
+	}
