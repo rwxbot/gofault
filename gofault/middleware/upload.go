@@ -245,11 +245,14 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 		return "", fmt.Errorf("copy file: %w", err)
 	}
 
-	return filepath.Join(dir, file.Filename), nil
+	return filepath.ToSlash(filepath.Join(dir, safeName)), nil
 }
 
 // Delete removes a file from the local filesystem.
 func (s *LocalStorage) Delete(path string) error {
-	fullPath := filepath.Join(s.BaseDir, path)
+	fullPath, err := resolveUnderRoot(s.BaseDir, path)
+	if err != nil {
+		return fmt.Errorf("resolve delete path: %w", err)
+	}
 	return os.Remove(fullPath)
 }
