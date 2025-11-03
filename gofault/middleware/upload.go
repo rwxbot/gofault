@@ -113,3 +113,6 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 
 // Delete removes a file from the local filesystem.
 func (s *LocalStorage) Delete(path string) error {
+	fullPath := filepath.Join(s.BaseDir, path)
+	return os.Remove(fullPath)
+}
