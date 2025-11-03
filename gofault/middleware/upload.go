@@ -278,3 +278,4 @@ func storageRelPath(rel string) string {
 
 // UploadMiddleware creates a middleware that handles file uploads.
 // Uploaded files are stored via the configured Storage backend and
+// their info is stored in ctx.Locals["upload_files"] ([]FileInfo).
