@@ -116,3 +116,5 @@ func (s *LocalStorage) Delete(path string) error {
 	fullPath := filepath.Join(s.BaseDir, path)
 	return os.Remove(fullPath)
 }
+
+// UploadMiddleware creates a middleware that handles file uploads.
