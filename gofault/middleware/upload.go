@@ -245,14 +245,35 @@ func (s *LocalStorage) Store(file *multipart.FileHeader, dir string) (string, er
 		return "", fmt.Errorf("copy file: %w", err)
 	}
 
-	return filepath.ToSlash(filepath.Join(dir, safeName)), nil
+	return path.Join(filepath.ToSlash(dir), safeName), nil
 }
 
 // Delete removes a file from the local filesystem.
-func (s *LocalStorage) Delete(path string) error {
-	fullPath, err := resolveUnderRoot(s.BaseDir, path)
+func (s *LocalStorage) Delete(p string) error {
+	root, err := openStorageRoot(s.BaseDir)
 	if err != nil {
 		return fmt.Errorf("resolve delete path: %w", err)
 	}
-	return os.Remove(fullPath)
+	defer root.Close()
+
+	if err := root.Remove(storageRelPath(p)); err != nil {
+		return fmt.Errorf("remove file: %w", err)
+	}
+	return nil
 }
+
+// storageRelPath normalises a caller-supplied relative path for use with
+// os.Root: backslashes become slashes and a leading "/" is stripped, which
+// matches the old join-onto-base semantics where "/x" meant "<base>/x".
+// Traversal ("..") is left in place for os.Root to reject at the kernel
+// level rather than being silently cleaned away.
+func storageRelPath(rel string) string {
+	rel = filepath.ToSlash(rel)
+	rel = strings.TrimPrefix(rel, "/")
+	if rel == "" {
+		return "."
+	}
+	return rel
+}
+
+// UploadMiddleware creates a middleware that handles file uploads.
