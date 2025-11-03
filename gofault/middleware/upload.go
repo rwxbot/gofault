@@ -118,3 +118,4 @@ func (s *LocalStorage) Delete(path string) error {
 }
 
 // UploadMiddleware creates a middleware that handles file uploads.
+// Uploaded files are stored via the configured Storage backend and
