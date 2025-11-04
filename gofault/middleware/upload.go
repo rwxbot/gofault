@@ -123,3 +123,6 @@ func (s *LocalStorage) Delete(path string) error {
 func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
+
+	if config.MaxSize == 0 {
