@@ -291,3 +291,6 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
 		if config.SkipFunc != nil && config.SkipFunc(ctx) {
 			return next(ctx)
+		}
+
+		// Only handle multipart form requests
