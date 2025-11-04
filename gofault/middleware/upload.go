@@ -294,3 +294,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		}
 
 		// Only handle multipart form requests
+		if !strings.Contains(ctx.Request.Header.Get("Content-Type"), "multipart/form-data") {
+			return next(ctx)
