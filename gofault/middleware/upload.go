@@ -287,3 +287,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 	if config.MaxSize == 0 {
 		config.MaxSize = 10 * 1024 * 1024 // default 10MB
 	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
