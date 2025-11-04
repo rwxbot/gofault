@@ -282,3 +282,6 @@ func storageRelPath(rel string) string {
 func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 	if !config.Enabled {
 		return nil
+	}
+
+	if config.MaxSize == 0 {
