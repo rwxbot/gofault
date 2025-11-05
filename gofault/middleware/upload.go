@@ -138,3 +138,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		if !strings.Contains(ctx.Request.Header.Get("Content-Type"), "multipart/form-data") {
 			return next(ctx)
 		}
+
+		if err := ctx.Request.ParseMultipartForm(config.MaxSize); err != nil {
