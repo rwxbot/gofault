@@ -306,3 +306,6 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		fieldName := config.FieldName
 		if fieldName == "" {
 			fieldName = "file"
+		}
+
+		files := ctx.Request.MultipartForm.File[fieldName]
