@@ -143,3 +143,7 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 			ctx.Response.WriteHeader(http.StatusRequestEntityTooLarge)
 			return nil
 		}
+
+		fieldName := config.FieldName
+		if fieldName == "" {
+			fieldName = "file"
