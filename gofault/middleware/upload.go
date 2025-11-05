@@ -142,3 +142,4 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		if err := ctx.Request.ParseMultipartForm(config.MaxSize); err != nil {
 			ctx.Response.WriteHeader(http.StatusRequestEntityTooLarge)
 			return nil
+		}
