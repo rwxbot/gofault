@@ -153,3 +153,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		if len(files) == 0 {
 			return next(ctx)
 		}
+
+		if config.Storage == nil {
