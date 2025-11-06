@@ -309,3 +309,6 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		}
 
 		files := ctx.Request.MultipartForm.File[fieldName]
+		if len(files) == 0 {
+			return next(ctx)
+		}
