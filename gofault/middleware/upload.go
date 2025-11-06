@@ -155,3 +155,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		}
 
 		if config.Storage == nil {
+			return fmt.Errorf("upload middleware: no storage backend configured")
+		}
