@@ -162,3 +162,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		for _, f := range files {
 			if config.MaxSize > 0 && f.Size > config.MaxSize {
 				ctx.Response.WriteHeader(http.StatusRequestEntityTooLarge)
+				return nil
+			}
