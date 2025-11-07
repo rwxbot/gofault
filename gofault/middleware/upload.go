@@ -323,3 +323,15 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 				ctx.Response.WriteHeader(http.StatusRequestEntityTooLarge)
 				return nil
 			}
+
+			// Reject traversal names before they reach any storage backend,
+			// including third-party ones that may not sanitize themselves.
+			safeName, err := sanitizeFileName(f.Filename)
+			if err != nil {
+				ctx.Response.WriteHeader(http.StatusBadRequest)
+				return nil
+			}
+
+			if !allowedFile(f, config.AllowedTypes, config.AllowedExtensions) {
+				ctx.Response.WriteHeader(http.StatusUnsupportedMediaType)
+				return nil
