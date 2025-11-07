@@ -336,3 +336,7 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 				ctx.Response.WriteHeader(http.StatusUnsupportedMediaType)
 				return nil
 			}
+
+			storedPath, err := config.Storage.Store(f, "uploads")
+			if err != nil {
+				return fmt.Errorf("store file: %w", err)
