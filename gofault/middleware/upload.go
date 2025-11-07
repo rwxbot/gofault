@@ -335,3 +335,4 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 			if !allowedFile(f, config.AllowedTypes, config.AllowedExtensions) {
 				ctx.Response.WriteHeader(http.StatusUnsupportedMediaType)
 				return nil
+			}
