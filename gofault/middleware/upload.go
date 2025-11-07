@@ -164,3 +164,7 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 				ctx.Response.WriteHeader(http.StatusRequestEntityTooLarge)
 				return nil
 			}
+
+			if !allowedFile(f, config.AllowedTypes, config.AllowedExtensions) {
+				ctx.Response.WriteHeader(http.StatusUnsupportedMediaType)
+				return nil
