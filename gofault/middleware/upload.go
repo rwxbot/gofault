@@ -341,3 +341,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 			if err != nil {
 				return fmt.Errorf("store file: %w", err)
 			}
+
+			ext := filepath.Ext(f.Filename)
