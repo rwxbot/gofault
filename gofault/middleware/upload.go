@@ -182,3 +182,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 				Size:        f.Size,
 				ContentType: f.Header.Get("Content-Type"),
 				StoredPath:  storedPath,
+				Extension:   ext,
+			})
