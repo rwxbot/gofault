@@ -343,3 +343,6 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 			}
 
 			ext := filepath.Ext(f.Filename)
+			uploaded = append(uploaded, FileInfo{
+				FieldName:   fieldName,
+				FileName:    f.Filename,
