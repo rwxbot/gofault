@@ -179,3 +179,6 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 			uploaded = append(uploaded, FileInfo{
 				FieldName:   fieldName,
 				FileName:    f.Filename,
+				Size:        f.Size,
+				ContentType: f.Header.Get("Content-Type"),
+				StoredPath:  storedPath,
