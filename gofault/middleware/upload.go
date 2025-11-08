@@ -342,7 +342,10 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 				return fmt.Errorf("store file: %w", err)
 			}
 
-			ext := filepath.Ext(f.Filename)
+			ext := filepath.Ext(safeName)
 			uploaded = append(uploaded, FileInfo{
 				FieldName:   fieldName,
-				FileName:    f.Filename,
+				FileName:    safeName,
+				Size:        f.Size,
+				ContentType: f.Header.Get("Content-Type"),
+				StoredPath:  storedPath,
