@@ -340,3 +340,4 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 			storedPath, err := config.Storage.Store(f, "uploads")
 			if err != nil {
 				return fmt.Errorf("store file: %w", err)
+			}
