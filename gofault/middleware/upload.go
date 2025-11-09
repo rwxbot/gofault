@@ -363,3 +363,5 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 	if len(allowedExts) > 0 {
 		ext := strings.ToLower(filepath.Ext(file.Filename))
 		allowed := false
+		for _, e := range allowedExts {
+			if strings.ToLower(e) == ext {
