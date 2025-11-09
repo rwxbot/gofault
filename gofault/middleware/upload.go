@@ -188,3 +188,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 
 		ctx.SetLocal("upload_files", uploaded)
 		return next(ctx)
+	}
+}
