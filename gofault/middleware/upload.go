@@ -185,3 +185,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 				Extension:   ext,
 			})
 		}
+
+		ctx.SetLocal("upload_files", uploaded)
