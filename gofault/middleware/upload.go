@@ -190,3 +190,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 		return next(ctx)
 	}
 }
+
+// allowedFile checks if a file is allowed based on type and extension.
