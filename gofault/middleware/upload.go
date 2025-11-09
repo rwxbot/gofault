@@ -351,3 +351,4 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 				StoredPath:  storedPath,
 				Extension:   ext,
 			})
+		}
