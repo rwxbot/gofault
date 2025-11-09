@@ -361,3 +361,5 @@ func UploadMiddleware(config UploadConfig) core.MiddlewareFunc {
 // allowedFile checks if a file is allowed based on type and extension.
 func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string) bool {
 	if len(allowedExts) > 0 {
+		ext := strings.ToLower(filepath.Ext(file.Filename))
+		allowed := false
