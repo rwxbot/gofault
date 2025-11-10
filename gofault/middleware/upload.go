@@ -379,3 +379,6 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 		allowed := false
 		for _, t := range allowedTypes {
 			if t == contentType {
+				allowed = true
+				break
+			}
