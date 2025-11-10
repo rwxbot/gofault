@@ -365,3 +365,4 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 		allowed := false
 		for _, e := range allowedExts {
 			if strings.ToLower(e) == ext {
+				allowed = true
