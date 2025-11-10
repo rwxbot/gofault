@@ -376,3 +376,6 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 
 	if len(allowedTypes) > 0 {
 		contentType := file.Header.Get("Content-Type")
+		allowed := false
+		for _, t := range allowedTypes {
+			if t == contentType {
