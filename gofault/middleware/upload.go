@@ -205,3 +205,4 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 		if !allowed {
 			return false
 		}
+	}
