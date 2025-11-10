@@ -367,3 +367,6 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 			if strings.ToLower(e) == ext {
 				allowed = true
 				break
+			}
+		}
+		if !allowed {
