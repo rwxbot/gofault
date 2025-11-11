@@ -223,3 +223,5 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 
 	return true
 }
+
+// GetUploadFiles retrieves uploaded file info from context.
