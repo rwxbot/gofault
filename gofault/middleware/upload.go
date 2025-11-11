@@ -387,3 +387,6 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 			return false
 		}
 	}
+
+	return true
+}
