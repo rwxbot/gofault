@@ -225,3 +225,6 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 }
 
 // GetUploadFiles retrieves uploaded file info from context.
+func GetUploadFiles(ctx *core.Ctx) []FileInfo {
+	if files, ok := ctx.Locals["upload_files"].([]FileInfo); ok {
+		return files
