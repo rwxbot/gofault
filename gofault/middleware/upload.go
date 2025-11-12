@@ -228,3 +228,6 @@ func allowedFile(file *multipart.FileHeader, allowedTypes, allowedExts []string)
 func GetUploadFiles(ctx *core.Ctx) []FileInfo {
 	if files, ok := ctx.Locals["upload_files"].([]FileInfo); ok {
 		return files
+	}
+	return nil
+}
