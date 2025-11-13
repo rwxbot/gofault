@@ -11,3 +11,5 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/gofault/gofault/core"
