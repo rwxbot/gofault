@@ -24,3 +24,4 @@ func TestDefaultUploadConfig(t *testing.T) {
 		t.Errorf("expected MaxSize 10MB, got %d", cfg.MaxSize)
 	}
 	if cfg.FieldName != "file" {
+		t.Errorf("expected FieldName 'file', got '%s'", cfg.FieldName)
