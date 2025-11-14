@@ -14,3 +14,6 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestDefaultUploadConfig(t *testing.T) {
+	cfg := DefaultUploadConfig()
