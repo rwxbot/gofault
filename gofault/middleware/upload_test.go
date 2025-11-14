@@ -22,3 +22,5 @@ func TestDefaultUploadConfig(t *testing.T) {
 	}
 	if cfg.MaxSize != 10*1024*1024 {
 		t.Errorf("expected MaxSize 10MB, got %d", cfg.MaxSize)
+	}
+	if cfg.FieldName != "file" {
