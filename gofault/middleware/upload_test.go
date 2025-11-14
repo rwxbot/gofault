@@ -17,3 +17,4 @@ import (
 
 func TestDefaultUploadConfig(t *testing.T) {
 	cfg := DefaultUploadConfig()
+	if !cfg.Enabled {
