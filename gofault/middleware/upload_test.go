@@ -25,3 +25,5 @@ func TestDefaultUploadConfig(t *testing.T) {
 	}
 	if cfg.FieldName != "file" {
 		t.Errorf("expected FieldName 'file', got '%s'", cfg.FieldName)
+	}
+}
