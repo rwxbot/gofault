@@ -31,3 +31,6 @@ func TestDefaultUploadConfig(t *testing.T) {
 func TestUploadMiddleware_Disabled(t *testing.T) {
 	cfg := UploadConfig{Enabled: false}
 	mw := UploadMiddleware(cfg)
+	if mw != nil {
+		t.Error("expected nil middleware when disabled")
+	}
