@@ -27,3 +27,7 @@ func TestDefaultUploadConfig(t *testing.T) {
 		t.Errorf("expected FieldName 'file', got '%s'", cfg.FieldName)
 	}
 }
+
+func TestUploadMiddleware_Disabled(t *testing.T) {
+	cfg := UploadConfig{Enabled: false}
+	mw := UploadMiddleware(cfg)
