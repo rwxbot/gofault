@@ -46,3 +46,5 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 
 	// Create a multipart body with a file (so storage check is reached)
 	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("file", "test.txt")
