@@ -53,3 +53,5 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 	}
 	io.WriteString(part, "hello")
 	writer.Close()
+
+	req := httptest.NewRequest("POST", "/upload", body)
