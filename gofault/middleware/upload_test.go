@@ -43,3 +43,6 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 	if mw == nil {
 		t.Fatal("middleware is nil")
 	}
+
+	// Create a multipart body with a file (so storage check is reached)
+	body := &bytes.Buffer{}
