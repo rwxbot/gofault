@@ -39,3 +39,5 @@ func TestUploadMiddleware_Disabled(t *testing.T) {
 func TestUploadMiddleware_NoStorage(t *testing.T) {
 	cfg := DefaultUploadConfig()
 	cfg.Storage = nil
+	mw := UploadMiddleware(cfg)
+	if mw == nil {
