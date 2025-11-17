@@ -63,3 +63,4 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 	if err == nil {
 		t.Error("expected error when no storage configured")
 	}
+}
