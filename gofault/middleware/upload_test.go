@@ -55,3 +55,4 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/upload", body)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
