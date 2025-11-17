@@ -58,3 +58,5 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	err = mw(ctx, func(c *core.Ctx) error { return nil })
