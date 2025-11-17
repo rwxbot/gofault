@@ -60,3 +60,6 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	err = mw(ctx, func(c *core.Ctx) error { return nil })
+	if err == nil {
+		t.Error("expected error when no storage configured")
+	}
