@@ -67,3 +67,6 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 
 func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	tmpDir := t.TempDir()
+	storage := NewLocalStorage(tmpDir)
+
+	// Create a fake multipart file header
