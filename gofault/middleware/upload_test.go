@@ -64,3 +64,6 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 		t.Error("expected error when no storage configured")
 	}
 }
+
+func TestLocalStorage_StoreAndDelete(t *testing.T) {
+	tmpDir := t.TempDir()
