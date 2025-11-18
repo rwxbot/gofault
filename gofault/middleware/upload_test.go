@@ -70,3 +70,6 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	storage := NewLocalStorage(tmpDir)
 
 	// Create a fake multipart file header
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("file", "test.txt")
