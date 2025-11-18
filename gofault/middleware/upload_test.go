@@ -73,3 +73,5 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	part, err := writer.CreateFormFile("file", "test.txt")
+	if err != nil {
+		t.Fatal(err)
