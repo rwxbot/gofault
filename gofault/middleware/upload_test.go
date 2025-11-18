@@ -75,3 +75,4 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	part, err := writer.CreateFormFile("file", "test.txt")
 	if err != nil {
 		t.Fatal(err)
+	}
