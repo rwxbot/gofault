@@ -77,3 +77,6 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 		t.Fatal(err)
 	}
 	io.WriteString(part, "hello world")
+	writer.Close()
+
+	req := httptest.NewRequest("POST", "/", body)
