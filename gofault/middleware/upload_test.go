@@ -84,3 +84,6 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	_ = req.ParseMultipartForm(0)
 
 	file := req.MultipartForm.File["file"][0]
+
+	path, err := storage.Store(file, "subdir")
+	if err != nil {
