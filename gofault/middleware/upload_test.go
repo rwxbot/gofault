@@ -76,3 +76,4 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	io.WriteString(part, "hello world")
