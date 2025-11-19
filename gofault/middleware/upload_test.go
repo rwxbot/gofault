@@ -87,3 +87,5 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 
 	path, err := storage.Store(file, "subdir")
 	if err != nil {
+		t.Fatalf("store error: %v", err)
+	}
