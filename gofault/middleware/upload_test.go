@@ -93,3 +93,4 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	expected := filepath.Join("subdir", "test.txt")
 	if path != expected {
 		t.Errorf("expected path %s, got %s", expected, path)
+	}
