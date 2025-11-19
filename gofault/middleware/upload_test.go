@@ -94,3 +94,5 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	if path != expected {
 		t.Errorf("expected path %s, got %s", expected, path)
 	}
+
+	// Verify file exists
