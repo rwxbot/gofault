@@ -106,3 +106,6 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	}
 
 	// Delete
+	err = storage.Delete(path)
+	if err != nil {
+		t.Fatalf("delete error: %v", err)
