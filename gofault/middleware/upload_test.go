@@ -98,3 +98,5 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	// Verify file exists
 	fullPath := filepath.Join(tmpDir, path)
 	data, err := os.ReadFile(fullPath)
+	if err != nil {
+		t.Fatalf("read file error: %v", err)
