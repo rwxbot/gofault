@@ -96,3 +96,4 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	}
 
 	// Verify file exists
+	fullPath := filepath.Join(tmpDir, path)
