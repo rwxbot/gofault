@@ -100,3 +100,6 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	data, err := os.ReadFile(fullPath)
 	if err != nil {
 		t.Fatalf("read file error: %v", err)
+	}
+	if string(data) != "hello world" {
+		t.Errorf("expected 'hello world', got '%s'", string(data))
