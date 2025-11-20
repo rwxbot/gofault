@@ -103,3 +103,6 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	}
 	if string(data) != "hello world" {
 		t.Errorf("expected 'hello world', got '%s'", string(data))
+	}
+
+	// Delete
