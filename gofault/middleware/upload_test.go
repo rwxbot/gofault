@@ -112,3 +112,5 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	}
 	if _, err := os.Stat(fullPath); !os.IsNotExist(err) {
 		t.Error("file should be deleted")
+	}
+}
