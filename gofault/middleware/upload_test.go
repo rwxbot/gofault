@@ -123,3 +123,5 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	cfg.Storage = storage
 
 	mw := UploadMiddleware(cfg)
+	if mw == nil {
+		t.Fatal("middleware is nil")
