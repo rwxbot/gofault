@@ -120,3 +120,6 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	storage := NewLocalStorage(tmpDir)
 
 	cfg := DefaultUploadConfig()
+	cfg.Storage = storage
+
+	mw := UploadMiddleware(cfg)
