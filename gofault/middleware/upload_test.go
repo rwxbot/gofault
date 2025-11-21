@@ -114,3 +114,7 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 		t.Error("file should be deleted")
 	}
 }
+
+func TestUploadMiddleware_UploadsFile(t *testing.T) {
+	tmpDir := t.TempDir()
+	storage := NewLocalStorage(tmpDir)
