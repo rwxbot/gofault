@@ -118,3 +118,5 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	tmpDir := t.TempDir()
 	storage := NewLocalStorage(tmpDir)
+
+	cfg := DefaultUploadConfig()
