@@ -129,3 +129,6 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("file", "myfile.txt")
+	if err != nil {
+		t.Fatal(err)
