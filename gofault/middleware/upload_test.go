@@ -128,3 +128,4 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	}
 
 	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
