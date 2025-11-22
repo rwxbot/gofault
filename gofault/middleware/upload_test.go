@@ -134,3 +134,4 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 		t.Fatal(err)
 	}
 	io.WriteString(part, "file content here")
+	writer.Close()
