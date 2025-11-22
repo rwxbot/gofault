@@ -132,3 +132,5 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	part, err := writer.CreateFormFile("file", "myfile.txt")
 	if err != nil {
 		t.Fatal(err)
+	}
+	io.WriteString(part, "file content here")
