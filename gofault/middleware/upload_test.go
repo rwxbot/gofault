@@ -138,3 +138,4 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 
 	req := httptest.NewRequest("POST", "/upload", body)
 	req.Header.Set("Content-Type", writer.FormDataContentType())
+	rec := httptest.NewRecorder()
