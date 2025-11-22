@@ -125,3 +125,6 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	mw := UploadMiddleware(cfg)
 	if mw == nil {
 		t.Fatal("middleware is nil")
+	}
+
+	body := &bytes.Buffer{}
