@@ -144,3 +144,6 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	var handlerCalled bool
 	err = mw(ctx, func(c *core.Ctx) error {
 		handlerCalled = true
+		files := GetUploadFiles(c)
+		if len(files) != 1 {
+			t.Errorf("expected 1 file, got %d", len(files))
