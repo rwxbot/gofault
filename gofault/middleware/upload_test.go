@@ -150,3 +150,6 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 		}
 		if files[0].FileName != "myfile.txt" {
 			t.Errorf("expected 'myfile.txt', got '%s'", files[0].FileName)
+		}
+		if files[0].Size != 17 {
+			t.Errorf("expected size 17, got %d", files[0].Size)
