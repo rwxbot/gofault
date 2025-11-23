@@ -142,3 +142,5 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var handlerCalled bool
+	err = mw(ctx, func(c *core.Ctx) error {
+		handlerCalled = true
