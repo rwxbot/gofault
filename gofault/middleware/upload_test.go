@@ -147,3 +147,6 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 		files := GetUploadFiles(c)
 		if len(files) != 1 {
 			t.Errorf("expected 1 file, got %d", len(files))
+		}
+		if files[0].FileName != "myfile.txt" {
+			t.Errorf("expected 'myfile.txt', got '%s'", files[0].FileName)
