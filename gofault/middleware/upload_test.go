@@ -163,3 +163,4 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	if !handlerCalled {
 		t.Error("next handler was not called")
 	}
+}
