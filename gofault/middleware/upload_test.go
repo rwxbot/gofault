@@ -164,3 +164,7 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 		t.Error("next handler was not called")
 	}
 }
+
+func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
+	tmpDir := t.TempDir()
+	storage := NewLocalStorage(tmpDir)
