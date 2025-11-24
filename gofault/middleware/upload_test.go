@@ -161,3 +161,5 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 		t.Fatalf("middleware error: %v", err)
 	}
 	if !handlerCalled {
+		t.Error("next handler was not called")
+	}
