@@ -170,3 +170,6 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 	storage := NewLocalStorage(tmpDir)
 
 	cfg := DefaultUploadConfig()
+	cfg.Storage = storage
+
+	mw := UploadMiddleware(cfg)
