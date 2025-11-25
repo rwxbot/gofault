@@ -173,3 +173,6 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 	cfg.Storage = storage
 
 	mw := UploadMiddleware(cfg)
+
+	req := httptest.NewRequest("POST", "/upload", bytes.NewReader([]byte("hello")))
+	req.Header.Set("Content-Type", "application/json")
