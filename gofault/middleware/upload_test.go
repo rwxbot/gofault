@@ -181,3 +181,5 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 
 	var called bool
 	mw(ctx, func(c *core.Ctx) error {
+		called = true
+		return nil
