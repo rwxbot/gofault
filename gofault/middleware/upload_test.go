@@ -177,3 +177,4 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 	req := httptest.NewRequest("POST", "/upload", bytes.NewReader([]byte("hello")))
 	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
