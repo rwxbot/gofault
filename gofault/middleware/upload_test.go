@@ -192,3 +192,6 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 
 func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	tmpDir := t.TempDir()
+	storage := NewLocalStorage(tmpDir)
+
+	cfg := DefaultUploadConfig()
