@@ -188,3 +188,4 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 	if !called {
 		t.Error("non-multipart request should skip upload handling")
 	}
+}
