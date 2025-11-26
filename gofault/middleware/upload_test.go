@@ -189,3 +189,5 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 		t.Error("non-multipart request should skip upload handling")
 	}
 }
+
+func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
