@@ -184,3 +184,5 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 		called = true
 		return nil
 	})
+
+	if !called {
