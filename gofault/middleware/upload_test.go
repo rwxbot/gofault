@@ -208,3 +208,6 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	}
 	io.WriteString(part, "this file is bigger than 5 bytes")
 	writer.Close()
+
+	req := httptest.NewRequest("POST", "/upload", body)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
