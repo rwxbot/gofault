@@ -205,3 +205,4 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	part, err := writer.CreateFormFile("file", "big.txt")
 	if err != nil {
 		t.Fatal(err)
+	}
