@@ -196,3 +196,4 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 
 	cfg := DefaultUploadConfig()
 	cfg.Storage = storage
+	cfg.MaxSize = 5 // 5 bytes
