@@ -206,3 +206,5 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	io.WriteString(part, "this file is bigger than 5 bytes")
+	writer.Close()
