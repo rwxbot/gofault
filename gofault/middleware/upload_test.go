@@ -203,3 +203,5 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	part, err := writer.CreateFormFile("file", "big.txt")
+	if err != nil {
+		t.Fatal(err)
