@@ -195,3 +195,4 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	storage := NewLocalStorage(tmpDir)
 
 	cfg := DefaultUploadConfig()
+	cfg.Storage = storage
