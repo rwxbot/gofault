@@ -199,3 +199,7 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	cfg.MaxSize = 5 // 5 bytes
 
 	mw := UploadMiddleware(cfg)
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("file", "big.txt")
