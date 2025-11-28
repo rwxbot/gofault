@@ -213,3 +213,5 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	mw(ctx, func(c *core.Ctx) error { return nil })
