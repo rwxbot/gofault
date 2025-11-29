@@ -224,3 +224,5 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	tmpDir := t.TempDir()
 	storage := NewLocalStorage(tmpDir)
+
+	cfg := DefaultUploadConfig()
