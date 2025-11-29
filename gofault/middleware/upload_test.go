@@ -226,3 +226,5 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	storage := NewLocalStorage(tmpDir)
 
 	cfg := DefaultUploadConfig()
+	cfg.Storage = storage
+	cfg.AllowedExtensions = []string{".txt", ".png"}
