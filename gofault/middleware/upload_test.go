@@ -220,3 +220,5 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 		t.Errorf("expected 413, got %d", rec.Code)
 	}
 }
+
+func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
