@@ -219,3 +219,4 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	if rec.Code != http.StatusRequestEntityTooLarge {
 		t.Errorf("expected 413, got %d", rec.Code)
 	}
+}
