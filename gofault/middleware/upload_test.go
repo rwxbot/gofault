@@ -242,3 +242,4 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/upload", body)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
