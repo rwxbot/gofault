@@ -233,3 +233,6 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 
 	// Test allowed extension
 	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("file", "document.txt")
+	if err != nil {
