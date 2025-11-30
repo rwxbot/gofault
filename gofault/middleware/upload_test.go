@@ -237,3 +237,5 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	part, err := writer.CreateFormFile("file", "document.txt")
 	if err != nil {
 		t.Fatal(err)
+	}
+	io.WriteString(part, "content")
