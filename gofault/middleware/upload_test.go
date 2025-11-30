@@ -228,3 +228,7 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	cfg := DefaultUploadConfig()
 	cfg.Storage = storage
 	cfg.AllowedExtensions = []string{".txt", ".png"}
+
+	mw := UploadMiddleware(cfg)
+
+	// Test allowed extension
