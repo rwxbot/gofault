@@ -232,3 +232,4 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	mw := UploadMiddleware(cfg)
 
 	// Test allowed extension
+	body := &bytes.Buffer{}
