@@ -255,3 +255,6 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	if !called {
 		t.Error("allowed extension should not be rejected")
 	}
+
+	// Test disallowed extension
+	body2 := &bytes.Buffer{}
