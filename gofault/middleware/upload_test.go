@@ -251,3 +251,7 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 		called = true
 		return nil
 	})
+
+	if !called {
+		t.Error("allowed extension should not be rejected")
+	}
