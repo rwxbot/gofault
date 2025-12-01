@@ -258,3 +258,4 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 
 	// Test disallowed extension
 	body2 := &bytes.Buffer{}
+	writer2 := multipart.NewWriter(body2)
