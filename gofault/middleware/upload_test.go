@@ -268,3 +268,5 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 
 	req2 := httptest.NewRequest("POST", "/upload", body2)
 	req2.Header.Set("Content-Type", writer2.FormDataContentType())
+	rec2 := httptest.NewRecorder()
+	ctx2 := core.NewCtx(rec2, req2)
