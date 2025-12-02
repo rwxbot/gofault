@@ -261,3 +261,4 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	writer2 := multipart.NewWriter(body2)
 	part2, err := writer2.CreateFormFile("file", "document.exe")
 	if err != nil {
+		t.Fatal(err)
