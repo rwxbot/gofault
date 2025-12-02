@@ -264,3 +264,4 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 		t.Fatal(err)
 	}
 	io.WriteString(part2, "content")
+	writer2.Close()
