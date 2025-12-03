@@ -277,3 +277,7 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 		t.Errorf("expected 415 for disallowed extension, got %d", rec2.Code)
 	}
 }
+
+func TestUploadMiddleware_AllowedTypes(t *testing.T) {
+	tmpDir := t.TempDir()
+	storage := NewLocalStorage(tmpDir)
