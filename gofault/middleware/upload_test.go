@@ -275,3 +275,5 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 
 	if rec2.Code != http.StatusUnsupportedMediaType {
 		t.Errorf("expected 415 for disallowed extension, got %d", rec2.Code)
+	}
+}
