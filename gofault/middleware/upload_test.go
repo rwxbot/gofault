@@ -292,3 +292,6 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	writer := multipart.NewWriter(body)
 	// Use CreatePart to set explicit Content-Type: text/plain
 	h := make(textproto.MIMEHeader)
+	h.Set("Content-Disposition", fmt.Sprintf(`form-data; name="file"; filename="document.txt"`))
+	h.Set("Content-Type", "text/plain")
+	part, err := writer.CreatePart(h)
