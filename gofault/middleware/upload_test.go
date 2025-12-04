@@ -281,3 +281,6 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	tmpDir := t.TempDir()
 	storage := NewLocalStorage(tmpDir)
+
+	cfg := DefaultUploadConfig()
+	cfg.Storage = storage
