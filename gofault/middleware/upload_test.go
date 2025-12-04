@@ -291,3 +291,4 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	// Use CreatePart to set explicit Content-Type: text/plain
+	h := make(textproto.MIMEHeader)
