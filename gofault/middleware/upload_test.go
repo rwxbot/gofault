@@ -287,3 +287,6 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	cfg.AllowedTypes = []string{"text/plain", "image/png"}
 
 	mw := UploadMiddleware(cfg)
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
