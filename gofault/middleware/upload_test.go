@@ -284,3 +284,4 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 
 	cfg := DefaultUploadConfig()
 	cfg.Storage = storage
+	cfg.AllowedTypes = []string{"text/plain", "image/png"}
