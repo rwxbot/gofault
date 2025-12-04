@@ -297,3 +297,6 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	part, err := writer.CreatePart(h)
 	if err != nil {
 		t.Fatal(err)
+	}
+	io.WriteString(part, "content")
+	writer.Close()
