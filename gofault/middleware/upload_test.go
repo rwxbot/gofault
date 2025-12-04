@@ -295,3 +295,5 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	h.Set("Content-Disposition", fmt.Sprintf(`form-data; name="file"; filename="document.txt"`))
 	h.Set("Content-Type", "text/plain")
 	part, err := writer.CreatePart(h)
+	if err != nil {
+		t.Fatal(err)
