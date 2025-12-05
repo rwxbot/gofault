@@ -307,3 +307,5 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
+	mw(ctx, func(c *core.Ctx) error {
+		called = true
