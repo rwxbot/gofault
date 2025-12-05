@@ -311,3 +311,5 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 		called = true
 		return nil
 	})
+
+	if !called {
