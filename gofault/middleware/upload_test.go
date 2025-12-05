@@ -313,3 +313,6 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	})
 
 	if !called {
+		t.Error("allowed type should not be rejected")
+	}
+}
