@@ -316,3 +316,6 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 		t.Error("allowed type should not be rejected")
 	}
 }
+
+func TestUploadMiddleware_SkipFunc(t *testing.T) {
+	tmpDir := t.TempDir()
