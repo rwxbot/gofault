@@ -325,3 +325,4 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	cfg.Storage = storage
 	cfg.SkipFunc = func(ctx *core.Ctx) bool {
 		return ctx.Request.URL.Path == "/skip"
+	}
