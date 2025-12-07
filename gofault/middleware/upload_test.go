@@ -328,3 +328,6 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	}
 
 	mw := UploadMiddleware(cfg)
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
