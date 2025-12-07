@@ -337,3 +337,7 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	}
 	io.WriteString(part, "content")
 	writer.Close()
+
+	req := httptest.NewRequest("POST", "/skip", body)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	rec := httptest.NewRecorder()
