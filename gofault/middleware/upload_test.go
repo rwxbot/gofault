@@ -345,3 +345,4 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 
 	var called bool
 	mw(ctx, func(c *core.Ctx) error {
+		called = true
