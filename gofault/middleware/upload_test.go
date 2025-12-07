@@ -331,3 +331,4 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("file", "test.txt")
