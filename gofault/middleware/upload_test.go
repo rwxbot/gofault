@@ -335,3 +335,5 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	io.WriteString(part, "content")
+	writer.Close()
