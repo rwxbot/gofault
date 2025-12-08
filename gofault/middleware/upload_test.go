@@ -360,3 +360,5 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 
 	cfg := DefaultUploadConfig()
 	cfg.Storage = storage
+
+	mw := UploadMiddleware(cfg)
