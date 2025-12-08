@@ -347,3 +347,4 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	mw(ctx, func(c *core.Ctx) error {
 		called = true
 		return nil
+	})
