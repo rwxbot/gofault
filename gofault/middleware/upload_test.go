@@ -350,3 +350,6 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	})
 
 	if !called {
+		t.Error("skip path should call next handler")
+	}
+}
