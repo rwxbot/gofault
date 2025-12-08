@@ -357,3 +357,6 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 	tmpDir := t.TempDir()
 	storage := NewLocalStorage(tmpDir)
+
+	cfg := DefaultUploadConfig()
+	cfg.Storage = storage
