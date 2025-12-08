@@ -348,3 +348,5 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 		called = true
 		return nil
 	})
+
+	if !called {
