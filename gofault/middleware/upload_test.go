@@ -353,3 +353,7 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 		t.Error("skip path should call next handler")
 	}
 }
+
+func TestUploadMiddleware_MultipleFiles(t *testing.T) {
+	tmpDir := t.TempDir()
+	storage := NewLocalStorage(tmpDir)
