@@ -368,3 +368,4 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 	for i := 0; i < 3; i++ {
 		part, err := writer.CreateFormFile("file", "file"+string(rune('0'+i))+".txt")
 		if err != nil {
+			t.Fatal(err)
