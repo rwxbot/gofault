@@ -371,3 +371,5 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 			t.Fatal(err)
 		}
 		io.WriteString(part, "content")
+	}
+	writer.Close()
