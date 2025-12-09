@@ -362,3 +362,6 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 	cfg.Storage = storage
 
 	mw := UploadMiddleware(cfg)
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
