@@ -384,3 +384,7 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 		files = GetUploadFiles(c)
 		return nil
 	})
+
+	if len(files) != 3 {
+		t.Errorf("expected 3 files, got %d", len(files))
+	}
