@@ -378,3 +378,5 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	var files []FileInfo
