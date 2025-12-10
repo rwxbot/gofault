@@ -383,3 +383,4 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 	mw(ctx, func(c *core.Ctx) error {
 		files = GetUploadFiles(c)
 		return nil
+	})
