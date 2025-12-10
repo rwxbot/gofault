@@ -380,3 +380,4 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var files []FileInfo
+	mw(ctx, func(c *core.Ctx) error {
