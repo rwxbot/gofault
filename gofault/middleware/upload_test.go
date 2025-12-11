@@ -389,3 +389,7 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 		t.Errorf("expected 3 files, got %d", len(files))
 	}
 }
+
+func TestGetUploadFiles_NoFiles(t *testing.T) {
+	req := httptest.NewRequest("GET", "/", nil)
+	rec := httptest.NewRecorder()
