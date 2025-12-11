@@ -397,3 +397,6 @@ func TestGetUploadFiles_NoFiles(t *testing.T) {
 
 	files := GetUploadFiles(ctx)
 	if files != nil {
+		t.Error("expected nil when no files uploaded")
+	}
+}
