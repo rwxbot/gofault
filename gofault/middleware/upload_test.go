@@ -394,3 +394,6 @@ func TestGetUploadFiles_NoFiles(t *testing.T) {
 	req := httptest.NewRequest("GET", "/", nil)
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
+
+	files := GetUploadFiles(ctx)
+	if files != nil {
