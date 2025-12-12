@@ -400,3 +400,5 @@ func TestGetUploadFiles_NoFiles(t *testing.T) {
 		t.Error("expected nil when no files uploaded")
 	}
 }
+
+func TestLocalStorage_MkdirAll(t *testing.T) {
