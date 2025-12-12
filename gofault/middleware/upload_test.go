@@ -407,3 +407,5 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
+	// Use CreatePart to preserve exact filename with path separators
+	h := make(textproto.MIMEHeader)
