@@ -410,3 +410,4 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	// Use CreatePart to preserve exact filename with path separators
 	h := make(textproto.MIMEHeader)
 	h.Set("Content-Disposition", `form-data; name="file"; filename="deep/nested/path.txt"`)
+	h.Set("Content-Type", "text/plain")
