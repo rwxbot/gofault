@@ -402,3 +402,4 @@ func TestGetUploadFiles_NoFiles(t *testing.T) {
 }
 
 func TestLocalStorage_MkdirAll(t *testing.T) {
+	tmpDir := t.TempDir()
