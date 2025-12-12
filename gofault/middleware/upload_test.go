@@ -406,3 +406,4 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	storage := NewLocalStorage(tmpDir)
 
 	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
