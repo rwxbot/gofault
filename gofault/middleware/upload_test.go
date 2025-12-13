@@ -413,3 +413,4 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	h.Set("Content-Type", "text/plain")
 	part, err := writer.CreatePart(h)
 	if err != nil {
+		t.Fatal(err)
