@@ -414,3 +414,5 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	part, err := writer.CreatePart(h)
 	if err != nil {
 		t.Fatal(err)
+	}
+	io.WriteString(part, "nested")
