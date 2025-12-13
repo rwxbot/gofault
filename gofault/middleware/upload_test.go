@@ -411,3 +411,5 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	h := make(textproto.MIMEHeader)
 	h.Set("Content-Disposition", `form-data; name="file"; filename="deep/nested/path.txt"`)
 	h.Set("Content-Type", "text/plain")
+	part, err := writer.CreatePart(h)
+	if err != nil {
