@@ -416,3 +416,6 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 		t.Fatal(err)
 	}
 	io.WriteString(part, "nested")
+	writer.Close()
+
+	req := httptest.NewRequest("POST", "/", body)
