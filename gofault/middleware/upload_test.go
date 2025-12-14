@@ -424,3 +424,5 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 
 	file := req.MultipartForm.File["file"][0]
 	path, err := storage.Store(file, "a/b/c")
+	if err != nil {
+		t.Fatalf("store error: %v", err)
