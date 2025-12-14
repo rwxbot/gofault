@@ -426,3 +426,5 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	path, err := storage.Store(file, "a/b/c")
 	if err != nil {
 		t.Fatalf("store error: %v", err)
+	}
+	if path != "a/b/c/path.txt" {
