@@ -428,3 +428,4 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 		t.Fatalf("store error: %v", err)
 	}
 	if path != "a/b/c/path.txt" {
+		t.Errorf("unexpected path: %s", path)
