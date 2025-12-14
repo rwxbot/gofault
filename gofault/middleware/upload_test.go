@@ -421,3 +421,6 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	req := httptest.NewRequest("POST", "/", body)
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 	_ = req.ParseMultipartForm(0)
+
+	file := req.MultipartForm.File["file"][0]
+	path, err := storage.Store(file, "a/b/c")
