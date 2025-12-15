@@ -721,3 +721,9 @@ or replaced in tests:
 
 ```go
 store := middleware.NewSessionStore(middleware.DefaultSessionConfig())
+
+mod.RegisterMiddleware(middleware.SessionMiddleware(store))
+```
+
+```go
+sess := middleware.GetSession(ctx)
