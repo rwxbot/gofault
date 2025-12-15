@@ -727,3 +727,12 @@ mod.RegisterMiddleware(middleware.SessionMiddleware(store))
 
 ```go
 sess := middleware.GetSession(ctx)
+if sess == nil {
+    return exception.Unauthorized("no session")
+}
+sess.SetValue("user_id", "42")
+
+if id, ok := sess.GetValue("user_id"); ok {
+    _ = id
+}
+```
