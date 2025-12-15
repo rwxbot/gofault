@@ -751,3 +751,9 @@ cfg.Storage = middleware.NewLocalStorage("./uploads")
 
 mod.RegisterMiddleware(middleware.UploadMiddleware(cfg))
 ```
+
+```go
+for _, f := range middleware.GetUploadFiles(ctx) {
+    log.Printf("%s -> %s (%d bytes)", f.OriginalName, f.Path, f.Size)
+}
+```
