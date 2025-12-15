@@ -736,3 +736,12 @@ if id, ok := sess.GetValue("user_id"); ok {
     _ = id
 }
 ```
+
+### File uploads
+
+`UploadMiddleware` parses the configured field, enforces the size and type
+limits, and stores each file through a `StorageBackend`. `NewLocalStorage` writes
+to disk; handlers read the results back with `GetUploadFiles`:
+
+```go
+cfg := middleware.DefaultUploadConfig()
