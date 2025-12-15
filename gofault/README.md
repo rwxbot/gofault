@@ -745,3 +745,9 @@ to disk; handlers read the results back with `GetUploadFiles`:
 
 ```go
 cfg := middleware.DefaultUploadConfig()
+cfg.MaxSize = 10 << 20
+cfg.AllowedTypes = []string{"image/png", "image/jpeg"}
+cfg.Storage = middleware.NewLocalStorage("./uploads")
+
+mod.RegisterMiddleware(middleware.UploadMiddleware(cfg))
+```
