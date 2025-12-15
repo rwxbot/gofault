@@ -710,3 +710,14 @@ mod.RegisterMiddleware(middleware.RequestID())
 Downstream middleware and handlers read the same value straight off the header,
 which makes a request traceable through logs without threading a context value
 through every call.
+
+
+## What's new in v2.9.0
+
+### Sessions
+
+The store is built separately and passed to the middleware, so it can be shared
+or replaced in tests:
+
+```go
+store := middleware.NewSessionStore(middleware.DefaultSessionConfig())
