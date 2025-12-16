@@ -102,3 +102,8 @@
 
 ### Added
 - Request ID middleware
+
+## [v2.9.0]
+
+### Added
+- Session and file upload middleware
