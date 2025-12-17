@@ -3,5 +3,6 @@ package gorm
 
 import (
 	"fmt"
-	"sync"
 	"time"
+
+	"github.com/gofault/gofault/core"
