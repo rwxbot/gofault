@@ -5,3 +5,5 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
+	"github.com/gofault/gofault/core"
