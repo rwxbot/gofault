@@ -15,3 +15,4 @@ import (
 )
 
 // Dialect supported database drivers.
+type Dialect string
