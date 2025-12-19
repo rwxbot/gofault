@@ -29,3 +29,6 @@ type Config struct {
 	Dialect Dialect
 	// DSN is the data source name (connection string).
 	DSN string
+	// MaxOpenConns sets the maximum number of open connections.
+	MaxOpenConns int
+	// MaxIdleConns sets the maximum number of idle connections.
