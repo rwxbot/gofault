@@ -20,3 +20,4 @@ const (
 	DialectMySQL    Dialect = "mysql"
 	DialectPostgres Dialect = "postgres"
 	DialectSQLite   Dialect = "sqlite"
+)
