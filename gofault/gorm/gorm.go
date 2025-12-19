@@ -34,3 +34,6 @@ type Config struct {
 	MaxIdleConns int
 	// ConnMaxLifetime sets the maximum lifetime of a connection.
 	ConnMaxLifetime int // in seconds
+	// LogLevel sets GORM log level (default: logger.Warn).
+	LogLevel logger.LogLevel
+	// Silent suppresses all GORM logs when true.
