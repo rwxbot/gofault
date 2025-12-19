@@ -31,3 +31,6 @@ type Config struct {
 	// MaxOpenConns sets the maximum number of open connections.
 	MaxOpenConns int
 	// MaxIdleConns sets the maximum number of idle connections.
+	MaxIdleConns int
+	// ConnMaxLifetime sets the maximum lifetime of a connection.
+	ConnMaxLifetime int // in seconds
