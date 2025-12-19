@@ -21,3 +21,5 @@ const (
 	DialectPostgres Dialect = "postgres"
 	DialectSQLite   Dialect = "sqlite"
 )
+
+// Config holds database configuration.
