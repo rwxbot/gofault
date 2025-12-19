@@ -23,3 +23,6 @@ const (
 )
 
 // Config holds database configuration.
+type Config struct {
+	// Dialect is the database driver (mysql, postgres, sqlite).
+	Dialect Dialect
