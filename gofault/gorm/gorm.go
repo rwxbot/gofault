@@ -26,3 +26,5 @@ const (
 type Config struct {
 	// Dialect is the database driver (mysql, postgres, sqlite).
 	Dialect Dialect
+	// DSN is the data source name (connection string).
+	DSN string
