@@ -45,3 +45,6 @@ func DefaultConfig() Config {
 	return Config{
 		MaxOpenConns:    100,
 		MaxIdleConns:    10,
+		ConnMaxLifetime: 3600,
+		LogLevel:        logger.Warn,
+		Silent:          false,
