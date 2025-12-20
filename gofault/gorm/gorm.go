@@ -40,3 +40,5 @@ type Config struct {
 	// Silent suppresses all GORM logs when true.
 	Silent bool
 }
+
+// DefaultConfig returns a default configuration.
