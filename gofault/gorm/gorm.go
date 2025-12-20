@@ -37,3 +37,5 @@ type Config struct {
 	// LogLevel sets GORM log level (default: logger.Warn).
 	LogLevel logger.LogLevel
 	// Silent suppresses all GORM logs when true.
+	Silent bool
+}
