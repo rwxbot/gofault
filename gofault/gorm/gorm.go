@@ -45,3 +45,4 @@ type Config struct {
 func DefaultConfig() Config {
 	return Config{
 		MaxOpenConns:    100,
+		MaxIdleConns:    10,
