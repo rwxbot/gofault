@@ -48,3 +48,4 @@ func DefaultConfig() Config {
 		ConnMaxLifetime: 3600,
 		LogLevel:        logger.Warn,
 		Silent:          false,
+	}
