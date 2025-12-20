@@ -41,3 +41,6 @@ type Config struct {
 }
 
 // DefaultConfig returns a default configuration.
+func DefaultConfig() Config {
+	return Config{
+		MaxOpenConns:    100,
