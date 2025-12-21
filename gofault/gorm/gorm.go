@@ -50,3 +50,4 @@ func DefaultConfig() Config {
 		LogLevel:        logger.Warn,
 		Silent:          false,
 	}
+}
