@@ -51,3 +51,5 @@ func DefaultConfig() Config {
 		Silent:          false,
 	}
 }
+
+// Database is the core database module.
