@@ -58,3 +58,5 @@ type Database struct {
 	DB     *gorm.DB
 	Config Config
 }
+
+var (
