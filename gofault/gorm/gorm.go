@@ -55,3 +55,5 @@ func DefaultConfig() Config {
 // Database is the core database module.
 type Database struct {
 	core.Module
+	DB     *gorm.DB
+	Config Config
