@@ -57,3 +57,4 @@ type Database struct {
 	core.Module
 	DB     *gorm.DB
 	Config Config
+}
