@@ -64,3 +64,6 @@ func NewDatabase(name string, config Config) (*Database, error) {
 	if err != nil {
 		return nil, fmt.Errorf("open database: %w", err)
 	}
+
+	d := &Database{
+		Module: *core.NewModule(name),
