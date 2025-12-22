@@ -68,3 +68,5 @@ func NewDatabase(name string, config Config) (*Database, error) {
 	d := &Database{
 		Module: *core.NewModule(name),
 		DB:     db,
+		Config: config,
+	}
