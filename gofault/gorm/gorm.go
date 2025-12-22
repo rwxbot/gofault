@@ -58,9 +58,7 @@ type Database struct {
 	Config Config
 }
 
-var (
-	dbInstance *Database
-	dbOnce     sync.Once
-)
-
 // NewDatabase creates a new Database module.
+func NewDatabase(name string, config Config) (*Database, error) {
+	db, err := openDB(config)
+	if err != nil {
