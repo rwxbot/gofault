@@ -61,3 +61,4 @@ type Database struct {
 var (
 	dbInstance *Database
 	dbOnce     sync.Once
+)
