@@ -62,3 +62,5 @@ type Database struct {
 func NewDatabase(name string, config Config) (*Database, error) {
 	db, err := openDB(config)
 	if err != nil {
+		return nil, fmt.Errorf("open database: %w", err)
+	}
