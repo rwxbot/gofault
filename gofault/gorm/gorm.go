@@ -62,3 +62,5 @@ var (
 	dbInstance *Database
 	dbOnce     sync.Once
 )
+
+// NewDatabase creates a new Database module.
