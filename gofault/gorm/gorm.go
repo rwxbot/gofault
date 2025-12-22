@@ -65,3 +65,6 @@ var (
 )
 
 // NewDatabase creates a new Database module.
+func NewDatabase(name string, config Config) (*Database, error) {
+	db, err := openDB(config)
+	if err != nil {
