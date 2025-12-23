@@ -70,3 +70,7 @@ func NewDatabase(name string, config Config) (*Database, error) {
 		DB:     db,
 		Config: config,
 	}
+
+	d.RegisterOnShutdown(&gormShutdown{db})
+
+	return d, nil
