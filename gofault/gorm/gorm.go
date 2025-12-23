@@ -81,3 +81,5 @@ func NewDatabase(name string, config Config) (*Database, error) {
 
 	return d, nil
 }
+
+// MustNewDatabase creates a new Database module and panics on error.
