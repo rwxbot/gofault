@@ -80,3 +80,4 @@ func NewDatabase(name string, config Config) (*Database, error) {
 	d.RegisterOnShutdown(&gormShutdown{db})
 
 	return d, nil
+}
