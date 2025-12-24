@@ -83,3 +83,4 @@ func MustNewDatabase(name string, config Config) *Database {
 		panic(err)
 	}
 	return d
+}
