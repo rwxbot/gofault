@@ -80,3 +80,4 @@ func NewDatabase(name string, config Config) (*Database, error) {
 func MustNewDatabase(name string, config Config) *Database {
 	d, err := NewDatabase(name, config)
 	if err != nil {
+		panic(err)
