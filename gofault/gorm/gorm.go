@@ -102,3 +102,4 @@ func openDB(config Config) (*gorm.DB, error) {
 	}
 
 	var dialector gorm.Dialector
+	switch config.Dialect {
