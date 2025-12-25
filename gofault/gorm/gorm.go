@@ -95,3 +95,6 @@ func MustNewDatabase(name string, config Config) *Database {
 func (d *Database) GetDB() *gorm.DB {
 	return d.DB
 }
+
+func openDB(config Config) (*gorm.DB, error) {
+	gormConfig := &gorm.Config{
