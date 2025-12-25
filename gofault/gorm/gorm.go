@@ -100,3 +100,5 @@ func openDB(config Config) (*gorm.DB, error) {
 	gormConfig := &gorm.Config{
 		Logger: logger.Default.LogMode(config.LogLevel),
 	}
+
+	var dialector gorm.Dialector
