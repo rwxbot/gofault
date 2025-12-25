@@ -94,5 +94,12 @@ func openDB(config Config) (*gorm.DB, error) {
 	gormConfig := &gorm.Config{
 		Logger: logger.Default.LogMode(config.LogLevel),
 	}
+	if config.Silent {
+		// Silent was documented as suppressing all GORM logs but was never
+		// consulted, so LogLevel alone decided the verbosity. Discard is used
+		// rather than LogMode(Silent) so nothing is emitted at all.
+		gormConfig.Logger = logger.Discard
+	}
 
 	var dialector gorm.Dialector
+	switch config.Dialect {
