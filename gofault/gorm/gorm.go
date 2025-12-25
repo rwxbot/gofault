@@ -93,3 +93,4 @@ func MustNewDatabase(name string, config Config) *Database {
 
 // GetDB returns the underlying GORM DB instance.
 func (d *Database) GetDB() *gorm.DB {
+	return d.DB
