@@ -103,3 +103,6 @@ func openDB(config Config) (*gorm.DB, error) {
 
 	var dialector gorm.Dialector
 	switch config.Dialect {
+	case DialectMySQL:
+		dialector = mysql.Open(config.DSN)
+	case DialectPostgres:
