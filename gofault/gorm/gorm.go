@@ -112,3 +112,6 @@ func openDB(config Config) (*gorm.DB, error) {
 	default:
 		return nil, fmt.Errorf("unsupported dialect: %s", config.Dialect)
 	}
+
+	db, err := gorm.Open(dialector, gormConfig)
+	if err != nil {
