@@ -111,3 +111,4 @@ func openDB(config Config) (*gorm.DB, error) {
 		dialector = sqlite.Open(config.DSN)
 	default:
 		return nil, fmt.Errorf("unsupported dialect: %s", config.Dialect)
+	}
