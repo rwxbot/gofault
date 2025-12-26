@@ -106,3 +106,6 @@ func openDB(config Config) (*gorm.DB, error) {
 	case DialectMySQL:
 		dialector = mysql.Open(config.DSN)
 	case DialectPostgres:
+		dialector = postgres.Open(config.DSN)
+	case DialectSQLite:
+		dialector = sqlite.Open(config.DSN)
