@@ -124,3 +124,5 @@ func openDB(config Config) (*gorm.DB, error) {
 	}
 
 	if config.MaxOpenConns > 0 {
+		sqlDB.SetMaxOpenConns(config.MaxOpenConns)
+	}
