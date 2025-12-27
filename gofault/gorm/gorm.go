@@ -120,3 +120,5 @@ func openDB(config Config) (*gorm.DB, error) {
 
 	sqlDB, err := db.DB()
 	if err != nil {
+		return nil, fmt.Errorf("get underlying db: %w", err)
+	}
