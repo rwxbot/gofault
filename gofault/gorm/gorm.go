@@ -122,3 +122,5 @@ func openDB(config Config) (*gorm.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("get underlying db: %w", err)
 	}
+
+	if config.MaxOpenConns > 0 {
