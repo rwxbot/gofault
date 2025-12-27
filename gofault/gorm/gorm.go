@@ -115,3 +115,5 @@ func openDB(config Config) (*gorm.DB, error) {
 
 	db, err := gorm.Open(dialector, gormConfig)
 	if err != nil {
+		return nil, fmt.Errorf("gorm open: %w", err)
+	}
