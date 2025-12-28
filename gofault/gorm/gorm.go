@@ -132,3 +132,5 @@ func openDB(config Config) (*gorm.DB, error) {
 	if config.ConnMaxLifetime > 0 {
 		sqlDB.SetConnMaxLifetime(time.Duration(config.ConnMaxLifetime) * time.Second)
 	}
+
+	return db, nil
