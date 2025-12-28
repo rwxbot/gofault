@@ -128,3 +128,5 @@ func openDB(config Config) (*gorm.DB, error) {
 	}
 	if config.MaxIdleConns > 0 {
 		sqlDB.SetMaxIdleConns(config.MaxIdleConns)
+	}
+	if config.ConnMaxLifetime > 0 {
