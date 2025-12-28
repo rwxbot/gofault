@@ -134,3 +134,4 @@ func openDB(config Config) (*gorm.DB, error) {
 	}
 
 	return db, nil
+}
