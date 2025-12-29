@@ -138,3 +138,4 @@ func openDB(config Config) (*gorm.DB, error) {
 
 type gormShutdown struct {
 	db *gorm.DB
+}
