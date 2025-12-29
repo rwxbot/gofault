@@ -139,3 +139,7 @@ func openDB(config Config) (*gorm.DB, error) {
 type gormShutdown struct {
 	db *gorm.DB
 }
+
+func (s *gormShutdown) OnShutdown() error {
+	sqlDB, err := s.db.DB()
+	if err != nil {
