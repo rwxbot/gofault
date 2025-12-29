@@ -149,3 +149,4 @@ func (s *gormShutdown) OnShutdown() error {
 }
 
 // Transaction executes fn within a database transaction.
+// If fn returns an error, the transaction is rolled back.
