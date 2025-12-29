@@ -143,3 +143,5 @@ type gormShutdown struct {
 func (s *gormShutdown) OnShutdown() error {
 	sqlDB, err := s.db.DB()
 	if err != nil {
+		return err
+	}
