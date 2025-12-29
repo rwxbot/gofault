@@ -147,3 +147,5 @@ func (s *gormShutdown) OnShutdown() error {
 	}
 	return sqlDB.Close()
 }
+
+// Transaction executes fn within a database transaction.
