@@ -145,3 +145,4 @@ func (s *gormShutdown) OnShutdown() error {
 	if err != nil {
 		return err
 	}
+	return sqlDB.Close()
