@@ -156,3 +156,6 @@ func Transaction(db *gorm.DB, fn func(tx *gorm.DB) error) error {
 	if tx.Error != nil {
 		return fmt.Errorf("begin transaction: %w", tx.Error)
 	}
+
+	defer func() {
+		if r := recover(); r != nil {
