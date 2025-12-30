@@ -163,3 +163,6 @@ func Transaction(db *gorm.DB, fn func(tx *gorm.DB) error) error {
 			panic(r)
 		}
 	}()
+
+	if err := fn(tx); err != nil {
+		if rbErr := tx.Rollback().Error; rbErr != nil {
