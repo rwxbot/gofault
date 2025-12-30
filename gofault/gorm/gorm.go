@@ -154,3 +154,4 @@ func (s *gormShutdown) OnShutdown() error {
 func Transaction(db *gorm.DB, fn func(tx *gorm.DB) error) error {
 	tx := db.Begin()
 	if tx.Error != nil {
+		return fmt.Errorf("begin transaction: %w", tx.Error)
