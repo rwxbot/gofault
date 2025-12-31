@@ -172,4 +172,16 @@ func Transaction(db *gorm.DB, fn func(tx *gorm.DB) error) error {
 	}
 
 	if err := tx.Commit().Error; err != nil {
+		// Roll back on a failed commit too. database/sql requires it: a
+		// transaction whose Commit fails is still open, and the connection
+		// stays checked out of the pool until it is rolled back or the pool
+		// reclaims it. Note this is not covered by a test -- the sqlite
+		// driver used here reclaims the connection on its own, so the two
+		// paths cannot be distinguished from the outside.
+		if rbErr := tx.Rollback().Error; rbErr != nil {
+			return fmt.Errorf("commit: %s, rollback: %w", err, rbErr)
+		}
 		return fmt.Errorf("commit: %w", err)
+	}
+
+	return nil
