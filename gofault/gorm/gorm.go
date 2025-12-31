@@ -169,3 +169,4 @@ func Transaction(db *gorm.DB, fn func(tx *gorm.DB) error) error {
 			return fmt.Errorf("rollback: %s, original error: %w", rbErr, err)
 		}
 		return err
+	}
