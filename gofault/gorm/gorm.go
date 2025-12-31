@@ -173,3 +173,6 @@ func Transaction(db *gorm.DB, fn func(tx *gorm.DB) error) error {
 
 	if err := tx.Commit().Error; err != nil {
 		return fmt.Errorf("commit: %w", err)
+	}
+
+	return nil
