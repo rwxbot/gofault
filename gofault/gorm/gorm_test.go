@@ -16,3 +16,5 @@ func TestDefaultConfig(t *testing.T) {
 	if cfg.MaxIdleConns != 10 {
 		t.Errorf("expected MaxIdleConns=10, got %d", cfg.MaxIdleConns)
 	}
+	if cfg.ConnMaxLifetime != 3600 {
+		t.Errorf("expected ConnMaxLifetime=3600, got %d", cfg.ConnMaxLifetime)
