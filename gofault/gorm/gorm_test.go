@@ -9,3 +9,4 @@ import (
 )
 
 func TestDefaultConfig(t *testing.T) {
+	cfg := DefaultConfig()
