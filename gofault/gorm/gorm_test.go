@@ -15,3 +15,4 @@ func TestDefaultConfig(t *testing.T) {
 	}
 	if cfg.MaxIdleConns != 10 {
 		t.Errorf("expected MaxIdleConns=10, got %d", cfg.MaxIdleConns)
+	}
