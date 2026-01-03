@@ -21,3 +21,5 @@ func TestDefaultConfig(t *testing.T) {
 	}
 	if cfg.LogLevel != logger.Warn {
 		t.Errorf("expected LogLevel=Warn, got %v", cfg.LogLevel)
+	}
+}
