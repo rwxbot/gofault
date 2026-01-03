@@ -27,3 +27,5 @@ func TestDefaultConfig(t *testing.T) {
 func TestNewDatabase_SQLite(t *testing.T) {
 	cfg := DefaultConfig()
 	cfg.Dialect = DialectSQLite
+	cfg.DSN = ":memory:"
+	cfg.Silent = true
