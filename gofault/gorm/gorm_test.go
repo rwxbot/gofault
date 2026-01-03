@@ -23,3 +23,6 @@ func TestDefaultConfig(t *testing.T) {
 		t.Errorf("expected LogLevel=Warn, got %v", cfg.LogLevel)
 	}
 }
+
+func TestNewDatabase_SQLite(t *testing.T) {
+	cfg := DefaultConfig()
