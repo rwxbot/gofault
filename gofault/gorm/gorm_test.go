@@ -18,3 +18,5 @@ func TestDefaultConfig(t *testing.T) {
 	}
 	if cfg.ConnMaxLifetime != 3600 {
 		t.Errorf("expected ConnMaxLifetime=3600, got %d", cfg.ConnMaxLifetime)
+	}
+	if cfg.LogLevel != logger.Warn {
