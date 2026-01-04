@@ -29,3 +29,5 @@ func TestNewDatabase_SQLite(t *testing.T) {
 	cfg.Dialect = DialectSQLite
 	cfg.DSN = ":memory:"
 	cfg.Silent = true
+
+	db, err := NewDatabase("test-sqlite", cfg)
