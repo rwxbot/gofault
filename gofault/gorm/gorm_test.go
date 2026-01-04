@@ -34,3 +34,6 @@ func TestNewDatabase_SQLite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("NewDatabase failed: %v", err)
 	}
+	if db == nil {
+		t.Fatal("db is nil")
+	}
