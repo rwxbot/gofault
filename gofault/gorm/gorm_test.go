@@ -31,3 +31,6 @@ func TestNewDatabase_SQLite(t *testing.T) {
 	cfg.Silent = true
 
 	db, err := NewDatabase("test-sqlite", cfg)
+	if err != nil {
+		t.Fatalf("NewDatabase failed: %v", err)
+	}
