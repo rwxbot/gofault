@@ -42,3 +42,4 @@ func TestNewDatabase_SQLite(t *testing.T) {
 	}
 	if db.Module.Name != "test-sqlite" {
 		t.Errorf("expected name 'test-sqlite', got '%s'", db.Module.Name)
+	}
