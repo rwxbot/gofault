@@ -49,3 +49,5 @@ func TestNewDatabase_SQLite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("get underlying db: %v", err)
 	}
+	if err := sqlDB.Ping(); err != nil {
+		t.Fatalf("ping failed: %v", err)
