@@ -47,3 +47,4 @@ func TestNewDatabase_SQLite(t *testing.T) {
 	// Verify connection works
 	sqlDB, err := db.DB.DB()
 	if err != nil {
+		t.Fatalf("get underlying db: %v", err)
