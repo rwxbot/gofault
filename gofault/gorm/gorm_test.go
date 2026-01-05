@@ -53,3 +53,6 @@ func TestNewDatabase_SQLite(t *testing.T) {
 		t.Fatalf("ping failed: %v", err)
 	}
 }
+
+func TestMustNewDatabase_Panic(t *testing.T) {
+	defer func() {
