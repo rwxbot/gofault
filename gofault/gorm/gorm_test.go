@@ -56,3 +56,6 @@ func TestNewDatabase_SQLite(t *testing.T) {
 
 func TestMustNewDatabase_Panic(t *testing.T) {
 	defer func() {
+		if r := recover(); r == nil {
+			t.Error("expected panic for invalid dialect")
+		}
