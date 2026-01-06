@@ -60,3 +60,5 @@ func TestMustNewDatabase_Panic(t *testing.T) {
 			t.Error("expected panic for invalid dialect")
 		}
 	}()
+
+	cfg := DefaultConfig()
