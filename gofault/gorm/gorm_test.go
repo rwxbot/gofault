@@ -59,3 +59,4 @@ func TestMustNewDatabase_Panic(t *testing.T) {
 		if r := recover(); r == nil {
 			t.Error("expected panic for invalid dialect")
 		}
+	}()
