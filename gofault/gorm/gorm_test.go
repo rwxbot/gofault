@@ -65,3 +65,5 @@ func TestMustNewDatabase_Panic(t *testing.T) {
 	cfg.Dialect = "invalid"
 	MustNewDatabase("test", cfg)
 }
+
+func TestDatabase_GetDB(t *testing.T) {
