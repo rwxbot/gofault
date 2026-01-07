@@ -82,3 +82,5 @@ func TestDatabase_GetDB(t *testing.T) {
 		t.Error("GetDB should return the same DB instance")
 	}
 }
+
+func TestTransaction_Commit(t *testing.T) {
