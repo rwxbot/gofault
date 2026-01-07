@@ -67,3 +67,6 @@ func TestMustNewDatabase_Panic(t *testing.T) {
 }
 
 func TestDatabase_GetDB(t *testing.T) {
+	cfg := DefaultConfig()
+	cfg.Dialect = DialectSQLite
+	cfg.DSN = ":memory:"
