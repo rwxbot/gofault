@@ -85,3 +85,4 @@ func TestDatabase_GetDB(t *testing.T) {
 
 func TestTransaction_Commit(t *testing.T) {
 	cfg := DefaultConfig()
+	cfg.Dialect = DialectSQLite
