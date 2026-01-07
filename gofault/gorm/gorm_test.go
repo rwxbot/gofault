@@ -75,3 +75,4 @@ func TestDatabase_GetDB(t *testing.T) {
 	db, err := NewDatabase("test", cfg)
 	if err != nil {
 		t.Fatal(err)
+	}
