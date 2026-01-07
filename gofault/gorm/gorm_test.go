@@ -80,3 +80,5 @@ func TestDatabase_GetDB(t *testing.T) {
 	gormDB := db.GetDB()
 	if gormDB != db.DB {
 		t.Error("GetDB should return the same DB instance")
+	}
+}
