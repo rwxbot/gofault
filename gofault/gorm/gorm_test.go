@@ -91,3 +91,5 @@ func TestTransaction_Commit(t *testing.T) {
 
 	db, err := NewDatabase("test", cfg)
 	if err != nil {
+		t.Fatal(err)
+	}
