@@ -90,3 +90,4 @@ func TestTransaction_Commit(t *testing.T) {
 	cfg.Silent = true
 
 	db, err := NewDatabase("test", cfg)
+	if err != nil {
