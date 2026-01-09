@@ -98,3 +98,5 @@ func TestTransaction_Commit(t *testing.T) {
 		ID   uint
 		Name string
 	}
+
+	// Auto-migrate
