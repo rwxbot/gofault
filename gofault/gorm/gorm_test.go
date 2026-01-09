@@ -109,3 +109,5 @@ func TestTransaction_Commit(t *testing.T) {
 		return tx.Create(&User{Name: "alice"}).Error
 	})
 	if err != nil {
+		t.Fatalf("Transaction commit failed: %v", err)
+	}
