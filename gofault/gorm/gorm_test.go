@@ -97,3 +97,4 @@ func TestTransaction_Commit(t *testing.T) {
 	type User struct {
 		ID   uint
 		Name string
+	}
