@@ -111,3 +111,5 @@ func TestTransaction_Commit(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Transaction commit failed: %v", err)
 	}
+
+	var count int64
