@@ -100,3 +100,6 @@ func TestTransaction_Commit(t *testing.T) {
 	}
 
 	// Auto-migrate
+	if err := db.DB.AutoMigrate(&User{}); err != nil {
+		t.Fatalf("AutoMigrate: %v", err)
+	}
