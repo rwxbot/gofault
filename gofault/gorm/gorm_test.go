@@ -106,3 +106,6 @@ func TestTransaction_Commit(t *testing.T) {
 
 	// Test commit
 	err = Transaction(db.DB, func(tx *gorm.DB) error {
+		return tx.Create(&User{Name: "alice"}).Error
+	})
+	if err != nil {
