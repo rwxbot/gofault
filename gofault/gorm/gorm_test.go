@@ -124,3 +124,7 @@ func TestTransaction_Rollback(t *testing.T) {
 	cfg.Dialect = DialectSQLite
 	cfg.DSN = ":memory:"
 	cfg.Silent = true
+
+	db, err := NewDatabase("test", cfg)
+	if err != nil {
+		t.Fatal(err)
