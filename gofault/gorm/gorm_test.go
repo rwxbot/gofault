@@ -114,3 +114,6 @@ func TestTransaction_Commit(t *testing.T) {
 
 	var count int64
 	db.DB.Model(&User{}).Count(&count)
+	if count != 1 {
+		t.Errorf("expected 1 row, got %d", count)
+	}
