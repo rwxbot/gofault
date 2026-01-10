@@ -128,3 +128,6 @@ func TestTransaction_Rollback(t *testing.T) {
 	db, err := NewDatabase("test", cfg)
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	type User struct {
