@@ -117,3 +117,4 @@ func TestTransaction_Commit(t *testing.T) {
 	if count != 1 {
 		t.Errorf("expected 1 row, got %d", count)
 	}
+}
