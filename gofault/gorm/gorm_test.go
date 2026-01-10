@@ -118,3 +118,6 @@ func TestTransaction_Commit(t *testing.T) {
 		t.Errorf("expected 1 row, got %d", count)
 	}
 }
+
+func TestTransaction_Rollback(t *testing.T) {
+	cfg := DefaultConfig()
