@@ -141,3 +141,5 @@ func TestTransaction_Rollback(t *testing.T) {
 
 	// Create a row outside transaction
 	db.DB.Create(&User{Name: "existing"})
+
+	// Force rollback by panicking inside Transaction
