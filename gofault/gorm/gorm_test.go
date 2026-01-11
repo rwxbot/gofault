@@ -138,3 +138,6 @@ func TestTransaction_Rollback(t *testing.T) {
 	if err := db.DB.AutoMigrate(&User{}); err != nil {
 		t.Fatalf("AutoMigrate: %v", err)
 	}
+
+	// Create a row outside transaction
+	db.DB.Create(&User{Name: "existing"})
