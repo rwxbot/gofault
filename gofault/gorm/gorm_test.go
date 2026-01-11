@@ -131,3 +131,6 @@ func TestTransaction_Rollback(t *testing.T) {
 	}
 
 	type User struct {
+		ID   uint
+		Name string
+	}
