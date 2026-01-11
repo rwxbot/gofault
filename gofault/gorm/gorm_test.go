@@ -134,3 +134,7 @@ func TestTransaction_Rollback(t *testing.T) {
 		ID   uint
 		Name string
 	}
+
+	if err := db.DB.AutoMigrate(&User{}); err != nil {
+		t.Fatalf("AutoMigrate: %v", err)
+	}
