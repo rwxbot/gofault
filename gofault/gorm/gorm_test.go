@@ -146,3 +146,5 @@ func TestTransaction_Rollback(t *testing.T) {
 	func() {
 		defer func() {
 			if r := recover(); r == nil {
+				t.Error("expected panic")
+			}
