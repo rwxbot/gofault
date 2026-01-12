@@ -150,3 +150,6 @@ func TestTransaction_Rollback(t *testing.T) {
 			}
 		}()
 		_ = Transaction(db.DB, func(tx *gorm.DB) error {
+			tx.Create(&User{Name: "rolled-back-user"})
+			panic("force rollback")
+		})
