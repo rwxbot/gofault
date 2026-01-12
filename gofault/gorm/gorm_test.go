@@ -154,3 +154,7 @@ func TestTransaction_Rollback(t *testing.T) {
 			panic("force rollback")
 		})
 	}()
+
+	// Only "existing" row should remain — transaction was rolled back
+	var count int64
+	db.DB.Model(&User{}).Count(&count)
