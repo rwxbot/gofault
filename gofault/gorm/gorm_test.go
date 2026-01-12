@@ -143,3 +143,6 @@ func TestTransaction_Rollback(t *testing.T) {
 	db.DB.Create(&User{Name: "existing"})
 
 	// Force rollback by panicking inside Transaction
+	func() {
+		defer func() {
+			if r := recover(); r == nil {
