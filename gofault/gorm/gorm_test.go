@@ -160,3 +160,5 @@ func TestTransaction_Rollback(t *testing.T) {
 	db.DB.Model(&User{}).Count(&count)
 	if count != 1 {
 		t.Errorf("expected 1 row (rolled-back-user should be rolled back), got %d", count)
+	}
+}
