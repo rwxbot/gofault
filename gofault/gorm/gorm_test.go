@@ -148,3 +148,5 @@ func TestTransaction_Rollback(t *testing.T) {
 			if r := recover(); r == nil {
 				t.Error("expected panic")
 			}
+		}()
+		_ = Transaction(db.DB, func(tx *gorm.DB) error {
