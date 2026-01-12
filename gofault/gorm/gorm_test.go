@@ -153,3 +153,4 @@ func TestTransaction_Rollback(t *testing.T) {
 			tx.Create(&User{Name: "rolled-back-user"})
 			panic("force rollback")
 		})
+	}()
