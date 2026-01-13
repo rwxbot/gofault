@@ -162,3 +162,6 @@ func TestTransaction_Rollback(t *testing.T) {
 		t.Errorf("expected 1 row (rolled-back-user should be rolled back), got %d", count)
 	}
 }
+
+func TestTransaction_RollbackOnError(t *testing.T) {
+	cfg := DefaultConfig()
