@@ -171,3 +171,5 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 
 	db, err := NewDatabase("test", cfg)
 	if err != nil {
+		t.Fatal(err)
+	}
