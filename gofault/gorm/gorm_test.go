@@ -173,3 +173,6 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	type User struct {
+		ID   uint
