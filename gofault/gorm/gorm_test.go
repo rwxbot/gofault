@@ -165,3 +165,4 @@ func TestTransaction_Rollback(t *testing.T) {
 
 func TestTransaction_RollbackOnError(t *testing.T) {
 	cfg := DefaultConfig()
+	cfg.Dialect = DialectSQLite
