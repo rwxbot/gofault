@@ -190,3 +190,7 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error")
 	}
+
+	var count int64
+	db.DB.Model(&User{}).Count(&count)
+	if count != 0 {
