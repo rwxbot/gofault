@@ -181,3 +181,4 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 
 	if err := db.DB.AutoMigrate(&User{}); err != nil {
 		t.Fatalf("AutoMigrate: %v", err)
+	}
