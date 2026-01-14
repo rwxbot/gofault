@@ -182,3 +182,7 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 	if err := db.DB.AutoMigrate(&User{}); err != nil {
 		t.Fatalf("AutoMigrate: %v", err)
 	}
+
+	err = Transaction(db.DB, func(tx *gorm.DB) error {
+		tx.Create(&User{Name: "alice"})
+		return fmt.Errorf("intentional error")
