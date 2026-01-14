@@ -186,3 +186,6 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 	err = Transaction(db.DB, func(tx *gorm.DB) error {
 		tx.Create(&User{Name: "alice"})
 		return fmt.Errorf("intentional error")
+	})
+	if err == nil {
+		t.Fatal("expected error")
