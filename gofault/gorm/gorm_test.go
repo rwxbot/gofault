@@ -197,3 +197,6 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 		t.Errorf("expected 0 rows after rollback, got %d", count)
 	}
 }
+
+func TestOpenDB_InvalidDialect(t *testing.T) {
+	cfg := DefaultConfig()
