@@ -200,3 +200,5 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 
 func TestOpenDB_InvalidDialect(t *testing.T) {
 	cfg := DefaultConfig()
+	cfg.Dialect = "oracle"
+	cfg.DSN = ""
