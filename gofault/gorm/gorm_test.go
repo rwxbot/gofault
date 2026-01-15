@@ -194,3 +194,6 @@ func TestTransaction_RollbackOnError(t *testing.T) {
 	var count int64
 	db.DB.Model(&User{}).Count(&count)
 	if count != 0 {
+		t.Errorf("expected 0 rows after rollback, got %d", count)
+	}
+}
