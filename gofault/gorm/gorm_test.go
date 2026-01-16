@@ -208,3 +208,6 @@ func TestOpenDB_InvalidDialect(t *testing.T) {
 		t.Fatal("expected error for invalid dialect")
 	}
 }
+
+func TestDialect_Constants(t *testing.T) {
+	if DialectMySQL != "mysql" {
