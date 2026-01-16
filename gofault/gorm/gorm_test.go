@@ -207,3 +207,4 @@ func TestOpenDB_InvalidDialect(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error for invalid dialect")
 	}
+}
