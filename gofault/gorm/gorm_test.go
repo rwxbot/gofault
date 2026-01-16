@@ -213,3 +213,4 @@ func TestDialect_Constants(t *testing.T) {
 	if DialectMySQL != "mysql" {
 		t.Errorf("expected 'mysql', got '%s'", DialectMySQL)
 	}
+	if DialectPostgres != "postgres" {
