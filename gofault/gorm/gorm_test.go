@@ -211,3 +211,4 @@ func TestOpenDB_InvalidDialect(t *testing.T) {
 
 func TestDialect_Constants(t *testing.T) {
 	if DialectMySQL != "mysql" {
+		t.Errorf("expected 'mysql', got '%s'", DialectMySQL)
