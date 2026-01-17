@@ -218,3 +218,5 @@ func TestDialect_Constants(t *testing.T) {
 	}
 	if DialectSQLite != "sqlite" {
 		t.Errorf("expected 'sqlite', got '%s'", DialectSQLite)
+	}
+}
