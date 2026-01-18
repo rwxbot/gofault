@@ -14,3 +14,6 @@ cd /Users/Wang/Code/webfault-lib/gofault-all/gofault
 go test ./...                          # 运行所有测试
 go build ./...                         # 确认可构建
 ```
+
+### 3. 开发新版本
+```bash
