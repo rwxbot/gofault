@@ -7,3 +7,10 @@
 
 ### 1. 读取交接文档
 第一件事：读取 `agents/memory/AGENTS.md`，了解当前进度、红线约束、目录结构。
+
+### 2. 本地验证
+```bash
+cd /Users/Wang/Code/webfault-lib/gofault-all/gofault
+go test ./...                          # 运行所有测试
+go build ./...                         # 确认可构建
+```
