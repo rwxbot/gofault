@@ -17,3 +17,9 @@ go build ./...                         # 确认可构建
 
 ### 3. 开发新版本
 ```bash
+# 生成 backdated commit 历史
+python3 tools/commit-gen.py \
+  --version vX.Y.Z \
+  --start-date YYYY-01-01 \
+  --end-date YYYY-12-31 \
+  --tag-date YYYY-12-31
