@@ -36,3 +36,9 @@ curl http://localhost:9090/hello/
 - git 版本 < 2.17 不支持 `git tag --date`，脚本已处理（去掉 `--date` 参数）
 - commit-gen.py 固定 seed=20260921，保证可复现
 - 首次运行用 `--dry-run` 检查消息格式
+
+### 5. 测试覆盖要求
+每个版本必须有：
+- [ ] `go test ./...` 通过
+- [ ] `go build ./...` 通过
+- [ ] 可运行示例
