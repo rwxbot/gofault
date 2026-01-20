@@ -757,3 +757,12 @@ for _, f := range middleware.GetUploadFiles(ctx) {
     log.Printf("%s -> %s (%d bytes)", f.OriginalName, f.Path, f.Size)
 }
 ```
+
+
+## What's new in v3.0.0
+
+### Database access (GORM)
+
+`NewDatabase` pings the server while opening, so a bad DSN fails at boot rather
+than on the first query. The dialect is a value instead of a string, and `GetDB`
+returns the underlying `*gorm.DB` for anything the wrapper does not cover:
