@@ -783,3 +783,11 @@ db, err := gorm.NewDatabase("primary", gorm.Config{
 })
 if err != nil {
     log.Fatal(err)
+}
+```
+
+The connection is closed on shutdown once the database is part of a module:
+
+```go
+mod.RegisterProviders(provider.ValueProvider{Value: db})
+mod.RegisterOnShutdown(db)
