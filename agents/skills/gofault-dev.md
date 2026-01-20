@@ -49,3 +49,12 @@ curl http://localhost:9090/hello/
 grep -rE '@|require\(|module\.exports|main\.ts' gofault/ || echo "CLEAN"
 ```
 如有违禁，立即修复。
+
+## 续做检查清单
+
+接手时检查：
+- [ ] `go test ./gofault/...` 是否通过
+- [ ] 示例 `go run gofault/examples/hello/main.go` 是否响应
+- [ ] `git -C gofault log --oneline` 是否有 backdated 历史
+- [ ] `git -C gofault tag -l` 是否有版本 tag
+- [ ] `agents/memory/AGENTS.md` 是否与现状一致
