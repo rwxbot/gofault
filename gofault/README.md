@@ -797,3 +797,8 @@ Group writes so a failure rolls the whole unit back:
 
 ```go
 err := gorm.Transaction(db.GetDB(), func(tx *gormio.DB) error {
+    if err := tx.Create(&user).Error; err != nil {
+        return err
+    }
+    return tx.Create(&audit).Error
+})
