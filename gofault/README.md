@@ -773,3 +773,13 @@ import (
 
     "github.com/gofault/gofault/gorm"
 )
+
+db, err := gorm.NewDatabase("primary", gorm.Config{
+    Dialect:         gorm.DialectPostgres,
+    DSN:             os.Getenv("DATABASE_URL"),
+    MaxOpenConns:    25,
+    MaxIdleConns:    5,
+    ConnMaxLifetime: 300, // seconds
+})
+if err != nil {
+    log.Fatal(err)
