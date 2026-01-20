@@ -766,3 +766,10 @@ for _, f := range middleware.GetUploadFiles(ctx) {
 `NewDatabase` pings the server while opening, so a bad DSN fails at boot rather
 than on the first query. The dialect is a value instead of a string, and `GetDB`
 returns the underlying `*gorm.DB` for anything the wrapper does not cover:
+
+```go
+import (
+    gormio "gorm.io/gorm"
+
+    "github.com/gofault/gofault/gorm"
+)
