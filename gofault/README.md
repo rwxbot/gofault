@@ -802,3 +802,4 @@ err := gorm.Transaction(db.GetDB(), func(tx *gormio.DB) error {
     }
     return tx.Create(&audit).Error
 })
+```
