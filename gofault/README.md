@@ -791,3 +791,9 @@ The connection is closed on shutdown once the database is part of a module:
 ```go
 mod.RegisterProviders(provider.ValueProvider{Value: db})
 mod.RegisterOnShutdown(db)
+```
+
+Group writes so a failure rolls the whole unit back:
+
+```go
+err := gorm.Transaction(db.GetDB(), func(tx *gormio.DB) error {
