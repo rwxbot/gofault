@@ -12,3 +12,5 @@ import (
 	"github.com/gofault/gofault/middleware"
 	"github.com/redis/go-redis/v9"
 )
+
+// Config holds Redis configuration.
