@@ -107,3 +107,8 @@
 
 ### Added
 - Session and file upload middleware
+
+## [v3.0.0]
+
+### Added
+- Database integration via GORM
