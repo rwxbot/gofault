@@ -9,3 +9,4 @@ import (
 
 	"github.com/gofault/gofault/core"
 	"github.com/redis/go-redis/v9"
+)
