@@ -3,9 +3,12 @@ package redis
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
 	"fmt"
-	"sync"
 	"time"
 
 	"github.com/gofault/gofault/core"
+	"github.com/gofault/gofault/middleware"
 	"github.com/redis/go-redis/v9"
+)
