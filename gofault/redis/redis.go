@@ -20,3 +20,6 @@ type Config struct {
 	// Password for Redis AUTH (empty = no auth).
 	Password string
 	// DB is the database number (0-15).
+	DB int
+	// PoolSize sets the maximum number of open connections.
+	PoolSize int
