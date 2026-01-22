@@ -25,3 +25,4 @@ type Config struct {
 	PoolSize int
 	// MinIdleConns sets the minimum idle connections.
 	MinIdleConns int
+	// DialTimeout sets the connection timeout.
