@@ -26,3 +26,4 @@ type Config struct {
 	// MinIdleConns sets the minimum idle connections.
 	MinIdleConns int
 	// DialTimeout sets the connection timeout.
+	DialTimeout int // in seconds
