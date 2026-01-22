@@ -23,3 +23,5 @@ type Config struct {
 	DB int
 	// PoolSize sets the maximum number of open connections.
 	PoolSize int
+	// MinIdleConns sets the minimum idle connections.
+	MinIdleConns int
