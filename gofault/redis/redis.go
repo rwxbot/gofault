@@ -25,3 +25,4 @@ type Config struct {
 	MinIdleConns int
 	// DialTimeout sets the connection timeout.
 	DialTimeout int // in seconds
+	// ReadTimeout sets the read timeout.
