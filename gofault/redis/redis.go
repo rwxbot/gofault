@@ -15,3 +15,6 @@ import (
 type Config struct {
 	// Addr is the Redis address (host:port).
 	Addr string
+	// Password for Redis AUTH (empty = no auth).
+	Password string
+	// DB is the database number (0-15).
