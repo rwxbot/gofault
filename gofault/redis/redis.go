@@ -14,3 +14,6 @@ import (
 )
 
 // Config holds Redis configuration.
+type Config struct {
+	// Addr is the Redis address (host:port).
+	Addr string
