@@ -36,3 +36,6 @@ type Config struct {
 }
 
 // DefaultConfig returns a default Redis configuration.
+func DefaultConfig() Config {
+	return Config{
+		Addr:         "localhost:6379",
