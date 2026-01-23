@@ -26,3 +26,5 @@ type Config struct {
 	// DialTimeout sets the connection timeout.
 	DialTimeout int // in seconds
 	// ReadTimeout sets the read timeout.
+	ReadTimeout int // in seconds
+	// WriteTimeout sets the write timeout.
