@@ -41,3 +41,6 @@ func DefaultConfig() Config {
 		Addr:         "localhost:6379",
 		Password:     "",
 		DB:           0,
+		PoolSize:     100,
+		MinIdleConns: 10,
+		DialTimeout:  5,
