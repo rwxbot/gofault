@@ -34,3 +34,5 @@ type Config struct {
 	// ConnMaxLifetime sets the maximum lifetime of a connection.
 	ConnMaxLifetime int // in seconds, 0 = no limit
 }
+
+// DefaultConfig returns a default Redis configuration.
