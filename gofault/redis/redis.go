@@ -39,3 +39,5 @@ type Config struct {
 func DefaultConfig() Config {
 	return Config{
 		Addr:         "localhost:6379",
+		Password:     "",
+		DB:           0,
