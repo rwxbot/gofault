@@ -32,3 +32,5 @@ type Config struct {
 	// WriteTimeout sets the write timeout.
 	WriteTimeout int // in seconds
 	// ConnMaxLifetime sets the maximum lifetime of a connection.
+	ConnMaxLifetime int // in seconds, 0 = no limit
+}
