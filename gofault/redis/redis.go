@@ -48,3 +48,6 @@ func DefaultConfig() Config {
 }
 
 // Client is the Redis module.
+type Client struct {
+	core.Module
+	RDB    *redis.Client
