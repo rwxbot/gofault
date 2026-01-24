@@ -44,3 +44,4 @@ func DefaultConfig() Config {
 		DialTimeout:  5,
 		ReadTimeout:  3,
 		WriteTimeout: 3,
+	}
