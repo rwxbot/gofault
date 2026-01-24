@@ -42,3 +42,5 @@ func DefaultConfig() Config {
 		PoolSize:     100,
 		MinIdleConns: 10,
 		DialTimeout:  5,
+		ReadTimeout:  3,
+		WriteTimeout: 3,
