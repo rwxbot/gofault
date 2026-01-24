@@ -46,3 +46,5 @@ func DefaultConfig() Config {
 		WriteTimeout: 3,
 	}
 }
+
+// Client is the Redis module.
