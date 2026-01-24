@@ -47,3 +47,4 @@ func DefaultConfig() Config {
 		ReadTimeout:  3,
 		WriteTimeout: 3,
 	}
+}
