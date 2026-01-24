@@ -53,3 +53,7 @@ type Client struct {
 	RDB    *redis.Client
 	Config Config
 }
+
+var (
+	clientInstance *Client
+	clientOnce     sync.Once
