@@ -59,3 +59,4 @@ type Client struct {
 var (
 	clientInstance *Client
 	clientOnce     sync.Once
+)
