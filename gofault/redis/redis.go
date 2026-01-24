@@ -54,3 +54,4 @@ type Client struct {
 	core.Module
 	RDB    *redis.Client
 	Config Config
+}
