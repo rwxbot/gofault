@@ -58,3 +58,5 @@ var (
 	clientInstance *Client
 	clientOnce     sync.Once
 )
+
+// NewClient creates a new Redis client module.
