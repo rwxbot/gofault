@@ -56,9 +56,6 @@ type Client struct {
 	Config Config
 }
 
-var (
-	clientInstance *Client
-	clientOnce     sync.Once
-)
-
 // NewClient creates a new Redis client module.
+func NewClient(name string, config Config) (*Client, error) {
+	rdb := redis.NewClient(&redis.Options{
