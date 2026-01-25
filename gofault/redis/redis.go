@@ -68,3 +68,6 @@ func NewClient(name string, config Config) (*Client, error) {
 		ReadTimeout:  time.Duration(config.ReadTimeout) * time.Second,
 		WriteTimeout: time.Duration(config.WriteTimeout) * time.Second,
 		ConnMaxLifetime: func() time.Duration {
+			if config.ConnMaxLifetime == 0 {
+				return 0
+			}
