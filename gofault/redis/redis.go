@@ -62,3 +62,6 @@ func NewClient(name string, config Config) (*Client, error) {
 		Addr:         config.Addr,
 		Password:     config.Password,
 		DB:           config.DB,
+		PoolSize:     config.PoolSize,
+		MinIdleConns: config.MinIdleConns,
+		DialTimeout:  time.Duration(config.DialTimeout) * time.Second,
