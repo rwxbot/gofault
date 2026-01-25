@@ -65,3 +65,6 @@ func NewClient(name string, config Config) (*Client, error) {
 		PoolSize:     config.PoolSize,
 		MinIdleConns: config.MinIdleConns,
 		DialTimeout:  time.Duration(config.DialTimeout) * time.Second,
+		ReadTimeout:  time.Duration(config.ReadTimeout) * time.Second,
+		WriteTimeout: time.Duration(config.WriteTimeout) * time.Second,
+		ConnMaxLifetime: func() time.Duration {
