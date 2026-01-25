@@ -62,3 +62,6 @@ var (
 // NewClient creates a new Redis client module.
 func NewClient(name string, config Config) (*Client, error) {
 	rdb := redis.NewClient(&redis.Options{
+		Addr:         config.Addr,
+		Password:     config.Password,
+		DB:           config.DB,
