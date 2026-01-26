@@ -73,3 +73,4 @@ func NewClient(name string, config Config) (*Client, error) {
 			}
 			return time.Duration(config.ConnMaxLifetime) * time.Second
 		}(),
+	})
