@@ -84,3 +84,4 @@ func NewClient(name string, config Config) (*Client, error) {
 
 	if err := rdb.Ping(ctx).Err(); err != nil {
 		return nil, fmt.Errorf("redis ping: %w", err)
+	}
