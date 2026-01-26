@@ -85,3 +85,7 @@ func NewClient(name string, config Config) (*Client, error) {
 		rdb.Close()
 		return nil, fmt.Errorf("redis ping: %w", err)
 	}
+
+	c := &Client{
+		Module: *core.NewModule(name),
+		RDB:    rdb,
