@@ -80,4 +80,8 @@ func NewClient(name string, config Config) (*Client, error) {
 	defer cancel()
 
 	if err := rdb.Ping(ctx).Err(); err != nil {
+		// The client opened a pool before the probe; without closing it a
+		// failed NewClient leaks the connection and its goroutines.
+		rdb.Close()
 		return nil, fmt.Errorf("redis ping: %w", err)
+	}
