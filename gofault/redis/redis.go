@@ -89,3 +89,5 @@ func NewClient(name string, config Config) (*Client, error) {
 	c := &Client{
 		Module: *core.NewModule(name),
 		RDB:    rdb,
+		Config: config,
+	}
