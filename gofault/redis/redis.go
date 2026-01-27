@@ -91,3 +91,5 @@ func NewClient(name string, config Config) (*Client, error) {
 		RDB:    rdb,
 		Config: config,
 	}
+
+	c.RegisterOnShutdown(&redisShutdown{rdb})
