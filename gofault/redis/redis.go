@@ -101,3 +101,6 @@ func NewClient(name string, config Config) (*Client, error) {
 func MustNewClient(name string, config Config) *Client {
 	c, err := NewClient(name, config)
 	if err != nil {
+		panic(err)
+	}
+	return c
