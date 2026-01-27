@@ -104,3 +104,4 @@ func MustNewClient(name string, config Config) *Client {
 		panic(err)
 	}
 	return c
+}
