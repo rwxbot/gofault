@@ -93,3 +93,6 @@ func NewClient(name string, config Config) (*Client, error) {
 	}
 
 	c.RegisterOnShutdown(&redisShutdown{rdb})
+
+	return c, nil
+}
