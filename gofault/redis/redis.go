@@ -98,3 +98,6 @@ func NewClient(name string, config Config) (*Client, error) {
 }
 
 // MustNewClient creates a new Redis client and panics on error.
+func MustNewClient(name string, config Config) *Client {
+	c, err := NewClient(name, config)
+	if err != nil {
