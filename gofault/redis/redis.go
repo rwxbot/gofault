@@ -107,3 +107,6 @@ func MustNewClient(name string, config Config) *Client {
 }
 
 // GetClient returns the underlying redis.Client.
+func (c *Client) GetClient() *redis.Client {
+	return c.RDB
+}
