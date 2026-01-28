@@ -110,3 +110,5 @@ func MustNewClient(name string, config Config) *Client {
 func (c *Client) GetClient() *redis.Client {
 	return c.RDB
 }
+
+// Set stores a key-value pair with an optional expiration.
