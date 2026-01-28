@@ -105,3 +105,5 @@ func MustNewClient(name string, config Config) *Client {
 	}
 	return c
 }
+
+// GetClient returns the underlying redis.Client.
