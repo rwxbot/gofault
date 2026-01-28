@@ -115,3 +115,5 @@ func (c *Client) GetClient() *redis.Client {
 func Set(ctx context.Context, rdb *redis.Client, key string, value interface{}, expiration time.Duration) error {
 	return rdb.Set(ctx, key, value, expiration).Err()
 }
+
+// Get retrieves a value by key.
