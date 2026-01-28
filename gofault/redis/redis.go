@@ -112,3 +112,4 @@ func (c *Client) GetClient() *redis.Client {
 }
 
 // Set stores a key-value pair with an optional expiration.
+func Set(ctx context.Context, rdb *redis.Client, key string, value interface{}, expiration time.Duration) error {
