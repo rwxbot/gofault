@@ -120,3 +120,5 @@ func Set(ctx context.Context, rdb *redis.Client, key string, value interface{}, 
 func Get(ctx context.Context, rdb *redis.Client, key string) (string, error) {
 	return rdb.Get(ctx, key).Result()
 }
+
+// Delete removes a key.
