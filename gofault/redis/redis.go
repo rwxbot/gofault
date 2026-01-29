@@ -122,3 +122,4 @@ func Get(ctx context.Context, rdb *redis.Client, key string) (string, error) {
 }
 
 // Delete removes a key.
+func Delete(ctx context.Context, rdb *redis.Client, keys ...string) error {
