@@ -117,3 +117,6 @@ func Set(ctx context.Context, rdb *redis.Client, key string, value interface{}, 
 }
 
 // Get retrieves a value by key.
+func Get(ctx context.Context, rdb *redis.Client, key string) (string, error) {
+	return rdb.Get(ctx, key).Result()
+}
