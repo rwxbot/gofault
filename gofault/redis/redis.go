@@ -125,3 +125,5 @@ func Get(ctx context.Context, rdb *redis.Client, key string) (string, error) {
 func Delete(ctx context.Context, rdb *redis.Client, keys ...string) error {
 	return rdb.Del(ctx, keys...).Err()
 }
+
+// Exists checks if a key exists.
