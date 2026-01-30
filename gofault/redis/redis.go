@@ -133,3 +133,6 @@ func Exists(ctx context.Context, rdb *redis.Client, key string) (bool, error) {
 }
 
 // Lock represents a distributed lock.
+type Lock struct {
+	rdb     *redis.Client
+	key     string
