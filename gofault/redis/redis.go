@@ -127,3 +127,4 @@ func Delete(ctx context.Context, rdb *redis.Client, keys ...string) error {
 }
 
 // Exists checks if a key exists.
+func Exists(ctx context.Context, rdb *redis.Client, key string) (bool, error) {
