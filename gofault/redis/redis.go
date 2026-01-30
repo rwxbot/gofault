@@ -131,3 +131,5 @@ func Exists(ctx context.Context, rdb *redis.Client, key string) (bool, error) {
 	n, err := rdb.Exists(ctx, key).Result()
 	return n > 0, err
 }
+
+// Lock represents a distributed lock.
