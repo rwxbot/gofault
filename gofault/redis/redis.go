@@ -138,3 +138,4 @@ type Lock struct {
 	key     string
 	value   string
 	timeout time.Duration
+}
