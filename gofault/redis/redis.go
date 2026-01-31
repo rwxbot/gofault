@@ -137,3 +137,4 @@ type Lock struct {
 	rdb     *redis.Client
 	key     string
 	value   string
+	timeout time.Duration
