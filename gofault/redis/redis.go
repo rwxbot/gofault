@@ -142,3 +142,4 @@ type Lock struct {
 
 // NewLock creates a new distributed lock.
 func NewLock(rdb *redis.Client, key, value string, timeout time.Duration) *Lock {
+	return &Lock{rdb: rdb, key: key, value: value, timeout: timeout}
