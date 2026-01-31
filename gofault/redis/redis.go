@@ -136,3 +136,4 @@ func Exists(ctx context.Context, rdb *redis.Client, key string) (bool, error) {
 type Lock struct {
 	rdb     *redis.Client
 	key     string
+	value   string
