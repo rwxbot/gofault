@@ -139,3 +139,5 @@ type Lock struct {
 	value   string
 	timeout time.Duration
 }
+
+// NewLock creates a new distributed lock.
