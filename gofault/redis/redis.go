@@ -146,3 +146,4 @@ func NewLock(rdb *redis.Client, key, value string, timeout time.Duration) *Lock 
 }
 
 // Acquire attempts to acquire the lock.
+func (l *Lock) Acquire(ctx context.Context) (bool, error) {
