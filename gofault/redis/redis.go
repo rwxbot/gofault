@@ -152,3 +152,6 @@ func (l *Lock) Acquire(ctx context.Context) (bool, error) {
 }
 
 // Release releases the lock if the value matches.
+func (l *Lock) Release(ctx context.Context) error {
+	// Use Lua script to ensure atomic check-and-delete
+	script := redis.NewScript(`
