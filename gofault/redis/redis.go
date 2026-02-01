@@ -145,10 +145,27 @@ func NewLock(rdb *redis.Client, key, value string, timeout time.Duration) *Lock 
 	return &Lock{rdb: rdb, key: key, value: value, timeout: timeout}
 }
 
+// ErrLockNotHeld is returned by Release when the lock is no longer held by
+// this instance — it expired, or someone else took it over. The Lua script
+// result used to be discarded, so callers doing idempotent cleanup or retry
+// logic could not tell "released" from "was already gone".
+var ErrLockNotHeld = errors.New("redis lock: not held")
+
 // Acquire attempts to acquire the lock.
+//
+// The value must be non-empty and unique per holder: the release script only
+// deletes when GET matches, and two independent holders that both pass ""
+// would each satisfy the other's check and release each other's locks.
 func (l *Lock) Acquire(ctx context.Context) (bool, error) {
+	if l.value == "" {
+		return false, fmt.Errorf("redis lock %q: value must not be empty", l.key)
+	}
 	ok, err := l.rdb.SetNX(ctx, l.key, l.value, l.timeout).Result()
 	return ok, err
 }
 
-// Release releases the lock if the value matches.
+// Release releases the lock if the value matches. It returns ErrLockNotHeld
+// when the key is missing or held under a different value.
+func (l *Lock) Release(ctx context.Context) error {
+	// Use Lua script to ensure atomic check-and-delete
+	script := redis.NewScript(`
