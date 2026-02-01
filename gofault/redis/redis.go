@@ -150,3 +150,5 @@ func (l *Lock) Acquire(ctx context.Context) (bool, error) {
 	ok, err := l.rdb.SetNX(ctx, l.key, l.value, l.timeout).Result()
 	return ok, err
 }
+
+// Release releases the lock if the value matches.
