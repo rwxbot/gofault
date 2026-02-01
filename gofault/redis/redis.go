@@ -144,3 +144,5 @@ type Lock struct {
 func NewLock(rdb *redis.Client, key, value string, timeout time.Duration) *Lock {
 	return &Lock{rdb: rdb, key: key, value: value, timeout: timeout}
 }
+
+// Acquire attempts to acquire the lock.
