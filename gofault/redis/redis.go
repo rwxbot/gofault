@@ -155,3 +155,5 @@ func (l *Lock) Acquire(ctx context.Context) (bool, error) {
 func (l *Lock) Release(ctx context.Context) error {
 	// Use Lua script to ensure atomic check-and-delete
 	script := redis.NewScript(`
+		if redis.call("GET", KEYS[1]) == ARGV[1] then
+			return redis.call("DEL", KEYS[1])
