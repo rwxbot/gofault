@@ -162,3 +162,4 @@ func (l *Lock) Release(ctx context.Context) error {
 		end
 	`)
 	_, err := script.Run(ctx, l.rdb, []string{l.key}, l.value).Result()
+	return err
