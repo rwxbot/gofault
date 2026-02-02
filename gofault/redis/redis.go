@@ -164,3 +164,6 @@ func (l *Lock) Release(ctx context.Context) error {
 	_, err := script.Run(ctx, l.rdb, []string{l.key}, l.value).Result()
 	return err
 }
+
+type redisShutdown struct {
+	rdb *redis.Client
