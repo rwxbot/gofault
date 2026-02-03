@@ -167,3 +167,4 @@ func (l *Lock) Release(ctx context.Context) error {
 
 type redisShutdown struct {
 	rdb *redis.Client
+}
