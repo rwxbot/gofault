@@ -171,3 +171,4 @@ type redisShutdown struct {
 
 func (s *redisShutdown) OnShutdown() error {
 	return s.rdb.Close()
+}
