@@ -179,3 +179,5 @@ type Cache struct {
 	KeyPrefix  string
 	DefaultTTL time.Duration
 }
+
+// NewCache creates a new Redis cache backend.
