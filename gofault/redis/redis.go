@@ -177,3 +177,4 @@ func (s *redisShutdown) OnShutdown() error {
 type Cache struct {
 	RDB        *redis.Client
 	KeyPrefix  string
+	DefaultTTL time.Duration
