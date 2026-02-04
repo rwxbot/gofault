@@ -174,3 +174,6 @@ func (s *redisShutdown) OnShutdown() error {
 }
 
 // Cache implements an in-Redis cache backend for middleware/cache.go.
+type Cache struct {
+	RDB        *redis.Client
+	KeyPrefix  string
