@@ -193,4 +193,8 @@ func (s *redisShutdown) OnShutdown() error {
 	return s.rdb.Close()
 }
 
-// Cache implements an in-Redis cache backend for middleware/cache.go.
+// Cache is a namespaced Redis key/value store with a default TTL. To serve as
+// the backend for middleware.CacheMiddleware, wrap it with NewHTTPBackend.
+type Cache struct {
+	RDB        *redis.Client
+	KeyPrefix  string
