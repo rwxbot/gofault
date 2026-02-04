@@ -204,3 +204,6 @@ type Cache struct {
 // NewCache creates a new Redis cache backend.
 func NewCache(rdb *redis.Client, keyPrefix string, defaultTTL time.Duration) *Cache {
 	return &Cache{
+		RDB:        rdb,
+		KeyPrefix:  keyPrefix,
+		DefaultTTL: defaultTTL,
