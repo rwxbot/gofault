@@ -172,3 +172,5 @@ type redisShutdown struct {
 func (s *redisShutdown) OnShutdown() error {
 	return s.rdb.Close()
 }
+
+// Cache implements an in-Redis cache backend for middleware/cache.go.
