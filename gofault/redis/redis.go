@@ -188,3 +188,5 @@ func NewCache(rdb *redis.Client, keyPrefix string, defaultTTL time.Duration) *Ca
 		DefaultTTL: defaultTTL,
 	}
 }
+
+// Get retrieves a cached value.
