@@ -214,3 +214,5 @@ func NewCache(rdb *redis.Client, keyPrefix string, defaultTTL time.Duration) *Ca
 func (c *Cache) Get(ctx context.Context, key string) (string, error) {
 	return c.RDB.Get(ctx, c.prefix(key)).Result()
 }
+
+// Set stores a value with optional TTL (uses default if 0).
