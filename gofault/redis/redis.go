@@ -195,3 +195,5 @@ func (c *Cache) Get(ctx context.Context, key string) (string, error) {
 }
 
 // Set stores a value with optional TTL (uses default if 0).
+func (c *Cache) Set(ctx context.Context, key string, value string, ttl time.Duration) error {
+	if ttl == 0 {
