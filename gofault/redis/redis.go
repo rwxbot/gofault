@@ -207,3 +207,5 @@ func NewCache(rdb *redis.Client, keyPrefix string, defaultTTL time.Duration) *Ca
 		RDB:        rdb,
 		KeyPrefix:  keyPrefix,
 		DefaultTTL: defaultTTL,
+	}
+}
