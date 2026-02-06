@@ -227,3 +227,5 @@ func (c *Cache) Set(ctx context.Context, key string, value string, ttl time.Dura
 func (c *Cache) Delete(ctx context.Context, key string) error {
 	return c.RDB.Del(ctx, c.prefix(key)).Err()
 }
+
+// Exists checks if a key exists.
