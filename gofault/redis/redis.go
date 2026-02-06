@@ -224,3 +224,6 @@ func (c *Cache) Set(ctx context.Context, key string, value string, ttl time.Dura
 }
 
 // Delete removes a cached value.
+func (c *Cache) Delete(ctx context.Context, key string) error {
+	return c.RDB.Del(ctx, c.prefix(key)).Err()
+}
