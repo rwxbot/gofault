@@ -201,3 +201,5 @@ func (c *Cache) Set(ctx context.Context, key string, value string, ttl time.Dura
 	}
 	return c.RDB.Set(ctx, c.prefix(key), value, ttl).Err()
 }
+
+// Delete removes a cached value.
