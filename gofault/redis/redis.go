@@ -231,3 +231,5 @@ func (c *Cache) Delete(ctx context.Context, key string) error {
 // Exists checks if a key exists.
 func (c *Cache) Exists(ctx context.Context, key string) (bool, error) {
 	n, err := c.RDB.Exists(ctx, c.prefix(key)).Result()
+	return n > 0, err
+}
