@@ -215,3 +215,4 @@ func (c *Cache) Exists(ctx context.Context, key string) (bool, error) {
 
 func (c *Cache) prefix(key string) string {
 	return c.KeyPrefix + ":" + key
+}
