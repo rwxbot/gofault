@@ -18,3 +18,5 @@ func TestDefaultConfig(t *testing.T) {
 	if cfg.PoolSize != 100 {
 		t.Errorf("expected PoolSize=100, got %d", cfg.PoolSize)
 	}
+	if cfg.MinIdleConns != 10 {
+		t.Errorf("expected MinIdleConns=10, got %d", cfg.MinIdleConns)
