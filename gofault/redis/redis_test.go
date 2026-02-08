@@ -11,3 +11,6 @@ import (
 
 func TestDefaultConfig(t *testing.T) {
 	cfg := DefaultConfig()
+	if cfg.Addr != "localhost:6379" {
+		t.Errorf("expected Addr=localhost:6379, got %s", cfg.Addr)
+	}
