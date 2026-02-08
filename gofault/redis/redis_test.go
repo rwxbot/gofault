@@ -21,3 +21,4 @@ func TestDefaultConfig(t *testing.T) {
 	if cfg.MinIdleConns != 10 {
 		t.Errorf("expected MinIdleConns=10, got %d", cfg.MinIdleConns)
 	}
+}
