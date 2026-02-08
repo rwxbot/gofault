@@ -15,3 +15,4 @@ func TestDefaultConfig(t *testing.T) {
 	if cfg.Addr != "localhost:6379" {
 		t.Errorf("expected Addr=localhost:6379, got %s", cfg.Addr)
 	}
+	if cfg.PoolSize != 100 {
