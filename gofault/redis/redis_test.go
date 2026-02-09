@@ -32,3 +32,6 @@ func TestNewClient_Invalid(t *testing.T) {
 		t.Error("expected error for unreachable Redis")
 	}
 }
+
+func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
+	cfg := DefaultConfig()
