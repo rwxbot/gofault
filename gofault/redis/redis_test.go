@@ -21,3 +21,7 @@ func TestDefaultConfig(t *testing.T) {
 		t.Errorf("expected MinIdleConns=10, got %d", cfg.MinIdleConns)
 	}
 }
+
+func TestNewClient_Invalid(t *testing.T) {
+	cfg := DefaultConfig()
+	cfg.Addr = "localhost:9999" // no redis running here
