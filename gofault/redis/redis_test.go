@@ -26,3 +26,6 @@ func TestDefaultConfig(t *testing.T) {
 func TestNewClient_Invalid(t *testing.T) {
 	cfg := DefaultConfig()
 	cfg.Addr = "localhost:9999" // no redis running here
+
+	_, err := NewClient("test", cfg)
+	if err == nil {
