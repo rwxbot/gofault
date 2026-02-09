@@ -28,3 +28,6 @@ func TestNewClient_Invalid(t *testing.T) {
 
 	_, err := NewClient("test", cfg)
 	if err == nil {
+		t.Error("expected error for unreachable Redis")
+	}
+}
