@@ -34,3 +34,6 @@ func TestNewClient_Invalid(t *testing.T) {
 
 func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 	cfg := DefaultConfig()
+	cfg.ConnMaxLifetime = 0 // means no limit
+	rdb := redis.NewClient(&redis.Options{
+		Addr: cfg.Addr,
