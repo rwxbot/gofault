@@ -38,3 +38,5 @@ func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 	cfg.ConnMaxLifetime = 0 // means no limit
 	rdb := redis.NewClient(&redis.Options{
 		Addr: cfg.Addr,
+		ConnMaxLifetime: func() time.Duration {
+			if cfg.ConnMaxLifetime == 0 {
