@@ -40,3 +40,4 @@ func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 		Addr: cfg.Addr,
 		ConnMaxLifetime: func() time.Duration {
 			if cfg.ConnMaxLifetime == 0 {
+				return 0
