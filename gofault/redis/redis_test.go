@@ -43,3 +43,6 @@ func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 				return 0
 			}
 			return time.Duration(cfg.ConnMaxLifetime) * time.Second
+		}(),
+	})
+	if rdb == nil {
