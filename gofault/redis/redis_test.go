@@ -46,3 +46,5 @@ func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 		}(),
 	})
 	if rdb == nil {
+		t.Fatal("rdb is nil")
+	}
