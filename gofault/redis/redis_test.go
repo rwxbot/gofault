@@ -49,3 +49,5 @@ func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 	}
 	rdb.Close()
 }
+
+// redisAddr resolves the address of the Redis instance used by the integration
