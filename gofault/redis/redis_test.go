@@ -54,3 +54,5 @@ func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 // redisAddr resolves the address of the Redis instance used by the integration
 // tests below. It honours GOFAULT_REDIS_ADDR so CI can point the tests at a
 // provisioned service, and otherwise falls back to the conventional local port.
+func redisAddr() string {
+	if addr := os.Getenv("GOFAULT_REDIS_ADDR"); addr != "" {
