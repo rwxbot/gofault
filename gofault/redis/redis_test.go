@@ -55,3 +55,6 @@ func TestConfig_ZeroConnMaxLifetime(t *testing.T) {
 // provisioned service, and otherwise falls back to the conventional local port.
 func redisAddr() string {
 	if addr := os.Getenv("GOFAULT_REDIS_ADDR"); addr != "" {
+		return addr
+	}
+	return "127.0.0.1:6379"
