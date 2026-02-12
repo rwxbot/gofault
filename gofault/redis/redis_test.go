@@ -70,3 +70,7 @@ func newTestClient(t *testing.T) *redis.Client {
 
 	addr := redisAddr()
 	rdb := redis.NewClient(&redis.Options{Addr: addr})
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	if err := rdb.Ping(ctx).Err(); err != nil {
