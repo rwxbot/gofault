@@ -62,3 +62,4 @@ func redisAddr() string {
 
 // newTestClient dials Redis and skips the calling test when no server answers.
 // The integration tests assert against real server semantics (Lua scripts,
+// key expiry), so they need a live instance - but they must not turn a missing
