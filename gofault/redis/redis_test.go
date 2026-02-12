@@ -67,3 +67,6 @@ func redisAddr() string {
 // Redis into a failure on developer machines.
 func newTestClient(t *testing.T) *redis.Client {
 	t.Helper()
+
+	addr := redisAddr()
+	rdb := redis.NewClient(&redis.Options{Addr: addr})
