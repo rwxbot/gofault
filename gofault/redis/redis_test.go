@@ -59,3 +59,4 @@ func redisAddr() string {
 		return addr
 	}
 	return "127.0.0.1:6379"
+}
