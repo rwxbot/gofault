@@ -65,3 +65,5 @@ func redisAddr() string {
 // The integration tests assert against real server semantics (Lua scripts,
 // key expiry), so they need a live instance - but they must not turn a missing
 // Redis into a failure on developer machines.
+func newTestClient(t *testing.T) *redis.Client {
+	t.Helper()
