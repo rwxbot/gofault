@@ -60,3 +60,5 @@ func redisAddr() string {
 	}
 	return "127.0.0.1:6379"
 }
+
+// newTestClient dials Redis and skips the calling test when no server answers.
