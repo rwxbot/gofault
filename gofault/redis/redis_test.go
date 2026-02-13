@@ -83,3 +83,5 @@ func newTestClient(t *testing.T) *redis.Client {
 
 func TestLock_AcquireRelease(t *testing.T) {
 	rdb := newTestClient(t)
+
+	ctx := context.Background()
