@@ -79,3 +79,4 @@ func newTestClient(t *testing.T) *redis.Client {
 	}
 
 	t.Cleanup(func() { _ = rdb.Close() })
+	return rdb
