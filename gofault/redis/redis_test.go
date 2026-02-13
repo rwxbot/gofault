@@ -73,3 +73,5 @@ func newTestClient(t *testing.T) *redis.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	if err := rdb.Ping(ctx).Err(); err != nil {
+		_ = rdb.Close()
+		t.Skipf("redis is not available at %s: %v", addr, err)
