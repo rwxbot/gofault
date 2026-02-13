@@ -81,3 +81,6 @@ func newTestClient(t *testing.T) *redis.Client {
 	t.Cleanup(func() { _ = rdb.Close() })
 	return rdb
 }
+
+func TestLock_AcquireRelease(t *testing.T) {
+	rdb := newTestClient(t)
