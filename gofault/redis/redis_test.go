@@ -86,3 +86,6 @@ func TestLock_AcquireRelease(t *testing.T) {
 
 	ctx := context.Background()
 	lock := NewLock(rdb, "test-lock", "unique-value", 5*time.Second)
+
+	ok, err := lock.Acquire(ctx)
+	if err != nil {
