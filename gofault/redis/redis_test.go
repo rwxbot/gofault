@@ -94,3 +94,6 @@ func TestLock_AcquireRelease(t *testing.T) {
 	}
 	if !ok {
 		t.Fatal("expected to acquire lock")
+	}
+
+	// Release
