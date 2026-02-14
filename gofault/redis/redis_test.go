@@ -89,3 +89,6 @@ func TestLock_AcquireRelease(t *testing.T) {
 
 	ok, err := lock.Acquire(ctx)
 	if err != nil {
+		t.Fatalf("Acquire error: %v", err)
+	}
+	if !ok {
