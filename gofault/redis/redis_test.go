@@ -97,3 +97,4 @@ func TestLock_AcquireRelease(t *testing.T) {
 	}
 
 	// Release
+	err = lock.Release(ctx)
