@@ -97,3 +97,6 @@ func TestLock_AcquireRelease(t *testing.T) {
 
 	// Release
 	err = lock.Release(ctx)
+	if err != nil {
+		t.Errorf("Release error: %v", err)
+	}
