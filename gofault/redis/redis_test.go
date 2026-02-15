@@ -103,3 +103,5 @@ func TestLock_AcquireRelease(t *testing.T) {
 
 	// Should be able to re-acquire after release
 	ok, err = lock.Acquire(ctx)
+	if err != nil {
+		t.Fatalf("Acquire after release error: %v", err)
