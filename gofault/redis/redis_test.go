@@ -108,3 +108,6 @@ func TestLock_AcquireRelease(t *testing.T) {
 	}
 	if !ok {
 		t.Fatal("expected to re-acquire lock after release")
+	}
+	lock.Release(ctx)
+}
