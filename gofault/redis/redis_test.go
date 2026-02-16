@@ -117,3 +117,4 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	rdb := newTestClient(t)
 
 	ctx := context.Background()
+	lock1 := NewLock(rdb, "test-lock2", "owner1", 5*time.Second)
