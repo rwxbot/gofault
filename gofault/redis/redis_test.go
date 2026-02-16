@@ -111,3 +111,5 @@ func TestLock_AcquireRelease(t *testing.T) {
 	}
 	lock.Release(ctx)
 }
+
+func TestLock_ReleaseWrongOwner(t *testing.T) {
