@@ -114,3 +114,6 @@ func TestLock_AcquireRelease(t *testing.T) {
 }
 
 func TestLock_ReleaseWrongOwner(t *testing.T) {
+	rdb := newTestClient(t)
+
+	ctx := context.Background()
