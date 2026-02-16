@@ -118,3 +118,6 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 
 	ctx := context.Background()
 	lock1 := NewLock(rdb, "test-lock2", "owner1", 5*time.Second)
+	lock2 := NewLock(rdb, "test-lock2", "owner2", 5*time.Second)
+
+	ok, err := lock1.Acquire(ctx)
