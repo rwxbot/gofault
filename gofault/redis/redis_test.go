@@ -126,3 +126,5 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	if !ok {
 		t.Fatal("expected to acquire lock")
 	}
+
+	// lock2 should not be able to release lock1's lock
