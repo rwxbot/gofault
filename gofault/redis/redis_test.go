@@ -128,8 +128,12 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 		t.Fatal("expected to acquire lock")
 	}
 
-	// lock2 should not be able to release lock1's lock
+	// lock2 should not be able to release lock1's lock — and must report
+	// that it did not hold the lock rather than pretending success.
 	err = lock2.Release(ctx)
-	if err != nil {
-		t.Errorf("Release error (expected nil for Lua script result): %v", err)
+	if !errors.Is(err, ErrLockNotHeld) {
+		t.Errorf("Release by wrong owner = %v, want ErrLockNotHeld", err)
 	}
+
+	// lock1 should still be able to release
+	err = lock1.Release(ctx)
