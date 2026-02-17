@@ -132,3 +132,6 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	if err != nil {
 		t.Errorf("Release error (expected nil for Lua script result): %v", err)
 	}
+
+	// lock1 should still be able to release
+	err = lock1.Release(ctx)
