@@ -126,3 +126,4 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	}
 	if !ok {
 		t.Fatal("expected to acquire lock")
+	}
