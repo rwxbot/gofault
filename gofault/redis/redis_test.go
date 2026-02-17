@@ -123,3 +123,5 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Acquire error: %v", err)
 	}
+	if !ok {
+		t.Fatal("expected to acquire lock")
