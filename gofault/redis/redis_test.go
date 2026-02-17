@@ -129,3 +129,4 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	}
 
 	// lock2 should not be able to release lock1's lock
+	err = lock2.Release(ctx)
