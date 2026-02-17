@@ -138,3 +138,6 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	// lock1 should still be able to release
 	err = lock1.Release(ctx)
 	if err != nil {
+		t.Errorf("Release error: %v", err)
+	}
+}
