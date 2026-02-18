@@ -139,3 +139,5 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 		t.Errorf("Release error: %v", err)
 	}
 }
+
+func TestCache_Operations(t *testing.T) {
