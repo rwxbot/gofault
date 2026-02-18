@@ -162,3 +162,4 @@ func TestLock_EmptyValueRejected(t *testing.T) {
 }
 
 func TestCache_Operations(t *testing.T) {
+	rdb := newTestClient(t)
