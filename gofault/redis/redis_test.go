@@ -140,4 +140,25 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 	if err != nil {
 		t.Errorf("Release error: %v", err)
 	}
+
+	// Releasing an already-released lock reports the same signal.
+	if err := lock1.Release(ctx); !errors.Is(err, ErrLockNotHeld) {
+		t.Errorf("double Release = %v, want ErrLockNotHeld", err)
+	}
 }
+
+// Two holders with an empty value could each satisfy the other's release
+// check (GET == ARGV[1] matches ""), letting either unlock the other.
+// Acquire must reject an empty value outright.
+func TestLock_EmptyValueRejected(t *testing.T) {
+	rdb := newTestClient(t)
+
+	ctx := context.Background()
+	lock := NewLock(rdb, "test-lock-empty", "", 5*time.Second)
+
+	if _, err := lock.Acquire(ctx); err == nil {
+		t.Error("Acquire with empty value should fail, not risk mutual unlock")
+	}
+}
+
+func TestCache_Operations(t *testing.T) {
