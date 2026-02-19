@@ -176,3 +176,4 @@ func TestCache_Operations(t *testing.T) {
 	val, err := cache.Get(ctx, "key1")
 	if err != nil {
 		t.Fatalf("Get error: %v", err)
+	}
