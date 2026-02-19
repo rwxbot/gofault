@@ -166,3 +166,5 @@ func TestCache_Operations(t *testing.T) {
 
 	cache := NewCache(rdb, "testns", 10*time.Second)
 	ctx := context.Background()
+
+	// Set and Get
