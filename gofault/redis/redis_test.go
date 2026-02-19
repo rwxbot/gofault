@@ -171,3 +171,6 @@ func TestCache_Operations(t *testing.T) {
 	err := cache.Set(ctx, "key1", "value1", 0)
 	if err != nil {
 		t.Fatalf("Set error: %v", err)
+	}
+
+	val, err := cache.Get(ctx, "key1")
