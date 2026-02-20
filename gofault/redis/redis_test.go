@@ -162,3 +162,4 @@ func TestCache_Operations(t *testing.T) {
 
 	// Exists
 	exists, err := cache.Exists(ctx, "key1")
+	if err != nil {
