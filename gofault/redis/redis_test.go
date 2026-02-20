@@ -156,3 +156,4 @@ func TestCache_Operations(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Get error: %v", err)
 	}
+	if val != "value1" {
