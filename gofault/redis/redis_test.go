@@ -157,3 +157,5 @@ func TestCache_Operations(t *testing.T) {
 		t.Fatalf("Get error: %v", err)
 	}
 	if val != "value1" {
+		t.Errorf("expected 'value1', got '%s'", val)
+	}
