@@ -180,3 +180,6 @@ func TestCache_Operations(t *testing.T) {
 	if val != "value1" {
 		t.Errorf("expected 'value1', got '%s'", val)
 	}
+
+	// Exists
+	exists, err := cache.Exists(ctx, "key1")
