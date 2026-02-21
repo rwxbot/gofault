@@ -202,3 +202,4 @@ func TestCache_Operations(t *testing.T) {
 	}
 	if exists {
 		t.Error("expected key1 to not exist after delete")
+	}
