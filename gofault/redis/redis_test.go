@@ -188,3 +188,6 @@ func TestCache_Operations(t *testing.T) {
 	}
 	if !exists {
 		t.Error("expected key1 to exist")
+	}
+
+	// Delete
