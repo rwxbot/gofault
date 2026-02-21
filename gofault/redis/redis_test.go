@@ -186,3 +186,5 @@ func TestCache_Operations(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Exists error: %v", err)
 	}
+	if !exists {
+		t.Error("expected key1 to exist")
