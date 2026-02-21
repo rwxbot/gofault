@@ -191,3 +191,6 @@ func TestCache_Operations(t *testing.T) {
 	}
 
 	// Delete
+	err = cache.Delete(ctx, "key1")
+	if err != nil {
+		t.Fatalf("Delete error: %v", err)
