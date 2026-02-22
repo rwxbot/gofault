@@ -193,3 +193,5 @@ func TestCache_KeyPrefix(t *testing.T) {
 	cache.Set(ctx, "user:1", "alice", 0)
 
 	// Verify prefix is used
+	val, err := cache.Get(ctx, "user:1")
+	if err != nil {
