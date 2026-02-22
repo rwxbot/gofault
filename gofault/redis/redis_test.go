@@ -185,3 +185,4 @@ func TestCache_Operations(t *testing.T) {
 }
 
 func TestCache_KeyPrefix(t *testing.T) {
+	rdb := newTestClient(t)
