@@ -209,3 +209,4 @@ func TestCache_KeyPrefix(t *testing.T) {
 	rdb := newTestClient(t)
 
 	cache := NewCache(rdb, "myapp", 10*time.Second)
+	ctx := context.Background()
