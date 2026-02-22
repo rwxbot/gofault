@@ -183,3 +183,5 @@ func TestCache_Operations(t *testing.T) {
 		t.Error("expected key1 to not exist after delete")
 	}
 }
+
+func TestCache_KeyPrefix(t *testing.T) {
