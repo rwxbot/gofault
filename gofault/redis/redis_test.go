@@ -200,3 +200,4 @@ func TestCache_KeyPrefix(t *testing.T) {
 	if val != "alice" {
 		t.Errorf("expected 'alice', got '%s'", val)
 	}
+}
