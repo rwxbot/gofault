@@ -208,3 +208,6 @@ func TestCache_DefaultTTL(t *testing.T) {
 	// 100ms TTL
 	cache := NewCache(rdb, "ttltest", 100*time.Millisecond)
 	ctx := context.Background()
+
+	cache.Set(ctx, "short", "val", 0)
+	cache.Set(ctx, "long", "val", 5*time.Second)
