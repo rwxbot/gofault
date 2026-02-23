@@ -201,3 +201,6 @@ func TestCache_KeyPrefix(t *testing.T) {
 		t.Errorf("expected 'alice', got '%s'", val)
 	}
 }
+
+func TestCache_DefaultTTL(t *testing.T) {
+	rdb := newTestClient(t)
