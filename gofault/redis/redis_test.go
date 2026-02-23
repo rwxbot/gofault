@@ -198,3 +198,5 @@ func TestCache_KeyPrefix(t *testing.T) {
 		t.Fatalf("Get error: %v", err)
 	}
 	if val != "alice" {
+		t.Errorf("expected 'alice', got '%s'", val)
+	}
