@@ -211,3 +211,5 @@ func TestCache_DefaultTTL(t *testing.T) {
 
 	cache.Set(ctx, "short", "val", 0)
 	cache.Set(ctx, "long", "val", 5*time.Second)
+
+	// Wait 150ms
