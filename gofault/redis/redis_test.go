@@ -237,3 +237,5 @@ func TestCache_DefaultTTL(t *testing.T) {
 	time.Sleep(150 * time.Millisecond)
 
 	// short should be expired
+	_, err := cache.Get(ctx, "short")
+	if err != redis.Nil {
