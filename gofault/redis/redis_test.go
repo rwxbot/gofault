@@ -234,3 +234,6 @@ func TestCache_DefaultTTL(t *testing.T) {
 	cache.Set(ctx, "long", "val", 5*time.Second)
 
 	// Wait 150ms
+	time.Sleep(150 * time.Millisecond)
+
+	// short should be expired
