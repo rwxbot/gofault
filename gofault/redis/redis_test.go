@@ -241,3 +241,6 @@ func TestCache_DefaultTTL(t *testing.T) {
 	if err != redis.Nil {
 		t.Error("expected short key to be expired")
 	}
+
+	// long should still exist
+	_, err = cache.Get(ctx, "long")
