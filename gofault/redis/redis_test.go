@@ -244,3 +244,5 @@ func TestCache_DefaultTTL(t *testing.T) {
 
 	// long should still exist
 	_, err = cache.Get(ctx, "long")
+	if err != nil {
+		t.Error("expected long key to still exist")
