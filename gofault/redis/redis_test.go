@@ -248,3 +248,6 @@ func TestCache_DefaultTTL(t *testing.T) {
 		t.Error("expected long key to still exist")
 	}
 }
+
+func TestSetGetDelete(t *testing.T) {
+	rdb := newTestClient(t)
