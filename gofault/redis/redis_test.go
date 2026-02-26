@@ -251,3 +251,5 @@ func TestCache_DefaultTTL(t *testing.T) {
 
 func TestSetGetDelete(t *testing.T) {
 	rdb := newTestClient(t)
+
+	ctx := context.Background()
