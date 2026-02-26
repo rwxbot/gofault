@@ -232,3 +232,6 @@ func TestSetGetDelete(t *testing.T) {
 	rdb := newTestClient(t)
 
 	ctx := context.Background()
+
+	err := Set(ctx, rdb, "setkey", "setval", time.Second)
+	if err != nil {
