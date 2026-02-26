@@ -258,3 +258,7 @@ func TestSetGetDelete(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Set error: %v", err)
 	}
+
+	val, err := Get(ctx, rdb, "setkey")
+	if err != nil {
+		t.Fatalf("Get error: %v", err)
