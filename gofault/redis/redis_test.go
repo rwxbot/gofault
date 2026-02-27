@@ -245,3 +245,6 @@ func TestSetGetDelete(t *testing.T) {
 	if val != "setval" {
 		t.Errorf("expected 'setval', got '%s'", val)
 	}
+
+	err = Delete(ctx, rdb, "setkey")
+	if err != nil {
