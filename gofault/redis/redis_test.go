@@ -255,3 +255,4 @@ func TestSetGetDelete(t *testing.T) {
 	if err != redis.Nil {
 		t.Error("expected redis.Nil after delete")
 	}
+}
