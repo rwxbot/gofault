@@ -273,3 +273,6 @@ func TestSetGetDelete(t *testing.T) {
 	}
 
 	_, err = Get(ctx, rdb, "setkey")
+	if err != redis.Nil {
+		t.Error("expected redis.Nil after delete")
+	}
