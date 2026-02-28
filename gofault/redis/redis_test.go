@@ -261,3 +261,7 @@ func TestExists(t *testing.T) {
 	rdb := newTestClient(t)
 
 	ctx := context.Background()
+
+	ok, err := Exists(ctx, rdb, "nonexistent-key")
+	if err != nil {
+		t.Fatalf("Exists error: %v", err)
