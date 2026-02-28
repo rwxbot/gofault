@@ -280,3 +280,5 @@ func TestSetGetDelete(t *testing.T) {
 
 func TestExists(t *testing.T) {
 	rdb := newTestClient(t)
+
+	ctx := context.Background()
