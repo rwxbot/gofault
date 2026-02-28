@@ -266,3 +266,5 @@ func TestExists(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Exists error: %v", err)
 	}
+	if ok {
+		t.Error("expected false for nonexistent key")
