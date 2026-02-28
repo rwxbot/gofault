@@ -268,3 +268,4 @@ func TestExists(t *testing.T) {
 	}
 	if ok {
 		t.Error("expected false for nonexistent key")
+	}
