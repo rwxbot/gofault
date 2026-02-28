@@ -277,3 +277,6 @@ func TestSetGetDelete(t *testing.T) {
 		t.Error("expected redis.Nil after delete")
 	}
 }
+
+func TestExists(t *testing.T) {
+	rdb := newTestClient(t)
