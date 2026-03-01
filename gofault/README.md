@@ -803,3 +803,11 @@ err := gorm.Transaction(db.GetDB(), func(tx *gormio.DB) error {
     return tx.Create(&audit).Error
 })
 ```
+
+
+## What's new in v3.1.0
+
+### Redis
+
+`NewClient` verifies the connection while dialling and returns a client that also
+satisfies `OnShutdown`:
