@@ -272,3 +272,5 @@ func TestExists(t *testing.T) {
 
 	Set(ctx, rdb, "exists-key", "val", time.Second)
 	ok, err = Exists(ctx, rdb, "exists-key")
+	if err != nil {
+		t.Fatalf("Exists error: %v", err)
