@@ -269,3 +269,6 @@ func TestExists(t *testing.T) {
 	if ok {
 		t.Error("expected false for nonexistent key")
 	}
+
+	Set(ctx, rdb, "exists-key", "val", time.Second)
+	ok, err = Exists(ctx, rdb, "exists-key")
