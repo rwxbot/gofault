@@ -278,3 +278,4 @@ func TestExists(t *testing.T) {
 	if !ok {
 		t.Error("expected true for existing key")
 	}
+}
