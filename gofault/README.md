@@ -825,3 +825,10 @@ if err != nil {
 
 Helpers cover the common string operations, and `GetClient` exposes the raw
 `*redis.Client` for everything else:
+
+```go
+ctx := context.Background()
+
+redis.Set(ctx, rdb.GetClient(), "greeting", "hello", time.Hour)
+v, _ := redis.Get(ctx, rdb.GetClient(), "greeting")
+ok, _ := redis.Exists(ctx, rdb.GetClient(), "greeting")
