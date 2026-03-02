@@ -847,3 +847,4 @@ if acquired, _ := lock.Acquire(ctx); acquired {
 ```
 
 The lock releases through a Lua script that checks the owner value first, so a
+worker that overran its lease cannot release someone else's lock.
