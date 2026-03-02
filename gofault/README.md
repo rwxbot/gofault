@@ -811,3 +811,9 @@ err := gorm.Transaction(db.GetDB(), func(tx *gormio.DB) error {
 
 `NewClient` verifies the connection while dialling and returns a client that also
 satisfies `OnShutdown`:
+
+```go
+rdb, err := redis.NewClient("primary", redis.Config{
+    Addr:        os.Getenv("REDIS_ADDR"),
+    PoolSize:    100,
+    ReadTimeout: 3, // seconds
