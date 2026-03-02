@@ -817,3 +817,11 @@ rdb, err := redis.NewClient("primary", redis.Config{
     Addr:        os.Getenv("REDIS_ADDR"),
     PoolSize:    100,
     ReadTimeout: 3, // seconds
+})
+if err != nil {
+    return err
+}
+```
+
+Helpers cover the common string operations, and `GetClient` exposes the raw
+`*redis.Client` for everything else:
