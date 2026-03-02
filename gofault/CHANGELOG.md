@@ -112,3 +112,7 @@
 
 ### Added
 - Database integration via GORM
+
+## [v3.1.0]
+
+### Added
