@@ -842,3 +842,8 @@ _ = cache.Set(ctx, "user:1", "alice", 0)
 
 lock := redis.NewLock(rdb.GetClient(), "jobs:daily", "worker-1", 30*time.Second)
 if acquired, _ := lock.Acquire(ctx); acquired {
+    defer lock.Release(ctx)
+}
+```
+
+The lock releases through a Lua script that checks the owner value first, so a
