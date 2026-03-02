@@ -832,3 +832,13 @@ ctx := context.Background()
 redis.Set(ctx, rdb.GetClient(), "greeting", "hello", time.Hour)
 v, _ := redis.Get(ctx, rdb.GetClient(), "greeting")
 ok, _ := redis.Exists(ctx, rdb.GetClient(), "greeting")
+```
+
+A namespaced cache and a distributed lock build on the same client:
+
+```go
+cache := redis.NewCache(rdb.GetClient(), "myapp", 5*time.Minute)
+_ = cache.Set(ctx, "user:1", "alice", 0)
+
+lock := redis.NewLock(rdb.GetClient(), "jobs:daily", "worker-1", 30*time.Second)
+if acquired, _ := lock.Acquire(ctx); acquired {
