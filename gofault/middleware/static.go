@@ -8,3 +8,5 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"github.com/gofault/gofault/core"
