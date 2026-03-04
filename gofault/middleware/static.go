@@ -11,3 +11,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// StaticConfig holds configuration for the static file middleware.
