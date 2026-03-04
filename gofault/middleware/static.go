@@ -13,3 +13,6 @@ import (
 )
 
 // StaticConfig holds configuration for the static file middleware.
+type StaticConfig struct {
+	// Dir is the root directory to serve files from.
+	Dir string
