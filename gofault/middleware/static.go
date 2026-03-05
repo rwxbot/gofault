@@ -20,3 +20,6 @@ type StaticConfig struct {
 	Prefix string
 	// Index is the default index file name.
 	Index string
+	// CacheControl sets the Cache-Control header value. Empty string disables.
+	CacheControl string
+	// Browse enables directory listing.
