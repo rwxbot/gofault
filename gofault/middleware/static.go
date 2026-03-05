@@ -23,3 +23,6 @@ type StaticConfig struct {
 	// CacheControl sets the Cache-Control header value. Empty string disables.
 	CacheControl string
 	// Browse enables directory listing.
+	Browse bool
+	// FollowSymLinks follows symbolic links.
+	FollowSymLinks bool
