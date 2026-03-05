@@ -19,3 +19,4 @@ type StaticConfig struct {
 	// Prefix is the URL path prefix to strip before looking up files.
 	Prefix string
 	// Index is the default index file name.
+	Index string
