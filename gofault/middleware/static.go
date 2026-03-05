@@ -17,3 +17,5 @@ type StaticConfig struct {
 	// Dir is the root directory to serve files from.
 	Dir string
 	// Prefix is the URL path prefix to strip before looking up files.
+	Prefix string
+	// Index is the default index file name.
