@@ -27,3 +27,5 @@ type StaticConfig struct {
 	// FollowSymLinks follows symbolic links.
 	FollowSymLinks bool
 	// ExtraExtensions maps file extensions to custom MIME types.
+	ExtraExtensions map[string]string
+}
