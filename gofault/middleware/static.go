@@ -33,3 +33,4 @@ type StaticConfig struct {
 // DefaultStaticConfig returns a default static file configuration.
 func DefaultStaticConfig() StaticConfig {
 	return StaticConfig{
+		Index:          "index.html",
