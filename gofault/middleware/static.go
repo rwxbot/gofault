@@ -34,3 +34,5 @@ type StaticConfig struct {
 func DefaultStaticConfig() StaticConfig {
 	return StaticConfig{
 		Index:          "index.html",
+		CacheControl:   "public, max-age=3600",
+		Browse:         false,
