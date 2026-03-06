@@ -29,3 +29,5 @@ type StaticConfig struct {
 	// ExtraExtensions maps file extensions to custom MIME types.
 	ExtraExtensions map[string]string
 }
+
+// DefaultStaticConfig returns a default static file configuration.
