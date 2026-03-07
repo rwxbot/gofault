@@ -36,3 +36,5 @@ func DefaultStaticConfig() StaticConfig {
 		Index:          "index.html",
 		CacheControl:   "public, max-age=3600",
 		Browse:         false,
+		FollowSymLinks: false,
+	}
