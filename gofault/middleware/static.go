@@ -44,3 +44,6 @@ func DefaultStaticConfig() StaticConfig {
 func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 	if config.Index == "" {
 		config.Index = "index.html"
+	}
+
+	return func(ctx *core.Ctx, next core.Handler) error {
