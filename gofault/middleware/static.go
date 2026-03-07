@@ -38,3 +38,4 @@ func DefaultStaticConfig() StaticConfig {
 		Browse:         false,
 		FollowSymLinks: false,
 	}
+}
