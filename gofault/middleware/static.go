@@ -39,3 +39,5 @@ func DefaultStaticConfig() StaticConfig {
 		FollowSymLinks: false,
 	}
 }
+
+// StaticMiddleware creates a middleware that serves static files.
