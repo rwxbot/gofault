@@ -43,3 +43,4 @@ func DefaultStaticConfig() StaticConfig {
 // StaticMiddleware creates a middleware that serves static files.
 func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 	if config.Index == "" {
+		config.Index = "index.html"
