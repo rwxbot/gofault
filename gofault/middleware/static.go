@@ -52,3 +52,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 		// Strip prefix if configured
 		if config.Prefix != "" {
 			if !strings.HasPrefix(reqPath, config.Prefix) {
+				return next(ctx)
