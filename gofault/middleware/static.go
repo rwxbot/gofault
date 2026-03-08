@@ -47,3 +47,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {
+		reqPath := ctx.Request.URL.Path
