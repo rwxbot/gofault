@@ -48,3 +48,7 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 
 	return func(ctx *core.Ctx, next core.Handler) error {
 		reqPath := ctx.Request.URL.Path
+
+		// Strip prefix if configured
+		if config.Prefix != "" {
+			if !strings.HasPrefix(reqPath, config.Prefix) {
