@@ -57,3 +57,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 			reqPath = strings.TrimPrefix(reqPath, config.Prefix)
 			// Ensure we have leading slash
 			if !strings.HasPrefix(reqPath, "/") {
+				reqPath = "/" + reqPath
+			}
+		}
