@@ -63,3 +63,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 
 		// Resolve file path
 		filePath := filepath.Join(config.Dir, filepath.Clean(reqPath))
+
+		// Security: ensure file path is within root directory
+		absDir, _ := filepath.Abs(config.Dir)
