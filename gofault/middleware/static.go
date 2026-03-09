@@ -69,3 +69,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 		absPath, err := filepath.Abs(filePath)
 		if err != nil || !strings.HasPrefix(absPath, absDir) {
 			return next(ctx)
+		}
