@@ -60,3 +60,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				reqPath = "/" + reqPath
 			}
 		}
+
+		// Resolve file path
+		filePath := filepath.Join(config.Dir, filepath.Clean(reqPath))
