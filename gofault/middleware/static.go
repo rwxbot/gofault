@@ -66,3 +66,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 
 		// Security: ensure file path is within root directory
 		absDir, _ := filepath.Abs(config.Dir)
+		absPath, err := filepath.Abs(filePath)
+		if err != nil || !strings.HasPrefix(absPath, absDir) {
+			return next(ctx)
