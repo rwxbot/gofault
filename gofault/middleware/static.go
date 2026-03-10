@@ -76,3 +76,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 		if err != nil {
 			if os.IsNotExist(err) {
 				return next(ctx)
+			}
+			return err
+		}
