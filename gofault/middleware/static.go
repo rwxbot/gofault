@@ -74,3 +74,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 		// Check if path is a directory
 		info, err := os.Stat(absPath)
 		if err != nil {
+			if os.IsNotExist(err) {
+				return next(ctx)
