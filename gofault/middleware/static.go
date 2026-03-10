@@ -111,3 +111,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 		// Handle directory
 		if info.IsDir() {
 			// Look for index file
+			indexPath := filepath.Join(absPath, config.Index)
+			if stat, err := os.Stat(indexPath); err == nil && !stat.IsDir() {
+				absPath = indexPath
