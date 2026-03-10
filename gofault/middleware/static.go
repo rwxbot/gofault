@@ -82,3 +82,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 
 		// Handle directory
 		if info.IsDir() {
+			// Look for index file
