@@ -107,3 +107,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 			}
 			return err
 		}
+
+		// Handle directory
+		if info.IsDir() {
