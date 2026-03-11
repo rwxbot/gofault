@@ -122,3 +122,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				if err != nil {
 					return err
 				}
+				html := DirectoryListing(absPath, entries, reqPath)
