@@ -120,3 +120,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				// Serve directory listing
 				entries, err := os.ReadDir(absPath)
 				if err != nil {
+					return err
+				}
