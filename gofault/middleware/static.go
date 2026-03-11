@@ -118,3 +118,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				info = stat
 			} else if config.Browse {
 				// Serve directory listing
+				entries, err := os.ReadDir(absPath)
+				if err != nil {
