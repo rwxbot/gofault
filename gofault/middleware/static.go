@@ -114,3 +114,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 			indexPath := filepath.Join(absPath, config.Index)
 			if stat, err := os.Stat(indexPath); err == nil && !stat.IsDir() {
 				absPath = indexPath
+				filePath = filepath.Join(filePath, config.Index)
+				info = stat
