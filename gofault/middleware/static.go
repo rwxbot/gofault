@@ -88,3 +88,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				absPath = indexPath
 				filePath = filepath.Join(filePath, config.Index)
 				info = stat
+			} else if config.Browse {
+				// Serve directory listing
