@@ -99,3 +99,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				ctx.Response.WriteHeader(http.StatusOK)
 				ctx.Response.Write([]byte(html))
 				return nil
+			} else {
+				// No index and browsing disabled
