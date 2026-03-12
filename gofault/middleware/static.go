@@ -129,3 +129,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				return nil
 			} else {
 				// No index and browsing disabled
+				return next(ctx)
+			}
+		}
