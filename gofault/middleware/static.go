@@ -97,3 +97,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				html := DirectoryListing(absPath, entries, reqPath)
 				ctx.Response.Header().Set("Content-Type", "text/html; charset=utf-8")
 				ctx.Response.WriteHeader(http.StatusOK)
+				ctx.Response.Write([]byte(html))
