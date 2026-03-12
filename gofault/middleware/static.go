@@ -126,3 +126,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				ctx.Response.Header().Set("Content-Type", "text/html; charset=utf-8")
 				ctx.Response.WriteHeader(http.StatusOK)
 				ctx.Response.Write([]byte(html))
+				return nil
