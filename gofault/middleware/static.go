@@ -104,3 +104,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				return next(ctx)
 			}
 		}
+
+		// Serve the file
+		return serveFile(ctx, absPath, info, config)
