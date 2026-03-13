@@ -138,5 +138,21 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 	}
 }
 
+// isWithinRoot reports whether target is root itself or lives underneath it.
+// Both paths must be absolute and already cleaned. The separator is appended
+// to root so that a sibling directory sharing the root's name prefix is
+// rejected rather than served.
+func isWithinRoot(root, target string) bool {
+	if root == target {
+		return true
+	}
+	withSep := root
+	if !strings.HasSuffix(withSep, string(os.PathSeparator)) {
+		withSep += string(os.PathSeparator)
+	}
+	return strings.HasPrefix(target, withSep)
+}
+
 // serveFile writes the file to the response.
 func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticConfig) error {
+	// Set cache control if configured
