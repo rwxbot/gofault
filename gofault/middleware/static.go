@@ -113,3 +113,4 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 // serveFile writes the file to the response.
 func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticConfig) error {
 	// Set cache control if configured
+	if config.CacheControl != "" {
