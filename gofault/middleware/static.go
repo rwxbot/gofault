@@ -137,3 +137,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 		return serveFile(ctx, absPath, info, config)
 	}
 }
+
+// serveFile writes the file to the response.
