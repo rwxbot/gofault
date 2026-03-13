@@ -114,3 +114,5 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticConfig) error {
 	// Set cache control if configured
 	if config.CacheControl != "" {
+		ctx.Response.Header().Set("Cache-Control", config.CacheControl)
+	}
