@@ -125,3 +125,7 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 
 	// Set content length
 	ctx.Response.Header().Set("Content-Length", strconv.FormatInt(info.Size(), 10))
+
+	// Handle range requests
+	if rangeHeader := ctx.Request.Header.Get("Range"); rangeHeader != "" {
+		return serveRangeRequest(ctx, absPath, info, rangeHeader)
