@@ -159,3 +159,6 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 	if config.CacheControl != "" {
 		ctx.Response.Header().Set("Cache-Control", config.CacheControl)
 	}
+
+	// Set content type
+	contentType := detectContentType(absPath, config)
