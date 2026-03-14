@@ -162,3 +162,6 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 
 	// Set content type
 	contentType := detectContentType(absPath, config)
+	if contentType != "" {
+		ctx.Response.Header().Set("Content-Type", contentType)
+	}
