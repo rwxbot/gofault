@@ -165,3 +165,6 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 	if contentType != "" {
 		ctx.Response.Header().Set("Content-Type", contentType)
 	}
+
+	// Set content length
+	ctx.Response.Header().Set("Content-Length", strconv.FormatInt(info.Size(), 10))
