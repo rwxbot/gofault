@@ -182,3 +182,4 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 	defer file.Close()
 
 	// Set last modified
+	ctx.Response.Header().Set("Last-Modified", info.ModTime().UTC().Format(http.TimeFormat))
