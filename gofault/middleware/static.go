@@ -140,3 +140,6 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 
 	// Set last modified
 	ctx.Response.Header().Set("Last-Modified", info.ModTime().UTC().Format(http.TimeFormat))
+
+	// ServeContent needs the request, name (file name), modtime, and a ReadSeeker
+	http.ServeContent(ctx.Response, ctx.Request, filepath.Base(absPath), info.ModTime(), file)
