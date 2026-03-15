@@ -129,3 +129,6 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 	// Handle range requests
 	if rangeHeader := ctx.Request.Header.Get("Range"); rangeHeader != "" {
 		return serveRangeRequest(ctx, absPath, info, rangeHeader)
+	}
+
+	// Open the file
