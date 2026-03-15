@@ -137,3 +137,5 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 		return err
 	}
 	defer file.Close()
+
+	// Set last modified
