@@ -178,3 +178,5 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 	file, err := os.Open(absPath)
 	if err != nil {
 		return err
+	}
+	defer file.Close()
