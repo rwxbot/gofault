@@ -132,3 +132,6 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 	}
 
 	// Open the file
+	file, err := os.Open(absPath)
+	if err != nil {
+		return err
