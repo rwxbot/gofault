@@ -149,3 +149,5 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 // serveRangeRequest handles HTTP range requests.
 func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHeader string) error {
 	// Parse range header (simple parsing, handles "bytes=start-end" format)
+	rangePart := strings.TrimPrefix(rangeHeader, "bytes=")
+	parts := strings.Split(rangePart, "-")
