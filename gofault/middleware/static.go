@@ -152,3 +152,5 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	rangePart := strings.TrimPrefix(rangeHeader, "bytes=")
 	parts := strings.Split(rangePart, "-")
 	if len(parts) != 2 {
+		ctx.Response.WriteHeader(http.StatusRequestedRangeNotSatisfiable)
+		return nil
