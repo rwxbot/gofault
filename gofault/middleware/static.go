@@ -143,3 +143,5 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 
 	// ServeContent needs the request, name (file name), modtime, and a ReadSeeker
 	http.ServeContent(ctx.Response, ctx.Request, filepath.Base(absPath), info.ModTime(), file)
+	return nil
+}
