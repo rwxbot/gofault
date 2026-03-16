@@ -188,3 +188,5 @@ func serveFile(ctx *core.Ctx, absPath string, info os.FileInfo, config StaticCon
 	http.ServeContent(ctx.Response, ctx.Request, filepath.Base(absPath), info.ModTime(), file)
 	return nil
 }
+
+// serveRangeRequest handles HTTP range requests.
