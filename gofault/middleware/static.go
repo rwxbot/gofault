@@ -151,3 +151,4 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	// Parse range header (simple parsing, handles "bytes=start-end" format)
 	rangePart := strings.TrimPrefix(rangeHeader, "bytes=")
 	parts := strings.Split(rangePart, "-")
+	if len(parts) != 2 {
