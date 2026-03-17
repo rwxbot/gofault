@@ -161,3 +161,6 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 		// suffix range, e.g., "-500"
 		start = info.Size() - parseInt64(parts[1])
 		if start < 0 {
+			start = 0
+		}
+		end = info.Size() - 1
