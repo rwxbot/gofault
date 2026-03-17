@@ -211,3 +211,4 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 		start = parseInt64(parts[0])
 		if parts[1] == "" {
 			end = info.Size() - 1
+		} else {
