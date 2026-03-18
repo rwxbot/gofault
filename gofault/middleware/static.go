@@ -182,3 +182,4 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	if err != nil {
 		return err
 	}
+	defer file.Close()
