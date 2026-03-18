@@ -187,3 +187,4 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	// Seek to start
 	if _, err := file.Seek(start, os.SEEK_SET); err != nil {
 		return err
+	}
