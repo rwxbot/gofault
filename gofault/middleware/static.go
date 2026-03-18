@@ -172,3 +172,5 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 			end = parseInt64(parts[1])
 		}
 	}
+
+	if start >= info.Size() || end >= info.Size() || start > end {
