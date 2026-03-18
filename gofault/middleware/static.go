@@ -231,3 +231,6 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	if _, err := file.Seek(start, os.SEEK_SET); err != nil {
 		return err
 	}
+
+	// Set headers
+	contentLength := end - start + 1
