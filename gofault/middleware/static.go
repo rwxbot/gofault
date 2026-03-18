@@ -174,3 +174,6 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	}
 
 	if start >= info.Size() || end >= info.Size() || start > end {
+		ctx.Response.WriteHeader(http.StatusRequestedRangeNotSatisfiable)
+		return nil
+	}
