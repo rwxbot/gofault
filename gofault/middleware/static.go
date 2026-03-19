@@ -198,3 +198,4 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	// Copy range
 	io.CopyN(ctx.Response, file, contentLength)
 	return nil
+}
