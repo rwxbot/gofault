@@ -192,3 +192,4 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	// Set headers
 	contentLength := end - start + 1
 	ctx.Response.Header().Set("Content-Range", formatContentRange(start, end, info.Size()))
+	ctx.Response.Header().Set("Content-Length", strconv.FormatInt(contentLength, 10))
