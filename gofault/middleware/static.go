@@ -237,3 +237,6 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	ctx.Response.Header().Set("Content-Range", formatContentRange(start, end, info.Size()))
 	ctx.Response.Header().Set("Content-Length", strconv.FormatInt(contentLength, 10))
 	ctx.Response.WriteHeader(http.StatusPartialContent)
+
+	// Copy range
+	io.CopyN(ctx.Response, file, contentLength)
