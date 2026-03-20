@@ -207,3 +207,6 @@ func DirectoryListing(dir string, entries []os.DirEntry, reqPath string) string 
 	buf.WriteString(escapeHTML(reqPath))
 	buf.WriteString("</title><style>")
 	buf.WriteString("body{font-family:system-ui;max-width:800px;margin:0 auto;padding:20px}")
+	buf.WriteString("h1{border-bottom:1px solid #ccc;padding-bottom:10px}")
+	buf.WriteString("a{display:block;padding:5px 0}")
+	buf.WriteString("a:hover{background:#f5f5f5}")
