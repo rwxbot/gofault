@@ -244,6 +244,8 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 }
 
 // DirectoryListing generates an HTML directory listing.
-func DirectoryListing(dir string, entries []os.DirEntry, reqPath string) string {
+func DirectoryListing(entries []os.DirEntry, reqPath string) string {
 	var buf strings.Builder
 	buf.WriteString("<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Index of ")
+	buf.WriteString(escapeHTML(reqPath))
+	buf.WriteString("</title><style>")
