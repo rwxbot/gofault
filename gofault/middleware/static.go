@@ -206,3 +206,4 @@ func DirectoryListing(dir string, entries []os.DirEntry, reqPath string) string 
 	buf.WriteString("<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Index of ")
 	buf.WriteString(escapeHTML(reqPath))
 	buf.WriteString("</title><style>")
+	buf.WriteString("body{font-family:system-ui;max-width:800px;margin:0 auto;padding:20px}")
