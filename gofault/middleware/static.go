@@ -242,3 +242,5 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	io.CopyN(ctx.Response, file, contentLength)
 	return nil
 }
+
+// DirectoryListing generates an HTML directory listing.
