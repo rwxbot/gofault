@@ -260,3 +260,4 @@ func DirectoryListing(entries []os.DirEntry, reqPath string) string {
 	buf.WriteString("</h1><hr><pre>")
 
 	// Parent directory link
+	if reqPath != "/" {
