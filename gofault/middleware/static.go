@@ -261,3 +261,6 @@ func DirectoryListing(entries []os.DirEntry, reqPath string) string {
 
 	// Parent directory link
 	if reqPath != "/" {
+		buf.WriteString("<a href=\"")
+		buf.WriteString(escapeHTML(filepath.Dir(reqPath)))
+		buf.WriteString("/\">..</a>\n")
