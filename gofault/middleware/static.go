@@ -221,3 +221,6 @@ func DirectoryListing(dir string, entries []os.DirEntry, reqPath string) string 
 		buf.WriteString("<a href=\"")
 		buf.WriteString(escapeHTML(filepath.Dir(reqPath)))
 		buf.WriteString("/\">..</a>\n")
+	}
+
+	for _, entry := range entries {
