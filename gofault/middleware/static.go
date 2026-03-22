@@ -224,3 +224,4 @@ func DirectoryListing(dir string, entries []os.DirEntry, reqPath string) string 
 	}
 
 	for _, entry := range entries {
+		name := entry.Name()
