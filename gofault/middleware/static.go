@@ -274,3 +274,4 @@ func DirectoryListing(entries []os.DirEntry, reqPath string) string {
 		}
 
 		buf.WriteString("<a href=\"")
+		buf.WriteString(escapeHTML(href))
