@@ -228,3 +228,6 @@ func DirectoryListing(dir string, entries []os.DirEntry, reqPath string) string 
 		href := filepath.Join(reqPath, name)
 		if entry.IsDir() {
 			href += "/"
+		}
+
+		buf.WriteString("<a href=\"")
