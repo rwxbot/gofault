@@ -279,3 +279,5 @@ func DirectoryListing(entries []os.DirEntry, reqPath string) string {
 		buf.WriteString(escapeHTML(name))
 		if entry.IsDir() {
 			buf.WriteString("/")
+		}
+		buf.WriteString("</a>")
