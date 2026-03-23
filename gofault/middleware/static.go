@@ -283,3 +283,7 @@ func DirectoryListing(entries []os.DirEntry, reqPath string) string {
 		buf.WriteString("</a>")
 		buf.WriteString("\n")
 	}
+
+	buf.WriteString("</pre><hr></body></html>")
+	return buf.String()
+}
