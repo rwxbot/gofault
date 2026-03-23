@@ -244,3 +244,5 @@ func DirectoryListing(dir string, entries []os.DirEntry, reqPath string) string 
 	buf.WriteString("</pre><hr></body></html>")
 	return buf.String()
 }
+
+// detectContentType determines the MIME type for a file.
