@@ -289,3 +289,5 @@ func DirectoryListing(entries []os.DirEntry, reqPath string) string {
 }
 
 // detectContentType determines the MIME type for a file.
+func detectContentType(filePath string, config StaticConfig) string {
+	ext := filepath.Ext(filePath)
