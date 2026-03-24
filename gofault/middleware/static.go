@@ -295,3 +295,5 @@ func detectContentType(filePath string, config StaticConfig) string {
 	// Check extra extensions first
 	if config.ExtraExtensions != nil {
 		if mime, ok := config.ExtraExtensions[ext]; ok {
+			return mime
+		}
