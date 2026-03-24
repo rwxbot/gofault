@@ -297,3 +297,4 @@ func detectContentType(filePath string, config StaticConfig) string {
 		if mime, ok := config.ExtraExtensions[ext]; ok {
 			return mime
 		}
+	}
