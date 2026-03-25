@@ -303,3 +303,6 @@ func detectContentType(filePath string, config StaticConfig) string {
 	if mime := mime.TypeByExtension(ext); mime != "" {
 		return mime
 	}
+
+	return "application/octet-stream"
+}
