@@ -298,3 +298,5 @@ func detectContentType(filePath string, config StaticConfig) string {
 			return mime
 		}
 	}
+
+	// Use standard library
