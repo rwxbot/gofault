@@ -257,3 +257,5 @@ func detectContentType(filePath string, config StaticConfig) string {
 	}
 
 	// Use standard library
+	if mime := mime.TypeByExtension(ext); mime != "" {
+		return mime
