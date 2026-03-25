@@ -263,3 +263,5 @@ func detectContentType(filePath string, config StaticConfig) string {
 
 	return "application/octet-stream"
 }
+
+// formatContentRange formats a Content-Range header value.
