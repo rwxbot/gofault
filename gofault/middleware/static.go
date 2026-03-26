@@ -277,3 +277,6 @@ func parseInt64(s string) int64 {
 			return 0
 		}
 		n = n*10 + int64(c-'0')
+	}
+	return n
+}
