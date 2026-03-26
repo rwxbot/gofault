@@ -270,3 +270,6 @@ func formatContentRange(start, end, total int64) string {
 }
 
 // parseInt64 parses a string to int64, returns 0 on error.
+func parseInt64(s string) int64 {
+	var n int64
+	for _, c := range s {
