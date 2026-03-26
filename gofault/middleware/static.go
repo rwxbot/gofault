@@ -280,3 +280,5 @@ func parseInt64(s string) int64 {
 	}
 	return n
 }
+
+// escapeHTML escapes HTML special characters.
