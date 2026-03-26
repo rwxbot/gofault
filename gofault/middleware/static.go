@@ -267,3 +267,4 @@ func detectContentType(filePath string, config StaticConfig) string {
 // formatContentRange formats a Content-Range header value.
 func formatContentRange(start, end, total int64) string {
 	return strconv.FormatInt(start, 10) + "-" + strconv.FormatInt(end, 10) + "/" + strconv.FormatInt(total, 10)
+}
