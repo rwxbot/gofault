@@ -268,3 +268,5 @@ func detectContentType(filePath string, config StaticConfig) string {
 func formatContentRange(start, end, total int64) string {
 	return strconv.FormatInt(start, 10) + "-" + strconv.FormatInt(end, 10) + "/" + strconv.FormatInt(total, 10)
 }
+
+// parseInt64 parses a string to int64, returns 0 on error.
