@@ -273,3 +273,6 @@ func formatContentRange(start, end, total int64) string {
 func parseInt64(s string) int64 {
 	var n int64
 	for _, c := range s {
+		if c < '0' || c > '9' {
+			return 0
+		}
