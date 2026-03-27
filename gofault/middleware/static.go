@@ -328,3 +328,4 @@ func parseInt64(s string) int64 {
 func escapeHTML(s string) string {
 	var buf strings.Builder
 	for _, c := range s {
+		switch c {
