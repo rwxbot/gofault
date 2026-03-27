@@ -282,3 +282,6 @@ func parseInt64(s string) int64 {
 }
 
 // escapeHTML escapes HTML special characters.
+func escapeHTML(s string) string {
+	var buf strings.Builder
+	for _, c := range s {
