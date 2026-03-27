@@ -286,3 +286,6 @@ func escapeHTML(s string) string {
 	var buf strings.Builder
 	for _, c := range s {
 		switch c {
+		case '<':
+			buf.WriteString("&lt;")
+		case '>':
