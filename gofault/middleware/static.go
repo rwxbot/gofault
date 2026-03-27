@@ -292,3 +292,4 @@ func escapeHTML(s string) string {
 			buf.WriteString("&gt;")
 		case '&':
 			buf.WriteString("&amp;")
+		case '"':
