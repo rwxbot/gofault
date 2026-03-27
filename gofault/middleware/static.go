@@ -290,3 +290,5 @@ func escapeHTML(s string) string {
 			buf.WriteString("&lt;")
 		case '>':
 			buf.WriteString("&gt;")
+		case '&':
+			buf.WriteString("&amp;")
