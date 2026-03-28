@@ -338,3 +338,4 @@ func escapeHTML(s string) string {
 		case '"':
 			buf.WriteString("&quot;")
 		default:
+			buf.WriteRune(c)
