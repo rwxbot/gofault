@@ -296,3 +296,5 @@ func escapeHTML(s string) string {
 			buf.WriteString("&quot;")
 		default:
 			buf.WriteRune(c)
+		}
+	}
