@@ -298,3 +298,5 @@ func escapeHTML(s string) string {
 			buf.WriteRune(c)
 		}
 	}
+	return buf.String()
+}
