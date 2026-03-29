@@ -6,3 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"testing"
+
+	"github.com/gofault/gofault/core"
