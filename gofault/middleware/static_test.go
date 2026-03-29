@@ -12,3 +12,4 @@ import (
 )
 
 func TestStaticMiddleware_ServeFile(t *testing.T) {
+	// Create temp directory and file
