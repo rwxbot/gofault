@@ -10,3 +10,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestStaticMiddleware_ServeFile(t *testing.T) {
