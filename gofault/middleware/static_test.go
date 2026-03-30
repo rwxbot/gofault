@@ -16,3 +16,6 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	tmpDir := t.TempDir()
 	testFile := filepath.Join(tmpDir, "test.txt")
 	os.WriteFile(testFile, []byte("Hello, World!"), 0644)
+
+	config := StaticConfig{
+		Dir:          tmpDir,
