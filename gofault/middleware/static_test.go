@@ -21,3 +21,5 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 		Dir:          tmpDir,
 		CacheControl: "public, max-age=3600",
 	}
+
+	mw := StaticMiddleware(config)
