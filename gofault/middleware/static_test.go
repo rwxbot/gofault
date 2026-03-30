@@ -28,3 +28,5 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	req := httptest.NewRequest("GET", "/test.txt", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := mw(ctx, func(ctx *core.Ctx) error {
