@@ -23,3 +23,7 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	}
 
 	mw := StaticMiddleware(config)
+
+	// Create a request
+	req := httptest.NewRequest("GET", "/test.txt", nil)
+	w := httptest.NewRecorder()
