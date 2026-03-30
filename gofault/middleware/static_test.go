@@ -27,3 +27,4 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	// Create a request
 	req := httptest.NewRequest("GET", "/test.txt", nil)
 	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
