@@ -30,3 +30,6 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	err := mw(ctx, func(ctx *core.Ctx) error {
+		t.Error("next handler should not be called for existing file")
+		return nil
+	})
