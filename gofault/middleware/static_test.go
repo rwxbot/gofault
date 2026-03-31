@@ -36,3 +36,4 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
+	}
