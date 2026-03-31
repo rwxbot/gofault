@@ -33,3 +33,5 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 		t.Error("next handler should not be called for existing file")
 		return nil
 	})
+
+	if err != nil {
