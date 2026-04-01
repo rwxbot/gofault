@@ -47,3 +47,5 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	}
 
 	if ct := w.Header().Get("Content-Type"); ct != "text/plain; charset=utf-8" {
+		t.Errorf("expected Content-Type 'text/plain; charset=utf-8', got '%s'", ct)
+	}
