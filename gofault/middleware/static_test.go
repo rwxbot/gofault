@@ -44,3 +44,6 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 
 	if w.Body.String() != "Hello, World!" {
 		t.Errorf("expected body 'Hello, World!', got '%s'", w.Body.String())
+	}
+
+	if ct := w.Header().Get("Content-Type"); ct != "text/plain; charset=utf-8" {
