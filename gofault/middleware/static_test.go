@@ -53,3 +53,4 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	if cc := w.Header().Get("Cache-Control"); cc != "public, max-age=3600" {
 		t.Errorf("expected Cache-Control 'public, max-age=3600', got '%s'", cc)
 	}
+}
