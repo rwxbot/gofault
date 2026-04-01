@@ -49,3 +49,7 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	if ct := w.Header().Get("Content-Type"); ct != "text/plain; charset=utf-8" {
 		t.Errorf("expected Content-Type 'text/plain; charset=utf-8', got '%s'", ct)
 	}
+
+	if cc := w.Header().Get("Cache-Control"); cc != "public, max-age=3600" {
+		t.Errorf("expected Cache-Control 'public, max-age=3600', got '%s'", cc)
+	}
