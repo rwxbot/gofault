@@ -41,3 +41,6 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	if w.Code != http.StatusOK {
 		t.Errorf("expected status 200, got %d", w.Code)
 	}
+
+	if w.Body.String() != "Hello, World!" {
+		t.Errorf("expected body 'Hello, World!', got '%s'", w.Body.String())
