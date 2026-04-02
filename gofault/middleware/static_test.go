@@ -64,3 +64,5 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 		Dir:   tmpDir,
 		Index: "index.html",
 	}
+
+	mw := StaticMiddleware(config)
