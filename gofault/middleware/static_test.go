@@ -62,3 +62,5 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 
 	config := StaticConfig{
 		Dir:   tmpDir,
+		Index: "index.html",
+	}
