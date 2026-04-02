@@ -66,3 +66,6 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 	}
 
 	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/subdir", nil)
+	w := httptest.NewRecorder()
