@@ -54,3 +54,6 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 		t.Errorf("expected Cache-Control 'public, max-age=3600', got '%s'", cc)
 	}
 }
+
+func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
+	tmpDir := t.TempDir()
