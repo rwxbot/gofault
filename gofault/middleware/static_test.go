@@ -69,3 +69,6 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/subdir", nil)
 	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	err := mw(ctx, func(ctx *core.Ctx) error {
