@@ -57,3 +57,5 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 
 func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 	tmpDir := t.TempDir()
+	os.MkdirAll(filepath.Join(tmpDir, "subdir"), 0755)
+	os.WriteFile(filepath.Join(tmpDir, "subdir", "index.html"), []byte("<h1>Index</h1>"), 0644)
