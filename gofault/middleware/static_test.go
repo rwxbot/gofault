@@ -86,3 +86,5 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 
 	if !strings.Contains(w.Body.String(), "<h1>Index</h1>") {
 		t.Errorf("expected index content, got '%s'", w.Body.String())
+	}
+}
