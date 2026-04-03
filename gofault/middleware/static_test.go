@@ -75,3 +75,6 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 		t.Error("next should not be called")
 		return nil
 	})
+
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
