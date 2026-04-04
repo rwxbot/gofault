@@ -92,3 +92,4 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 	tmpDir := t.TempDir()
 	config := StaticConfig{Dir: tmpDir}
+	mw := StaticMiddleware(config)
