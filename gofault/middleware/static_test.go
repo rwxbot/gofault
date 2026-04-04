@@ -88,3 +88,7 @@ func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 		t.Errorf("expected index content, got '%s'", w.Body.String())
 	}
 }
+
+func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
+	tmpDir := t.TempDir()
+	config := StaticConfig{Dir: tmpDir}
