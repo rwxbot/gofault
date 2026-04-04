@@ -100,3 +100,6 @@ func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 
 	nextCalled := false
 	_ = mw(ctx, func(ctx *core.Ctx) error {
+		nextCalled = true
+		ctx.Response.WriteHeader(http.StatusNotFound)
+		return nil
