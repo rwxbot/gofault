@@ -97,3 +97,6 @@ func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 	req := httptest.NewRequest("GET", "/nonexistent", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	nextCalled := false
+	_ = mw(ctx, func(ctx *core.Ctx) error {
