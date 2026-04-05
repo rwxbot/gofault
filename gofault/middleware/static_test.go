@@ -109,3 +109,7 @@ func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 		t.Error("next handler should be called for non-existent file")
 	}
 }
+
+func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
+	tmpDir := t.TempDir()
+	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("prefixed"), 0644)
