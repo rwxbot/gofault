@@ -104,3 +104,5 @@ func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 		ctx.Response.WriteHeader(http.StatusNotFound)
 		return nil
 	})
+
+	if !nextCalled {
