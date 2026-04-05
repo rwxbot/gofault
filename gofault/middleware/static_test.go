@@ -107,3 +107,5 @@ func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 
 	if !nextCalled {
 		t.Error("next handler should be called for non-existent file")
+	}
+}
