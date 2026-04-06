@@ -113,3 +113,5 @@ func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	tmpDir := t.TempDir()
 	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("prefixed"), 0644)
+
+	config := StaticConfig{
