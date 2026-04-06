@@ -115,3 +115,5 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("prefixed"), 0644)
 
 	config := StaticConfig{
+		Dir:    tmpDir,
+		Prefix: "/static",
