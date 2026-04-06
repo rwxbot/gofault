@@ -120,3 +120,7 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	}
 
 	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/static/file.txt", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
