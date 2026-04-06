@@ -117,3 +117,4 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	config := StaticConfig{
 		Dir:    tmpDir,
 		Prefix: "/static",
+	}
