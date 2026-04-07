@@ -133,3 +133,5 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
+
+	if w.Code != http.StatusOK {
