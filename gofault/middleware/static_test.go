@@ -128,3 +128,6 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	err := mw(ctx, func(ctx *core.Ctx) error {
 		t.Error("next should not be called")
 		return nil
+	})
+
+	if err != nil {
