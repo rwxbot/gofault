@@ -150,3 +150,5 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 
 	config := StaticConfig{
 		Dir:    tmpDir,
+		Browse: true,
+	}
