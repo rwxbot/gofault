@@ -142,3 +142,7 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 		t.Errorf("expected 'prefixed', got '%s'", w.Body.String())
 	}
 }
+
+func TestStaticMiddleware_DirectoryListing(t *testing.T) {
+	tmpDir := t.TempDir()
+	os.MkdirAll(filepath.Join(tmpDir, "mydir"), 0755)
