@@ -146,3 +146,4 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	tmpDir := t.TempDir()
 	os.MkdirAll(filepath.Join(tmpDir, "mydir"), 0755)
+	os.WriteFile(filepath.Join(tmpDir, "mydir", "file.txt"), []byte("content"), 0644)
