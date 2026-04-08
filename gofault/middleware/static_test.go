@@ -140,3 +140,5 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 
 	if w.Body.String() != "prefixed" {
 		t.Errorf("expected 'prefixed', got '%s'", w.Body.String())
+	}
+}
