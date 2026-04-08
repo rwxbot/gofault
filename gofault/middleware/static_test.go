@@ -137,3 +137,6 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	if w.Code != http.StatusOK {
 		t.Errorf("expected status 200, got %d", w.Code)
 	}
+
+	if w.Body.String() != "prefixed" {
+		t.Errorf("expected 'prefixed', got '%s'", w.Body.String())
