@@ -163,3 +163,5 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 		t.Error("next should not be called for directory with Browse enabled")
 		return nil
 	})
+
+	if err != nil {
