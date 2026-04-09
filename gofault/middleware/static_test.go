@@ -158,3 +158,6 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	req := httptest.NewRequest("GET", "/mydir", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := mw(ctx, func(ctx *core.Ctx) error {
+		t.Error("next should not be called for directory with Browse enabled")
