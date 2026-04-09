@@ -152,3 +152,5 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 		Dir:    tmpDir,
 		Browse: true,
 	}
+
+	mw := StaticMiddleware(config)
