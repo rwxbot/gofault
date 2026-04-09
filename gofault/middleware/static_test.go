@@ -154,3 +154,7 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	}
 
 	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/mydir", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
