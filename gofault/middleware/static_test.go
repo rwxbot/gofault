@@ -175,3 +175,4 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	body := w.Body.String()
 	if !strings.Contains(body, "Index of /mydir") {
 		t.Errorf("expected directory listing, got '%s'", body)
+	}
