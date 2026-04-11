@@ -188,3 +188,6 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 
 func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 	tmpDir := t.TempDir()
+	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("nocache"), 0644)
+
+	config := StaticConfig{
