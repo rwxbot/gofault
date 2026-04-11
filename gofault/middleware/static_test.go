@@ -185,3 +185,6 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 		t.Errorf("expected Content-Type 'text/html; charset=utf-8', got '%s'", ct)
 	}
 }
+
+func TestStaticMiddleware_NoCacheControl(t *testing.T) {
+	tmpDir := t.TempDir()
