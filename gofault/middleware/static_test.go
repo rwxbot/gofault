@@ -178,3 +178,4 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	}
 
 	if !strings.Contains(body, "file.txt") {
+		t.Errorf("expected file.txt in listing, got '%s'", body)
