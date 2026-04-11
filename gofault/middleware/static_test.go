@@ -182,3 +182,5 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	}
 
 	if ct := w.Header().Get("Content-Type"); ct != "text/html; charset=utf-8" {
+		t.Errorf("expected Content-Type 'text/html; charset=utf-8', got '%s'", ct)
+	}
