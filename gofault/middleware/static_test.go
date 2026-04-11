@@ -191,3 +191,6 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("nocache"), 0644)
 
 	config := StaticConfig{
+		Dir:          tmpDir,
+		CacheControl: "", // disabled
+	}
