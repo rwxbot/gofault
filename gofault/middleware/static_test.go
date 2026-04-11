@@ -180,3 +180,5 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	if !strings.Contains(body, "file.txt") {
 		t.Errorf("expected file.txt in listing, got '%s'", body)
 	}
+
+	if ct := w.Header().Get("Content-Type"); ct != "text/html; charset=utf-8" {
