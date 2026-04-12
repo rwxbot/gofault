@@ -194,3 +194,5 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 		Dir:          tmpDir,
 		CacheControl: "", // disabled
 	}
+
+	mw := StaticMiddleware(config)
