@@ -196,3 +196,6 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 	}
 
 	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/file.txt", nil)
+	w := httptest.NewRecorder()
