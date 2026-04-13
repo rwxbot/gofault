@@ -210,3 +210,7 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 		t.Errorf("expected no Cache-Control, got '%s'", cc)
 	}
 }
+
+func TestStaticMiddleware_RangeRequest(t *testing.T) {
+	tmpDir := t.TempDir()
+	os.WriteFile(filepath.Join(tmpDir, "range.txt"), []byte("0123456789"), 0644)
