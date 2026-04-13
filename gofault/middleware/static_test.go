@@ -207,3 +207,5 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 	}
 
 	if cc := w.Header().Get("Cache-Control"); cc != "" {
+		t.Errorf("expected no Cache-Control, got '%s'", cc)
+	}
