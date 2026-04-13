@@ -205,3 +205,5 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
+
+	if cc := w.Header().Get("Cache-Control"); cc != "" {
