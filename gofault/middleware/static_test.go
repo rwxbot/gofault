@@ -216,3 +216,6 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 	os.WriteFile(filepath.Join(tmpDir, "range.txt"), []byte("0123456789"), 0644)
 
 	config := StaticConfig{Dir: tmpDir}
+	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/range.txt", nil)
