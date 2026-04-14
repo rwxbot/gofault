@@ -224,3 +224,4 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 
 	err := mw(ctx, func(ctx *core.Ctx) error { return nil })
+	if err != nil {
