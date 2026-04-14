@@ -214,3 +214,5 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 func TestStaticMiddleware_RangeRequest(t *testing.T) {
 	tmpDir := t.TempDir()
 	os.WriteFile(filepath.Join(tmpDir, "range.txt"), []byte("0123456789"), 0644)
+
+	config := StaticConfig{Dir: tmpDir}
