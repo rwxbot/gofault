@@ -225,3 +225,5 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 
 	err := mw(ctx, func(ctx *core.Ctx) error { return nil })
 	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
