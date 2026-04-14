@@ -219,3 +219,6 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 	mw := StaticMiddleware(config)
 
 	req := httptest.NewRequest("GET", "/range.txt", nil)
+	req.Header.Set("Range", "bytes=0-4")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
