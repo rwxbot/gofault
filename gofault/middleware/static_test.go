@@ -231,3 +231,5 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 	if w.Code != http.StatusPartialContent {
 		t.Errorf("expected status 206, got %d", w.Code)
 	}
+
+	if cr := w.Header().Get("Content-Range"); cr != "0-4/10" {
