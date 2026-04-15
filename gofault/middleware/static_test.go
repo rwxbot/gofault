@@ -238,3 +238,5 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 
 	if w.Body.String() != "01234" {
 		t.Errorf("expected '01234', got '%s'", w.Body.String())
+	}
+}
