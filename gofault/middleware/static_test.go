@@ -233,3 +233,5 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 	}
 
 	if cr := w.Header().Get("Content-Range"); cr != "0-4/10" {
+		t.Errorf("expected Content-Range '0-4/10', got '%s'", cr)
+	}
