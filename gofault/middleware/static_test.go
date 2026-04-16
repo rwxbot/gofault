@@ -244,3 +244,5 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 	tmpDir := t.TempDir()
 	os.WriteFile(filepath.Join(tmpDir, "suffix.txt"), []byte("0123456789"), 0644)
+
+	config := StaticConfig{Dir: tmpDir}
