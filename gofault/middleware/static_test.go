@@ -252,3 +252,6 @@ func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 	req.Header.Set("Range", "bytes=-5")
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := mw(ctx, func(ctx *core.Ctx) error { return nil })
+	if err != nil {
