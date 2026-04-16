@@ -240,3 +240,7 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 		t.Errorf("expected '01234', got '%s'", w.Body.String())
 	}
 }
+
+func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
+	tmpDir := t.TempDir()
+	os.WriteFile(filepath.Join(tmpDir, "suffix.txt"), []byte("0123456789"), 0644)
