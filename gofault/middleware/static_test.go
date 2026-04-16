@@ -249,3 +249,4 @@ func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 	mw := StaticMiddleware(config)
 
 	req := httptest.NewRequest("GET", "/suffix.txt", nil)
+	req.Header.Set("Range", "bytes=-5")
