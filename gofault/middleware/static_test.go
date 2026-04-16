@@ -247,3 +247,5 @@ func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/suffix.txt", nil)
