@@ -257,3 +257,7 @@ func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
+
+	if w.Code != http.StatusPartialContent {
+		t.Errorf("expected status 206, got %d", w.Code)
+	}
