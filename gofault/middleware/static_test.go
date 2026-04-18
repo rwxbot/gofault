@@ -266,3 +266,6 @@ func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 		t.Errorf("expected '56789', got '%s'", w.Body.String())
 	}
 }
+
+func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
+	tmpDir := t.TempDir()
