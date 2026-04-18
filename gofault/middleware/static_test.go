@@ -264,3 +264,5 @@ func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 
 	if w.Body.String() != "56789" {
 		t.Errorf("expected '56789', got '%s'", w.Body.String())
+	}
+}
