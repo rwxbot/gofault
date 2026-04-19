@@ -273,3 +273,7 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/file.txt", nil)
+	req.Header.Set("Range", "bytes=500-600")
+	w := httptest.NewRecorder()
