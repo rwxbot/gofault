@@ -278,3 +278,5 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 	req.Header.Set("Range", "bytes=500-600")
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := mw(ctx, func(ctx *core.Ctx) error { return nil })
