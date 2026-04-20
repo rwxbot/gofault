@@ -291,3 +291,6 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 
 func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 	tmpDir := t.TempDir()
+	os.WriteFile(filepath.Join(tmpDir, "file.xyz"), []byte("custom"), 0644)
+
+	config := StaticConfig{
