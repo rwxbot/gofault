@@ -283,3 +283,5 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
+
+	if w.Code != http.StatusRequestedRangeNotSatisfiable {
