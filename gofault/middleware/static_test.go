@@ -290,3 +290,4 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 }
 
 func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
+	tmpDir := t.TempDir()
