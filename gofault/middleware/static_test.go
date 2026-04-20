@@ -288,3 +288,5 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 		t.Errorf("expected status 416, got %d", w.Code)
 	}
 }
+
+func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
