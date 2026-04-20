@@ -287,3 +287,4 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 	if w.Code != http.StatusRequestedRangeNotSatisfiable {
 		t.Errorf("expected status 416, got %d", w.Code)
 	}
+}
