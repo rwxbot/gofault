@@ -303,3 +303,5 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 	mw := StaticMiddleware(config)
 
 	req := httptest.NewRequest("GET", "/file.xyz", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
