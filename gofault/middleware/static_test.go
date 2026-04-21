@@ -296,3 +296,5 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 	config := StaticConfig{
 		Dir: tmpDir,
 		ExtraExtensions: map[string]string{
+			".xyz": "application/custom",
+		},
