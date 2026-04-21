@@ -299,3 +299,5 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 			".xyz": "application/custom",
 		},
 	}
+
+	mw := StaticMiddleware(config)
