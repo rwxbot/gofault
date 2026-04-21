@@ -312,3 +312,5 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 	}
 
 	if ct := w.Header().Get("Content-Type"); ct != "application/custom" {
+		t.Errorf("expected Content-Type 'application/custom', got '%s'", ct)
+	}
