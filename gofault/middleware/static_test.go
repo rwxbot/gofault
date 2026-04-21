@@ -298,3 +298,4 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 		ExtraExtensions: map[string]string{
 			".xyz": "application/custom",
 		},
+	}
