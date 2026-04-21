@@ -305,3 +305,7 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 	req := httptest.NewRequest("GET", "/file.xyz", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	err := mw(ctx, func(ctx *core.Ctx) error { return nil })
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
