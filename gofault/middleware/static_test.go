@@ -315,3 +315,7 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 		t.Errorf("expected Content-Type 'application/custom', got '%s'", ct)
 	}
 }
+
+func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
+	tmpDir := t.TempDir()
+	os.MkdirAll(filepath.Join(tmpDir, "allowed"), 0755)
