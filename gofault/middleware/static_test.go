@@ -319,3 +319,6 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 	tmpDir := t.TempDir()
 	os.MkdirAll(filepath.Join(tmpDir, "allowed"), 0755)
+	os.WriteFile(filepath.Join(tmpDir, "allowed", "file.txt"), []byte("allowed"), 0644)
+
+	// Create a "forbidden" directory outside tmpDir
