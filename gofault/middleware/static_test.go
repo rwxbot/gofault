@@ -338,3 +338,6 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 
 	_ = mw(ctx, func(ctx *core.Ctx) error {
 		// Next should be called because path is invalid
+		ctx.Response.WriteHeader(http.StatusNotFound)
+		return nil
+	})
