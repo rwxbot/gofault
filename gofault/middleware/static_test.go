@@ -330,3 +330,7 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
+
+	// Try to access file outside root via path traversal
+	req := httptest.NewRequest("GET", "/../forbidden/secret.txt", nil)
+	w := httptest.NewRecorder()
