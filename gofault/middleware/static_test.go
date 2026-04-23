@@ -327,3 +327,6 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 	forbiddenFile := filepath.Join(forbiddenDir, "secret.txt")
 	os.WriteFile(forbiddenFile, []byte("secret"), 0644)
 	defer os.RemoveAll(forbiddenDir)
+
+	config := StaticConfig{Dir: tmpDir}
+	mw := StaticMiddleware(config)
