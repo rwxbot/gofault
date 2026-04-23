@@ -335,3 +335,6 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 	req := httptest.NewRequest("GET", "/../forbidden/secret.txt", nil)
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
+
+	_ = mw(ctx, func(ctx *core.Ctx) error {
+		// Next should be called because path is invalid
