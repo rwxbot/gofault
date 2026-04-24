@@ -350,3 +350,4 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 
 func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 	tmpDir := t.TempDir()
+	os.WriteFile(filepath.Join(tmpDir, "page.html"), []byte("<html></html>"), 0644)
