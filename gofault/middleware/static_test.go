@@ -347,3 +347,6 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 		t.Error("path traversal should be blocked")
 	}
 }
+
+func TestStaticMiddleware_HtmlContentType(t *testing.T) {
+	tmpDir := t.TempDir()
