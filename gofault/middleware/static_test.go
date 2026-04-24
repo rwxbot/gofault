@@ -343,3 +343,6 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 	})
 
 	// Should not have served the forbidden file
+	if w.Code == http.StatusOK && w.Body.String() == "secret" {
+		t.Error("path traversal should be blocked")
+	}
