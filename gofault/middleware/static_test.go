@@ -341,3 +341,5 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 		ctx.Response.WriteHeader(http.StatusNotFound)
 		return nil
 	})
+
+	// Should not have served the forbidden file
