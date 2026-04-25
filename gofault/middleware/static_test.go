@@ -367,3 +367,4 @@ func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 	if ct := w.Header().Get("Content-Type"); ct != "text/html; charset=utf-8" {
 		t.Errorf("expected 'text/html; charset=utf-8', got '%s'", ct)
 	}
+}
