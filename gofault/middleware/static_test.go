@@ -363,3 +363,5 @@ func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
+
+	if ct := w.Header().Get("Content-Type"); ct != "text/html; charset=utf-8" {
