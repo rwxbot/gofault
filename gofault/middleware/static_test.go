@@ -354,3 +354,6 @@ func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/page.html", nil)
+	w := httptest.NewRecorder()
