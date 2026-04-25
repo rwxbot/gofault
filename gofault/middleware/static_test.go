@@ -357,3 +357,6 @@ func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/page.html", nil)
 	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	err := mw(ctx, func(ctx *core.Ctx) error { return nil })
