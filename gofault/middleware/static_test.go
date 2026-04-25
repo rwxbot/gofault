@@ -368,3 +368,6 @@ func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 		t.Errorf("expected 'text/html; charset=utf-8', got '%s'", ct)
 	}
 }
+
+func TestStaticMiddleware_DefaultIndex(t *testing.T) {
+	tmpDir := t.TempDir()
