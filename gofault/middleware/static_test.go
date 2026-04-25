@@ -371,3 +371,6 @@ func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 
 func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 	tmpDir := t.TempDir()
+	os.WriteFile(filepath.Join(tmpDir, "index.html"), []byte("default index"), 0644)
+
+	config := StaticConfig{
