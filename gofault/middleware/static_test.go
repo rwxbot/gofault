@@ -381,3 +381,5 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 	mw := StaticMiddleware(config)
 
 	req := httptest.NewRequest("GET", "/", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
