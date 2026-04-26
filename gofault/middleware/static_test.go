@@ -377,3 +377,7 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 		Dir:   tmpDir,
 		Index: "index.html",
 	}
+
+	mw := StaticMiddleware(config)
+
+	req := httptest.NewRequest("GET", "/", nil)
