@@ -401,3 +401,7 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 		t.Errorf("expected 'default index', got '%s'", w.Body.String())
 	}
 }
+
+func TestDirectoryListing(t *testing.T) {
+	tmpDir := t.TempDir()
+	os.MkdirAll(filepath.Join(tmpDir, "dir"), 0755)
