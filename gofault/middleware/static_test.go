@@ -391,3 +391,6 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
+	}
+
+	if w.Code != http.StatusOK {
