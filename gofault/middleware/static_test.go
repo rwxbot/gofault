@@ -386,3 +386,5 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 
 	err := mw(ctx, func(ctx *core.Ctx) error {
 		t.Error("next should not be called")
+		return nil
+	})
