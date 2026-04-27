@@ -394,3 +394,4 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 	}
 
 	if w.Code != http.StatusOK {
+		t.Errorf("expected status 200, got %d", w.Code)
