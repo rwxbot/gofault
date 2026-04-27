@@ -399,3 +399,5 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 
 	if w.Body.String() != "default index" {
 		t.Errorf("expected 'default index', got '%s'", w.Body.String())
+	}
+}
