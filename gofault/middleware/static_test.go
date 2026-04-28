@@ -416,3 +416,6 @@ func TestDirectoryListing(t *testing.T) {
 
 	if !strings.Contains(html, "Index of /dir/") {
 		t.Error("expected Index of /dir/")
+	}
+
+	if !strings.Contains(html, "file.txt") {
