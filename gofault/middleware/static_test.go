@@ -410,3 +410,6 @@ func TestDirectoryListing(t *testing.T) {
 	entries, err := os.ReadDir(filepath.Join(tmpDir, "dir"))
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	html := DirectoryListing(filepath.Join(tmpDir, "dir"), entries, "/dir/")
