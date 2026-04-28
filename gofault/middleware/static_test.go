@@ -408,3 +408,5 @@ func TestDirectoryListing(t *testing.T) {
 	os.WriteFile(filepath.Join(tmpDir, "dir", "file.txt"), []byte("content"), 0644)
 
 	entries, err := os.ReadDir(filepath.Join(tmpDir, "dir"))
+	if err != nil {
+		t.Fatal(err)
