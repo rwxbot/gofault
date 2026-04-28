@@ -405,3 +405,6 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 func TestDirectoryListing(t *testing.T) {
 	tmpDir := t.TempDir()
 	os.MkdirAll(filepath.Join(tmpDir, "dir"), 0755)
+	os.WriteFile(filepath.Join(tmpDir, "dir", "file.txt"), []byte("content"), 0644)
+
+	entries, err := os.ReadDir(filepath.Join(tmpDir, "dir"))
