@@ -413,3 +413,6 @@ func TestDirectoryListing(t *testing.T) {
 	}
 
 	html := DirectoryListing(filepath.Join(tmpDir, "dir"), entries, "/dir/")
+
+	if !strings.Contains(html, "Index of /dir/") {
+		t.Error("expected Index of /dir/")
