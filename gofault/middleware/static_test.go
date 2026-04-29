@@ -427,3 +427,7 @@ func TestDirectoryListing(t *testing.T) {
 		t.Error("expected parent directory link")
 	}
 }
+
+func TestEscapeHTML(t *testing.T) {
+	tests := []struct {
+		input    string
