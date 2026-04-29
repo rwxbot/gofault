@@ -431,3 +431,6 @@ func TestDirectoryListing(t *testing.T) {
 func TestEscapeHTML(t *testing.T) {
 	tests := []struct {
 		input    string
+		expected string
+	}{
+		{"<script>", "&lt;script&gt;"},
