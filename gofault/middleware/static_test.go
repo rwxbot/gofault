@@ -434,3 +434,6 @@ func TestEscapeHTML(t *testing.T) {
 		expected string
 	}{
 		{"<script>", "&lt;script&gt;"},
+		{"a & b", "a &amp; b"},
+		{`quote "test"`, "quote &quot;test&quot;"},
+		{"normal", "normal"},
