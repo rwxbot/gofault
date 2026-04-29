@@ -426,3 +426,4 @@ func TestDirectoryListing(t *testing.T) {
 	if !strings.Contains(html, "..") {
 		t.Error("expected parent directory link")
 	}
+}
