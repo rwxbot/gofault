@@ -420,3 +420,6 @@ func TestDirectoryListing(t *testing.T) {
 
 	if !strings.Contains(html, "file.txt") {
 		t.Error("expected file.txt in listing")
+	}
+
+	// Should have parent directory link
