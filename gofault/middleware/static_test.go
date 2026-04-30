@@ -445,3 +445,4 @@ func TestEscapeHTML(t *testing.T) {
 			t.Errorf("escapeHTML(%q) = %q, want %q", tt.input, result, tt.expected)
 		}
 	}
+}
