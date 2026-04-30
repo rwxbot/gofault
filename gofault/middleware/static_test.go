@@ -437,3 +437,4 @@ func TestEscapeHTML(t *testing.T) {
 		{"a & b", "a &amp; b"},
 		{`quote "test"`, "quote &quot;test&quot;"},
 		{"normal", "normal"},
+	}
