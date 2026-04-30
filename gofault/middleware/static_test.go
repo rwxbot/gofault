@@ -446,3 +446,6 @@ func TestEscapeHTML(t *testing.T) {
 		}
 	}
 }
+
+func TestParseInt64(t *testing.T) {
+	tests := []struct {
