@@ -451,3 +451,5 @@ func TestParseInt64(t *testing.T) {
 	tests := []struct {
 		input    string
 		expected int64
+	}{
+		{"123", 123},
