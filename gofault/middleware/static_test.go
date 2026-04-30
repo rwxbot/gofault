@@ -438,3 +438,6 @@ func TestEscapeHTML(t *testing.T) {
 		{`quote "test"`, "quote &quot;test&quot;"},
 		{"normal", "normal"},
 	}
+
+	for _, tt := range tests {
+		result := escapeHTML(tt.input)
