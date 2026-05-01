@@ -457,3 +457,5 @@ func TestParseInt64(t *testing.T) {
 		{"abc", 0},
 		{"50", 50},
 	}
+
+	for _, tt := range tests {
