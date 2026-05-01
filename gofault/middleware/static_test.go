@@ -453,3 +453,6 @@ func TestParseInt64(t *testing.T) {
 		expected int64
 	}{
 		{"123", 123},
+		{"", 0},
+		{"abc", 0},
+		{"50", 50},
