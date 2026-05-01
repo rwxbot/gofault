@@ -462,3 +462,5 @@ func TestParseInt64(t *testing.T) {
 		result := parseInt64(tt.input)
 		if result != tt.expected {
 			t.Errorf("parseInt64(%q) = %d, want %d", tt.input, result, tt.expected)
+		}
+	}
