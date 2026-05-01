@@ -456,3 +456,4 @@ func TestParseInt64(t *testing.T) {
 		{"", 0},
 		{"abc", 0},
 		{"50", 50},
+	}
