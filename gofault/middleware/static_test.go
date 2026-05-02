@@ -477,3 +477,5 @@ func TestDetectContentType(t *testing.T) {
 		{".json", "application/json"},
 		{".png", "image/png"},
 		{".jpg", "image/jpeg"},
+		{".txt", "text/plain; charset=utf-8"},
+		{".xyz", "application/custom"}, // ExtraExtensions takes priority
