@@ -476,3 +476,4 @@ func TestDetectContentType(t *testing.T) {
 		{".js", "text/javascript; charset=utf-8"},
 		{".json", "application/json"},
 		{".png", "image/png"},
+		{".jpg", "image/jpeg"},
