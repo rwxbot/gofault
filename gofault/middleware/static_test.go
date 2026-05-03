@@ -484,3 +484,6 @@ func TestDetectContentType(t *testing.T) {
 	for _, tt := range tests {
 		config := StaticConfig{
 			ExtraExtensions: map[string]string{".xyz": "application/custom"},
+		}
+		result := detectContentType("/path/file"+tt.ext, config)
+		if result != tt.mime {
