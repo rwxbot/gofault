@@ -489,3 +489,5 @@ func TestDetectContentType(t *testing.T) {
 		if result != tt.mime {
 			t.Errorf("detectContentType(%q) = %q, want %q", tt.ext, result, tt.mime)
 		}
+	}
+}
