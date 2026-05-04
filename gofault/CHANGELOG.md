@@ -121,3 +121,4 @@
 ## [v3.2.0]
 
 ### Added
+- Static file serving middleware
