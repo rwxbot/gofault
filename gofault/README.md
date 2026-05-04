@@ -858,3 +858,9 @@ worker that overran its lease cannot release someone else's lock.
 internal tooling:
 
 ```go
+cfg := middleware.DefaultStaticConfig()
+cfg.Dir = "./public"
+cfg.Prefix = "/static"
+cfg.Index = "index.html"
+cfg.CacheControl = "public, max-age=86400"
+cfg.Browse = false
