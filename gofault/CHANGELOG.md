@@ -117,3 +117,7 @@
 
 ### Added
 - Redis integration
+
+## [v3.2.0]
+
+### Added
