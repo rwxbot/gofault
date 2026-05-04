@@ -864,3 +864,9 @@ cfg.Prefix = "/static"
 cfg.Index = "index.html"
 cfg.CacheControl = "public, max-age=86400"
 cfg.Browse = false
+
+mod.RegisterMiddleware(middleware.StaticMiddleware(cfg))
+```
+
+`DirectoryListing` renders the index used when `Browse` is on, so it is easy to
+replace with your own template.
