@@ -848,3 +848,13 @@ if acquired, _ := lock.Acquire(ctx); acquired {
 
 The lock releases through a Lua script that checks the owner value first, so a
 worker that overran its lease cannot release someone else's lock.
+
+
+## What's new in v3.2.0
+
+### Static files
+
+`StaticMiddleware` serves a directory, optionally with directory listings for
+internal tooling:
+
+```go
