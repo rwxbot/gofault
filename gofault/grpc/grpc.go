@@ -28,3 +28,6 @@ type Config struct {
 	Network string
 	// KeepAlive server parameters.
 	KeepAlive *keepalive.ServerParameters
+	// MaxConcurrentStreams sets the limit on the number of concurrent streams.
+	MaxConcurrentStreams uint32
+	// Insecure skips TLS (default false).
