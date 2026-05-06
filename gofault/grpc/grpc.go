@@ -23,3 +23,4 @@ type Config struct {
 	// Network type (tcp, tcp4, tcp6).
 	Network string
 	// KeepAlive server parameters.
+	KeepAlive *keepalive.ServerParameters
