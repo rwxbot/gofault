@@ -21,3 +21,5 @@ import (
 )
 
 // Config holds gRPC server configuration.
+type Config struct {
+	// Port to listen on (default 9000).
