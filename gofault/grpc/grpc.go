@@ -15,3 +15,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// Config holds gRPC server configuration.
