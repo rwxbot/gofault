@@ -20,3 +20,6 @@ import (
 type Config struct {
 	// Port to listen on (default 9000).
 	Port int
+	// Network type (tcp, tcp4, tcp6).
+	Network string
+	// KeepAlive server parameters.
