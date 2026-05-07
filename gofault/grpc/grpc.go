@@ -40,3 +40,5 @@ type Config struct {
 	// StreamInterceptors registers stream server interceptors.
 	StreamInterceptors []grpc.StreamServerInterceptor
 }
+
+// DefaultConfig returns a default gRPC configuration.
