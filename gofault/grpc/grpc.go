@@ -36,3 +36,5 @@ type Config struct {
 	TLSCert string
 	TLSKey  string
 	// UnaryInterceptors registers unary server interceptors.
+	UnaryInterceptors []grpc.UnaryServerInterceptor
+	// StreamInterceptors registers stream server interceptors.
