@@ -27,3 +27,4 @@ type Config struct {
 	// MaxConcurrentStreams sets the limit on the number of concurrent streams.
 	MaxConcurrentStreams uint32
 	// Insecure skips TLS (default false).
+	Insecure bool
