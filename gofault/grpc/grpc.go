@@ -29,3 +29,6 @@ type Config struct {
 	// Insecure skips TLS (default false).
 	Insecure bool
 	// TLSCert and TLSKey for TLS credentials.
+	TLSCert string
+	TLSKey  string
+	// UnaryInterceptors registers unary server interceptors.
