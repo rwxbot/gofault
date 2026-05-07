@@ -32,3 +32,4 @@ type Config struct {
 	MaxConcurrentStreams uint32
 	// Insecure skips TLS (default false).
 	Insecure bool
+	// TLSCert and TLSKey for TLS credentials.
