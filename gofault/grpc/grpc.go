@@ -34,3 +34,5 @@ type Config struct {
 	// UnaryInterceptors registers unary server interceptors.
 	UnaryInterceptors []grpc.UnaryServerInterceptor
 	// StreamInterceptors registers stream server interceptors.
+	StreamInterceptors []grpc.StreamServerInterceptor
+}
