@@ -42,3 +42,4 @@ func DefaultConfig() Config {
 	return Config{
 		Port:                 9000,
 		Network:              "tcp",
+		MaxConcurrentStreams: 100,
