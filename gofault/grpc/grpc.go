@@ -44,3 +44,4 @@ type Config struct {
 // DefaultConfig returns a default gRPC configuration.
 func DefaultConfig() Config {
 	return Config{
+		Port:                 9000,
