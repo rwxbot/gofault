@@ -60,3 +60,4 @@ type Server struct {
 }
 
 // NewServer creates a new gRPC server.
+func NewServer(config Config) *Server {
