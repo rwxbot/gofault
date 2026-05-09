@@ -45,3 +45,5 @@ func DefaultConfig() Config {
 		MaxConcurrentStreams: 100,
 	}
 }
+
+// Server represents a gRPC server.
