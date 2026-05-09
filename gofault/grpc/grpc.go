@@ -51,3 +51,5 @@ type Server struct {
 	config     Config
 	grpcServer *grpc.Server
 	listener   net.Listener
+	mu         sync.Mutex
+	started    bool
