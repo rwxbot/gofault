@@ -54,3 +54,5 @@ type Server struct {
 	mu         sync.Mutex
 	started    bool
 }
+
+// NewServer creates a new gRPC server.
