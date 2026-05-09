@@ -53,3 +53,4 @@ type Server struct {
 	listener   net.Listener
 	mu         sync.Mutex
 	started    bool
+}
