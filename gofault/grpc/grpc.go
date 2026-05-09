@@ -50,3 +50,4 @@ func DefaultConfig() Config {
 type Server struct {
 	config     Config
 	grpcServer *grpc.Server
+	listener   net.Listener
