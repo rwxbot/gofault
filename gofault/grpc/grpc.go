@@ -49,3 +49,4 @@ func DefaultConfig() Config {
 // Server represents a gRPC server.
 type Server struct {
 	config     Config
+	grpcServer *grpc.Server
