@@ -63,3 +63,4 @@ type Server struct {
 func NewServer(config Config) *Server {
 	if config.Port == 0 {
 		config.Port = 9000
+	}
