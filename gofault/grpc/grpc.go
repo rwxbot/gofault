@@ -66,3 +66,4 @@ func NewServer(config Config) *Server {
 
 	opts := []grpc.ServerOption{
 		grpc.MaxConcurrentStreams(config.MaxConcurrentStreams),
+	}
