@@ -57,3 +57,5 @@ type Server struct {
 
 // NewServer creates a new gRPC server.
 func NewServer(config Config) *Server {
+	if config.Port == 0 {
+		config.Port = 9000
