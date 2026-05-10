@@ -63,3 +63,6 @@ func NewServer(config Config) *Server {
 	if config.Network == "" {
 		config.Network = "tcp"
 	}
+
+	opts := []grpc.ServerOption{
+		grpc.MaxConcurrentStreams(config.MaxConcurrentStreams),
