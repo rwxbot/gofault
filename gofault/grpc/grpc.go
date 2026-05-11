@@ -67,3 +67,7 @@ func NewServer(config Config) *Server {
 	opts := []grpc.ServerOption{
 		grpc.MaxConcurrentStreams(config.MaxConcurrentStreams),
 	}
+
+	// Build interceptors chain
+	if len(config.UnaryInterceptors) > 0 {
+		opts = append(opts, grpc.ChainUnaryInterceptor(config.UnaryInterceptors...))
