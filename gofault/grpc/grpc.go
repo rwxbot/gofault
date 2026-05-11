@@ -82,3 +82,5 @@ func NewServer(config Config) *Server {
 
 	var creds credentials.TransportCredentials
 	if config.Insecure {
+		creds = insecure.NewCredentials()
+	} else if config.TLSCert != "" && config.TLSKey != "" {
