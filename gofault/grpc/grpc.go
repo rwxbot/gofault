@@ -82,3 +82,4 @@ func NewServer(config Config) *Server {
 
 	if config.KeepAlive != nil {
 		opts = append(opts, grpc.KeepaliveParams(*config.KeepAlive))
+	}
