@@ -74,3 +74,4 @@ func NewServer(config Config) *Server {
 	}
 	if len(config.StreamInterceptors) > 0 {
 		opts = append(opts, grpc.ChainStreamInterceptor(config.StreamInterceptors...))
+	}
