@@ -75,3 +75,6 @@ func NewServer(config Config) *Server {
 	// Build interceptors chain
 	if len(config.UnaryInterceptors) > 0 {
 		opts = append(opts, grpc.ChainUnaryInterceptor(config.UnaryInterceptors...))
+	}
+	if len(config.StreamInterceptors) > 0 {
+		opts = append(opts, grpc.ChainStreamInterceptor(config.StreamInterceptors...))
