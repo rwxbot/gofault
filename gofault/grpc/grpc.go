@@ -93,3 +93,6 @@ func NewServer(config Config) *Server {
 
 	if creds != nil {
 		opts = append(opts, grpc.Creds(creds))
+	}
+
+	return &Server{
