@@ -104,3 +104,5 @@ func NewServer(config Config) *Server {
 		grpcServer: grpc.NewServer(opts...),
 	}
 }
+
+// RegisterService registers a gRPC service.
