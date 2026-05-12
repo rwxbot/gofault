@@ -96,3 +96,6 @@ func NewServer(config Config) *Server {
 	}
 
 	return &Server{
+		config:     config,
+		grpcServer: grpc.NewServer(opts...),
+	}
