@@ -93,3 +93,6 @@ func NewServer(config Config) *Server {
 		if err != nil {
 			panic(fmt.Sprintf("failed to load TLS certs: %v", err))
 		}
+	}
+
+	if creds != nil {
