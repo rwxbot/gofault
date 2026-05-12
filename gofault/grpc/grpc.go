@@ -99,3 +99,4 @@ func NewServer(config Config) *Server {
 		config:     config,
 		grpcServer: grpc.NewServer(opts...),
 	}
+}
