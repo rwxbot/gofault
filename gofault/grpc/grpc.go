@@ -87,3 +87,4 @@ func NewServer(config Config) *Server {
 		var err error
 		creds, err = credentials.NewServerTLSFromFile(config.TLSCert, config.TLSKey)
 		if err != nil {
+			panic(fmt.Sprintf("failed to load TLS certs: %v", err))
