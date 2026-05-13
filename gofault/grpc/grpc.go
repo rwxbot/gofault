@@ -117,3 +117,5 @@ func (s *Server) Start() error {
 		s.mu.Unlock()
 		return fmt.Errorf("server already started")
 	}
+
+	addr := fmt.Sprintf("%s:%d", s.config.Network, s.config.Port)
