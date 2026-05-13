@@ -105,3 +105,5 @@ func NewServer(config Config) *Server {
 func (s *Server) RegisterService(desc *grpc.ServiceDesc, impl interface{}) {
 	s.grpcServer.RegisterService(desc, impl)
 }
+
+// Start listening on the configured port.
