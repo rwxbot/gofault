@@ -109,3 +109,6 @@ func (s *Server) RegisterService(desc *grpc.ServiceDesc, impl interface{}) {
 // Start listening on the configured port.
 func (s *Server) Start() error {
 	s.mu.Lock()
+	if s.started {
+		s.mu.Unlock()
+		return fmt.Errorf("server already started")
