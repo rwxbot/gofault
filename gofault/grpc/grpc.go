@@ -111,3 +111,5 @@ func (s *Server) RegisterService(desc *grpc.ServiceDesc, impl interface{}) {
 }
 
 // Start listening on the configured port.
+func (s *Server) Start() error {
+	s.mu.Lock()
