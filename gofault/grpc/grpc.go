@@ -112,3 +112,4 @@ func (s *Server) Start() error {
 	if s.started {
 		s.mu.Unlock()
 		return fmt.Errorf("server already started")
+	}
