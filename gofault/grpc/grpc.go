@@ -106,3 +106,6 @@ func NewServer(config Config) *Server {
 }
 
 // RegisterService registers a gRPC service.
+func (s *Server) RegisterService(desc *grpc.ServiceDesc, impl interface{}) {
+	s.grpcServer.RegisterService(desc, impl)
+}
