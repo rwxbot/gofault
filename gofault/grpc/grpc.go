@@ -119,3 +119,4 @@ func (s *Server) Start() error {
 	}
 
 	addr := fmt.Sprintf("%s:%d", s.config.Network, s.config.Port)
+	ln, err := net.Listen(s.config.Network, addr)
