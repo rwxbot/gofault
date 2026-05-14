@@ -120,3 +120,6 @@ func (s *Server) Start() error {
 		s.mu.Unlock()
 		return fmt.Errorf("failed to listen on %s: %w", addr, err)
 	}
+
+	s.listener = ln
+	s.started = true
