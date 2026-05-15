@@ -134,3 +134,6 @@ func (s *Server) Serve(ln net.Listener) error {
 	if s.started {
 		s.mu.Unlock()
 		return fmt.Errorf("server already started")
+	}
+	s.listener = ln
+	s.started = true
