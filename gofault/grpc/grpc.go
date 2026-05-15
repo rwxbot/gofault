@@ -110,26 +110,74 @@ func (s *Server) RegisterService(desc *grpc.ServiceDesc, impl interface{}) {
 	s.grpcServer.RegisterService(desc, impl)
 }
 
-// Start listening on the configured port.
-func (s *Server) Start() error {
+// bind reserves the configured listener. The address passed to net.Listen
+// must be host:port — the old code built "tcp:9000" from the *network* and
+// passed it as the address, so Go tried to resolve a host named "tcp" and
+// every default-config Start failed.
+func (s *Server) bind() (net.Listener, error) {
 	s.mu.Lock()
+	defer s.mu.Unlock()
 	if s.started {
-		s.mu.Unlock()
-		return fmt.Errorf("server already started")
+		return nil, fmt.Errorf("server already started")
+	}
+	if err := s.validateTLS(); err != nil {
+		return nil, err
 	}
 
-	addr := fmt.Sprintf("%s:%d", s.config.Network, s.config.Port)
+	addr := fmt.Sprintf(":%d", s.config.Port)
 	ln, err := net.Listen(s.config.Network, addr)
 	if err != nil {
-		s.mu.Unlock()
-		return fmt.Errorf("failed to listen on %s: %w", addr, err)
+		return nil, fmt.Errorf("failed to listen on %s: %w", addr, err)
 	}
 
 	s.listener = ln
 	s.started = true
-	s.mu.Unlock()
+	return ln, nil
+}
 
+// Start listening on the configured port. It blocks until the server stops.
+func (s *Server) Start() error {
+	ln, err := s.bind()
+	if err != nil {
+		return err
+	}
 	return s.grpcServer.Serve(ln)
 }
 
+// StartInBackground binds the listener synchronously — so bind failures are
+// reported to the caller — and then serves on its own goroutine.
+// GRPCServerModule.OnBoot must use this: the module lifecycle runs OnBoot
+// hooks sequentially before starting the HTTP server, and a blocking Start
+// there hangs App.Start forever.
+func (s *Server) StartInBackground() error {
+	ln, err := s.bind()
+	if err != nil {
+		return err
+	}
+	go func() {
+		if err := s.grpcServer.Serve(ln); err != nil {
+			slog.Default().Error("grpc server stopped with error", "error", err)
+		}
+	}()
+	return nil
+}
+
+// validateTLS rejects a half-configured TLS setup. NewServer only builds
+// credentials when BOTH TLSCert and TLSKey are set; with exactly one set it
+// silently leaves creds nil, and the server would serve plaintext while the
+// operator believes the endpoint is encrypted. Fail at bind time instead.
+// Callers hold s.mu or run before the server is shared; config is fixed at
+// construction.
+func (s *Server) validateTLS() error {
+	if s.config.Insecure {
+		return nil
+	}
+	if (s.config.TLSCert == "") != (s.config.TLSKey == "") {
+		return fmt.Errorf("grpc: TLS is half-configured: TLSCert and TLSKey must both be set (or Insecure must be true); refusing to serve plaintext")
+	}
+	return nil
+}
+
 // Serve starts the gRPC server on the given listener.
+func (s *Server) Serve(ln net.Listener) error {
+	s.mu.Lock()
