@@ -129,3 +129,5 @@ func (s *Server) Start() error {
 }
 
 // Serve starts the gRPC server on the given listener.
+func (s *Server) Serve(ln net.Listener) error {
+	s.mu.Lock()
