@@ -127,3 +127,5 @@ func (s *Server) Start() error {
 
 	return s.grpcServer.Serve(ln)
 }
+
+// Serve starts the gRPC server on the given listener.
