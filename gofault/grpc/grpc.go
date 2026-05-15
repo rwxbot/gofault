@@ -124,3 +124,5 @@ func (s *Server) Start() error {
 	s.listener = ln
 	s.started = true
 	s.mu.Unlock()
+
+	return s.grpcServer.Serve(ln)
