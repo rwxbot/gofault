@@ -181,3 +181,6 @@ func (s *Server) validateTLS() error {
 // Serve starts the gRPC server on the given listener.
 func (s *Server) Serve(ln net.Listener) error {
 	s.mu.Lock()
+	if s.started {
+		s.mu.Unlock()
+		return fmt.Errorf("server already started")
