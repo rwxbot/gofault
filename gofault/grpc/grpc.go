@@ -126,3 +126,4 @@ func (s *Server) Start() error {
 	s.mu.Unlock()
 
 	return s.grpcServer.Serve(ln)
+}
