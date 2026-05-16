@@ -200,3 +200,5 @@ func (s *Server) Serve(ln net.Listener) error {
 func (s *Server) Stop() {
 	s.grpcServer.GracefulStop()
 }
+
+// ImmediateStop immediately shuts down the gRPC server.
