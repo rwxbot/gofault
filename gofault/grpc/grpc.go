@@ -185,5 +185,10 @@ func (s *Server) Serve(ln net.Listener) error {
 		s.mu.Unlock()
 		return fmt.Errorf("server already started")
 	}
+	if err := s.validateTLS(); err != nil {
+		s.mu.Unlock()
+		return err
+	}
 	s.listener = ln
 	s.started = true
+	s.mu.Unlock()
