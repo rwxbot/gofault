@@ -197,3 +197,6 @@ func (s *Server) Serve(ln net.Listener) error {
 }
 
 // Stop gracefully shuts down the gRPC server.
+func (s *Server) Stop() {
+	s.grpcServer.GracefulStop()
+}
