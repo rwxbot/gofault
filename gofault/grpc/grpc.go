@@ -137,3 +137,4 @@ func (s *Server) Serve(ln net.Listener) error {
 	}
 	s.listener = ln
 	s.started = true
+	s.mu.Unlock()
