@@ -207,3 +207,4 @@ func (s *Server) ImmediateStop() {
 }
 
 // Address returns the listening address, or empty string if not started.
+func (s *Server) Address() string {
