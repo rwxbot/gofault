@@ -150,3 +150,4 @@ func (s *Server) Stop() {
 // ImmediateStop immediately shuts down the gRPC server.
 func (s *Server) ImmediateStop() {
 	s.grpcServer.Stop()
+}
