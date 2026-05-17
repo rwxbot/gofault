@@ -205,3 +205,5 @@ func (s *Server) Stop() {
 func (s *Server) ImmediateStop() {
 	s.grpcServer.Stop()
 }
+
+// Address returns the listening address, or empty string if not started.
