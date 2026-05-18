@@ -160,3 +160,4 @@ func (s *Server) Address() string {
 		return ""
 	}
 	return s.listener.Addr().String()
+}
