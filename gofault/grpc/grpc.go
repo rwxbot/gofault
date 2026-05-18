@@ -158,3 +158,5 @@ func (s *Server) Address() string {
 	defer s.mu.Unlock()
 	if s.listener == nil {
 		return ""
+	}
+	return s.listener.Addr().String()
