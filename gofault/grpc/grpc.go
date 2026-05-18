@@ -215,3 +215,5 @@ func (s *Server) Address() string {
 	}
 	return s.listener.Addr().String()
 }
+
+// UnaryInterceptor adapts a function to grpc.UnaryServerInterceptor.
