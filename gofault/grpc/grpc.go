@@ -156,3 +156,4 @@ func (s *Server) ImmediateStop() {
 func (s *Server) Address() string {
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	if s.listener == nil {
