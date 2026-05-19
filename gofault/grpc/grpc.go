@@ -171,3 +171,5 @@ func UnaryInterceptor(fn func(ctx context.Context, req interface{}) (interface{}
 				fmt.Printf("grpc panic recovered: %v\n", r)
 			}
 		}()
+		return fn(ctx, req)
+	}
