@@ -167,3 +167,6 @@ func (s *Server) Address() string {
 func UnaryInterceptor(fn func(ctx context.Context, req interface{}) (interface{}, error)) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		defer func() {
+			if r := recover(); r != nil {
+				fmt.Printf("grpc panic recovered: %v\n", r)
+			}
