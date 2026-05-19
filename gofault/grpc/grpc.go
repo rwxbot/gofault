@@ -218,3 +218,6 @@ func (s *Server) Address() string {
 
 // UnaryInterceptor adapts a function to grpc.UnaryServerInterceptor.
 // The adapter recovers from panics and calls the handler.
+func UnaryInterceptor(fn func(ctx context.Context, req interface{}) (interface{}, error)) grpc.UnaryServerInterceptor {
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+		defer func() {
