@@ -224,3 +224,4 @@ func UnaryInterceptor(fn func(ctx context.Context, req interface{}) (interface{}
 			if r := recover(); r != nil {
 				fmt.Printf("grpc panic recovered: %v\n", r)
 			}
+		}()
