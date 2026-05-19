@@ -163,3 +163,4 @@ func (s *Server) Address() string {
 }
 
 // UnaryInterceptor adapts a function to grpc.UnaryServerInterceptor.
+// The adapter recovers from panics and calls the handler.
