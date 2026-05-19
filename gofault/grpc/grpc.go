@@ -216,12 +216,36 @@ func (s *Server) Address() string {
 	return s.listener.Addr().String()
 }
 
+// logRPCPanic records a recovered panic. Every interceptor here must convert a
+// panic into an error: recovering without returning one leaves the named return
+// values at their zero value, so gRPC would report the call as a success with a
+// nil response and no error.
+func logRPCPanic(method, kind string, r interface{}) {
+	slog.Default().Error("grpc panic recovered",
+		"kind", kind, "method", method, "panic", r, "stack", string(debug.Stack()))
+}
+
+// panicError converts a recovered panic into a gRPC error.
+func panicError(r interface{}) error {
+	return status.Errorf(codes.Internal, "panic recovered: %v", r)
+}
+
+// methodName extracts the full method name, tolerating a nil info.
+func methodName(fullMethod string) string { return fullMethod }
+
 // UnaryInterceptor adapts a function to grpc.UnaryServerInterceptor.
-// The adapter recovers from panics and calls the handler.
+//
+// The adapter recovers from panics in fn and reports them as Internal errors.
+// It intentionally does not invoke the next handler: fn is the whole operation.
+// Chain RecoveryInterceptor or LoggingInterceptor separately when they are
+// needed alongside it.
 func UnaryInterceptor(fn func(ctx context.Context, req interface{}) (interface{}, error)) grpc.UnaryServerInterceptor {
-	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 		defer func() {
 			if r := recover(); r != nil {
-				fmt.Printf("grpc panic recovered: %v\n", r)
+				logRPCPanic(methodName(infoFullMethod(info)), "unary", r)
+				resp, err = nil, panicError(r)
 			}
 		}()
+		return fn(ctx, req)
+	}
