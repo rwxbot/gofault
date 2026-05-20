@@ -174,3 +174,5 @@ func UnaryInterceptor(fn func(ctx context.Context, req interface{}) (interface{}
 		return fn(ctx, req)
 	}
 }
+
+// StreamInterceptor adapts a function to grpc.StreamServerInterceptor.
