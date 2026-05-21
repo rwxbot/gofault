@@ -256,3 +256,6 @@ func StreamInterceptor(fn func(srv interface{}, ss grpc.ServerStream) error) grp
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		defer func() {
 			if r := recover(); r != nil {
+				fmt.Printf("grpc stream panic recovered: %v\n", r)
+			}
+		}()
