@@ -188,3 +188,6 @@ func StreamInterceptor(fn func(srv interface{}, ss grpc.ServerStream) error) grp
 }
 
 // RecoveryInterceptor returns a unary interceptor that recovers from panics.
+func RecoveryInterceptor() grpc.UnaryServerInterceptor {
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+		defer func() {
