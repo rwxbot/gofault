@@ -183,3 +183,5 @@ func StreamInterceptor(fn func(srv interface{}, ss grpc.ServerStream) error) grp
 				fmt.Printf("grpc stream panic recovered: %v\n", r)
 			}
 		}()
+		return fn(srv, ss)
+	}
