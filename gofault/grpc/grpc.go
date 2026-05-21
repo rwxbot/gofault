@@ -193,3 +193,4 @@ func RecoveryInterceptor() grpc.UnaryServerInterceptor {
 		defer func() {
 			if r := recover(); r != nil {
 				fmt.Printf("grpc panic recovered: %v\n", r)
+			}
