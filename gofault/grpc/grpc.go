@@ -191,3 +191,5 @@ func StreamInterceptor(fn func(srv interface{}, ss grpc.ServerStream) error) grp
 func RecoveryInterceptor() grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		defer func() {
+			if r := recover(); r != nil {
+				fmt.Printf("grpc panic recovered: %v\n", r)
