@@ -261,3 +261,4 @@ func StreamInterceptor(fn func(srv interface{}, ss grpc.ServerStream) error) grp
 		}()
 		return fn(srv, ss)
 	}
+}
