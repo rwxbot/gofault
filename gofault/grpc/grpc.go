@@ -196,3 +196,5 @@ func RecoveryInterceptor() grpc.UnaryServerInterceptor {
 			}
 		}()
 		return handler(ctx, req)
+	}
+}
