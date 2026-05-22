@@ -282,3 +282,5 @@ func StreamRecoveryInterceptor() grpc.StreamServerInterceptor {
 			if r := recover(); r != nil {
 				fmt.Printf("grpc stream panic recovered: %v\n", r)
 			}
+		}()
+		return handler(srv, ss)
