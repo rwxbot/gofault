@@ -198,3 +198,5 @@ func RecoveryInterceptor() grpc.UnaryServerInterceptor {
 		return handler(ctx, req)
 	}
 }
+
+// StreamRecoveryInterceptor returns a stream interceptor that recovers from panics.
