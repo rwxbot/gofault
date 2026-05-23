@@ -213,3 +213,4 @@ func StreamRecoveryInterceptor() grpc.StreamServerInterceptor {
 
 // LoggingInterceptor returns a unary interceptor that logs requests.
 func LoggingInterceptor() grpc.UnaryServerInterceptor {
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
