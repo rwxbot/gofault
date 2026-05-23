@@ -288,3 +288,4 @@ func StreamRecoveryInterceptor() grpc.StreamServerInterceptor {
 }
 
 // LoggingInterceptor returns a unary interceptor that logs requests.
+func LoggingInterceptor() grpc.UnaryServerInterceptor {
