@@ -291,3 +291,5 @@ func StreamRecoveryInterceptor() grpc.StreamServerInterceptor {
 func LoggingInterceptor() grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		start := time.Now()
+		resp, err := handler(ctx, req)
+		fmt.Printf("grpc: %s %s %v\n", info.FullMethod, time.Since(start), err)
