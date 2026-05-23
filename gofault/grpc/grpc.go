@@ -217,3 +217,6 @@ func LoggingInterceptor() grpc.UnaryServerInterceptor {
 		start := time.Now()
 		resp, err := handler(ctx, req)
 		fmt.Printf("grpc: %s %s %v\n", info.FullMethod, time.Since(start), err)
+		return resp, err
+	}
+}
