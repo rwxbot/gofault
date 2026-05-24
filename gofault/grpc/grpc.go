@@ -220,3 +220,5 @@ func LoggingInterceptor() grpc.UnaryServerInterceptor {
 		return resp, err
 	}
 }
+
+// KeepAliveConfig creates keepalive.ServerParameters.
