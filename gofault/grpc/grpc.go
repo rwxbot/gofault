@@ -222,3 +222,5 @@ func LoggingInterceptor() grpc.UnaryServerInterceptor {
 }
 
 // KeepAliveConfig creates keepalive.ServerParameters.
+func KeepAliveConfig(maxIdle, pingAfter, minTime time.Duration) keepalive.ServerParameters {
+	return keepalive.ServerParameters{
