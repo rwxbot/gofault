@@ -337,3 +337,5 @@ func KeepAliveConfig(maxIdle, pingAfter, minTime time.Duration) keepalive.Server
 		Timeout:           minTime,
 	}
 }
+
+// TLSCreds creates TLS credentials from certificate files.
