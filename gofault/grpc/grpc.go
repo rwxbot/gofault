@@ -226,3 +226,5 @@ func KeepAliveConfig(maxIdle, pingAfter, minTime time.Duration) keepalive.Server
 	return keepalive.ServerParameters{
 		MaxConnectionIdle: maxIdle,
 		Time:              pingAfter,
+		Timeout:           minTime,
+	}
