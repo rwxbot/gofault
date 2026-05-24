@@ -228,3 +228,4 @@ func KeepAliveConfig(maxIdle, pingAfter, minTime time.Duration) keepalive.Server
 		Time:              pingAfter,
 		Timeout:           minTime,
 	}
+}
