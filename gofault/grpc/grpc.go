@@ -339,3 +339,6 @@ func KeepAliveConfig(maxIdle, pingAfter, minTime time.Duration) keepalive.Server
 }
 
 // TLSCreds creates TLS credentials from certificate files.
+func TLSCreds(certFile, keyFile string) (credentials.TransportCredentials, error) {
+	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
+	if err != nil {
