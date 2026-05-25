@@ -240,3 +240,5 @@ func TLSCreds(certFile, keyFile string) (credentials.TransportCredentials, error
 		Certificates: []tls.Certificate{cert},
 	}), nil
 }
+
+// GRPCServerModule wraps Server as a core.Module for integration with gofault.
