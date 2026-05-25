@@ -342,3 +342,5 @@ func KeepAliveConfig(maxIdle, pingAfter, minTime time.Duration) keepalive.Server
 func TLSCreds(certFile, keyFile string) (credentials.TransportCredentials, error) {
 	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
+		return nil, err
+	}
