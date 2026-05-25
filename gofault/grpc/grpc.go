@@ -350,3 +350,4 @@ func TLSCreds(certFile, keyFile string) (credentials.TransportCredentials, error
 }
 
 // GRPCServerModule wraps Server as a core.Module for integration with gofault.
+type GRPCServerModule struct {
