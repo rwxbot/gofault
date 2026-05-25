@@ -236,3 +236,6 @@ func TLSCreds(certFile, keyFile string) (credentials.TransportCredentials, error
 	if err != nil {
 		return nil, err
 	}
+	return credentials.NewTLS(&tls.Config{
+		Certificates: []tls.Certificate{cert},
+	}), nil
