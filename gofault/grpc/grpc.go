@@ -245,3 +245,4 @@ func TLSCreds(certFile, keyFile string) (credentials.TransportCredentials, error
 type GRPCServerModule struct {
 	*Module
 	server *Server
+}
