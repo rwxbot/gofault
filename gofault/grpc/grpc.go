@@ -354,3 +354,5 @@ type GRPCServerModule struct {
 	*Module
 	server *Server
 }
+
+// NewGRPCServerModule creates a new gRPC server module.
