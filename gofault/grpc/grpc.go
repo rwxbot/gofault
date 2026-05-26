@@ -356,9 +356,20 @@ type GRPCServerModule struct {
 }
 
 // NewGRPCServerModule creates a new gRPC server module.
+//
+// The module registers itself as an OnBoot and OnShutdown hook: the
+// framework's lifecycle iterates OnBootHooks/OnShutdownHooks and never
+// discovers methods named OnBoot/OnShutdown on a module, so without this
+// wiring the documented behaviour — "it listens on OnBoot and drains on
+// OnShutdown" — never happened and the gRPC server simply never started.
 func NewGRPCServerModule(name string, config Config) *GRPCServerModule {
-	return &GRPCServerModule{
+	m := &GRPCServerModule{
 		Module: core.NewModule(name),
 		server: NewServer(config),
 	}
+	m.Module.RegisterOnBoot(m)
+	m.Module.RegisterOnShutdown(m)
+	return m
 }
+
+// Server returns the underlying *Server.
