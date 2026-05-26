@@ -358,3 +358,6 @@ type GRPCServerModule struct {
 // NewGRPCServerModule creates a new gRPC server module.
 func NewGRPCServerModule(name string, config Config) *GRPCServerModule {
 	return &GRPCServerModule{
+		Module: core.NewModule(name),
+		server: NewServer(config),
+	}
