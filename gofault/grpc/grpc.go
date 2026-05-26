@@ -254,3 +254,5 @@ func NewGRPCServerModule(name string, config Config) *GRPCServerModule {
 		server: NewServer(config),
 	}
 }
+
+// Server returns the underlying *Server.
