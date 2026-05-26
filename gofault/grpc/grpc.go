@@ -361,3 +361,4 @@ func NewGRPCServerModule(name string, config Config) *GRPCServerModule {
 		Module: core.NewModule(name),
 		server: NewServer(config),
 	}
+}
