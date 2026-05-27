@@ -379,3 +379,5 @@ func (m *GRPCServerModule) Server() *Server {
 
 // OnBoot starts the gRPC server.
 func (m *GRPCServerModule) OnBoot() error {
+	return m.server.Start()
+}
