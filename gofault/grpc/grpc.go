@@ -270,3 +270,5 @@ func (m *GRPCServerModule) OnShutdown() error {
 	m.server.Stop()
 	return nil
 }
+
+// Module is an alias for core.Module to avoid import cycle.
