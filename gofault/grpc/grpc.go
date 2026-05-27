@@ -269,3 +269,4 @@ func (m *GRPCServerModule) OnBoot() error {
 func (m *GRPCServerModule) OnShutdown() error {
 	m.server.Stop()
 	return nil
+}
