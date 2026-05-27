@@ -377,7 +377,11 @@ func (m *GRPCServerModule) Server() *Server {
 	return m.server
 }
 
-// OnBoot starts the gRPC server.
+// OnBoot starts the gRPC server in the background. It must not block: the
+// module lifecycle runs OnBoot hooks sequentially and only then starts the
+// HTTP server, so a blocking Serve here hung App.Start forever.
 func (m *GRPCServerModule) OnBoot() error {
-	return m.server.Start()
+	return m.server.StartInBackground()
 }
+
+// OnShutdown gracefully stops the gRPC server.
