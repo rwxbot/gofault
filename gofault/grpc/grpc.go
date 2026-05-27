@@ -259,3 +259,5 @@ func NewGRPCServerModule(name string, config Config) *GRPCServerModule {
 func (m *GRPCServerModule) Server() *Server {
 	return m.server
 }
+
+// OnBoot starts the gRPC server.
