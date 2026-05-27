@@ -264,3 +264,5 @@ func (m *GRPCServerModule) Server() *Server {
 func (m *GRPCServerModule) OnBoot() error {
 	return m.server.Start()
 }
+
+// OnShutdown gracefully stops the gRPC server.
