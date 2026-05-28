@@ -391,3 +391,4 @@ func (m *GRPCServerModule) OnShutdown() error {
 }
 
 // Module is an alias for core.Module to avoid import cycle.
+type Module = core.Module
