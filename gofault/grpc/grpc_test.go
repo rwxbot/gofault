@@ -16,3 +16,4 @@ const bufSize = 1024 * 1024
 func TestNewServer(t *testing.T) {
 	config := DefaultConfig()
 	config.Port = 0 // use random port
+	s := NewServer(config)
