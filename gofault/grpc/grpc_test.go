@@ -21,3 +21,6 @@ func TestNewServer(t *testing.T) {
 	config := DefaultConfig()
 	config.Port = 0 // use random port
 	s := NewServer(config)
+
+	if s == nil {
+		t.Fatal("server should not be nil")
