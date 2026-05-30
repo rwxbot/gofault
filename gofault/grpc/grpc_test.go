@@ -30,3 +30,5 @@ func TestNewServer(t *testing.T) {
 		t.Error("grpcServer should not be nil")
 	}
 }
+
+func TestServer_StartAndStop(t *testing.T) {
