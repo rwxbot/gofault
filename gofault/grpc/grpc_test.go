@@ -23,3 +23,4 @@ func TestNewServer(t *testing.T) {
 	}
 
 	if s.grpcServer == nil {
+		t.Error("grpcServer should not be nil")
