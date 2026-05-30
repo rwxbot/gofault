@@ -28,3 +28,5 @@ func TestNewServer(t *testing.T) {
 }
 
 func TestServer_StartAndStop(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
