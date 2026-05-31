@@ -38,3 +38,6 @@ func TestServer_StartAndStop(t *testing.T) {
 	go func() {
 		errCh <- s.Start()
 	}()
+
+	// Wait for server to start
+	time.Sleep(100 * time.Millisecond)
