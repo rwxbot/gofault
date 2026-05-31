@@ -35,3 +35,4 @@ func TestServer_StartAndStop(t *testing.T) {
 
 	// Start in goroutine
 	errCh := make(chan error, 1)
+	go func() {
