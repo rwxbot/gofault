@@ -41,3 +41,5 @@ func TestServer_StartAndStop(t *testing.T) {
 
 	// Wait for server to start
 	time.Sleep(100 * time.Millisecond)
+
+	// Stop server
