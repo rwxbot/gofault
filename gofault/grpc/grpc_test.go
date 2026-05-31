@@ -35,3 +35,6 @@ func TestServer_StartAndStop(t *testing.T) {
 	config := DefaultConfig()
 	config.Port = 0
 	config.Insecure = true
+	s := NewServer(config)
+
+	// Start in goroutine
