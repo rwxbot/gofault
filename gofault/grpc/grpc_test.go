@@ -48,3 +48,6 @@ func TestServer_StartAndStop(t *testing.T) {
 
 	// Stop server
 	s.Stop()
+
+	select {
+	case err := <-errCh:
