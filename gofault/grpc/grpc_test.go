@@ -47,3 +47,4 @@ func TestServer_StartAndStop(t *testing.T) {
 	time.Sleep(100 * time.Millisecond)
 
 	// Stop server
+	s.Stop()
