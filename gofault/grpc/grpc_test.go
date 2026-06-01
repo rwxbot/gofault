@@ -53,3 +53,6 @@ func TestServer_StartAndStop(t *testing.T) {
 	case err := <-errCh:
 		// Server stopped (may have address in use error if race, that's ok)
 		_ = err
+	case <-time.After(time.Second):
+		t.Error("server did not start within timeout")
+	}
