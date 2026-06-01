@@ -52,3 +52,4 @@ func TestServer_StartAndStop(t *testing.T) {
 	case <-time.After(time.Second):
 		t.Error("server did not start within timeout")
 	}
+}
