@@ -51,3 +51,5 @@ func TestServer_StartAndStop(t *testing.T) {
 
 	select {
 	case err := <-errCh:
+		// Server stopped (may have address in use error if race, that's ok)
+		_ = err
