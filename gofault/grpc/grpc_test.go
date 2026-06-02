@@ -53,3 +53,5 @@ func TestServer_StartAndStop(t *testing.T) {
 		t.Error("server did not start within timeout")
 	}
 }
+
+func TestServer_Serve(t *testing.T) {
