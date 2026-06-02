@@ -59,3 +59,4 @@ func TestServer_StartAndStop(t *testing.T) {
 }
 
 func TestServer_Serve(t *testing.T) {
+	config := DefaultConfig()
