@@ -76,3 +76,4 @@ func TestServer_Serve(t *testing.T) {
 	}
 
 	s.Stop()
+}
