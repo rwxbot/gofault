@@ -68,3 +68,5 @@ func TestServer_Serve(t *testing.T) {
 	go func() {
 		s.Serve(ln)
 	}()
+
+	time.Sleep(100 * time.Millisecond)
