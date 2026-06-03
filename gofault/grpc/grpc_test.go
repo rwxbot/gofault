@@ -58,3 +58,5 @@ func TestServer_Serve(t *testing.T) {
 	config := DefaultConfig()
 	config.Insecure = true
 	s := NewServer(config)
+
+	ln := bufconn.Listen(bufSize)
