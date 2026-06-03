@@ -70,3 +70,5 @@ func TestServer_Serve(t *testing.T) {
 	if s.Address() == "" {
 		t.Error("server should have an address after starting")
 	}
+
+	s.Stop()
