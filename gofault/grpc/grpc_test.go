@@ -63,3 +63,4 @@ func TestServer_Serve(t *testing.T) {
 
 	go func() {
 		s.Serve(ln)
+	}()
