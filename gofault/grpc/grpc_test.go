@@ -77,3 +77,5 @@ func TestServer_Serve(t *testing.T) {
 
 	s.Stop()
 }
+
+func TestServer_Address_NotStarted(t *testing.T) {
