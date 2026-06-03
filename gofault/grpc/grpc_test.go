@@ -70,3 +70,7 @@ func TestServer_Serve(t *testing.T) {
 	}()
 
 	time.Sleep(100 * time.Millisecond)
+
+	if s.Address() == "" {
+		t.Error("server should have an address after starting")
+	}
