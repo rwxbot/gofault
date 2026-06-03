@@ -64,3 +64,5 @@ func TestServer_Serve(t *testing.T) {
 	s := NewServer(config)
 
 	ln := bufconn.Listen(bufSize)
+
+	go func() {
