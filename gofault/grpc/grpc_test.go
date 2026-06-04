@@ -77,3 +77,6 @@ func TestServer_Serve(t *testing.T) {
 func TestServer_Address_NotStarted(t *testing.T) {
 	config := DefaultConfig()
 	s := NewServer(config)
+
+	if addr := s.Address(); addr != "" {
+		t.Errorf("expected empty address, got %s", addr)
