@@ -79,3 +79,4 @@ func TestServer_Serve(t *testing.T) {
 }
 
 func TestServer_Address_NotStarted(t *testing.T) {
+	config := DefaultConfig()
