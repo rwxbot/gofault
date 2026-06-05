@@ -85,3 +85,5 @@ func TestServer_Address_NotStarted(t *testing.T) {
 
 func TestDefaultConfig(t *testing.T) {
 	config := DefaultConfig()
+
+	if config.Port != 9000 {
