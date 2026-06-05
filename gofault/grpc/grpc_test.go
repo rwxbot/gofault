@@ -98,3 +98,5 @@ func TestDefaultConfig(t *testing.T) {
 		t.Errorf("expected default max concurrent streams 100, got %d", config.MaxConcurrentStreams)
 	}
 }
+
+func TestRecoveryInterceptor(t *testing.T) {
