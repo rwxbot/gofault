@@ -93,3 +93,5 @@ func TestDefaultConfig(t *testing.T) {
 	if config.Network != "tcp" {
 		t.Errorf("expected default network 'tcp', got %s", config.Network)
 	}
+
+	if config.MaxConcurrentStreams != 100 {
