@@ -91,3 +91,5 @@ func TestDefaultConfig(t *testing.T) {
 	config := DefaultConfig()
 
 	if config.Port != 9000 {
+		t.Errorf("expected default port 9000, got %d", config.Port)
+	}
