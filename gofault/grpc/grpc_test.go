@@ -103,3 +103,5 @@ func TestRecoveryInterceptor(t *testing.T) {
 	interceptor := RecoveryInterceptor()
 
 	// Test that it doesn't panic
+	ctx := context.Background()
+	_, err := interceptor(ctx, "test request", &grpc.UnaryServerInfo{}, func(ctx context.Context, req interface{}) (interface{}, error) {
