@@ -100,3 +100,4 @@ func TestDefaultConfig(t *testing.T) {
 }
 
 func TestRecoveryInterceptor(t *testing.T) {
+	interceptor := RecoveryInterceptor()
