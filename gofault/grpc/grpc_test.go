@@ -101,3 +101,5 @@ func TestDefaultConfig(t *testing.T) {
 
 func TestRecoveryInterceptor(t *testing.T) {
 	interceptor := RecoveryInterceptor()
+
+	// Test that it doesn't panic
