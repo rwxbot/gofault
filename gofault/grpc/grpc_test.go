@@ -116,3 +116,4 @@ func TestRecoveryInterceptor(t *testing.T) {
 	// The panic is recovered, so we just verify it doesn't crash
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
+	}
