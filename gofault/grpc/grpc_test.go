@@ -188,3 +188,5 @@ func TestRecoveryInterceptor_NilInfo(t *testing.T) {
 
 func TestLoggingInterceptor(t *testing.T) {
 	interceptor := LoggingInterceptor()
+
+	ctx := context.Background()
