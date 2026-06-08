@@ -185,3 +185,6 @@ func TestRecoveryInterceptor_NilInfo(t *testing.T) {
 		t.Fatal("expected an error, got nil")
 	}
 }
+
+func TestLoggingInterceptor(t *testing.T) {
+	interceptor := LoggingInterceptor()
