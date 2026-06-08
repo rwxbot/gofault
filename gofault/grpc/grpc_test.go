@@ -195,3 +195,4 @@ func TestLoggingInterceptor(t *testing.T) {
 	})
 
 	// Just verify it doesn't panic
+}
