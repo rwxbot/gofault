@@ -127,3 +127,6 @@ func TestLoggingInterceptor(t *testing.T) {
 }
 
 func TestKeepAliveConfig(t *testing.T) {
+	ka := KeepAliveConfig(5*time.Minute, 2*time.Minute, 1*time.Minute)
+
+	if ka.MaxConnectionIdle != 5*time.Minute {
