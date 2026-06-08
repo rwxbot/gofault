@@ -125,3 +125,5 @@ func TestLoggingInterceptor(t *testing.T) {
 
 	// Just verify it doesn't panic
 }
+
+func TestKeepAliveConfig(t *testing.T) {
