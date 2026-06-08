@@ -114,3 +114,6 @@ func TestRecoveryInterceptor(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 }
+
+func TestLoggingInterceptor(t *testing.T) {
+	interceptor := LoggingInterceptor()
