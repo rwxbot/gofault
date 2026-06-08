@@ -192,3 +192,4 @@ func TestLoggingInterceptor(t *testing.T) {
 	ctx := context.Background()
 	_, _ = interceptor(ctx, "test request", &grpc.UnaryServerInfo{FullMethod: "/test.Service/Method"}, func(ctx context.Context, req interface{}) (interface{}, error) {
 		return "response", nil
+	})
