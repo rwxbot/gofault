@@ -132,3 +132,5 @@ func TestKeepAliveConfig(t *testing.T) {
 	if ka.MaxConnectionIdle != 5*time.Minute {
 		t.Errorf("expected MaxConnectionIdle 5m, got %v", ka.MaxConnectionIdle)
 	}
+
+	if ka.Time != 2*time.Minute {
