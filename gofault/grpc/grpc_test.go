@@ -209,3 +209,6 @@ func TestKeepAliveConfig(t *testing.T) {
 	}
 
 	if ka.Timeout != 1*time.Minute {
+		t.Errorf("expected Timeout 1m, got %v", ka.Timeout)
+	}
+}
