@@ -224,3 +224,5 @@ func TestTLSCreds(t *testing.T) {
 func TestServer_ImmediateStop(t *testing.T) {
 	config := DefaultConfig()
 	config.Port = 0
+	config.Insecure = true
+	s := NewServer(config)
