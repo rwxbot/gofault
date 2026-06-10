@@ -214,3 +214,6 @@ func TestKeepAliveConfig(t *testing.T) {
 }
 
 func TestTLSCreds(t *testing.T) {
+	// Test with non-existent files
+	_, err := TLSCreds("/nonexistent/cert.pem", "/nonexistent/key.pem")
+	if err == nil {
