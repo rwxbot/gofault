@@ -147,3 +147,4 @@ func TestTLSCreds(t *testing.T) {
 	_, err := TLSCreds("/nonexistent/cert.pem", "/nonexistent/key.pem")
 	if err == nil {
 		t.Error("expected error for non-existent cert files")
+	}
