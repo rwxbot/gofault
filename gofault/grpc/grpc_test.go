@@ -220,3 +220,7 @@ func TestTLSCreds(t *testing.T) {
 		t.Error("expected error for non-existent cert files")
 	}
 }
+
+func TestServer_ImmediateStop(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
