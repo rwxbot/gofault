@@ -148,3 +148,4 @@ func TestTLSCreds(t *testing.T) {
 	if err == nil {
 		t.Error("expected error for non-existent cert files")
 	}
+}
