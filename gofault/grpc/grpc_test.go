@@ -141,3 +141,5 @@ func TestKeepAliveConfig(t *testing.T) {
 		t.Errorf("expected Timeout 1m, got %v", ka.Timeout)
 	}
 }
+
+func TestTLSCreds(t *testing.T) {
