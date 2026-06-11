@@ -155,3 +155,6 @@ func TestServer_ImmediateStop(t *testing.T) {
 	config.Port = 0
 	config.Insecure = true
 	s := NewServer(config)
+
+	errCh := make(chan error, 1)
+	go func() {
