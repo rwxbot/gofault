@@ -231,3 +231,5 @@ func TestServer_ImmediateStop(t *testing.T) {
 	go func() {
 		errCh <- s.Start()
 	}()
+
+	time.Sleep(100 * time.Millisecond)
