@@ -233,3 +233,5 @@ func TestServer_ImmediateStop(t *testing.T) {
 	}()
 
 	time.Sleep(100 * time.Millisecond)
+
+	s.ImmediateStop()
