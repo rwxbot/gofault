@@ -239,3 +239,4 @@ func TestServer_ImmediateStop(t *testing.T) {
 	select {
 	case err := <-errCh:
 		_ = err
+	case <-time.After(time.Second):
