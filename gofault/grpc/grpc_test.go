@@ -159,3 +159,4 @@ func TestServer_ImmediateStop(t *testing.T) {
 	errCh := make(chan error, 1)
 	go func() {
 		errCh <- s.Start()
+	}()
