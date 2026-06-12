@@ -249,3 +249,6 @@ func TestServer_Start_Twice(t *testing.T) {
 	config.Port = 0
 	config.Insecure = true
 	s := NewServer(config)
+
+	// Start first time - should succeed
+	ln, _ := net.Listen("tcp", "localhost:0")
