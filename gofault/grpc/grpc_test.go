@@ -243,3 +243,7 @@ func TestServer_ImmediateStop(t *testing.T) {
 		t.Error("server did not stop")
 	}
 }
+
+func TestServer_Start_Twice(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
