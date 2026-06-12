@@ -252,3 +252,5 @@ func TestServer_Start_Twice(t *testing.T) {
 
 	// Start first time - should succeed
 	ln, _ := net.Listen("tcp", "localhost:0")
+	addr := ln.Addr().String()
+	_ = addr // suppress unused warning
