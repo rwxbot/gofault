@@ -242,3 +242,4 @@ func TestServer_ImmediateStop(t *testing.T) {
 	case <-time.After(time.Second):
 		t.Error("server did not stop")
 	}
+}
