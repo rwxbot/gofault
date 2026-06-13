@@ -188,3 +188,6 @@ func TestServer_Start_Twice(t *testing.T) {
 	time.Sleep(50 * time.Millisecond)
 
 	// Try to start again - should return error since already started
+	err := s.Start()
+	if err == nil {
+		t.Error("expected error when starting twice")
