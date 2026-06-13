@@ -265,3 +265,4 @@ func TestServer_Start_Twice(t *testing.T) {
 	}
 
 	s.Stop()
+}
