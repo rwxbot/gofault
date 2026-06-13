@@ -191,3 +191,6 @@ func TestServer_Start_Twice(t *testing.T) {
 	err := s.Start()
 	if err == nil {
 		t.Error("expected error when starting twice")
+	}
+
+	s.Stop()
