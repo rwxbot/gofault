@@ -183,3 +183,6 @@ func TestServer_Start_Twice(t *testing.T) {
 	ln, _ := net.Listen("tcp", "localhost:0")
 	addr := ln.Addr().String()
 	_ = addr // suppress unused warning
+
+	go s.Serve(ln)
+	time.Sleep(50 * time.Millisecond)
