@@ -257,3 +257,5 @@ func TestServer_Start_Twice(t *testing.T) {
 
 	go s.Serve(ln)
 	time.Sleep(50 * time.Millisecond)
+
+	// Try to start again - should return error since already started
