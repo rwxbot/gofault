@@ -207,3 +207,6 @@ func TestUnaryInterceptor(t *testing.T) {
 	resp, err := adapted(ctx, "request", &grpc.UnaryServerInfo{}, func(ctx context.Context, req interface{}) (interface{}, error) {
 		return "should not reach", nil
 	})
+
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
