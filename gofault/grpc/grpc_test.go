@@ -271,3 +271,5 @@ func TestUnaryInterceptor(t *testing.T) {
 	called := false
 	adapted := UnaryInterceptor(func(ctx context.Context, req interface{}) (interface{}, error) {
 		called = true
+		return "response", nil
+	})
