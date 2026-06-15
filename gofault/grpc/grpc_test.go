@@ -220,3 +220,7 @@ func TestUnaryInterceptor(t *testing.T) {
 		t.Errorf("expected response 'response', got %v", resp)
 	}
 }
+
+func TestStreamInterceptor(t *testing.T) {
+	// Create a buffer listener for the test
+	ln := bufconn.Listen(bufSize)
