@@ -289,3 +289,5 @@ func TestUnaryInterceptor(t *testing.T) {
 
 	if resp != "response" {
 		t.Errorf("expected response 'response', got %v", resp)
+	}
+}
