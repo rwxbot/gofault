@@ -224,3 +224,4 @@ func TestUnaryInterceptor(t *testing.T) {
 func TestStreamInterceptor(t *testing.T) {
 	// Create a buffer listener for the test
 	ln := bufconn.Listen(bufSize)
+	config := DefaultConfig()
