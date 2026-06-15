@@ -285,3 +285,4 @@ func TestUnaryInterceptor(t *testing.T) {
 
 	if !called {
 		t.Error("interceptor should have been called")
+	}
