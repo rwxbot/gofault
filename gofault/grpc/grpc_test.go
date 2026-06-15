@@ -225,3 +225,5 @@ func TestStreamInterceptor(t *testing.T) {
 	// Create a buffer listener for the test
 	ln := bufconn.Listen(bufSize)
 	config := DefaultConfig()
+	config.Insecure = true
+	s := NewServer(config)
