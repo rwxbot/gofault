@@ -215,3 +215,6 @@ func TestUnaryInterceptor(t *testing.T) {
 	if !called {
 		t.Error("interceptor should have been called")
 	}
+
+	if resp != "response" {
+		t.Errorf("expected response 'response', got %v", resp)
