@@ -300,3 +300,4 @@ func TestStreamInterceptor(t *testing.T) {
 	s := NewServer(config)
 
 	go s.Serve(ln)
+	time.Sleep(50 * time.Millisecond)
