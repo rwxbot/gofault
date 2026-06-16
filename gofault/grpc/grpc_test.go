@@ -302,3 +302,6 @@ func TestStreamInterceptor(t *testing.T) {
 	go s.Serve(ln)
 	time.Sleep(50 * time.Millisecond)
 	s.Stop()
+
+	// If we get here without panic, the test passes
+}
