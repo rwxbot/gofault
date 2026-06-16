@@ -230,3 +230,4 @@ func TestStreamInterceptor(t *testing.T) {
 
 	go s.Serve(ln)
 	time.Sleep(50 * time.Millisecond)
+	s.Stop()
