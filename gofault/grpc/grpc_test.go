@@ -227,3 +227,5 @@ func TestStreamInterceptor(t *testing.T) {
 	config := DefaultConfig()
 	config.Insecure = true
 	s := NewServer(config)
+
+	go s.Serve(ln)
