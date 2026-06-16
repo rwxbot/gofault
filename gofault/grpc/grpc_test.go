@@ -234,3 +234,5 @@ func TestStreamInterceptor(t *testing.T) {
 
 	// If we get here without panic, the test passes
 }
+
+func TestConfig_WithTLS(t *testing.T) {
