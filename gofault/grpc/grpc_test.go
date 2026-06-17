@@ -239,3 +239,5 @@ func TestConfig_WithTLS(t *testing.T) {
 	config := DefaultConfig()
 	config.TLSCert = testdata.Path("server1.pem")
 	config.TLSKey = testdata.Path("server1.key")
+
+	s := NewServer(config)
