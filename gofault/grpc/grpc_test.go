@@ -241,3 +241,5 @@ func TestConfig_WithTLS(t *testing.T) {
 	config.TLSKey = testdata.Path("server1.key")
 
 	s := NewServer(config)
+
+	if s == nil {
