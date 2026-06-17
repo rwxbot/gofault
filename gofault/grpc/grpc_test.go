@@ -243,3 +243,5 @@ func TestConfig_WithTLS(t *testing.T) {
 	s := NewServer(config)
 
 	if s == nil {
+		t.Fatal("server should not be nil")
+	}
