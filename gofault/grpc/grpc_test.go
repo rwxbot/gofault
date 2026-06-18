@@ -323,3 +323,7 @@ func TestConfig_WithTLS(t *testing.T) {
 
 func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 	unaryCalled := false
+
+	config := DefaultConfig()
+	config.UnaryInterceptors = []grpc.UnaryServerInterceptor{
+		func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
