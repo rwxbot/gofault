@@ -327,3 +327,4 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 	config := DefaultConfig()
 	config.UnaryInterceptors = []grpc.UnaryServerInterceptor{
 		func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+			unaryCalled = true
