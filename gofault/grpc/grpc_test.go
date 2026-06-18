@@ -248,3 +248,4 @@ func TestConfig_WithTLS(t *testing.T) {
 
 	// Verify server was created with TLS credentials
 	// (actual TLS handshake would need a client to verify)
+}
