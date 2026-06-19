@@ -259,3 +259,4 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 			unaryCalled = true
 			return handler(ctx, req)
 		},
+	}
