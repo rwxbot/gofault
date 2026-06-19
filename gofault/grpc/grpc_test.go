@@ -265,3 +265,6 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 			return nil
 		},
 	}
+
+	s := NewServer(config)
+	if s == nil {
