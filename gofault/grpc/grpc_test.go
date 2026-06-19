@@ -339,3 +339,5 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 
 	s := NewServer(config)
 	if s == nil {
+		t.Fatal("server should not be nil")
+	}
