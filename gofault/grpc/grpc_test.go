@@ -331,3 +331,5 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 			return handler(ctx, req)
 		},
 	}
+	config.StreamInterceptors = []grpc.StreamServerInterceptor{
+		func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
