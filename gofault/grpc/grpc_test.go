@@ -262,3 +262,5 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 	}
 	config.StreamInterceptors = []grpc.StreamServerInterceptor{
 		func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+			return nil
+		},
