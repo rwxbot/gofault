@@ -280,3 +280,5 @@ func TestServer_Address_AfterServe(t *testing.T) {
 	config.Port = 0
 	config.Insecure = true
 	s := NewServer(config)
+
+	ln, err := net.Listen("tcp", "localhost:0")
