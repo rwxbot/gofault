@@ -347,3 +347,6 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 }
 
 func TestServer_Address_AfterServe(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
+	config.Insecure = true
