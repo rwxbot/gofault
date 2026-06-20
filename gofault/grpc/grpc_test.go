@@ -282,3 +282,6 @@ func TestServer_Address_AfterServe(t *testing.T) {
 	s := NewServer(config)
 
 	ln, err := net.Listen("tcp", "localhost:0")
+	if err != nil {
+		t.Fatal(err)
+	}
