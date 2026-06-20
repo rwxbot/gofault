@@ -273,3 +273,4 @@ func TestConfig_UnaryAndStreamInterceptors(t *testing.T) {
 
 	// Interceptors are set up, verification would require actual RPC calls
 	_ = unaryCalled
+}
