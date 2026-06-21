@@ -361,3 +361,4 @@ func TestServer_Address_AfterServe(t *testing.T) {
 	time.Sleep(50 * time.Millisecond)
 
 	addr := s.Address()
+	if addr == "" {
