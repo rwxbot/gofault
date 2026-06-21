@@ -296,3 +296,6 @@ func TestServer_Address_AfterServe(t *testing.T) {
 
 	s.Stop()
 }
+
+func TestServer_RegisterService_NilCheck(t *testing.T) {
+	config := DefaultConfig()
