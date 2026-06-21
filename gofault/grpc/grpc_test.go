@@ -362,3 +362,5 @@ func TestServer_Address_AfterServe(t *testing.T) {
 
 	addr := s.Address()
 	if addr == "" {
+		t.Error("expected non-empty address")
+	}
