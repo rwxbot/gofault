@@ -299,3 +299,4 @@ func TestServer_Address_AfterServe(t *testing.T) {
 
 func TestServer_RegisterService_NilCheck(t *testing.T) {
 	config := DefaultConfig()
+	s := NewServer(config)
