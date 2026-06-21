@@ -366,3 +366,4 @@ func TestServer_Address_AfterServe(t *testing.T) {
 	}
 
 	s.Stop()
+}
