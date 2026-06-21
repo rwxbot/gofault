@@ -285,3 +285,6 @@ func TestServer_Address_AfterServe(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	go s.Serve(ln)
+	time.Sleep(50 * time.Millisecond)
