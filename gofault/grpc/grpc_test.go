@@ -386,3 +386,4 @@ func TestNewGRPCServerModule(t *testing.T) {
 	m := NewGRPCServerModule("test-grpc", config)
 
 	if m == nil {
+		t.Fatal("module should not be nil")
