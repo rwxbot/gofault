@@ -383,3 +383,6 @@ func TestServer_RegisterService_NilCheck(t *testing.T) {
 func TestNewGRPCServerModule(t *testing.T) {
 	config := DefaultConfig()
 	config.Insecure = true
+	m := NewGRPCServerModule("test-grpc", config)
+
+	if m == nil {
