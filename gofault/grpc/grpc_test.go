@@ -308,3 +308,7 @@ func TestServer_RegisterService_NilCheck(t *testing.T) {
 		t.Fatal("server should not be nil")
 	}
 }
+
+func TestNewGRPCServerModule(t *testing.T) {
+	config := DefaultConfig()
+	config.Insecure = true
