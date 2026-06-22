@@ -306,3 +306,5 @@ func TestServer_RegisterService_NilCheck(t *testing.T) {
 	// without panicking on a properly initialized server
 	if s == nil {
 		t.Fatal("server should not be nil")
+	}
+}
