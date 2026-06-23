@@ -319,3 +319,4 @@ func TestNewGRPCServerModule(t *testing.T) {
 	}
 
 	if m.server == nil {
+		t.Error("server should not be nil")
