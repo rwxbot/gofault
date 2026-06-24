@@ -404,3 +404,4 @@ func TestGRPCServerModule_Server(t *testing.T) {
 
 	s := m.Server()
 	if s == nil {
+		t.Fatal("Server() should not return nil")
