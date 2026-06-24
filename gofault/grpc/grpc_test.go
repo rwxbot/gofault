@@ -330,3 +330,6 @@ func TestNewGRPCServerModule(t *testing.T) {
 func TestGRPCServerModule_Server(t *testing.T) {
 	config := DefaultConfig()
 	m := NewGRPCServerModule("test-grpc", config)
+
+	s := m.Server()
+	if s == nil {
