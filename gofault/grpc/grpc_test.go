@@ -397,3 +397,6 @@ func TestNewGRPCServerModule(t *testing.T) {
 		t.Error("grpcServer should not be nil")
 	}
 }
+
+func TestGRPCServerModule_Server(t *testing.T) {
+	config := DefaultConfig()
