@@ -411,3 +411,6 @@ func TestGRPCServerModule_Server(t *testing.T) {
 		t.Error("Server() should return the same server instance")
 	}
 }
+
+func TestUnaryInterceptor_PanicRecovery(t *testing.T) {
+	adapted := UnaryInterceptor(func(ctx context.Context, req interface{}) (interface{}, error) {
