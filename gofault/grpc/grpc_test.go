@@ -408,3 +408,5 @@ func TestGRPCServerModule_Server(t *testing.T) {
 	}
 
 	if s != m.server {
+		t.Error("Server() should return the same server instance")
+	}
