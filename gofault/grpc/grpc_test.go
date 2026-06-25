@@ -348,3 +348,7 @@ func TestUnaryInterceptor_PanicRecovery(t *testing.T) {
 		}
 		return "ok", nil
 	})
+
+	ctx := context.Background()
+
+	// Normal request should work
