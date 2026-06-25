@@ -418,3 +418,4 @@ func TestUnaryInterceptor_PanicRecovery(t *testing.T) {
 			panic("requested panic")
 		}
 		return "ok", nil
+	})
