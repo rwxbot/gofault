@@ -414,3 +414,6 @@ func TestGRPCServerModule_Server(t *testing.T) {
 
 func TestUnaryInterceptor_PanicRecovery(t *testing.T) {
 	adapted := UnaryInterceptor(func(ctx context.Context, req interface{}) (interface{}, error) {
+		if req == "panic" {
+			panic("requested panic")
+		}
