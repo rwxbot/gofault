@@ -335,3 +335,5 @@ func TestGRPCServerModule_Server(t *testing.T) {
 	if s == nil {
 		t.Fatal("Server() should not return nil")
 	}
+
+	if s != m.server {
