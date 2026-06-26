@@ -427,3 +427,6 @@ func TestUnaryInterceptor_PanicRecovery(t *testing.T) {
 		return "handled", nil
 	})
 	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if resp != "ok" {
