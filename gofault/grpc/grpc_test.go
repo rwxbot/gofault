@@ -423,3 +423,5 @@ func TestUnaryInterceptor_PanicRecovery(t *testing.T) {
 	ctx := context.Background()
 
 	// Normal request should work
+	resp, err := adapted(ctx, "normal", &grpc.UnaryServerInfo{}, func(ctx context.Context, req interface{}) (interface{}, error) {
+		return "handled", nil
