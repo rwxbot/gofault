@@ -373,3 +373,4 @@ func TestStreamRecoveryInterceptor(t *testing.T) {
 }
 
 func TestGRPCServerModule_OnBoot_StartError(t *testing.T) {
+	config := DefaultConfig()
