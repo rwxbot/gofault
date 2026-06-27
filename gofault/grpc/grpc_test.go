@@ -367,3 +367,6 @@ func TestStreamRecoveryInterceptor(t *testing.T) {
 	interceptor := StreamRecoveryInterceptor()
 	if interceptor == nil {
 		t.Fatal("StreamRecoveryInterceptor should not return nil")
+	}
+	// Verify it has the correct type
+	var _ grpc.StreamServerInterceptor = interceptor
