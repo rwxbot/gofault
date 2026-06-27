@@ -441,3 +441,4 @@ func TestStreamRecoveryInterceptor(t *testing.T) {
 	}
 	// Verify it has the correct type
 	var _ grpc.StreamServerInterceptor = interceptor
+}
