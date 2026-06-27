@@ -433,3 +433,6 @@ func TestUnaryInterceptor_PanicRecovery(t *testing.T) {
 		t.Errorf("expected 'ok', got %v", resp)
 	}
 }
+
+func TestStreamRecoveryInterceptor(t *testing.T) {
+	interceptor := StreamRecoveryInterceptor()
