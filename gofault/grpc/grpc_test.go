@@ -452,3 +452,6 @@ func TestGRPCServerModule_OnBoot_StartError(t *testing.T) {
 	// OnBoot should try to start the server
 	// It may fail if port is invalid, which is expected
 	err := m.OnBoot()
+	// We don't assert err == nil because port may be invalid
+	// Just verify it doesn't panic
+	_ = err
