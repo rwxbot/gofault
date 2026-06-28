@@ -458,3 +458,6 @@ func TestGRPCServerModule_OnBoot_StartError(t *testing.T) {
 
 	m.OnShutdown()
 }
+
+func TestServer_WithInsecureCredentials(t *testing.T) {
+	config := DefaultConfig()
