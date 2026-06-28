@@ -377,3 +377,6 @@ func TestGRPCServerModule_OnBoot_StartError(t *testing.T) {
 	config.Port = 99999 // invalid port to trigger error
 	config.Insecure = true
 	m := NewGRPCServerModule("test-grpc", config)
+
+	// OnBoot should try to start the server
+	// It may fail if port is invalid, which is expected
