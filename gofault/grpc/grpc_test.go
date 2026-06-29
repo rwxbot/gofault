@@ -469,3 +469,4 @@ func TestServer_WithInsecureCredentials(t *testing.T) {
 	}
 
 	// Just verify it was created without panic
+	_ = s
