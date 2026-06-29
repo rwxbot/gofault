@@ -396,3 +396,5 @@ func TestServer_WithInsecureCredentials(t *testing.T) {
 	if s == nil {
 		t.Fatal("server should not be nil")
 	}
+
+	// Just verify it was created without panic
