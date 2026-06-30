@@ -406,3 +406,6 @@ func TestServer_WithUnaryInterceptors(t *testing.T) {
 	config.Insecure = true
 	config.UnaryInterceptors = []grpc.UnaryServerInterceptor{
 		RecoveryInterceptor(),
+		LoggingInterceptor(),
+	}
+	s := NewServer(config)
