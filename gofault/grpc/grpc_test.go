@@ -470,3 +470,218 @@ func TestServer_WithInsecureCredentials(t *testing.T) {
 
 	// Just verify it was created without panic
 	_ = s
+}
+
+// StreamInterceptor's panic recovery was implemented but never exercised: the
+// earlier TestStreamInterceptor only started and stopped a server without
+// calling the interceptor at all. A panic here used to leave the named result
+// at its zero value, so gRPC saw a successful stream.
+func TestStreamInterceptor_PanicBecomesError(t *testing.T) {
+	interceptor := StreamInterceptor(func(srv interface{}, ss grpc.ServerStream) error {
+		panic("stream boom")
+	})
+
+	err := interceptor(nil, nil, &grpc.StreamServerInfo{FullMethod: "/svc/Stream"}, nil)
+	if err == nil {
+		t.Fatal("expected an error after a recovered panic, got nil")
+	}
+	if code := status.Code(err); code != codes.Internal {
+		t.Errorf("status code = %v, want %v", code, codes.Internal)
+	}
+}
+
+// The non-panicking path must still return the function's own error.
+func TestStreamInterceptor_PassesThrough(t *testing.T) {
+	want := errors.New("stream failed")
+	interceptor := StreamInterceptor(func(srv interface{}, ss grpc.ServerStream) error {
+		return want
+	})
+
+	got := interceptor(nil, nil, &grpc.StreamServerInfo{}, nil)
+	if !errors.Is(got, want) {
+		t.Errorf("error = %v, want %v", got, want)
+	}
+}
+
+func TestStreamInterceptor_NilFuncResult(t *testing.T) {
+	interceptor := StreamInterceptor(func(srv interface{}, ss grpc.ServerStream) error {
+		return nil
+	})
+	if err := interceptor(nil, nil, nil, nil); err != nil {
+		t.Errorf("error = %v, want nil", err)
+	}
+}
+
+// A nil info must not cause a second panic while the first is being reported.
+func TestStreamInterceptor_NilInfo(t *testing.T) {
+	interceptor := StreamInterceptor(func(srv interface{}, ss grpc.ServerStream) error {
+		panic("boom")
+	})
+
+	err := interceptor(nil, nil, nil, nil)
+	if err == nil {
+		t.Fatal("expected an error, got nil")
+	}
+	if code := status.Code(err); code != codes.Internal {
+		t.Errorf("status code = %v, want %v", code, codes.Internal)
+	}
+}
+
+// UnaryInterceptor must also pass a non-panicking result through unchanged.
+func TestUnaryInterceptor_PassesThrough(t *testing.T) {
+	want := errors.New("unary failed")
+	interceptor := UnaryInterceptor(func(ctx context.Context, req interface{}) (interface{}, error) {
+		return "resp", want
+	})
+
+	resp, err := interceptor(context.Background(), "req", &grpc.UnaryServerInfo{}, nil)
+	if !errors.Is(err, want) {
+		t.Errorf("error = %v, want %v", err, want)
+	}
+	if resp != "resp" {
+		t.Errorf("resp = %v, want resp", resp)
+	}
+}
+
+// The old Start built the listen address as network+":"+port ("tcp:9000"),
+// which net.Listen reads as a host named "tcp" and always fails. With the
+// fix, an ephemeral-port Start must bind successfully.
+func TestServer_StartBindsWithDefaultNetwork(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0 // ephemeral
+	config.Insecure = true
+	s := NewServer(config)
+
+	errCh := make(chan error, 1)
+	go func() { errCh <- s.Start() }()
+
+	// Address() is only non-empty once the listener is bound.
+	deadline := time.Now().Add(2 * time.Second)
+	for s.Address() == "" && time.Now().Before(deadline) {
+		time.Sleep(10 * time.Millisecond)
+	}
+	if s.Address() == "" {
+		s.ImmediateStop()
+		t.Fatal("Start with default Network failed to bind (address never appeared)")
+	}
+	s.Stop()
+	select {
+	case <-errCh:
+	case <-time.After(2 * time.Second):
+		t.Error("Start did not return after Stop")
+	}
+}
+
+// OnBoot must not block the module lifecycle: the old blocking Serve hung
+// App.Start forever.
+func TestGRPCServerModule_OnBootDoesNotBlock(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
+	config.Insecure = true
+	m := NewGRPCServerModule("grpc-test", config)
+
+	done := make(chan error, 1)
+	go func() { done <- m.OnBoot() }()
+
+	select {
+	case err := <-done:
+		if err != nil {
+			t.Fatalf("OnBoot failed: %v", err)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("OnBoot blocked (module lifecycle would hang)")
+	}
+
+	if m.Server().Address() == "" {
+		t.Error("server should be listening after OnBoot")
+	}
+	if err := m.OnShutdown(); err != nil {
+		t.Errorf("OnShutdown failed: %v", err)
+	}
+}
+
+// A half-configured TLS setup (exactly one of TLSCert/TLSKey) used to fall
+// through to creds == nil and serve plaintext with no error — the operator
+// believes the endpoint is encrypted. Start must refuse.
+func TestServer_HalfConfiguredTLSRejected(t *testing.T) {
+	for _, tc := range []struct{ name, cert, key string }{
+		{"cert only", "cert.pem", ""},
+		{"key only", "", "key.pem"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			config := DefaultConfig()
+			config.Port = 0
+			config.TLSCert = tc.cert
+			config.TLSKey = tc.key
+			s := NewServer(config)
+			// bind is the synchronous reservation every start path runs
+			// through; calling it directly keeps the test from blocking in
+			// Serve when the check is missing.
+			ln, err := s.bind()
+			if err == nil {
+				ln.Close()
+				t.Fatal("half-configured TLS must not start a plaintext server")
+			} else if !strings.Contains(err.Error(), "half-configured") {
+				t.Errorf("error = %v, want it to name the half-configured TLS", err)
+			}
+		})
+	}
+}
+
+// Serve on a caller-supplied listener must apply the same check.
+func TestServer_ServeRejectsHalfTLS(t *testing.T) {
+	config := DefaultConfig()
+	config.TLSCert = "cert.pem"
+	s := NewServer(config)
+	ln, err := net.Listen("tcp", "127.0.0.1:0")
+	if err != nil {
+		t.Fatalf("listen: %v", err)
+	}
+	defer ln.Close()
+	// Serve blocks when it accepts the listener, so run it on its own
+	// goroutine and require a fast rejection.
+	errCh := make(chan error, 1)
+	go func() { errCh <- s.Serve(ln) }()
+	select {
+	case err := <-errCh:
+		if err == nil {
+			t.Fatal("Serve must reject a half-configured TLS setup")
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("Serve blocked on a half-configured TLS setup instead of rejecting it")
+	}
+}
+
+// The framework's lifecycle iterates OnBootHooks/OnShutdownHooks; it never
+// discovers methods named OnBoot/OnShutdown on a module. NewGRPCServerModule
+// must register itself into both lists, or the documented "listens on
+// OnBoot, drains on OnShutdown" never happens and the gRPC server never
+// starts as part of an App.
+func TestGRPCServerModule_RegistersLifecycleHooks(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
+	config.Insecure = true
+	m := NewGRPCServerModule("grpc-hooks", config)
+
+	if len(m.Module.OnBootHooks) != 1 {
+		t.Fatalf("OnBootHooks = %d, want 1 (the module must register itself)", len(m.Module.OnBootHooks))
+	}
+	if len(m.Module.OnShutdownHooks) != 1 {
+		t.Fatalf("OnShutdownHooks = %d, want 1", len(m.Module.OnShutdownHooks))
+	}
+
+	// The registered boot hook actually starts the listener.
+	for _, h := range m.Module.OnBootHooks {
+		if err := h.OnBoot(); err != nil {
+			t.Fatalf("registered OnBoot hook: %v", err)
+		}
+	}
+	if m.Server().Address() == "" {
+		t.Error("server not listening after the registered OnBoot hook ran")
+	}
+	for _, h := range m.Module.OnShutdownHooks {
+		if err := h.OnShutdown(); err != nil {
+			t.Errorf("registered OnShutdown hook: %v", err)
+		}
+	}
+}
