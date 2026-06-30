@@ -687,3 +687,6 @@ func TestGRPCServerModule_RegistersLifecycleHooks(t *testing.T) {
 }
 
 func TestServer_WithUnaryInterceptors(t *testing.T) {
+	config := DefaultConfig()
+	config.Insecure = true
+	config.UnaryInterceptors = []grpc.UnaryServerInterceptor{
