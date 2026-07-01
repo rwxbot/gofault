@@ -472,6 +472,23 @@ func TestServer_WithInsecureCredentials(t *testing.T) {
 	_ = s
 }
 
+func TestServer_WithUnaryInterceptors(t *testing.T) {
+	config := DefaultConfig()
+	config.Insecure = true
+	config.UnaryInterceptors = []grpc.UnaryServerInterceptor{
+		RecoveryInterceptor(),
+		LoggingInterceptor(),
+	}
+	s := NewServer(config)
+
+	if s == nil {
+		t.Fatal("server should not be nil")
+	}
+
+	// Verify interceptors are chained
+	_ = s
+}
+
 // StreamInterceptor's panic recovery was implemented but never exercised: the
 // earlier TestStreamInterceptor only started and stopped a server without
 // calling the interceptor at all. A panic here used to leave the named result
@@ -685,19 +702,3 @@ func TestGRPCServerModule_RegistersLifecycleHooks(t *testing.T) {
 		}
 	}
 }
-
-func TestServer_WithUnaryInterceptors(t *testing.T) {
-	config := DefaultConfig()
-	config.Insecure = true
-	config.UnaryInterceptors = []grpc.UnaryServerInterceptor{
-		RecoveryInterceptor(),
-		LoggingInterceptor(),
-	}
-	s := NewServer(config)
-
-	if s == nil {
-		t.Fatal("server should not be nil")
-	}
-
-	// Verify interceptors are chained
-	_ = s
