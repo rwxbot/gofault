@@ -694,3 +694,5 @@ func TestServer_WithUnaryInterceptors(t *testing.T) {
 		LoggingInterceptor(),
 	}
 	s := NewServer(config)
+
+	if s == nil {
