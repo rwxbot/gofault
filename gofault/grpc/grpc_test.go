@@ -416,3 +416,4 @@ func TestServer_WithUnaryInterceptors(t *testing.T) {
 
 	// Verify interceptors are chained
 	_ = s
+}
