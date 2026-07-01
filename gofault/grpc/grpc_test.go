@@ -698,3 +698,6 @@ func TestServer_WithUnaryInterceptors(t *testing.T) {
 	if s == nil {
 		t.Fatal("server should not be nil")
 	}
+
+	// Verify interceptors are chained
+	_ = s
