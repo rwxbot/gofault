@@ -417,3 +417,5 @@ func TestServer_WithUnaryInterceptors(t *testing.T) {
 	// Verify interceptors are chained
 	_ = s
 }
+
+func TestServer_WithStreamInterceptors(t *testing.T) {
