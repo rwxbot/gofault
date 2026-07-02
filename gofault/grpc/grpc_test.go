@@ -710,3 +710,5 @@ func TestServer_WithStreamInterceptors(t *testing.T) {
 		StreamRecoveryInterceptor(),
 	}
 	s := NewServer(config)
+
+	if s == nil {
