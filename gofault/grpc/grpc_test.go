@@ -708,3 +708,5 @@ func TestServer_WithStreamInterceptors(t *testing.T) {
 	config.Insecure = true
 	config.StreamInterceptors = []grpc.StreamServerInterceptor{
 		StreamRecoveryInterceptor(),
+	}
+	s := NewServer(config)
