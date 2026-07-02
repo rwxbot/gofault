@@ -704,3 +704,4 @@ func TestGRPCServerModule_RegistersLifecycleHooks(t *testing.T) {
 }
 
 func TestServer_WithStreamInterceptors(t *testing.T) {
+	config := DefaultConfig()
