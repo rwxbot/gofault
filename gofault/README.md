@@ -888,3 +888,10 @@ grpcMod := grpc.NewGRPCServerModule("grpc", cfg)
 srv := grpcMod.Server()
 
 srv.RegisterService(&pb.Service_ServiceDesc, impl)
+
+if err := app.RegisterModules(grpcMod); err != nil {
+    return err
+}
+```
+
+TLS material is configured with file paths, and interceptors are values you pass
