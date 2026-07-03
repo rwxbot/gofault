@@ -429,3 +429,6 @@ func TestServer_WithStreamInterceptors(t *testing.T) {
 	if s == nil {
 		t.Fatal("server should not be nil")
 	}
+
+	_ = s
+}
