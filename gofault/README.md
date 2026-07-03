@@ -878,3 +878,13 @@ replace with your own template.
 
 `NewGRPCServerModule` returns a module, so the server takes part in the same
 lifecycle as everything else — it listens on `OnBoot` and drains on `OnShutdown`:
+
+```go
+cfg := grpc.DefaultConfig()
+cfg.Port = 9091
+cfg.Network = "tcp"
+
+grpcMod := grpc.NewGRPCServerModule("grpc", cfg)
+srv := grpcMod.Server()
+
+srv.RegisterService(&pb.Service_ServiceDesc, impl)
