@@ -870,3 +870,11 @@ mod.RegisterMiddleware(middleware.StaticMiddleware(cfg))
 
 `DirectoryListing` renders the index used when `Browse` is on, so it is easy to
 replace with your own template.
+
+
+## What's new in v3.3.0
+
+### gRPC server
+
+`NewGRPCServerModule` returns a module, so the server takes part in the same
+lifecycle as everything else — it listens on `OnBoot` and drains on `OnShutdown`:
