@@ -915,3 +915,9 @@ cfg.UnaryInterceptors = []grpcapi.UnaryServerInterceptor{
     grpc.LoggingInterceptor(),
 }
 cfg.StreamInterceptors = []grpcapi.StreamServerInterceptor{
+    grpc.StreamRecoveryInterceptor(),
+}
+```
+
+`KeepAliveConfig` builds the keepalive parameters instead of making callers
+remember the field names.
