@@ -895,3 +895,13 @@ if err := app.RegisterModules(grpcMod); err != nil {
 ```
 
 TLS material is configured with file paths, and interceptors are values you pass
+in rather than methods you call:
+
+```go
+import (
+    grpcapi "google.golang.org/grpc"
+
+    "github.com/gofault/gofault/grpc"
+)
+
+creds, err := grpc.TLSCreds("cert.pem", "key.pem") // credentials.TransportCredentials
