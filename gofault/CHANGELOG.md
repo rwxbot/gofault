@@ -122,3 +122,8 @@
 
 ### Added
 - Static file serving middleware
+
+## [v3.3.0]
+
+### Added
+- gRPC server integration
