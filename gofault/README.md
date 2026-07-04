@@ -905,3 +905,13 @@ import (
 )
 
 creds, err := grpc.TLSCreds("cert.pem", "key.pem") // credentials.TransportCredentials
+if err != nil {
+    return err
+}
+
+cfg.TLSCert, cfg.TLSKey = "cert.pem", "key.pem"
+cfg.UnaryInterceptors = []grpcapi.UnaryServerInterceptor{
+    grpc.RecoveryInterceptor(),
+    grpc.LoggingInterceptor(),
+}
+cfg.StreamInterceptors = []grpcapi.StreamServerInterceptor{
