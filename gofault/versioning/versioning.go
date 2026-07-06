@@ -7,3 +7,5 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/gofault/gofault/core"
