@@ -10,3 +10,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+// VersionStatus indicates the lifecycle state of an API version.
