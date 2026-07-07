@@ -15,3 +15,6 @@ import (
 type VersionStatus int
 
 const (
+	// VersionStatusActive is a currently supported version.
+	VersionStatusActive VersionStatus = iota
+	// VersionStatusDeprecated indicates a version pending retirement.
