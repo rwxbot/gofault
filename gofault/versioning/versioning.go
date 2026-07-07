@@ -13,3 +13,5 @@ import (
 
 // VersionStatus indicates the lifecycle state of an API version.
 type VersionStatus int
+
+const (
