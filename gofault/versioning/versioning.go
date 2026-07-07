@@ -19,3 +19,5 @@ const (
 	VersionStatusActive VersionStatus = iota
 	// VersionStatusDeprecated indicates a version pending retirement.
 	VersionStatusDeprecated
+	// VersionStatusEOL signals end-of-life and should not be used.
+	VersionStatusEOL
