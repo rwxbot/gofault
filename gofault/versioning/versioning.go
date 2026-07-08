@@ -21,3 +21,4 @@ const (
 	VersionStatusDeprecated
 	// VersionStatusEOL signals end-of-life and should not be used.
 	VersionStatusEOL
+)
