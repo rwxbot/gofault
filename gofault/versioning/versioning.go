@@ -22,3 +22,5 @@ const (
 	// VersionStatusEOL signals end-of-life and should not be used.
 	VersionStatusEOL
 )
+
+func (s VersionStatus) String() string {
