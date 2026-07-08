@@ -26,3 +26,5 @@ const (
 func (s VersionStatus) String() string {
 	switch s {
 	case VersionStatusActive:
+		return "active"
+	case VersionStatusDeprecated:
