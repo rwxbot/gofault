@@ -33,3 +33,5 @@ func (s VersionStatus) String() string {
 		return "eol"
 	default:
 		return "unknown"
+	}
+}
