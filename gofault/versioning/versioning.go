@@ -30,3 +30,4 @@ func (s VersionStatus) String() string {
 	case VersionStatusDeprecated:
 		return "deprecated"
 	case VersionStatusEOL:
+		return "eol"
