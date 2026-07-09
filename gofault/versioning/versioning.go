@@ -37,3 +37,4 @@ func (s VersionStatus) String() string {
 }
 
 // Strategy defines how the version is extracted from a request.
+type Strategy int
