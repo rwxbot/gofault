@@ -38,3 +38,7 @@ func (s VersionStatus) String() string {
 
 // Strategy defines how the version is extracted from a request.
 type Strategy int
+
+const (
+	// StrategyHeader extracts version from a header (e.g., Accept).
+	StrategyHeader Strategy = iota
