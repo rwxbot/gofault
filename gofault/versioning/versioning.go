@@ -31,3 +31,5 @@ func (s VersionStatus) String() string {
 		return "deprecated"
 	case VersionStatusEOL:
 		return "eol"
+	default:
+		return "unknown"
