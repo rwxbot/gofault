@@ -35,3 +35,5 @@ func (s VersionStatus) String() string {
 		return "unknown"
 	}
 }
+
+// Strategy defines how the version is extracted from a request.
