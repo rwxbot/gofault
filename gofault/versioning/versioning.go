@@ -46,3 +46,4 @@ const (
 	StrategyPathPrefix
 	// StrategyQuery extracts version from query parameter.
 	StrategyQuery
+)
