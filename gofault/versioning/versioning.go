@@ -42,3 +42,6 @@ type Strategy int
 const (
 	// StrategyHeader extracts version from a header (e.g., Accept).
 	StrategyHeader Strategy = iota
+	// StrategyPathPrefix extracts version from URL path prefix.
+	StrategyPathPrefix
+	// StrategyQuery extracts version from query parameter.
