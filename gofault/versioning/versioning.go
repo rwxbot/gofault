@@ -47,3 +47,5 @@ const (
 	// StrategyQuery extracts version from query parameter.
 	StrategyQuery
 )
+
+// Config holds versioning middleware configuration.
