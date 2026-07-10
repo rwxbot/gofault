@@ -45,3 +45,4 @@ const (
 	// StrategyPathPrefix extracts version from URL path prefix.
 	StrategyPathPrefix
 	// StrategyQuery extracts version from query parameter.
+	StrategyQuery
