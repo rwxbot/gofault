@@ -66,3 +66,4 @@ type Config struct {
 	DefaultVersion int
 	// DefaultStatus for versions without explicit status.
 	DefaultStatus VersionStatus
+}
