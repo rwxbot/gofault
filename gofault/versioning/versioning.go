@@ -55,3 +55,5 @@ type Config struct {
 	// Header is used with StrategyHeader: header name to read.
 	Header string
 	// HeaderVersionFormat is used with StrategyHeader: printf format (e.g., "v%d" or "version=%s").
+	HeaderVersionFormat string
+	// HeaderVersionRE is used with StrategyHeader: regex to extract version after matching headerVersionFormat.
