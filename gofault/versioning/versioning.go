@@ -57,3 +57,6 @@ type Config struct {
 	// HeaderVersionFormat is used with StrategyHeader: printf format (e.g., "v%d" or "version=%s").
 	HeaderVersionFormat string
 	// HeaderVersionRE is used with StrategyHeader: regex to extract version after matching headerVersionFormat.
+	HeaderVersionRE *regexp.Regexp
+	// PathPrefix is used with StrategyPathPrefix: URL path prefix (e.g., "/v1").
+	PathPrefix string
