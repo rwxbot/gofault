@@ -60,3 +60,5 @@ type Config struct {
 	HeaderVersionRE *regexp.Regexp
 	// PathPrefix is used with StrategyPathPrefix: URL path prefix (e.g., "/v1").
 	PathPrefix string
+	// QueryParam is used with StrategyQuery: query parameter name (e.g., "version").
+	QueryParam string
