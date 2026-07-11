@@ -52,3 +52,6 @@ const (
 type Config struct {
 	// Strategy for version extraction.
 	Strategy Strategy
+	// Header is used with StrategyHeader: header name to read.
+	Header string
+	// HeaderVersionFormat is used with StrategyHeader: printf format (e.g., "v%d" or "version=%s").
