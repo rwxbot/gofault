@@ -62,3 +62,4 @@ type Config struct {
 	PathPrefix string
 	// QueryParam is used with StrategyQuery: query parameter name (e.g., "version").
 	QueryParam string
+	// DefaultVersion returned when no version is detected.
