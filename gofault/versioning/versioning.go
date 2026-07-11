@@ -51,3 +51,4 @@ const (
 // Config holds versioning middleware configuration.
 type Config struct {
 	// Strategy for version extraction.
+	Strategy Strategy
