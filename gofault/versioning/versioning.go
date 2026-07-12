@@ -85,3 +85,6 @@ func HeaderConfig(header, headerVersionFormat string, headerVersionRE *regexp.Re
 		Header:              header,
 		HeaderVersionFormat: headerVersionFormat,
 		HeaderVersionRE:     headerVersionRE,
+		DefaultVersion:      defaultVersion,
+		DefaultStatus:       VersionStatusActive,
+	}
