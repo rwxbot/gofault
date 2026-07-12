@@ -74,3 +74,6 @@ type Config struct {
 func HeaderConfig(header, headerVersionFormat string, headerVersionRE *regexp.Regexp, defaultVersion int) Config {
 	return Config{
 		Strategy:            StrategyHeader,
+		Header:              header,
+		HeaderVersionFormat: headerVersionFormat,
+		HeaderVersionRE:     headerVersionRE,
