@@ -67,3 +67,5 @@ type Config struct {
 	// DefaultStatus for versions without explicit status.
 	DefaultStatus VersionStatus
 }
+
+// HeaderConfig creates a header-based versioning config.
