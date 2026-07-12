@@ -69,3 +69,4 @@ type Config struct {
 }
 
 // HeaderConfig creates a header-based versioning config.
+// headerVersionFormat uses %d for numeric version, %s for string version.
