@@ -89,3 +89,5 @@ func HeaderConfig(header, headerVersionFormat string, headerVersionRE *regexp.Re
 		DefaultStatus:       VersionStatusActive,
 	}
 }
+
+// PathPrefixConfig creates a path-prefix based versioning config.
