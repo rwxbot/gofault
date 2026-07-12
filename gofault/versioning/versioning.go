@@ -71,6 +71,17 @@ type Config struct {
 // HeaderConfig creates a header-based versioning config.
 // headerVersionFormat uses %d for numeric version, %s for string version.
 // Example: "application/vnd.api+json;version=v%d" extracts "1" from "v1".
+//
+// headerVersionRE may be nil, in which case one is derived from
+// headerVersionFormat. The field used to be stored but never applied, so a
+// caller who supplied only the documented format got DefaultVersion for every
+// request.
 func HeaderConfig(header, headerVersionFormat string, headerVersionRE *regexp.Regexp, defaultVersion int) Config {
+	if headerVersionRE == nil && headerVersionFormat != "" {
+		headerVersionRE = compileVersionFormat(headerVersionFormat)
+	}
 	return Config{
 		Strategy:            StrategyHeader,
+		Header:              header,
+		HeaderVersionFormat: headerVersionFormat,
+		HeaderVersionRE:     headerVersionRE,
