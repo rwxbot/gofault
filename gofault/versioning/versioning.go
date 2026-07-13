@@ -88,3 +88,6 @@ func PathPrefixConfig(pathPrefix string, defaultVersion int) Config {
 	return Config{
 		Strategy:       StrategyPathPrefix,
 		PathPrefix:     pathPrefix,
+		DefaultVersion: defaultVersion,
+		DefaultStatus:  VersionStatusActive,
+	}
