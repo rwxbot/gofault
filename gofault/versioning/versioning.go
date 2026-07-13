@@ -84,3 +84,4 @@ func HeaderConfig(header, headerVersionFormat string, headerVersionRE *regexp.Re
 
 // PathPrefixConfig creates a path-prefix based versioning config.
 // pathPrefix example: "/v1" matches URLs starting with /v1/.
+func PathPrefixConfig(pathPrefix string, defaultVersion int) Config {
