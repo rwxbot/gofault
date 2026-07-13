@@ -126,3 +126,4 @@ func PathPrefixConfig(pathPrefix string, defaultVersion int) Config {
 		DefaultVersion: defaultVersion,
 		DefaultStatus:  VersionStatusActive,
 	}
+}
