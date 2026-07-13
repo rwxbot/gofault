@@ -127,3 +127,5 @@ func PathPrefixConfig(pathPrefix string, defaultVersion int) Config {
 		DefaultStatus:  VersionStatusActive,
 	}
 }
+
+// QueryConfig creates a query-parameter based versioning config.
