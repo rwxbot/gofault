@@ -90,5 +90,33 @@ func HeaderConfig(header, headerVersionFormat string, headerVersionRE *regexp.Re
 	}
 }
 
+// compileVersionFormat turns a printf-style version format into a regexp with
+// one capturing group around the version. For example
+// "application/vnd.api+json;version=v%d" yields a pattern whose first group
+// captures the digits after "version=v", so FindStringSubmatch yields the
+// version in matches[1] as the middleware expects.
+func compileVersionFormat(format string) *regexp.Regexp {
+	// Split on the verb so the placeholder can be captured.
+	parts := strings.SplitN(format, "%", 2)
+	if len(parts) != 2 {
+		return nil
+	}
+
+	var b strings.Builder
+	b.WriteString("^")
+	b.WriteString(regexp.QuoteMeta(parts[0]))
+	b.WriteString(`(.*)`)
+	// The verb and any trailing text stay outside the capture.
+	b.WriteString(regexp.QuoteMeta(parts[1][1:]))
+	b.WriteString("$")
+
+	re, err := regexp.Compile(b.String())
+	if err != nil {
+		return nil
+	}
+	return re
+}
+
 // PathPrefixConfig creates a path-prefix based versioning config.
 // pathPrefix example: "/v1" matches URLs starting with /v1/.
+func PathPrefixConfig(pathPrefix string, defaultVersion int) Config {
