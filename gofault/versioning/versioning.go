@@ -130,3 +130,5 @@ func PathPrefixConfig(pathPrefix string, defaultVersion int) Config {
 
 // QueryConfig creates a query-parameter based versioning config.
 // queryParam example: "version" reads ?version=1 from URL.
+func QueryConfig(queryParam string, defaultVersion int) Config {
+	return Config{
