@@ -97,3 +97,5 @@ func PathPrefixConfig(pathPrefix string, defaultVersion int) Config {
 // queryParam example: "version" reads ?version=1 from URL.
 func QueryConfig(queryParam string, defaultVersion int) Config {
 	return Config{
+		Strategy:       StrategyQuery,
+		QueryParam:     queryParam,
