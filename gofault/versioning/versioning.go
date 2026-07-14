@@ -134,3 +134,4 @@ func QueryConfig(queryParam string, defaultVersion int) Config {
 	return Config{
 		Strategy:       StrategyQuery,
 		QueryParam:     queryParam,
+		DefaultVersion: defaultVersion,
