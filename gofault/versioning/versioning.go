@@ -100,3 +100,6 @@ func QueryConfig(queryParam string, defaultVersion int) Config {
 		Strategy:       StrategyQuery,
 		QueryParam:     queryParam,
 		DefaultVersion: defaultVersion,
+		DefaultStatus:  VersionStatusActive,
+	}
+}
