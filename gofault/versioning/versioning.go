@@ -151,3 +151,6 @@ func Middleware(config Config) core.MiddlewareFunc {
 				if h := ctx.Request.Header.Get(config.Header); h != "" {
 					matches := config.HeaderVersionRE.FindStringSubmatch(h)
 					if len(matches) > 1 {
+						if v, err := strconv.Atoi(matches[1]); err == nil {
+							version = v
+						}
