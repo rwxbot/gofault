@@ -143,3 +143,6 @@ func QueryConfig(queryParam string, defaultVersion int) Config {
 func Middleware(config Config) core.MiddlewareFunc {
 	return func(ctx *core.Ctx, next core.Handler) error {
 		version := config.DefaultVersion
+		status := config.DefaultStatus
+
+		switch config.Strategy {
