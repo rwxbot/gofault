@@ -103,3 +103,5 @@ func QueryConfig(queryParam string, defaultVersion int) Config {
 		DefaultStatus:  VersionStatusActive,
 	}
 }
+
+// Middleware returns a middleware that extracts API version into ctx.Locals["version"].
