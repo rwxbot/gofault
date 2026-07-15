@@ -140,3 +140,4 @@ func QueryConfig(queryParam string, defaultVersion int) Config {
 }
 
 // Middleware returns a middleware that extracts API version into ctx.Locals["version"].
+func Middleware(config Config) core.MiddlewareFunc {
