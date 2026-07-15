@@ -113,3 +113,6 @@ func Middleware(config Config) core.MiddlewareFunc {
 		switch config.Strategy {
 		case StrategyHeader:
 			if config.Header != "" && config.HeaderVersionRE != nil {
+				if h := ctx.Request.Header.Get(config.Header); h != "" {
+					matches := config.HeaderVersionRE.FindStringSubmatch(h)
+					if len(matches) > 1 {
