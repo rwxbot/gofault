@@ -146,3 +146,5 @@ func Middleware(config Config) core.MiddlewareFunc {
 		status := config.DefaultStatus
 
 		switch config.Strategy {
+		case StrategyHeader:
+			if config.Header != "" && config.HeaderVersionRE != nil {
