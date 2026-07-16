@@ -126,3 +126,5 @@ func Middleware(config Config) core.MiddlewareFunc {
 		case StrategyPathPrefix:
 			path := ctx.Request.URL.Path
 			if config.PathPrefix != "" && (path == config.PathPrefix || strings.HasPrefix(path, config.PathPrefix+"/")) {
+				// Extract version number from the PathPrefix itself, e.g., "/v3" -> 3
+				if matches := pathVersionRE.FindStringSubmatch(config.PathPrefix); len(matches) > 1 {
