@@ -119,3 +119,6 @@ func Middleware(config Config) core.MiddlewareFunc {
 						if v, err := strconv.Atoi(matches[1]); err == nil {
 							version = v
 						}
+					}
+				}
+			}
