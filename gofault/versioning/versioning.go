@@ -165,3 +165,5 @@ func Middleware(config Config) core.MiddlewareFunc {
 				if matches := pathVersionRE.FindStringSubmatch(config.PathPrefix); len(matches) > 1 {
 					if v, err := strconv.Atoi(matches[1]); err == nil {
 						version = v
+					}
+				}
