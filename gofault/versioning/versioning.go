@@ -167,3 +167,6 @@ func Middleware(config Config) core.MiddlewareFunc {
 						version = v
 					}
 				}
+			}
+
+		case StrategyQuery:
