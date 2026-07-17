@@ -140,3 +140,6 @@ func Middleware(config Config) core.MiddlewareFunc {
 					if v, err := strconv.Atoi(q); err == nil {
 						version = v
 					}
+				}
+			}
+		}
