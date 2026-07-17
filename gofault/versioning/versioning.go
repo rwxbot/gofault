@@ -135,3 +135,5 @@ func Middleware(config Config) core.MiddlewareFunc {
 			}
 
 		case StrategyQuery:
+			if config.QueryParam != "" {
+				if q := ctx.Request.URL.Query().Get(config.QueryParam); q != "" {
