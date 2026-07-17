@@ -173,3 +173,5 @@ func Middleware(config Config) core.MiddlewareFunc {
 			if config.QueryParam != "" {
 				if q := ctx.Request.URL.Query().Get(config.QueryParam); q != "" {
 					if v, err := strconv.Atoi(q); err == nil {
+						version = v
+					}
