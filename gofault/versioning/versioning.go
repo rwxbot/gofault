@@ -190,3 +190,5 @@ func Middleware(config Config) core.MiddlewareFunc {
 		return next(ctx)
 	}
 }
+
+// VersionInfo holds version metadata for a group of routes.
