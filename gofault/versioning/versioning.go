@@ -195,3 +195,4 @@ func Middleware(config Config) core.MiddlewareFunc {
 type VersionInfo struct {
 	Version int
 	Status  VersionStatus
+	Message string
