@@ -189,3 +189,4 @@ func Middleware(config Config) core.MiddlewareFunc {
 
 		return next(ctx)
 	}
+}
