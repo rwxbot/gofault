@@ -146,3 +146,6 @@ func Middleware(config Config) core.MiddlewareFunc {
 
 		ctx.SetLocal("version", version)
 		ctx.SetLocal("version_status", status)
+
+		return next(ctx)
+	}
