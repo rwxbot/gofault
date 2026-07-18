@@ -192,3 +192,6 @@ func Middleware(config Config) core.MiddlewareFunc {
 }
 
 // VersionInfo holds version metadata for a group of routes.
+type VersionInfo struct {
+	Version int
+	Status  VersionStatus
