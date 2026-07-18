@@ -180,4 +180,12 @@ func Middleware(config Config) core.MiddlewareFunc {
 		}
 
 		ctx.SetLocal("version", version)
-		ctx.SetLocal("version_status", status)
+		// Store the status as a plain int: core.Ctx.GetVersionStatus asserts
+		// .(int), and a VersionStatus value never satisfies that assertion
+		// even though its underlying type is int — the getter would always
+		// fall back to 0. core cannot import this package (import cycle), so
+		// the conversion happens here.
+		ctx.SetLocal("version_status", int(status))
+
+		return next(ctx)
+	}
