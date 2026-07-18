@@ -196,3 +196,4 @@ type VersionInfo struct {
 	Version int
 	Status  VersionStatus
 	Message string
+}
