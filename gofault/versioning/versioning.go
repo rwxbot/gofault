@@ -199,3 +199,5 @@ type VersionInfo struct {
 }
 
 // DefaultVersionSet creates a version set with the given versions.
+func DefaultVersionSet(versions []VersionInfo) *VersionSet {
+	vs := &VersionSet{
