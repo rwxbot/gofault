@@ -205,3 +205,5 @@ func DefaultVersionSet(versions []VersionInfo) *VersionSet {
 		byStatus: make(map[VersionStatus][]int),
 	}
 	for _, v := range versions {
+		vs.versions[v.Version] = v
+		vs.byStatus[v.Status] = append(vs.byStatus[v.Status], v.Version)
