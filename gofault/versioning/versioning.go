@@ -157,3 +157,5 @@ type VersionInfo struct {
 	Status  VersionStatus
 	Message string
 }
+
+// DefaultVersionSet creates a version set with the given versions.
