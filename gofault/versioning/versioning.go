@@ -210,3 +210,5 @@ func DefaultVersionSet(versions []VersionInfo) *VersionSet {
 	}
 	return vs
 }
+
+// VersionSet manages version lifecycle information.
