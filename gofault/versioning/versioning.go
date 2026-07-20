@@ -172,3 +172,6 @@ func DefaultVersionSet(versions []VersionInfo) *VersionSet {
 }
 
 // VersionSet manages version lifecycle information.
+type VersionSet struct {
+	versions map[int]VersionInfo
+	byStatus map[VersionStatus][]int
