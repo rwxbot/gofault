@@ -182,3 +182,5 @@ func (vs *VersionSet) Get(version int) (VersionInfo, bool) {
 	info, ok := vs.versions[version]
 	return info, ok
 }
+
+// IsSupported returns true if the version exists and is not EOL.
