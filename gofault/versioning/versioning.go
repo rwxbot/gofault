@@ -176,3 +176,5 @@ type VersionSet struct {
 	versions map[int]VersionInfo
 	byStatus map[VersionStatus][]int
 }
+
+// Get returns version info and whether the version exists.
