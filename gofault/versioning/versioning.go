@@ -188,3 +188,5 @@ func (vs *VersionSet) IsSupported(version int) bool {
 	info, ok := vs.versions[version]
 	return ok && info.Status != VersionStatusEOL
 }
+
+// IsDeprecated returns true if the version is deprecated.
