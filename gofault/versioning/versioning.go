@@ -178,3 +178,4 @@ type VersionSet struct {
 }
 
 // Get returns version info and whether the version exists.
+func (vs *VersionSet) Get(version int) (VersionInfo, bool) {
