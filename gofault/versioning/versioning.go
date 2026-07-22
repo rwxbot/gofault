@@ -231,3 +231,6 @@ func (vs *VersionSet) IsSupported(version int) bool {
 
 // IsDeprecated returns true if the version is deprecated.
 func (vs *VersionSet) IsDeprecated(version int) bool {
+	info, ok := vs.versions[version]
+	return ok && info.Status == VersionStatusDeprecated
+}
