@@ -194,3 +194,5 @@ func (vs *VersionSet) IsDeprecated(version int) bool {
 	info, ok := vs.versions[version]
 	return ok && info.Status == VersionStatusDeprecated
 }
+
+// Add adds or updates a version entry.
