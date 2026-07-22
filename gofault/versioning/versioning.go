@@ -236,3 +236,6 @@ func (vs *VersionSet) IsDeprecated(version int) bool {
 }
 
 // Add adds or updates a version entry.
+func (vs *VersionSet) Add(info VersionInfo) {
+	if vs.versions == nil {
+		vs.versions = make(map[int]VersionInfo)
