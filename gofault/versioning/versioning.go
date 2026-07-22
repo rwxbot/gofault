@@ -190,3 +190,4 @@ func (vs *VersionSet) IsSupported(version int) bool {
 }
 
 // IsDeprecated returns true if the version is deprecated.
+func (vs *VersionSet) IsDeprecated(version int) bool {
