@@ -246,3 +246,6 @@ func (vs *VersionSet) Add(info VersionInfo) {
 }
 
 // Deprecate marks a version as deprecated with an optional message.
+func (vs *VersionSet) Deprecate(version int, msg string) {
+	if vs.versions == nil {
+		vs.versions = make(map[int]VersionInfo)
