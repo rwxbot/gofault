@@ -239,3 +239,5 @@ func (vs *VersionSet) IsDeprecated(version int) bool {
 func (vs *VersionSet) Add(info VersionInfo) {
 	if vs.versions == nil {
 		vs.versions = make(map[int]VersionInfo)
+		vs.byStatus = make(map[VersionStatus][]int)
+	}
