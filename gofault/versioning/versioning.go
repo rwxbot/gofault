@@ -204,3 +204,5 @@ func (vs *VersionSet) Add(info VersionInfo) {
 	vs.versions[info.Version] = info
 	vs.byStatus[info.Status] = append(vs.byStatus[info.Status], info.Version)
 }
+
+// Deprecate marks a version as deprecated with an optional message.
