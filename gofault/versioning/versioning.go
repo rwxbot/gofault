@@ -219,3 +219,5 @@ func (vs *VersionSet) Deprecate(version int, msg string) {
 	info.Message = msg
 	vs.versions[version] = info
 }
+
+// EOL marks a version as end-of-life with an optional message.
