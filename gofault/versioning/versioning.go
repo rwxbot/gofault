@@ -218,3 +218,4 @@ func (vs *VersionSet) Deprecate(version int, msg string) {
 	info.Status = VersionStatusDeprecated
 	info.Message = msg
 	vs.versions[version] = info
+}
