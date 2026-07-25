@@ -227,3 +227,4 @@ func (vs *VersionSet) EOL(version int, msg string) {
 		vs.byStatus = make(map[VersionStatus][]int)
 	}
 	info, ok := vs.versions[version]
+	if !ok {
