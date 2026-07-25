@@ -268,3 +268,5 @@ func (vs *VersionSet) EOL(version int, msg string) {
 	}
 	info, ok := vs.versions[version]
 	if !ok {
+		info = VersionInfo{Version: version}
+	}
