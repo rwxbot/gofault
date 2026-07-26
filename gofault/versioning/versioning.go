@@ -277,3 +277,5 @@ func (vs *VersionSet) EOL(version int, msg string) {
 
 // ResponseWriter wraps http.ResponseWriter and adds version headers.
 type ResponseWriter struct {
+	http.ResponseWriter
+	Version int
