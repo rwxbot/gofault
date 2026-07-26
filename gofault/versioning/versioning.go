@@ -230,3 +230,5 @@ func (vs *VersionSet) EOL(version int, msg string) {
 	if !ok {
 		info = VersionInfo{Version: version}
 	}
+	info.Status = VersionStatusEOL
+	info.Message = msg
