@@ -239,3 +239,5 @@ func (vs *VersionSet) EOL(version int, msg string) {
 type ResponseWriter struct {
 	http.ResponseWriter
 	Version int
+	Status  int
+}
