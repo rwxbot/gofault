@@ -233,3 +233,4 @@ func (vs *VersionSet) EOL(version int, msg string) {
 	info.Status = VersionStatusEOL
 	info.Message = msg
 	vs.versions[version] = info
+}
