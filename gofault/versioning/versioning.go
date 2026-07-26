@@ -274,3 +274,5 @@ func (vs *VersionSet) EOL(version int, msg string) {
 	info.Message = msg
 	vs.versions[version] = info
 }
+
+// ResponseWriter wraps http.ResponseWriter and adds version headers.
