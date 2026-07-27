@@ -244,3 +244,5 @@ type ResponseWriter struct {
 
 // HeaderVersion returns the version header value.
 func (w *ResponseWriter) HeaderVersion() string {
+	return fmt.Sprintf("v%d", w.Version)
+}
