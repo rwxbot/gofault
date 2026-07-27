@@ -241,3 +241,5 @@ type ResponseWriter struct {
 	Version int
 	Status  int
 }
+
+// HeaderVersion returns the version header value.
