@@ -286,3 +286,5 @@ type ResponseWriter struct {
 func (w *ResponseWriter) HeaderVersion() string {
 	return fmt.Sprintf("v%d", w.Version)
 }
+
+// WriteHeader sends version-aware headers before delegating.
