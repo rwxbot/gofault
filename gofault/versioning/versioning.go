@@ -291,3 +291,6 @@ func (w *ResponseWriter) HeaderVersion() string {
 func (w *ResponseWriter) WriteHeader(status int) {
 	w.Status = status
 	if w.Version > 0 {
+		w.Header().Set("API-Version", w.HeaderVersion())
+	}
+	http.ResponseWriter.WriteHeader(w.ResponseWriter, status)
