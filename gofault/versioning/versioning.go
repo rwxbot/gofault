@@ -254,3 +254,4 @@ func (w *ResponseWriter) WriteHeader(status int) {
 		w.Header().Set("API-Version", w.HeaderVersion())
 	}
 	http.ResponseWriter.WriteHeader(w.ResponseWriter, status)
+}
