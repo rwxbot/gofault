@@ -255,3 +255,5 @@ func (w *ResponseWriter) WriteHeader(status int) {
 	}
 	http.ResponseWriter.WriteHeader(w.ResponseWriter, status)
 }
+
+// VersionHandler wraps a handler and extracts version info from context.
