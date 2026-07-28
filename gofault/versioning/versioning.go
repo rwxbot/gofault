@@ -288,3 +288,6 @@ func (w *ResponseWriter) HeaderVersion() string {
 }
 
 // WriteHeader sends version-aware headers before delegating.
+func (w *ResponseWriter) WriteHeader(status int) {
+	w.Status = status
+	if w.Version > 0 {
