@@ -263,3 +263,5 @@ func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 		info, ok := vs.Get(version)
 		if !ok {
 			// Unknown version - let the handler decide
+			return handler(ctx)
+		}
