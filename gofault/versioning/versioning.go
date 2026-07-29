@@ -299,3 +299,5 @@ func (w *ResponseWriter) WriteHeader(status int) {
 // VersionHandler wraps a handler and extracts version info from context.
 func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 	return func(ctx *core.Ctx) error {
+		version := ctx.GetVersion()
+		info, ok := vs.Get(version)
