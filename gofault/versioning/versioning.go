@@ -265,3 +265,6 @@ func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 			// Unknown version - let the handler decide
 			return handler(ctx)
 		}
+		// Inject version info into context
+		ctx.SetLocal("version_info", info)
+		ctx.SetLocal("version_status", info.Status)
