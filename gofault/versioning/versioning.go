@@ -276,3 +276,6 @@ func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 				ctx.RespHeader().Set("X-API-Deprecation-Message", info.Message)
 			}
 		}
+
+		return handler(ctx)
+	}
