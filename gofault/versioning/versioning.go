@@ -272,3 +272,6 @@ func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 		// Add deprecation header if needed
 		if info.Status == VersionStatusDeprecated {
 			ctx.RespHeader().Set("X-API-Deprecation", "version="+strconv.Itoa(version))
+			if info.Message != "" {
+				ctx.RespHeader().Set("X-API-Deprecation-Message", info.Message)
+			}
