@@ -279,3 +279,4 @@ func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 
 		return handler(ctx)
 	}
+}
