@@ -275,3 +275,4 @@ func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 			if info.Message != "" {
 				ctx.RespHeader().Set("X-API-Deprecation-Message", info.Message)
 			}
+		}
