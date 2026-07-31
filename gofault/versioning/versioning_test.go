@@ -11,3 +11,7 @@ import (
 func TestHeaderConfig(t *testing.T) {
 	re := regexp.MustCompile(`version=v(\d+)`)
 	cfg := HeaderConfig("Accept", "application/vnd.api+json;version=v%d", re, 1)
+
+	if cfg.Strategy != StrategyHeader {
+		t.Errorf("expected StrategyHeader, got %d", cfg.Strategy)
+	}
