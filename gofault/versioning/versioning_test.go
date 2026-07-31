@@ -7,3 +7,5 @@ import (
 
 	"github.com/gofault/gofault/core"
 )
+
+func TestHeaderConfig(t *testing.T) {
