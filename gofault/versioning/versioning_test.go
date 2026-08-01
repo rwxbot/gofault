@@ -19,3 +19,5 @@ func TestHeaderConfig(t *testing.T) {
 	if cfg.Header != "Accept" {
 		t.Errorf("expected header 'Accept', got %s", cfg.Header)
 	}
+
+	if cfg.DefaultVersion != 1 {
