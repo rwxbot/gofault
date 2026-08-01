@@ -15,3 +15,7 @@ func TestHeaderConfig(t *testing.T) {
 	if cfg.Strategy != StrategyHeader {
 		t.Errorf("expected StrategyHeader, got %d", cfg.Strategy)
 	}
+
+	if cfg.Header != "Accept" {
+		t.Errorf("expected header 'Accept', got %s", cfg.Header)
+	}
