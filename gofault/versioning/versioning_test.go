@@ -30,3 +30,6 @@ func TestPathPrefixConfig(t *testing.T) {
 
 	if cfg.Strategy != StrategyPathPrefix {
 		t.Errorf("expected StrategyPathPrefix, got %d", cfg.Strategy)
+	}
+
+	if cfg.PathPrefix != "/v2" {
