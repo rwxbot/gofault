@@ -26,3 +26,4 @@ func TestHeaderConfig(t *testing.T) {
 }
 
 func TestPathPrefixConfig(t *testing.T) {
+	cfg := PathPrefixConfig("/v2", 1)
