@@ -47,3 +47,7 @@ func TestQueryConfig(t *testing.T) {
 	if cfg.Strategy != StrategyQuery {
 		t.Errorf("expected StrategyQuery, got %d", cfg.Strategy)
 	}
+
+	if cfg.QueryParam != "api_version" {
+		t.Errorf("expected query param 'api_version', got %s", cfg.QueryParam)
+	}
