@@ -40,3 +40,5 @@ func TestPathPrefixConfig(t *testing.T) {
 		t.Errorf("expected default version 1, got %d", cfg.DefaultVersion)
 	}
 }
+
+func TestQueryConfig(t *testing.T) {
