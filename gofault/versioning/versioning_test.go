@@ -45,3 +45,5 @@ func TestQueryConfig(t *testing.T) {
 	cfg := QueryConfig("api_version", 1)
 
 	if cfg.Strategy != StrategyQuery {
+		t.Errorf("expected StrategyQuery, got %d", cfg.Strategy)
+	}
