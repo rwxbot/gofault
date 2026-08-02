@@ -35,3 +35,5 @@ func TestPathPrefixConfig(t *testing.T) {
 	if cfg.PathPrefix != "/v2" {
 		t.Errorf("expected path prefix '/v2', got %s", cfg.PathPrefix)
 	}
+
+	if cfg.DefaultVersion != 1 {
