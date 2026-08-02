@@ -38,3 +38,5 @@ func TestPathPrefixConfig(t *testing.T) {
 
 	if cfg.DefaultVersion != 1 {
 		t.Errorf("expected default version 1, got %d", cfg.DefaultVersion)
+	}
+}
