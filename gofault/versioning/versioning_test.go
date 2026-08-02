@@ -42,3 +42,6 @@ func TestPathPrefixConfig(t *testing.T) {
 }
 
 func TestQueryConfig(t *testing.T) {
+	cfg := QueryConfig("api_version", 1)
+
+	if cfg.Strategy != StrategyQuery {
