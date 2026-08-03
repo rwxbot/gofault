@@ -61,3 +61,4 @@ func TestVersionStatus_String(t *testing.T) {
 	tests := []struct {
 		status VersionStatus
 		want   string
+	}{
