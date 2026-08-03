@@ -51,3 +51,7 @@ func TestQueryConfig(t *testing.T) {
 	if cfg.QueryParam != "api_version" {
 		t.Errorf("expected query param 'api_version', got %s", cfg.QueryParam)
 	}
+
+	if cfg.DefaultVersion != 1 {
+		t.Errorf("expected default version 1, got %d", cfg.DefaultVersion)
+	}
