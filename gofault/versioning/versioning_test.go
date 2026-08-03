@@ -56,3 +56,7 @@ func TestQueryConfig(t *testing.T) {
 		t.Errorf("expected default version 1, got %d", cfg.DefaultVersion)
 	}
 }
+
+func TestVersionStatus_String(t *testing.T) {
+	tests := []struct {
+		status VersionStatus
