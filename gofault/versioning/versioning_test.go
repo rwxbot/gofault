@@ -72,3 +72,5 @@ func TestVersionStatus_String(t *testing.T) {
 		if got := tt.status.String(); got != tt.want {
 			t.Errorf("VersionStatus(%d).String() = %q, want %q", tt.status, got, tt.want)
 		}
+	}
+}
