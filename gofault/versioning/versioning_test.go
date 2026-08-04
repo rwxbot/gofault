@@ -189,3 +189,5 @@ func TestVersionHandler_GetVersionStatusRoundTrip(t *testing.T) {
 func TestVersionSet_Add(t *testing.T) {
 	vs := &VersionSet{}
 	vs.Add(VersionInfo{Version: 1, Status: VersionStatusActive})
+
+	info, ok := vs.Get(1)
