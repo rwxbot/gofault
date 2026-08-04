@@ -191,3 +191,4 @@ func TestVersionSet_Add(t *testing.T) {
 	vs.Add(VersionInfo{Version: 1, Status: VersionStatusActive})
 
 	info, ok := vs.Get(1)
+	if !ok {
