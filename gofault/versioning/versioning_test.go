@@ -74,3 +74,7 @@ func TestVersionStatus_String(t *testing.T) {
 		}
 	}
 }
+
+func TestVersionSet_Add(t *testing.T) {
+	vs := &VersionSet{}
+	vs.Add(VersionInfo{Version: 1, Status: VersionStatusActive})
