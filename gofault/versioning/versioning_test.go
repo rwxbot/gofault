@@ -185,3 +185,7 @@ func TestVersionHandler_GetVersionStatusRoundTrip(t *testing.T) {
 		t.Errorf("GetVersionStatus() = %d, want %d (EOL)", got, int(VersionStatusEOL))
 	}
 }
+
+func TestVersionSet_Add(t *testing.T) {
+	vs := &VersionSet{}
+	vs.Add(VersionInfo{Version: 1, Status: VersionStatusActive})
