@@ -64,3 +64,6 @@ func TestVersionStatus_String(t *testing.T) {
 	}{
 		{VersionStatusActive, "active"},
 		{VersionStatusDeprecated, "deprecated"},
+		{VersionStatusEOL, "eol"},
+		{VersionStatus(99), "unknown"},
+	}
