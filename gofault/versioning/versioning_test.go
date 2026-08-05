@@ -198,3 +198,6 @@ func TestVersionSet_Add(t *testing.T) {
 		t.Errorf("expected active, got %s", info.Status)
 	}
 }
+
+func TestVersionSet_Get(t *testing.T) {
+	vs := DefaultVersionSet([]VersionInfo{
