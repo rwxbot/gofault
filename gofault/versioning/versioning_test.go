@@ -85,3 +85,5 @@ func TestVersionSet_Add(t *testing.T) {
 	}
 	if info.Status != VersionStatusActive {
 		t.Errorf("expected active, got %s", info.Status)
+	}
+}
