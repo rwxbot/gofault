@@ -193,3 +193,4 @@ func TestVersionSet_Add(t *testing.T) {
 	info, ok := vs.Get(1)
 	if !ok {
 		t.Fatal("expected version 1 to exist")
+	}
