@@ -83,3 +83,5 @@ func TestVersionSet_Add(t *testing.T) {
 	if !ok {
 		t.Fatal("expected version 1 to exist")
 	}
+	if info.Status != VersionStatusActive {
+		t.Errorf("expected active, got %s", info.Status)
