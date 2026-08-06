@@ -206,3 +206,4 @@ func TestVersionSet_Get(t *testing.T) {
 	})
 
 	info, ok := vs.Get(1)
+	if !ok {
