@@ -93,3 +93,5 @@ func TestVersionSet_Get(t *testing.T) {
 		{Version: 1, Status: VersionStatusActive},
 		{Version: 2, Status: VersionStatusDeprecated, Message: "Use v3"},
 	})
+
+	info, ok := vs.Get(1)
