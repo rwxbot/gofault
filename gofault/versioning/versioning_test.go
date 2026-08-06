@@ -202,3 +202,5 @@ func TestVersionSet_Add(t *testing.T) {
 func TestVersionSet_Get(t *testing.T) {
 	vs := DefaultVersionSet([]VersionInfo{
 		{Version: 1, Status: VersionStatusActive},
+		{Version: 2, Status: VersionStatusDeprecated, Message: "Use v3"},
+	})
