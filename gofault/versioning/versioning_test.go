@@ -101,3 +101,7 @@ func TestVersionSet_Get(t *testing.T) {
 	if info.Status != VersionStatusActive {
 		t.Errorf("v1: expected active, got %s", info.Status)
 	}
+
+	_, ok = vs.Get(999)
+	if ok {
+		t.Error("version 999 should not exist")
