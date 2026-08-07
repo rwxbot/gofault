@@ -216,3 +216,5 @@ func TestVersionSet_Get(t *testing.T) {
 	_, ok = vs.Get(999)
 	if ok {
 		t.Error("version 999 should not exist")
+	}
+}
