@@ -224,3 +224,6 @@ func TestVersionSet_IsSupported(t *testing.T) {
 		{Version: 1, Status: VersionStatusActive},
 		{Version: 2, Status: VersionStatusDeprecated},
 		{Version: 3, Status: VersionStatusEOL},
+	})
+
+	if !vs.IsSupported(1) {
