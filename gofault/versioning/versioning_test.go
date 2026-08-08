@@ -227,3 +227,4 @@ func TestVersionSet_IsSupported(t *testing.T) {
 	})
 
 	if !vs.IsSupported(1) {
+		t.Error("v1 active should be supported")
