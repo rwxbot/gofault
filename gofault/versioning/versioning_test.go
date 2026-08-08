@@ -107,3 +107,7 @@ func TestVersionSet_Get(t *testing.T) {
 		t.Error("version 999 should not exist")
 	}
 }
+
+func TestVersionSet_IsSupported(t *testing.T) {
+	vs := DefaultVersionSet([]VersionInfo{
+		{Version: 1, Status: VersionStatusActive},
