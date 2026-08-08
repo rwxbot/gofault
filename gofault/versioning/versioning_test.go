@@ -111,3 +111,5 @@ func TestVersionSet_Get(t *testing.T) {
 func TestVersionSet_IsSupported(t *testing.T) {
 	vs := DefaultVersionSet([]VersionInfo{
 		{Version: 1, Status: VersionStatusActive},
+		{Version: 2, Status: VersionStatusDeprecated},
+		{Version: 3, Status: VersionStatusEOL},
