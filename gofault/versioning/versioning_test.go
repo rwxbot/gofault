@@ -233,3 +233,6 @@ func TestVersionSet_IsSupported(t *testing.T) {
 	if !vs.IsSupported(2) {
 		t.Error("v2 deprecated should still be supported")
 	}
+
+	if vs.IsSupported(3) {
+		t.Error("v3 EOL should not be supported")
