@@ -236,3 +236,4 @@ func TestVersionSet_IsSupported(t *testing.T) {
 
 	if vs.IsSupported(3) {
 		t.Error("v3 EOL should not be supported")
+	}
