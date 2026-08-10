@@ -242,3 +242,7 @@ func TestVersionSet_IsSupported(t *testing.T) {
 		t.Error("unknown version should not be supported")
 	}
 }
+
+func TestVersionSet_IsDeprecated(t *testing.T) {
+	vs := DefaultVersionSet([]VersionInfo{
+		{Version: 1, Status: VersionStatusActive},
