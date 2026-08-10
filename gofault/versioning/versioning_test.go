@@ -248,3 +248,6 @@ func TestVersionSet_IsDeprecated(t *testing.T) {
 		{Version: 1, Status: VersionStatusActive},
 		{Version: 2, Status: VersionStatusDeprecated},
 	})
+
+	if vs.IsDeprecated(1) {
+		t.Error("v1 active should not be deprecated")
