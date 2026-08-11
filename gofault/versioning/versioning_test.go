@@ -149,3 +149,6 @@ func TestVersionSet_IsDeprecated(t *testing.T) {
 
 func TestVersionSet_Deprecate(t *testing.T) {
 	vs := DefaultVersionSet([]VersionInfo{{Version: 1, Status: VersionStatusActive}})
+	vs.Deprecate(1, "Use v2 instead")
+
+	info, _ := vs.Get(1)
