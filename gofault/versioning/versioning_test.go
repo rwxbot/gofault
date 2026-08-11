@@ -256,3 +256,4 @@ func TestVersionSet_IsDeprecated(t *testing.T) {
 	if !vs.IsDeprecated(2) {
 		t.Error("v2 deprecated should be deprecated")
 	}
+}
