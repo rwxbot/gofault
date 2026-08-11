@@ -257,3 +257,6 @@ func TestVersionSet_IsDeprecated(t *testing.T) {
 		t.Error("v2 deprecated should be deprecated")
 	}
 }
+
+func TestVersionSet_Deprecate(t *testing.T) {
+	vs := DefaultVersionSet([]VersionInfo{{Version: 1, Status: VersionStatusActive}})
