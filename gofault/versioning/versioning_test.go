@@ -165,3 +165,4 @@ func TestVersionSet_EOL(t *testing.T) {
 	vs.EOL(1, "No longer available")
 
 	info, _ := vs.Get(1)
+	if info.Status != VersionStatusEOL {
