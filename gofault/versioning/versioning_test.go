@@ -273,3 +273,4 @@ func TestVersionSet_Deprecate(t *testing.T) {
 
 func TestVersionSet_EOL(t *testing.T) {
 	vs := DefaultVersionSet([]VersionInfo{{Version: 1, Status: VersionStatusActive}})
+	vs.EOL(1, "No longer available")
