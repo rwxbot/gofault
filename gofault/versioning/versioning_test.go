@@ -270,3 +270,6 @@ func TestVersionSet_Deprecate(t *testing.T) {
 		t.Errorf("expected message 'Use v2 instead', got %q", info.Message)
 	}
 }
+
+func TestVersionSet_EOL(t *testing.T) {
+	vs := DefaultVersionSet([]VersionInfo{{Version: 1, Status: VersionStatusActive}})
