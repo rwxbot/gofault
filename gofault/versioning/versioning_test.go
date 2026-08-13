@@ -279,3 +279,5 @@ func TestVersionSet_EOL(t *testing.T) {
 	if info.Status != VersionStatusEOL {
 		t.Errorf("expected eol, got %s", info.Status)
 	}
+
+	if vs.IsSupported(1) {
