@@ -173,3 +173,5 @@ func TestVersionSet_EOL(t *testing.T) {
 		t.Error("EOL version should not be supported")
 	}
 }
+
+func TestVersionSet_Deprecate_UnknownVersion(t *testing.T) {
