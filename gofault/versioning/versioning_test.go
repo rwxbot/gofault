@@ -295,3 +295,4 @@ func TestVersionSet_Deprecate_UnknownVersion(t *testing.T) {
 	}
 	if info.Status != VersionStatusDeprecated {
 		t.Errorf("expected deprecated, got %s", info.Status)
+	}
