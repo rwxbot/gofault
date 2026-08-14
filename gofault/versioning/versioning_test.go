@@ -176,3 +176,4 @@ func TestVersionSet_EOL(t *testing.T) {
 
 func TestVersionSet_Deprecate_UnknownVersion(t *testing.T) {
 	vs := &VersionSet{}
+	vs.Deprecate(99, "does not exist")
