@@ -292,3 +292,6 @@ func TestVersionSet_Deprecate_UnknownVersion(t *testing.T) {
 	info, ok := vs.Get(99)
 	if !ok {
 		t.Fatal("version should be created")
+	}
+	if info.Status != VersionStatusDeprecated {
+		t.Errorf("expected deprecated, got %s", info.Status)
