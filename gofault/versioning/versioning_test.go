@@ -301,3 +301,4 @@ func TestVersionSet_Deprecate_UnknownVersion(t *testing.T) {
 func TestMiddleware_HeaderStrategy(t *testing.T) {
 	re := regexp.MustCompile(`version=v(\d+)`)
 	cfg := HeaderConfig("Accept", "application/vnd.api+json;version=v%d", re, 1)
+	mw := Middleware(cfg)
