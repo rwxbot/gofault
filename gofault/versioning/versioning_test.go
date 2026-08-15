@@ -193,3 +193,4 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 	mw := Middleware(cfg)
 
 	t.Run("default when no header", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/", nil)
