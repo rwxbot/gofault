@@ -307,3 +307,7 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 		req := httptest.NewRequest("GET", "/", nil)
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
+
+		err := mw(ctx, func(c *core.Ctx) error {
+			if c.GetVersion() != 1 {
+				t.Errorf("expected version 1, got %d", c.GetVersion())
