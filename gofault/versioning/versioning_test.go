@@ -297,3 +297,6 @@ func TestVersionSet_Deprecate_UnknownVersion(t *testing.T) {
 		t.Errorf("expected deprecated, got %s", info.Status)
 	}
 }
+
+func TestMiddleware_HeaderStrategy(t *testing.T) {
+	re := regexp.MustCompile(`version=v(\d+)`)
