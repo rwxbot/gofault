@@ -191,3 +191,5 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 	re := regexp.MustCompile(`version=v(\d+)`)
 	cfg := HeaderConfig("Accept", "application/vnd.api+json;version=v%d", re, 1)
 	mw := Middleware(cfg)
+
+	t.Run("default when no header", func(t *testing.T) {
