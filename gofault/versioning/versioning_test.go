@@ -327,3 +327,4 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 
 		err := mw(ctx, func(c *core.Ctx) error {
 			if c.GetVersion() != 2 {
+				t.Errorf("expected version 2, got %d", c.GetVersion())
