@@ -320,3 +320,5 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 	})
 
 	t.Run("extracts version from header", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/", nil)
+		req.Header.Set("Accept", `application/vnd.api+json;version=v2`)
