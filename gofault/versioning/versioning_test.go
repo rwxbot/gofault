@@ -207,3 +207,5 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 			t.Fatalf("middleware error: %v", err)
 		}
 	})
+
+	t.Run("extracts version from header", func(t *testing.T) {
