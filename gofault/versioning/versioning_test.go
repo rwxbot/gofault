@@ -324,3 +324,6 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 		req.Header.Set("Accept", `application/vnd.api+json;version=v2`)
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
+
+		err := mw(ctx, func(c *core.Ctx) error {
+			if c.GetVersion() != 2 {
