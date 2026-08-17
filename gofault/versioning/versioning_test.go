@@ -335,3 +335,4 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 			t.Fatalf("middleware error: %v", err)
 		}
 	})
+}
