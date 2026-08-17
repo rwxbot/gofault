@@ -343,3 +343,4 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 	mw := Middleware(cfg)
 
 	t.Run("default when no prefix", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/users", nil)
