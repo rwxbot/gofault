@@ -340,3 +340,6 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 	// Use path prefix that matches the test URL
 	cfg := PathPrefixConfig("/v3", 1)
+	mw := Middleware(cfg)
+
+	t.Run("default when no prefix", func(t *testing.T) {
