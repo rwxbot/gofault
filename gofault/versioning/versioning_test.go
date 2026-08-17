@@ -336,3 +336,6 @@ func TestMiddleware_HeaderStrategy(t *testing.T) {
 		}
 	})
 }
+
+func TestMiddleware_PathPrefixStrategy(t *testing.T) {
+	// Use path prefix that matches the test URL
