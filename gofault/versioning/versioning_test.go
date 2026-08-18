@@ -240,3 +240,5 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 			if c.GetVersion() != 1 {
 				t.Errorf("expected version 1, got %d", c.GetVersion())
 			}
+			return nil
+		})
