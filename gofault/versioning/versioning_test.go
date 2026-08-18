@@ -242,3 +242,4 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 			}
 			return nil
 		})
+	})
