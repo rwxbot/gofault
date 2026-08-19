@@ -243,3 +243,7 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 			return nil
 		})
 	})
+
+	t.Run("extracts version from prefix", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/v3/users", nil)
+		rec := httptest.NewRecorder()
