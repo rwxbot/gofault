@@ -248,3 +248,6 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 		req := httptest.NewRequest("GET", "/v3/users", nil)
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
+
+		mw(ctx, func(c *core.Ctx) error {
+			if c.GetVersion() != 3 {
