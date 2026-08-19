@@ -251,3 +251,5 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 
 		mw(ctx, func(c *core.Ctx) error {
 			if c.GetVersion() != 3 {
+				t.Errorf("expected version 3, got %d", c.GetVersion())
+			}
