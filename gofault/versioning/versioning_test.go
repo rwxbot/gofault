@@ -257,3 +257,6 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 		})
 	})
 }
+
+func TestMiddleware_QueryStrategy(t *testing.T) {
+	cfg := QueryConfig("version", 1)
