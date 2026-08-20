@@ -264,3 +264,4 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 
 	t.Run("default when no query param", func(t *testing.T) {
 		req := httptest.NewRequest("GET", "/users", nil)
+		rec := httptest.NewRecorder()
