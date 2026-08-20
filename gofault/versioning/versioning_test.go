@@ -372,3 +372,6 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 func TestMiddleware_QueryStrategy(t *testing.T) {
 	cfg := QueryConfig("version", 1)
 	mw := Middleware(cfg)
+
+	t.Run("default when no query param", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/users", nil)
