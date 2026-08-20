@@ -270,3 +270,5 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 		mw(ctx, func(c *core.Ctx) error {
 			if c.GetVersion() != 1 {
 				t.Errorf("expected version 1, got %d", c.GetVersion())
+			}
+			return nil
