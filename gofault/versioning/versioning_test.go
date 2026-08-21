@@ -389,3 +389,4 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 	t.Run("extracts version from query", func(t *testing.T) {
 		req := httptest.NewRequest("GET", "/users?version=3", nil)
 		rec := httptest.NewRecorder()
+		ctx := core.NewCtx(rec, req)
