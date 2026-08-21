@@ -274,3 +274,6 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 			return nil
 		})
 	})
+
+	t.Run("extracts version from query", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/users?version=3", nil)
