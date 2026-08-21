@@ -383,3 +383,4 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 				t.Errorf("expected version 1, got %d", c.GetVersion())
 			}
 			return nil
+		})
