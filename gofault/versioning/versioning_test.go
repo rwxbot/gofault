@@ -390,3 +390,5 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 		req := httptest.NewRequest("GET", "/users?version=3", nil)
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
+
+		mw(ctx, func(c *core.Ctx) error {
