@@ -281,3 +281,6 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 		ctx := core.NewCtx(rec, req)
 
 		mw(ctx, func(c *core.Ctx) error {
+			if c.GetVersion() != 3 {
+				t.Errorf("expected version 3, got %d", c.GetVersion())
+			}
