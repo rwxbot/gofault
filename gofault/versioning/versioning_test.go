@@ -284,3 +284,4 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 			if c.GetVersion() != 3 {
 				t.Errorf("expected version 3, got %d", c.GetVersion())
 			}
+			return nil
