@@ -287,3 +287,4 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 			return nil
 		})
 	})
+}
