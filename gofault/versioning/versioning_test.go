@@ -294,3 +294,6 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 		{Version: 1, Status: VersionStatusDeprecated, Message: "Upgrade to v2"},
 		{Version: 2, Status: VersionStatusActive},
 	})
+
+	handler := VersionHandler(func(ctx *core.Ctx) error {
+		return nil
