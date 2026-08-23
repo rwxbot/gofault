@@ -292,3 +292,5 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 	vs := DefaultVersionSet([]VersionInfo{
 		{Version: 1, Status: VersionStatusDeprecated, Message: "Upgrade to v2"},
+		{Version: 2, Status: VersionStatusActive},
+	})
