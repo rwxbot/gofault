@@ -408,3 +408,6 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 
 	handler := VersionHandler(func(ctx *core.Ctx) error {
 		return nil
+	}, vs)
+
+	t.Run("adds deprecation headers for deprecated version", func(t *testing.T) {
