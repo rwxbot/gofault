@@ -399,3 +399,6 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 		})
 	})
 }
+
+func TestVersionHandler_DeprecationHeaders(t *testing.T) {
+	vs := DefaultVersionSet([]VersionInfo{
