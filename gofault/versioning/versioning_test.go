@@ -411,3 +411,5 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 	}, vs)
 
 	t.Run("adds deprecation headers for deprecated version", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/", nil)
+		rec := httptest.NewRecorder()
