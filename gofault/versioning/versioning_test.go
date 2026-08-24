@@ -417,3 +417,5 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 		ctx.Locals["version"] = 1
 
 		handler(ctx)
+
+		if rec.Header().Get("X-API-Deprecation") != "version=1" {
