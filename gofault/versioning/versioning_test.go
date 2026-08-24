@@ -304,3 +304,5 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
 		ctx.Locals["version"] = 1
+
+		handler(ctx)
