@@ -435,3 +435,4 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 		handler(ctx)
 
 		if rec.Header().Get("X-API-Deprecation") != "" {
+			t.Errorf("expected no deprecation header for active version, got %q", rec.Header().Get("X-API-Deprecation"))
