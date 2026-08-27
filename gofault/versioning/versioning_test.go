@@ -448,3 +448,6 @@ func TestResponseWriter_HeaderVersion(t *testing.T) {
 		t.Errorf("expected v2, got %s", hv)
 	}
 }
+
+func TestMiddleware_Chained(t *testing.T) {
+	re := regexp.MustCompile(`version=v(\d+)`)
