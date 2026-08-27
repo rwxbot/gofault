@@ -335,3 +335,5 @@ func TestResponseWriter_HeaderVersion(t *testing.T) {
 
 	if hv := w.HeaderVersion(); hv != "v2" {
 		t.Errorf("expected v2, got %s", hv)
+	}
+}
