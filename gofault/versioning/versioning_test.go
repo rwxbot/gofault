@@ -443,3 +443,6 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 func TestResponseWriter_HeaderVersion(t *testing.T) {
 	rec := httptest.NewRecorder()
 	w := &ResponseWriter{ResponseWriter: rec, Version: 2}
+
+	if hv := w.HeaderVersion(); hv != "v2" {
+		t.Errorf("expected v2, got %s", hv)
