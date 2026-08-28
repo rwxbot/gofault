@@ -349,3 +349,5 @@ func TestMiddleware_Chained(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	called := 0
+	err := mw(ctx, func(c *core.Ctx) error {
+		called++
