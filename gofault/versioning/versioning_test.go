@@ -345,3 +345,4 @@ func TestMiddleware_Chained(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/", nil)
 	req.Header.Set("Accept", `application/vnd.api+json;version=v5`)
+	rec := httptest.NewRecorder()
