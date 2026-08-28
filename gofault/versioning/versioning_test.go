@@ -342,3 +342,6 @@ func TestMiddleware_Chained(t *testing.T) {
 	re := regexp.MustCompile(`version=v(\d+)`)
 	cfg := HeaderConfig("Accept", "application/vnd.api+json;version=v%d", re, 1)
 	mw := Middleware(cfg)
+
+	req := httptest.NewRequest("GET", "/", nil)
+	req.Header.Set("Accept", `application/vnd.api+json;version=v5`)
