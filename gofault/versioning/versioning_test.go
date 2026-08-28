@@ -351,3 +351,6 @@ func TestMiddleware_Chained(t *testing.T) {
 	called := 0
 	err := mw(ctx, func(c *core.Ctx) error {
 		called++
+		if c.GetVersion() != 5 {
+			t.Errorf("expected version 5, got %d", c.GetVersion())
+		}
