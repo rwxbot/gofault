@@ -354,3 +354,5 @@ func TestMiddleware_Chained(t *testing.T) {
 		if c.GetVersion() != 5 {
 			t.Errorf("expected version 5, got %d", c.GetVersion())
 		}
+		return nil
+	})
