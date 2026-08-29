@@ -369,3 +369,6 @@ func TestPathVersionRE(t *testing.T) {
 	tests := []struct {
 		path   string
 		expect int
+	}{
+		{"/v1/users", 1},
+		{"/v2/items", 2},
