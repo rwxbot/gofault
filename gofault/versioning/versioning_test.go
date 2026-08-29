@@ -469,3 +469,6 @@ func TestMiddleware_Chained(t *testing.T) {
 	})
 
 	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if called != 1 {
