@@ -361,3 +361,5 @@ func TestMiddleware_Chained(t *testing.T) {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if called != 1 {
+		t.Errorf("expected handler called once, got %d", called)
+	}
