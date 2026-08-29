@@ -474,3 +474,4 @@ func TestMiddleware_Chained(t *testing.T) {
 	if called != 1 {
 		t.Errorf("expected handler called once, got %d", called)
 	}
+}
