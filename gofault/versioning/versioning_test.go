@@ -477,3 +477,6 @@ func TestMiddleware_Chained(t *testing.T) {
 }
 
 func TestPathVersionRE(t *testing.T) {
+	tests := []struct {
+		path   string
+		expect int
