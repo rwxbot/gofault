@@ -475,3 +475,5 @@ func TestMiddleware_Chained(t *testing.T) {
 		t.Errorf("expected handler called once, got %d", called)
 	}
 }
+
+func TestPathVersionRE(t *testing.T) {
