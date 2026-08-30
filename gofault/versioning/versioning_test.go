@@ -380,3 +380,5 @@ func TestPathVersionRE(t *testing.T) {
 	for _, tt := range tests {
 		matches := pathVersionRE.FindStringSubmatch(tt.path)
 		if tt.expect == 0 {
+			if len(matches) > 0 {
+				t.Errorf("path %q: expected no match, got %v", tt.path, matches)
