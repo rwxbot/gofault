@@ -386,3 +386,5 @@ func TestPathVersionRE(t *testing.T) {
 		} else {
 			if len(matches) < 2 {
 				t.Errorf("path %q: expected match with version %d, got none", tt.path, tt.expect)
+				continue
+			}
