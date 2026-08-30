@@ -372,3 +372,5 @@ func TestPathVersionRE(t *testing.T) {
 	}{
 		{"/v1/users", 1},
 		{"/v2/items", 2},
+		{"/v10/admin", 10},
+		{"/v3", 3},
