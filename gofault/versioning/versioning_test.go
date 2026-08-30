@@ -499,3 +499,6 @@ func TestPathVersionRE(t *testing.T) {
 				t.Errorf("path %q: expected match with version %d, got none", tt.path, tt.expect)
 				continue
 			}
+			// matches[1] is the version number
+		}
+	}
