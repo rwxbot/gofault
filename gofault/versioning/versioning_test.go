@@ -487,3 +487,7 @@ func TestPathVersionRE(t *testing.T) {
 		{"/v3", 3},
 		{"/noversion", 0}, // no match
 	}
+
+	for _, tt := range tests {
+		matches := pathVersionRE.FindStringSubmatch(tt.path)
+		if tt.expect == 0 {
