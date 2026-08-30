@@ -374,3 +374,5 @@ func TestPathVersionRE(t *testing.T) {
 		{"/v2/items", 2},
 		{"/v10/admin", 10},
 		{"/v3", 3},
+		{"/noversion", 0}, // no match
+	}
