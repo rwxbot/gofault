@@ -391,3 +391,4 @@ func TestPathVersionRE(t *testing.T) {
 			// matches[1] is the version number
 		}
 	}
+}
