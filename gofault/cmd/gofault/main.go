@@ -9,5 +9,11 @@ import (
 	"text/template"
 )
 
+// version is the CLI version. Keep it in step with the tagged release; the
+// framework itself is versioned in gofault/CHANGELOG.md.
+const version = "v3.4.1"
+
 func main() {
 	if len(os.Args) < 2 {
+		printUsage()
+		os.Exit(1)
