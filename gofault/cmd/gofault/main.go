@@ -14,3 +14,5 @@ func main() {
 		printUsage()
 		os.Exit(1)
 	}
+
+	switch os.Args[1] {
