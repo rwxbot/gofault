@@ -11,3 +11,5 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
+		printUsage()
+		os.Exit(1)
