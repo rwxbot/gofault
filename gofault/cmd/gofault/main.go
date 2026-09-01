@@ -16,3 +16,5 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case "new":
+		if err := runNew(); err != nil {
