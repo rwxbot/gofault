@@ -8,3 +8,5 @@ import (
 	"strings"
 	"text/template"
 )
+
+func main() {
