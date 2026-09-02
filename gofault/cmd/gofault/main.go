@@ -18,3 +18,5 @@ func main() {
 	switch os.Args[1] {
 	case "new":
 		if err := runNew(); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+			os.Exit(1)
