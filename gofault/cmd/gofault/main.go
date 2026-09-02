@@ -27,3 +27,4 @@ func main() {
 		printUsage()
 	default:
 		fmt.Fprintf(os.Stderr, "Unknown command: %s\n", os.Args[1])
+		printUsage()
