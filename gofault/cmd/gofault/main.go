@@ -30,3 +30,4 @@ func main() {
 	case "help", "--help", "-h":
 		printUsage()
 	default:
+		fmt.Fprintf(os.Stderr, "Unknown command: %s\n", os.Args[1])
