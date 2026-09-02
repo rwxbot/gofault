@@ -26,6 +26,7 @@ func main() {
 			os.Exit(1)
 		}
 	case "version":
-		fmt.Println("gofault v1.0.0")
+		fmt.Println("gofault " + version)
 	case "help", "--help", "-h":
 		printUsage()
+	default:
