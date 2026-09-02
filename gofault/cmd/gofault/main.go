@@ -25,3 +25,4 @@ func main() {
 		fmt.Println("gofault v1.0.0")
 	case "help", "--help", "-h":
 		printUsage()
+	default:
