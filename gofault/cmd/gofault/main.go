@@ -33,3 +33,4 @@ func main() {
 }
 
 func printUsage() {
+	fmt.Println(`gofault - A lightweight Go web framework
