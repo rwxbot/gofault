@@ -34,3 +34,6 @@ func main() {
 
 func printUsage() {
 	fmt.Println(`gofault - A lightweight Go web framework
+
+Usage:
+    gofault <command> [arguments]
