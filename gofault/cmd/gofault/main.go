@@ -41,3 +41,6 @@ func printUsage() {
 
 Usage:
     gofault <command> [arguments]
+
+Commands:
+    new [name]    Create a new gofault project
