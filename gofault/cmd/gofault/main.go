@@ -45,3 +45,4 @@ Usage:
 Commands:
     new [name]    Create a new gofault project
     version       Print the version number
+    help          Show this help message
