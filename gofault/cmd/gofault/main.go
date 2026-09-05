@@ -44,3 +44,5 @@ Commands:
     help          Show this help message
 
 Examples:
+    gofault new myapp
+    gofault version`)
