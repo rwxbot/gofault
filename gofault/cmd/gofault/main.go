@@ -46,3 +46,4 @@ Commands:
 Examples:
     gofault new myapp
     gofault version`)
+}
