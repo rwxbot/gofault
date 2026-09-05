@@ -56,3 +56,5 @@ func runNew() error {
 	if len(os.Args) < 3 {
 		return fmt.Errorf("project name required\nUsage: gofault new <project-name>")
 	}
+	name := os.Args[2]
+	return createProject(name)
