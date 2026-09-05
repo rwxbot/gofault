@@ -49,3 +49,4 @@ Examples:
 }
 
 func runNew() error {
+	if len(os.Args) < 3 {
