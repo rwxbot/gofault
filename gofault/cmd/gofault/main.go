@@ -51,3 +51,5 @@ Examples:
     gofault new myapp
     gofault version`)
 }
+
+func runNew() error {
