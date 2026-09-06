@@ -114,3 +114,6 @@ func createProject(name string) error {
 	if err := os.MkdirAll(projectDir, 0755); err != nil {
 		return fmt.Errorf("failed to create project directory: %w", err)
 	}
+
+	// Generate content from templates
+	mainContent, err := executeTemplate(mainGoTemplate, map[string]string{"Name": name})
