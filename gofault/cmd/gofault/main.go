@@ -60,12 +60,57 @@ func runNew() error {
 	return createProject(name)
 }
 
+// validateProjectName rejects names that are not a single safe path segment.
+// The name is used both as a directory under the working directory and as the
+// Go module path, so "../evil" or an absolute path would either write outside
+// the current directory or produce a module path that cannot resolve.
+func validateProjectName(name string) error {
+	if name == "" {
+		return fmt.Errorf("project name cannot be empty")
+	}
+	if name == "." || name == ".." {
+		return fmt.Errorf("invalid project name %q", name)
+	}
+	if strings.ContainsAny(name, `/\`) {
+		return fmt.Errorf("project name %q must not contain a path separator", name)
+	}
+	if strings.ContainsRune(name, 0) {
+		return fmt.Errorf("project name contains a NUL byte")
+	}
+	for _, r := range name {
+		if r < 0x20 || r == 0x7f {
+			return fmt.Errorf("project name contains a control character")
+		}
+	}
+	return nil
+}
+
 func createProject(name string) error {
+	if err := validateProjectName(name); err != nil {
+		return err
+	}
+
 	// Determine working directory
 	wd, err := os.Getwd()
 	if err != nil {
 		return fmt.Errorf("failed to get working directory: %w", err)
 	}
+
+	// Confirm the joined path really lands inside wd before creating anything.
 	projectDir := filepath.Join(wd, name)
+	absWD, err := filepath.Abs(wd)
+	if err != nil {
+		return fmt.Errorf("failed to resolve working directory: %w", err)
+	}
+	absProject, err := filepath.Abs(projectDir)
+	if err != nil {
+		return fmt.Errorf("failed to resolve project directory: %w", err)
+	}
+	if absProject == absWD || !strings.HasPrefix(absProject, absWD+string(os.PathSeparator)) {
+		return fmt.Errorf("project directory %q escapes the working directory", name)
+	}
 
 	// Create project directory
+	if err := os.MkdirAll(projectDir, 0755); err != nil {
+		return fmt.Errorf("failed to create project directory: %w", err)
+	}
