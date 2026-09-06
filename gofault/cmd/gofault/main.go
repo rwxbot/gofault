@@ -59,3 +59,5 @@ func runNew() error {
 func createProject(name string) error {
 	// Determine working directory
 	wd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("failed to get working directory: %w", err)
