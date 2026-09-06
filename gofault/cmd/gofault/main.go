@@ -65,3 +65,6 @@ func createProject(name string) error {
 	projectDir := filepath.Join(wd, name)
 
 	// Create project directory
+	if err := os.MkdirAll(projectDir, 0755); err != nil {
+		return fmt.Errorf("failed to create project directory: %w", err)
+	}
