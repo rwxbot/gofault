@@ -55,3 +55,7 @@ func runNew() error {
 	name := os.Args[2]
 	return createProject(name)
 }
+
+func createProject(name string) error {
+	// Determine working directory
+	wd, err := os.Getwd()
