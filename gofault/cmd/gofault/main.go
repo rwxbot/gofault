@@ -54,3 +54,4 @@ func runNew() error {
 	}
 	name := os.Args[2]
 	return createProject(name)
+}
