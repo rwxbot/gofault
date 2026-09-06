@@ -66,3 +66,6 @@ func createProject(name string) error {
 	if err != nil {
 		return fmt.Errorf("failed to get working directory: %w", err)
 	}
+	projectDir := filepath.Join(wd, name)
+
+	// Create project directory
