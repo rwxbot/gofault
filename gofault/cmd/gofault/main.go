@@ -122,3 +122,6 @@ func createProject(name string) error {
 	}
 
 	goModContent, err := executeTemplate(goModTemplate, map[string]string{"Name": name})
+	if err != nil {
+		return fmt.Errorf("failed to generate go.mod: %w", err)
+	}
