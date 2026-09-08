@@ -92,3 +92,4 @@ func createProject(name string) error {
 
 	files := map[string]string{
 		"main.go":              mainContent,
+		"go.mod":               goModContent,
