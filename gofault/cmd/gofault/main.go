@@ -89,3 +89,6 @@ func createProject(name string) error {
 	if err != nil {
 		return fmt.Errorf("failed to generate controller: %w", err)
 	}
+
+	files := map[string]string{
+		"main.go":              mainContent,
