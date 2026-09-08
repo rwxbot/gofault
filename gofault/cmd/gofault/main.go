@@ -128,3 +128,5 @@ func createProject(name string) error {
 
 	configContent, err := executeTemplate(configYamlTemplate, map[string]string{"Name": name})
 	if err != nil {
+		return fmt.Errorf("failed to generate config.yaml: %w", err)
+	}
