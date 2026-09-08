@@ -141,3 +141,6 @@ func createProject(name string) error {
 		"go.mod":               goModContent,
 		"config.yaml":          configContent,
 		"controllers/hello.go": ctrlContent,
+	}
+
+	for path, content := range files {
