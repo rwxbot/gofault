@@ -134,3 +134,4 @@ func createProject(name string) error {
 	ctrlContent, err := executeTemplate(controllerTemplate, map[string]string{"Name": name})
 	if err != nil {
 		return fmt.Errorf("failed to generate controller: %w", err)
+	}
