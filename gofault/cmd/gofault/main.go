@@ -100,3 +100,6 @@ func createProject(name string) error {
 	for path, content := range files {
 		fullPath := filepath.Join(projectDir, path)
 		dir := filepath.Dir(fullPath)
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			return fmt.Errorf("failed to create directory %s: %w", dir, err)
+		}
