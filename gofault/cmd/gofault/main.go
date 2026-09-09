@@ -153,3 +153,5 @@ func createProject(name string) error {
 			return fmt.Errorf("failed to write %s: %w", path, err)
 		}
 	}
+
+	fmt.Printf("✓ Created project %q\n", name)
