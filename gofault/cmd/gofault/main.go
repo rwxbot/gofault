@@ -103,3 +103,4 @@ func createProject(name string) error {
 		if err := os.MkdirAll(dir, 0755); err != nil {
 			return fmt.Errorf("failed to create directory %s: %w", dir, err)
 		}
+		if err := os.WriteFile(fullPath, []byte(content), 0644); err != nil {
