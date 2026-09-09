@@ -144,3 +144,5 @@ func createProject(name string) error {
 	}
 
 	for path, content := range files {
+		fullPath := filepath.Join(projectDir, path)
+		dir := filepath.Dir(fullPath)
