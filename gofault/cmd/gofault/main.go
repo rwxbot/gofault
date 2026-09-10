@@ -113,3 +113,5 @@ func createProject(name string) error {
 	fmt.Printf("  %s/\n", name)
 	fmt.Printf("  ├── main.go\n")
 	fmt.Printf("  ├── go.mod\n")
+	fmt.Printf("  ├── config.yaml\n")
+	fmt.Printf("  └── controllers/\n")
