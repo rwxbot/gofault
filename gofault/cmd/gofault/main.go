@@ -161,3 +161,6 @@ func createProject(name string) error {
 	fmt.Printf("  ├── go.mod\n")
 	fmt.Printf("  ├── config.yaml\n")
 	fmt.Printf("  └── controllers/\n")
+	fmt.Printf("      └── hello.go\n")
+	fmt.Println("\nTo get started:")
+	fmt.Printf("  cd %s && go mod tidy && go run main.go\n", name)
