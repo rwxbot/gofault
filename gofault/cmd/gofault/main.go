@@ -109,3 +109,5 @@ func createProject(name string) error {
 	}
 
 	fmt.Printf("✓ Created project %q\n", name)
+	fmt.Println("\nProject structure:")
+	fmt.Printf("  %s/\n", name)
