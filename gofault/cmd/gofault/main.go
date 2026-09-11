@@ -134,3 +134,6 @@ func executeTemplate(tmpl string, data map[string]string) (string, error) {
 }
 
 const mainGoTemplate = `package main
+
+import (
+	"fmt"
