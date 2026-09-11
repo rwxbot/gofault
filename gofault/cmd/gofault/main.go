@@ -173,3 +173,5 @@ func executeTemplate(tmpl string, data map[string]string) (string, error) {
 		return "", err
 	}
 	var result strings.Builder
+	if err := t.Execute(&result, data); err != nil {
+		return "", err
