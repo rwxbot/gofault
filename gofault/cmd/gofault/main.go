@@ -120,3 +120,7 @@ func createProject(name string) error {
 	fmt.Printf("  cd %s && go mod tidy && go run main.go\n", name)
 	return nil
 }
+
+func executeTemplate(tmpl string, data map[string]string) (string, error) {
+	t, err := template.New("").Parse(tmpl)
+	if err != nil {
