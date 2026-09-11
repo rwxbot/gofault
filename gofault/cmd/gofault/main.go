@@ -170,3 +170,6 @@ func createProject(name string) error {
 func executeTemplate(tmpl string, data map[string]string) (string, error) {
 	t, err := template.New("").Parse(tmpl)
 	if err != nil {
+		return "", err
+	}
+	var result strings.Builder
