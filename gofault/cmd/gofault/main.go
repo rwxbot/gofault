@@ -132,3 +132,5 @@ func executeTemplate(tmpl string, data map[string]string) (string, error) {
 	}
 	return result.String(), nil
 }
+
+const mainGoTemplate = `package main
