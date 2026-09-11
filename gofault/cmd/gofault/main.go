@@ -165,3 +165,4 @@ func createProject(name string) error {
 	fmt.Println("\nTo get started:")
 	fmt.Printf("  cd %s && go mod tidy && go run main.go\n", name)
 	return nil
+}
