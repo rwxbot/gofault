@@ -196,3 +196,4 @@ func main() {
 
 	// Create module
 	mod := core.NewModule("{{.Name}}")
+	mod.RegisterControllers(controllers.NewHelloController())
