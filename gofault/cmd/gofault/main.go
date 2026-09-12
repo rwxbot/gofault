@@ -191,3 +191,5 @@ import (
 )
 
 func main() {
+	// Create application
+	app := module.New()
