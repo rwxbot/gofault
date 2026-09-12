@@ -137,3 +137,4 @@ const mainGoTemplate = `package main
 
 import (
 	"fmt"
+	"log"
