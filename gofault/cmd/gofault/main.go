@@ -143,3 +143,5 @@ import (
 	"github.com/gofault/gofault/module"
 	"github.com/gofault/gofault/{{.Name}}/controllers"
 )
+
+func main() {
