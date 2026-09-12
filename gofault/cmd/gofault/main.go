@@ -193,3 +193,6 @@ import (
 func main() {
 	// Create application
 	app := module.New()
+
+	// Create module
+	mod := core.NewModule("{{.Name}}")
