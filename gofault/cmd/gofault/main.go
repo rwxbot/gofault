@@ -155,3 +155,4 @@ func main() {
 	// Register module
 	if err := app.RegisterModules(mod); err != nil {
 		log.Fatalf("Failed to register module: %v", err)
+	}
