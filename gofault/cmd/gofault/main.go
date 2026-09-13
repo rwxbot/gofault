@@ -151,3 +151,6 @@ func main() {
 	// Create module
 	mod := core.NewModule("{{.Name}}")
 	mod.RegisterControllers(controllers.NewHelloController())
+
+	// Register module
+	if err := app.RegisterModules(mod); err != nil {
