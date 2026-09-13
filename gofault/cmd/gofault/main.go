@@ -158,3 +158,4 @@ func main() {
 	}
 
 	// Start server
+	fmt.Println("Server starting on :8080...")
