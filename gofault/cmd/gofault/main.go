@@ -164,3 +164,5 @@ func main() {
 	}
 }
 `
+
+const goModTemplate = `module {{.Name}}
