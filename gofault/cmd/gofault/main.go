@@ -177,3 +177,5 @@ replace github.com/gofault/gofault => ../gofault
 const configYamlTemplate = `# Application Configuration
 app:
   name: {{.Name}}
+  port: 8080
+  env: development
