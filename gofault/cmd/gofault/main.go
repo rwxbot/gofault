@@ -221,3 +221,4 @@ replace github.com/gofault/gofault => ../gofault
 `
 
 const configYamlTemplate = `# Application Configuration
+app:
