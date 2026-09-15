@@ -219,3 +219,5 @@ require github.com/gofault/gofault v0.0.0
 
 replace github.com/gofault/gofault => ../gofault
 `
+
+const configYamlTemplate = `# Application Configuration
