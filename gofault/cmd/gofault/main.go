@@ -213,8 +213,9 @@ func main() {
 
 const goModTemplate = `module {{.Name}}
 
-go 1.21
+go 1.25
 
-require github.com/gofault/gofault v1.0.0
+require github.com/gofault/gofault v0.0.0
 
 replace github.com/gofault/gofault => ../gofault
+`
