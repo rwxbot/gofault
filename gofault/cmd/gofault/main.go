@@ -228,3 +228,4 @@ app:
 
 logging:
   level: info
+  format: json
