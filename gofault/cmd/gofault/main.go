@@ -179,3 +179,6 @@ app:
   name: {{.Name}}
   port: 8080
   env: development
+
+logging:
+  level: info
