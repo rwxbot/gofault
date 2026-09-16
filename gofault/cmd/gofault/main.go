@@ -230,3 +230,5 @@ logging:
   level: info
   format: json
 `
+
+const controllerTemplate = `package controllers
