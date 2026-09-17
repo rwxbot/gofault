@@ -197,3 +197,5 @@ type HelloController struct{}
 func NewHelloController() *HelloController {
 	return &HelloController{}
 }
+
+// Routes returns the routes for this controller.
