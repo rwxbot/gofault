@@ -199,3 +199,4 @@ func NewHelloController() *HelloController {
 }
 
 // Routes returns the routes for this controller.
+func (c *HelloController) Routes() []core.Route {
