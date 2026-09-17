@@ -193,3 +193,7 @@ import (
 
 // HelloController handles hello-related routes.
 type HelloController struct{}
+
+func NewHelloController() *HelloController {
+	return &HelloController{}
+}
