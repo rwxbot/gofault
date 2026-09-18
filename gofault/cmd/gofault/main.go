@@ -205,3 +205,5 @@ func (c *HelloController) Routes() []core.Route {
 		{Method: "GET", Path: "/hello/:name", Handler: "Greet"},
 	}
 }
+
+// Prefix returns the route prefix for this controller.
