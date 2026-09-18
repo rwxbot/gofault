@@ -200,3 +200,6 @@ func NewHelloController() *HelloController {
 
 // Routes returns the routes for this controller.
 func (c *HelloController) Routes() []core.Route {
+	return []core.Route{
+		{Method: "GET", Path: "/", Handler: "Index"},
+		{Method: "GET", Path: "/hello/:name", Handler: "Greet"},
