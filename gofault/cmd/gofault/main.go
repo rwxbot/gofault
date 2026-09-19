@@ -258,3 +258,6 @@ func (c *HelloController) Prefix() string {
 }
 
 // Index handles GET /
+func (c *HelloController) Index(ctx *core.Ctx) error {
+	return ctx.Response.Write([]byte("Hello, GoFault!"))
+}
