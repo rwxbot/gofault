@@ -215,3 +215,5 @@ func (c *HelloController) Prefix() string {
 func (c *HelloController) Index(ctx *core.Ctx) error {
 	return ctx.Response.Write([]byte("Hello, GoFault!"))
 }
+
+// Greet handles GET /hello/:name
