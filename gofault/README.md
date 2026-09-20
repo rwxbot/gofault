@@ -921,3 +921,10 @@ cfg.StreamInterceptors = []grpcapi.StreamServerInterceptor{
 
 `KeepAliveConfig` builds the keepalive parameters instead of making callers
 remember the field names.
+
+
+## What's new in v3.4.0
+
+### API versioning
+
+Three strategies, each with its own constructor. All of them publish the version
