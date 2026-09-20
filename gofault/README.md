@@ -928,3 +928,8 @@ remember the field names.
 ### API versioning
 
 Three strategies, each with its own constructor. All of them publish the version
+to `ctx.Locals["version"]`, which handlers read with `ctx.GetVersion()`:
+
+```go
+// Accept: application/vnd.app.v2+json
+acceptRE := regexp.MustCompile(`v(\d+)`)
