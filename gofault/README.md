@@ -933,3 +933,8 @@ to `ctx.Locals["version"]`, which handlers read with `ctx.GetVersion()`:
 ```go
 // Accept: application/vnd.app.v2+json
 acceptRE := regexp.MustCompile(`v(\d+)`)
+mod.RegisterMiddleware(versioning.Middleware(
+    versioning.HeaderConfig("Accept", "application/vnd.app.v%d+json", acceptRE, 1),
+))
+
+// /v3/users
