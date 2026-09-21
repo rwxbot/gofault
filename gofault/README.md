@@ -945,3 +945,9 @@ mod.RegisterMiddleware(versioning.Middleware(
 // /users?api-version=2
 mod.RegisterMiddleware(versioning.Middleware(
     versioning.QueryConfig("api-version", 1),
+))
+```
+
+### Version lifecycle
+
+A `VersionSet` records which versions are active, deprecated or end-of-life, and
