@@ -938,3 +938,10 @@ mod.RegisterMiddleware(versioning.Middleware(
 ))
 
 // /v3/users
+mod.RegisterMiddleware(versioning.Middleware(
+    versioning.PathPrefixConfig("/v3", 1),
+))
+
+// /users?api-version=2
+mod.RegisterMiddleware(versioning.Middleware(
+    versioning.QueryConfig("api-version", 1),
