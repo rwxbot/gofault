@@ -127,3 +127,8 @@
 
 ### Added
 - gRPC server integration
+
+## [v3.4.0]
+
+### Added
+- API versioning with header, path and query strategies
