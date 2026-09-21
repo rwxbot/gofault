@@ -970,3 +970,6 @@ if vs.IsDeprecated(ctx.GetVersion()) {
     ctx.RespHeader().Set("Deprecation", "true")
 }
 ```
+
+`versioning.ResponseWriter` adds the negotiated version to outgoing headers, so
+clients can confirm what the server picked.
