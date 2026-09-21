@@ -961,3 +961,12 @@ vs := versioning.DefaultVersionSet([]versioning.VersionInfo{
 
 vs.Deprecate(1, "use v2")
 ```
+
+```go
+if !vs.IsSupported(ctx.GetVersion()) {
+    return exception.BadRequest("unsupported API version")
+}
+if vs.IsDeprecated(ctx.GetVersion()) {
+    ctx.RespHeader().Set("Deprecation", "true")
+}
+```
