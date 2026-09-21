@@ -951,3 +951,13 @@ mod.RegisterMiddleware(versioning.Middleware(
 ### Version lifecycle
 
 A `VersionSet` records which versions are active, deprecated or end-of-life, and
+`VersionHandler` enforces that decision per route:
+
+```go
+vs := versioning.DefaultVersionSet([]versioning.VersionInfo{
+    {Version: 1, Status: versioning.VersionStatusActive},
+    {Version: 2, Status: versioning.VersionStatusActive},
+})
+
+vs.Deprecate(1, "use v2")
+```
