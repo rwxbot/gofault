@@ -1,0 +1,9 @@
+# Application Configuration
+app:
+  name: testapp3
+  port: 8080
+  env: development
+
+logging:
+  level: info
+  format: json
