@@ -9,6 +9,20 @@ import (
 	"github.com/gofault/gofault/exception"
 )
 
+// Limiter decides whether a given key may pass. It exists so the middleware is
+// not tied to RateLimiter's in-process buckets, which do not work when the
+// application runs as more than one replica: each process counts separately, so
+// the effective limit is N times the configured one.
+//
+// Use RateLimiter for a single process, or a Redis-backed limiter when deployed
+// as more than one.
+type Limiter interface {
+	// Allow reports whether key may proceed.
+	Allow(key string) bool
+	// Close releases any resources the limiter holds.
+	Close()
+}
+
 // RateLimiterConfig holds rate limiter configuration.
 type RateLimiterConfig struct {
 	// RequestsPerSecond is the number of requests allowed per second per key.
@@ -158,15 +172,26 @@ func (rl *RateLimiter) evictOldestLocked(now time.Time) {
 	_ = now
 }
 
-// Middleware creates a rate limiting middleware.
+// Middleware creates a rate limiting middleware for this limiter.
+// For a distributable limiter use RateLimitMiddleware.
 func (rl *RateLimiter) Middleware() core.MiddlewareFunc {
-	return func(ctx *core.Ctx, next core.Handler) error {
-		key := rl.config.KeyFunc(ctx)
+	return RateLimitMiddleware(rl, rl.config.KeyFunc)
+}
 
-		if !rl.Allow(key) {
+// RateLimitMiddleware builds rate limiting middleware over any Limiter, so the
+// same wiring works with an in-process or a shared implementation.
+//
+// When the key function fails to produce a key the request is allowed through:
+// failing open keeps a config bug from becoming a total outage, and the lease
+// is to the caller to choose a sane key function.
+func RateLimitMiddleware(l Limiter, keyFn func(*core.Ctx) string) core.MiddlewareFunc {
+	if keyFn == nil {
+		keyFn = DefaultKeyFunc
+	}
+	return func(ctx *core.Ctx, next core.Handler) error {
+		if !l.Allow(keyFn(ctx)) {
 			return exception.TooManyRequests("rate limit exceeded")
 		}
-
 		return next(ctx)
 	}
 }
