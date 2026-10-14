@@ -730,6 +730,58 @@ if !limiter.Allow("tenant-7") {
 }
 ```
 
+#### Running more than one replica
+
+`RateLimiter` keeps its buckets in process memory, so **each replica counts
+separately**. With N replicas the effective limit is N times the configured one,
+and a client that talks to two replicas gets the limit twice.
+
+That is fine when the limit is a safety valve per process. It is wrong when the
+limit is a contract, for example a paid plan's request quota. Use the shared
+limiter in that case:
+
+```go
+rdb := redis.NewClient(&redis.Options{Addr: "redis:6379"})
+defer rdb.Close()
+
+limiter, err := redis.NewDistributedLimiter(rdb, "api-limit", 100, time.Minute, ctx)
+if err != nil {
+    log.Fatal(err)
+}
+mod.RegisterMiddleware(limiter.Middleware())
+```
+
+| | `RateLimiter` | `DistributedLimiter` |
+|---|---|---|
+| State | per process | Redis, shared |
+| Effective limit with N replicas | N x configured | configured |
+| Accuracy | token bucket | fixed window |
+| Boundary burst | no | yes, up to 2x for one window |
+| Needs Redis | no | yes |
+| On Redis outage | unaffected | fails open |
+
+Two things to know about the shared limiter. It uses a **fixed window**, so a
+client can spend its whole quota just before the window rolls and again just
+after, giving up to twice the steady-state rate across a boundary. And it
+**fails open**: if Redis is unreachable every request is allowed, because the
+alternative is taking the application down with the cache.
+
+#### Sizing the key map
+
+`RateLimiter` tracks one bucket per key. `MaxKeys` caps how many are held and
+evicts the least recently used when the cap is reached; the background reaper
+alone is far too slow to keep up with a client rotating keys:
+
+| Setting | Memory | Behaviour at the cap |
+|---|---|---|
+| `MaxKeys: 0` (default) | about 10k buckets, roughly 1 MB | beyond 10k keys, the LRU key is dropped |
+| `MaxKeys: 100_000` | roughly 10 MB | suits a large number of tenants |
+| `MaxKeys: -1` | rejected | constructor error |
+
+Each bucket is a `float64` and a `time.Time`, so the working figure is about
+100 bytes a key including map overhead. The cap bounds memory, not accuracy: a
+key that was evicted starts from a full bucket when it returns.
+
 
 ## What's new in v2.8.0
 
@@ -827,6 +879,30 @@ The connection is closed on shutdown once the database is part of a module:
 mod.RegisterProviders(provider.ValueProvider{Value: db})
 mod.RegisterOnShutdown(db)
 ```
+
+#### When the pool runs out
+
+The framework applies `MaxOpenConns` to the underlying `*sql.DB` and nothing
+more. When the pool is exhausted a further acquire **blocks until a connection
+is free or the caller's context expires**, and reports `context deadline
+exceeded` rather than a framework-specific error.
+
+That is the whole contract, and it is deliberate: the framework cannot know
+whether your service should queue, shed, or wait. Two implications for callers:
+
+- **Always pass a context.** A `context.Background()` acquire on a full pool
+  waits forever.
+- **Distinguish the two failures.** `context.DeadlineExceeded` means the pool
+  was busy, which is a capacity signal and worth a metric.
+  `driver.ErrBadConn` or a dial failure means the database is unreachable,
+  which is an availability signal and worth an alert.
+
+Sizing follows from your concurrency: `MaxOpenConns` should cover the number of
+queries that can genuinely run in parallel, not the number of requests.
+Requests queue on the pool, so an oversized pool serialises on the database
+instead. A workable starting point for a web service is 4x the number of CPUs
+available to the database, capped by the database's own `max_connections`
+divided by the replica count.
 
 Group writes so a failure rolls the whole unit back:
 

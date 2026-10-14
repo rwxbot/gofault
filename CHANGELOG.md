@@ -715,6 +715,28 @@ it, so `internal/deadfield` now fails the build on both this and the next class.
   `ValidateRequest(ctx, rules)` remains the supported API; route-scoped
   validation with struct binding is not implemented
 
+### Architecture risks addressed
+
+- **Multi-replica rate limiting.** `middleware.RateLimiter` counts per process,
+  so with N replicas the effective limit is N times the configured one and a
+  client that reaches two replicas gets it twice. That is now documented with a
+  comparison table, the fixed-window boundary burst and the fail-open behaviour
+  spelled out, and guidance on when a per-process limiter is still the right
+  choice. `redis.DistributedLimiter` shares the count in Redis.
+- **Key map capacity.** `MaxKeys` bounds how many buckets are held. The README
+  now gives the memory figure per key and what happens at the cap, since the
+  background reaper alone cannot keep up with a client rotating keys.
+- **Redis outage recovery.** Verified against a real container that is stopped
+  and restarted mid-test: the limiter fails open during the outage and resumes
+  enforcing afterwards rather than staying permanently disabled, the cache
+  degrades to errors and recovers, and a long-lived client reconnects on its own.
+- **Connection pool exhaustion.** The contract is now documented: an exhausted
+  pool blocks until the caller's context expires and reports
+  `context deadline exceeded`, so a busy pool is distinguishable from an
+  unreachable database. Verified against real MySQL, along with recovery on
+  release, a burst of 40 concurrent callers against a 4-connection pool, and that
+  an abandoned request returns its connection instead of wedging the pool.
+
 ### Test results
 
 Statement coverage 50.0% -> 87.1%. `controller` 31.6% -> 100%, `core` 58.3%
