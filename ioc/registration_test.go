@@ -1,12 +1,17 @@
 package ioc
 
 import (
+	"context"
 	"errors"
 	"testing"
+	"time"
 )
 
 type svcA struct{ n int }
-type svcB struct{ n int }
+type svcB struct {
+	n   int
+	dep *svcA
+}
 
 // Registering two constructors for one type used to silently replace the first,
 // so a later typo looked like it had taken effect.
@@ -97,5 +102,83 @@ func TestRegister_DuplicatePerScope(t *testing.T) {
 				t.Error("expected a duplicate error on the second registration")
 			}
 		})
+	}
+}
+
+// Resolving a request-scoped service that itself has a dependency used to
+// deadlock: resolveRequestScoped held the write lock while calling the
+// constructor, and the constructor resolves its arguments through the same
+// container, so RWMutex was re-entered while already locked. sync.RWMutex is
+// not reentrant, so the call never returned.
+func TestContainer_RequestScopedWithDependency(t *testing.T) {
+	c := New()
+	if err := c.Register(func() *svcA { return &svcA{n: 1} }); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
+	if err := c.RegisterScoped(func(dep *svcA) *svcB { return &svcB{dep: dep} }); err != nil {
+		t.Fatalf("RegisterScoped: %v", err)
+	}
+
+	ctx := c.BeginRequest(context.Background())
+	defer c.EndRequest(ctx)
+
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		if _, err := c.ResolveFromCtx(ctx, (*svcB)(nil)); err != nil {
+			t.Errorf("ResolveFromCtx: %v", err)
+		}
+	}()
+
+	select {
+	case <-done:
+	case <-time.After(5 * time.Second):
+		t.Fatal("resolving a request-scoped service with a dependency deadlocked")
+	}
+}
+
+// One instance per request must hold under concurrency now that construction
+// happens outside the lock.
+func TestContainer_RequestScopedSingleInstanceUnderConcurrency(t *testing.T) {
+	c := New()
+	if err := c.Register(func() *svcA { return &svcA{n: 1} }); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
+	if err := c.RegisterScoped(func(dep *svcA) *svcB { return &svcB{dep: dep} }); err != nil {
+		t.Fatalf("RegisterScoped: %v", err)
+	}
+
+	const callers = 40
+	results := make([]*svcB, callers)
+	done := make(chan error, callers)
+
+	ctx := c.BeginRequest(context.Background())
+	defer c.EndRequest(ctx)
+
+	for i := 0; i < callers; i++ {
+		go func(i int) {
+			inst, err := c.ResolveFromCtx(ctx, (*svcB)(nil))
+			if err != nil {
+				done <- err
+				return
+			}
+			results[i] = inst.(*svcB)
+			done <- nil
+		}(i)
+	}
+	for i := 0; i < callers; i++ {
+		if err := <-done; err != nil {
+			t.Fatalf("concurrent resolve %d: %v", i, err)
+		}
+	}
+
+	first := results[0]
+	if first == nil {
+		t.Fatal("no instance resolved")
+	}
+	for i, got := range results {
+		if got != first {
+			t.Fatalf("caller %d got a different instance; one instance per request was broken", i)
+		}
 	}
 }

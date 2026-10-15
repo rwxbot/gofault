@@ -1,7 +1,10 @@
 package module
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/gofault/gofault/core"
@@ -135,5 +138,67 @@ func TestSortModules_LosesNoModules(t *testing.T) {
 	if app.modules[len(app.modules)-1].Name != "f" {
 		t.Errorf("the module with dependencies on everything should sort last, got %s",
 			app.modules[len(app.modules)-1].Name)
+	}
+}
+
+// Stop is conventionally called from a signal handler, which can arrive while
+// Start is still bootstrapping. Stop reads a.modules to run the shutdown hooks
+// and Bootstrap writes it while sorting, so the two must not overlap. Confirmed
+// as a data race on module.go:216 before the mutex was extended to cover the
+// slice.
+func TestApp_StopRacingBootstrap(t *testing.T) {
+	for round := 0; round < 200; round++ {
+		app := New()
+		mod := core.NewModule("m")
+		mod.RegisterOnShutdown(&dummyHook{})
+		app.RegisterModules(mod)
+
+		var wg sync.WaitGroup
+		wg.Add(2)
+		go func() { defer wg.Done(); _ = app.Bootstrap() }()
+		go func() { defer wg.Done(); _ = app.Stop() }()
+		wg.Wait()
+	}
+}
+
+// Restructuring bootstrap must not lose the OnInit hooks: they are what a module
+// uses to open its resources.
+func TestApp_InitHooksStillRun(t *testing.T) {
+	app := New()
+	mod := core.NewModule("m")
+	hook := &recordingHook{name: "init", order: new([]string)}
+	mod.RegisterOnInit(hook)
+	app.RegisterModules(mod)
+
+	if err := app.Bootstrap(); err != nil {
+		t.Fatalf("Bootstrap: %v", err)
+	}
+	if len(*hook.order) != 1 || (*hook.order)[0] != "init" {
+		t.Errorf("OnInit hooks ran %v, want [init]", *hook.order)
+	}
+}
+
+// Routes must still be registered, since bootstrap was restructured to run under
+// the lock.
+func TestApp_RoutesStillRegistered(t *testing.T) {
+	app := New()
+	mod := core.NewModule("m")
+	mod.RegisterControllers(&dummyController{})
+	app.RegisterModules(mod)
+
+	if err := app.Bootstrap(); err != nil {
+		t.Fatalf("Bootstrap: %v", err)
+	}
+	if !app.booted {
+		t.Error("app not marked booted")
+	}
+
+	rtr := app.Router()
+	req := httptest.NewRequest("GET", "/test/", nil)
+	w := httptest.NewRecorder()
+	rtr.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Errorf("status = %d, want 200; routes were not registered", w.Code)
 	}
 }

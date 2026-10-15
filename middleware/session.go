@@ -32,11 +32,21 @@ func DefaultSessionConfig() SessionConfig {
 }
 
 // Session represents a user session.
+//
+// Values is guarded by its own mutex. The store's mutex protects the map of
+// sessions, not the map inside one, and two requests presenting the same cookie
+// share that session: they would otherwise race on Values, and a concurrent
+// read and write on a Go map can panic rather than merely return stale data.
+//
+// Session is not safe to copy because of that mutex; keep the pointer the store
+// hands out.
 type Session struct {
 	ID      string
 	Values  map[string]any
 	Created time.Time
 	Expires time.Time
+
+	mu sync.RWMutex
 }
 
 // SessionStore manages sessions in memory.
@@ -193,18 +203,31 @@ func GetSession(ctx *core.Ctx) *Session {
 	return nil
 }
 
-// SetValue sets a value in the session.
+// SetValue stores a value in the session.
 func (s *Session) SetValue(key string, value any) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	s.Values[key] = value
 }
 
 // GetValue retrieves a value from the session.
 func (s *Session) GetValue(key string) (any, bool) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
 	v, ok := s.Values[key]
 	return v, ok
 }
 
 // DeleteValue removes a value from the session.
 func (s *Session) DeleteValue(key string) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	delete(s.Values, key)
+}
+
+// Len reports how many values the session holds.
+func (s *Session) Len() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return len(s.Values)
 }

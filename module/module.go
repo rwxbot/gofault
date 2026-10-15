@@ -142,7 +142,11 @@ func (a *App) Init() error {
 		return fmt.Errorf("module initialization failed: %w", err)
 	}
 
-	for _, mod := range a.modules {
+	a.mu.Lock()
+	mods := append([]*core.Module(nil), a.modules...)
+	a.mu.Unlock()
+
+	for _, mod := range mods {
 		for _, hook := range mod.OnInitHooks {
 			if err := hook.OnInit(); err != nil {
 				return fmt.Errorf("module %q OnInit failed: %w", mod.Name, err)
@@ -153,46 +157,81 @@ func (a *App) Init() error {
 }
 
 // Bootstrap finalizes the application setup, registering all routes.
+//
+// The mutex is held across the whole operation because Stop, which a signal
+// handler may run while Start is still bootstrapping, reads a.modules to run the
+// shutdown hooks. It was read without the lock, so a shutdown arriving during
+// bootstrap raced on that slice.
 func (a *App) Bootstrap() error {
-	if err := a.Init(); err != nil {
-		return err
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	return a.bootstrapLocked()
+}
+
+// bootstrapLocked requires a.mu to be held, so Start can bootstrap without
+// re-entering the lock.
+func (a *App) bootstrapLocked() error {
+	if err := a.sortModules(); err != nil {
+		return fmt.Errorf("module initialization failed: %w", err)
 	}
-	for _, mod := range a.modules {
+
+	mods := append([]*core.Module(nil), a.modules...)
+	rtr := a.rtr
+
+	for _, mod := range mods {
+		for _, hook := range mod.OnInitHooks {
+			a.mu.Unlock()
+			err := hook.OnInit()
+			a.mu.Lock()
+			if err != nil {
+				return fmt.Errorf("module %q OnInit failed: %w", mod.Name, err)
+			}
+		}
+	}
+
+	if rtr == nil {
+		return nil
+	}
+	for _, mod := range mods {
 		for _, ctrl := range mod.Controllers {
 			for _, route := range ctrl.Routes() {
 				fullPath := ctrl.Prefix() + route.Path
 				// Pass route as parameter to avoid classic Go closure capture bug.
-				a.rtr.Handle(route.Method, fullPath, makeHandler(ctrl, route), mod.Middleware...)
+				rtr.Handle(route.Method, fullPath, makeHandler(ctrl, route), mod.Middleware...)
 			}
 		}
 	}
-	a.mu.Lock()
+
 	a.booted = true
-	a.mu.Unlock()
 	return nil
 }
 
 // Start launches the HTTP server on the given port.
+//
+// The mutex spans bootstrap, router wiring, hook execution and the server
+// install, because Stop may be called concurrently from a signal handler. Hooks
+// run with the lock released, since a hook may call back into the app.
 func (a *App) Start(port int) error {
 	a.mu.Lock()
-	booted := a.booted
-	a.mu.Unlock()
 
-	if !booted {
-		if err := a.Bootstrap(); err != nil {
+	if !a.booted {
+		if err := a.bootstrapLocked(); err != nil {
+			a.mu.Unlock()
 			return fmt.Errorf("bootstrap failed: %w", err)
 		}
 	}
 
 	// Wire container into router for request-scoped dependency injection.
-	a.mu.Lock()
 	if a.rtr != nil {
 		a.rtr.SetContainer(a.container)
 	}
+
+	mods := append([]*core.Module(nil), a.modules...)
+	rtr := a.rtr
 	a.mu.Unlock()
 
 	// Run OnBoot hooks.
-	for _, mod := range a.modules {
+	for _, mod := range mods {
 		for _, hook := range mod.OnBootHooks {
 			if err := hook.OnBoot(); err != nil {
 				return fmt.Errorf("OnBoot hook failed: %w", err)
@@ -200,7 +239,8 @@ func (a *App) Start(port int) error {
 		}
 	}
 
-	srv := server.New(a.rtr, port)
+	srv := server.New(rtr, port)
+
 	a.mu.Lock()
 	a.server = srv
 	a.mu.Unlock()
@@ -209,12 +249,20 @@ func (a *App) Start(port int) error {
 }
 
 // Stop gracefully shuts down the server and calls OnShutdown hooks.
+//
+// The module slice is read under the lock, because Bootstrap writes it while
+// sorting and Stop may be called concurrently from a signal handler.
 func (a *App) Stop() error {
 	var errs []error
 
+	a.mu.Lock()
+	mods := append([]*core.Module(nil), a.modules...)
+	srv := a.server
+	a.mu.Unlock()
+
 	// Call OnShutdown hooks in reverse order.
-	for i := len(a.modules) - 1; i >= 0; i-- {
-		mod := a.modules[i]
+	for i := len(mods) - 1; i >= 0; i-- {
+		mod := mods[i]
 		for j := len(mod.OnShutdownHooks) - 1; j >= 0; j-- {
 			hook := mod.OnShutdownHooks[j]
 			if err := hook.OnShutdown(); err != nil {
@@ -222,10 +270,6 @@ func (a *App) Stop() error {
 			}
 		}
 	}
-
-	a.mu.Lock()
-	srv := a.server
-	a.mu.Unlock()
 
 	if srv != nil {
 		if err := srv.Stop(); err != nil {

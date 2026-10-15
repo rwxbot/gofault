@@ -185,6 +185,11 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 }
 
 // resolveRequestScoped resolves or creates a request-scoped instance.
+//
+// The constructor runs outside the lock. callCtor resolves its arguments through
+// this same container, and sync.RWMutex is not reentrant, so calling it while
+// holding the write lock deadlocked any request-scoped service that had a
+// dependency. resolveSingleton builds outside its lock for the same reason.
 func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflect.Type) (any, error) {
 	key, ok := ctx.Value(requestCtxKey).(contextKey)
 	if !ok {
@@ -192,25 +197,38 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 		return c.callCtor(e.ctor)
 	}
 
-	c.mu.Lock()
-	defer c.mu.Unlock()
-
-	scope := c.requestScope[key]
-	if scope == nil {
-		scope = make(map[reflect.Type]any)
-		c.requestScope[key] = scope
+	c.mu.RLock()
+	scope, exists := c.requestScope[key]
+	var inst any
+	if exists {
+		inst, exists = scope[t]
 	}
+	c.mu.RUnlock()
 
-	if inst, exists := scope[t]; exists {
+	if exists {
 		return inst, nil
 	}
 
-	inst, err := c.callCtor(e.ctor)
+	// Built outside the lock so nested resolution can take it.
+	created, err := c.callCtor(e.ctor)
 	if err != nil {
 		return nil, err
 	}
-	scope[t] = inst
-	return inst, nil
+
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	// Another goroutine may have created it first, and it must win, otherwise
+	// the one instance per request contract is broken under concurrency.
+	if scope = c.requestScope[key]; scope == nil {
+		scope = make(map[reflect.Type]any)
+		c.requestScope[key] = scope
+	}
+	if existing, ok := scope[t]; ok {
+		return existing, nil
+	}
+	scope[t] = created
+	return created, nil
 }
 
 // resolveSingleton returns the singleton instance, creating it lazily if needed.

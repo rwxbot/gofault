@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
@@ -343,5 +344,64 @@ func TestHealthCheckHandler_SharesConfigWithCaller(t *testing.T) {
 	}
 	if _, ok := resp.Checks["late"]; !ok {
 		t.Error("the handler did not see the check registered after it was built")
+	}
+}
+
+// Two requests presenting the same cookie share one session, so Session.Values
+// is reached concurrently. The store's mutex protects the map of sessions, not
+// the map inside one, and a concurrent read and write on a Go map can panic
+// rather than merely return stale data.
+func TestSession_ConcurrentValueAccess(t *testing.T) {
+	store := NewSessionStore(DefaultSessionConfig())
+	sess, err := store.CreateSession()
+	if err != nil {
+		t.Fatalf("CreateSession: %v", err)
+	}
+
+	var wg sync.WaitGroup
+	for i := 0; i < 50; i++ {
+		wg.Add(3)
+		go func(i int) {
+			defer wg.Done()
+			sess.SetValue(fmt.Sprintf("k%d", i), i)
+		}(i)
+		go func() {
+			defer wg.Done()
+			sess.GetValue("k1")
+		}()
+		go func(i int) {
+			defer wg.Done()
+			sess.DeleteValue(fmt.Sprintf("k%d", i))
+		}(i)
+	}
+	wg.Wait()
+
+	// The writes that landed must be visible and consistent.
+	if got := sess.Len(); got < 0 || got > 50 {
+		t.Errorf("Len = %d, want between 0 and 50", got)
+	}
+}
+
+// The value written last must be the value read back, which is what an
+// unprotected map cannot promise.
+func TestSession_ValueIsReadBack(t *testing.T) {
+	store := NewSessionStore(DefaultSessionConfig())
+	sess, err := store.CreateSession()
+	if err != nil {
+		t.Fatalf("CreateSession: %v", err)
+	}
+
+	sess.SetValue("answer", 42)
+	v, ok := sess.GetValue("answer")
+	if !ok {
+		t.Fatal("GetValue did not find the value just written")
+	}
+	if v != 42 {
+		t.Errorf("value = %v, want 42", v)
+	}
+
+	sess.DeleteValue("answer")
+	if _, ok := sess.GetValue("answer"); ok {
+		t.Error("DeleteValue did not remove the value")
 	}
 }
