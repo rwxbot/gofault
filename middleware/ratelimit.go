@@ -127,7 +127,7 @@ func (rl *RateLimiter) Allow(key string) bool {
 		// Keep the map bounded: a client rotating keys must not be able to grow
 		// it faster than the reaper can shrink it.
 		if len(rl.buckets) >= rl.config.MaxKeys {
-			rl.evictOldestLocked(now)
+			rl.evictOldestLocked()
 		}
 		bucket = &tokenBucket{
 			tokens:     float64(rl.config.BurstSize) - 1,
@@ -155,7 +155,7 @@ func (rl *RateLimiter) Allow(key string) bool {
 
 // evictOldestLocked drops the least recently used bucket. The caller holds
 // rl.mu. Evicting one keeps the map at MaxKeys without needing a full sort.
-func (rl *RateLimiter) evictOldestLocked(now time.Time) {
+func (rl *RateLimiter) evictOldestLocked() {
 	var oldestKey string
 	var oldest time.Time
 
@@ -169,7 +169,6 @@ func (rl *RateLimiter) evictOldestLocked(now time.Time) {
 	}
 
 	delete(rl.buckets, oldestKey)
-	_ = now
 }
 
 // Middleware creates a rate limiting middleware for this limiter.

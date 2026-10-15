@@ -126,10 +126,7 @@ func Scan(dir string) (Report, error) {
 			if base == ".git" || base == "vendor" || base == "node_modules" {
 				return filepath.SkipDir
 			}
-			// A nested go.mod means a separate module, out of scope.
-			if path != dir && base == "internal" {
-				_ = path
-			}
+			// Nested modules are filtered by hasGoModBelow once a file is found.
 			return nil
 		}
 		if !strings.HasSuffix(path, ".go") || strings.HasSuffix(path, "_test.go") {

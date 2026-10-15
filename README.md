@@ -409,6 +409,13 @@ probe := middleware.HealthCheckMiddleware(cfg)
 rtr.Handle("GET", cfg.Path, probe)
 ```
 
+`DefaultHealthCheckConfig` returns a pointer, and so do
+`HealthCheckMiddleware` and `RegisterHealthCheckEndpoint`. That is not
+stylistic: the config holds a mutex over its check map, so copying it would
+hand out a second mutex that protects nothing. `go vet` reports the copy, which
+is the intended outcome. Register checks on the config you passed in, since the
+handler shares it rather than snapshotting it.
+
 
 ## What's new in v1.6.0
 

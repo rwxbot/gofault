@@ -1,11 +1,13 @@
 package middleware
 
 import (
+	"encoding/json"
 	"io"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/gofault/gofault/core"
@@ -255,3 +257,91 @@ func TestRequestLogger_ReadsAndRestoresBody(t *testing.T) {
 type sessionTestError struct{}
 
 func (e *sessionTestError) Error() string { return "test failure" }
+
+// A zero-value HealthCheckConfig must be safe to share across goroutines.
+//
+// Getting here needed three attempts. A pointer mutex had to be installed
+// lazily, and the install is itself a race: two goroutines entering with
+// c.mu == nil each installed a different mutex and then believed they held
+// exclusive access over the same map. Guarding the install under a package
+// mutex still raced, because the fast-path read of c.mu was unsynchronised.
+// A value mutex needs no install at all.
+func TestHealthCheck_ZeroValueConfigIsConcurrencySafe(t *testing.T) {
+	cfg := HealthCheckConfig{} // no constructor, nil map, no mutex install
+
+	var wg sync.WaitGroup
+	for i := 0; i < 50; i++ {
+		wg.Add(2)
+		go func() {
+			defer wg.Done()
+			cfg.RegisterHealthCheck("check", func() HealthCheck {
+				return HealthCheck{Status: HealthStatusUp}
+			})
+		}()
+		go func() {
+			defer wg.Done()
+			_ = cfg.snapshot()
+		}()
+	}
+	wg.Wait()
+
+	// The single registered check must be present exactly once.
+	got := cfg.snapshot()
+	if len(got) != 1 {
+		t.Errorf("snapshot has %d checks, want 1", len(got))
+	}
+}
+
+// The documented path must still work and share one mutex, not two.
+func TestHealthCheck_DefaultConfigIsConcurrencySafe(t *testing.T) {
+	cfg := DefaultHealthCheckConfig()
+	cfg.RegisterHealthCheck("db", func() HealthCheck { return HealthCheck{Status: HealthStatusUp} })
+
+	var wg sync.WaitGroup
+	for i := 0; i < 50; i++ {
+		wg.Add(2)
+		go func() { defer wg.Done(); _ = cfg.snapshot() }()
+		go func() {
+			defer wg.Done()
+			cfg.RegisterHealthCheck("db", func() HealthCheck {
+				return HealthCheck{Status: HealthStatusUp}
+			})
+		}()
+	}
+	wg.Wait()
+
+	if len(cfg.snapshot()) != 1 {
+		t.Errorf("checks = %d, want 1", len(cfg.snapshot()))
+	}
+}
+
+// The handler built from a config must read the same config the caller keeps
+// registering into, which is why the constructors take a pointer.
+func TestHealthCheckHandler_SharesConfigWithCaller(t *testing.T) {
+	cfg := DefaultHealthCheckConfig()
+	handler := RegisterHealthCheckEndpoint(nil, cfg)
+
+	// Register after the handler was built; the handler must see it.
+	cfg.RegisterHealthCheck("late", func() HealthCheck {
+		return HealthCheck{Status: HealthStatusDown}
+	})
+
+	req := httptest.NewRequest(http.MethodGet, "/health", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	if err := handler(ctx); err != nil {
+		t.Fatalf("handler: %v", err)
+	}
+	if w.Code != http.StatusServiceUnavailable {
+		t.Errorf("status = %d, want 503 since the late check is down", w.Code)
+	}
+
+	var resp HealthCheckResponse
+	if err := json.Unmarshal(w.Body.Bytes(), &resp); err != nil {
+		t.Fatalf("decode: %v", err)
+	}
+	if _, ok := resp.Checks["late"]; !ok {
+		t.Error("the handler did not see the check registered after it was built")
+	}
+}

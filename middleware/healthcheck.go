@@ -39,8 +39,16 @@ type HealthChecker func() HealthCheck
 //
 // Checks is guarded by a mutex: the handler reads it on every scrape while
 // RegisterHealthCheck may be called at runtime, and a concurrent map read and
-// write panics. The mutex lives behind a pointer so copying the config by value
-// stays safe, which the existing call sites do.
+// write panics.
+//
+// The mutex is a value, not a pointer, so it needs no initialisation. A
+// pointer would have to be installed lazily, and that install is itself a race
+// that no amount of locking on the read side can fix. It also means copying a
+// config is now a bug that go vet reports, which is correct: a copy would get a
+// mutex of its own and provide no protection over the shared map.
+//
+// Because a config must not be copied, the constructors and handlers take
+// *HealthCheckConfig.
 type HealthCheckConfig struct {
 	// Path is the URL path for the health check endpoint.
 	Path string
@@ -49,25 +57,16 @@ type HealthCheckConfig struct {
 	Checks map[string]HealthChecker
 	// IncludeTimestamp controls whether to include timestamp in response.
 	IncludeTimestamp bool
-	// IncludeChecks controls whether to include individual check details.
+	// IncludeChecks controls whether to include the individual check details.
 	IncludeChecks bool
 
-	mu *sync.RWMutex
-}
-
-// lock returns the config mutex, creating it on first use.
-func (c *HealthCheckConfig) lock() *sync.RWMutex {
-	if c.mu == nil {
-		c.mu = &sync.RWMutex{}
-	}
-	return c.mu
+	mu sync.RWMutex
 }
 
 // snapshot returns the checkers, read under the lock.
 func (c *HealthCheckConfig) snapshot() map[string]HealthChecker {
-	mu := c.lock()
-	mu.RLock()
-	defer mu.RUnlock()
+	c.mu.RLock()
+	defer c.mu.RUnlock()
 	if len(c.Checks) == 0 {
 		return nil
 	}
@@ -84,9 +83,8 @@ func (c *HealthCheckConfig) RegisterHealthCheck(name string, checker HealthCheck
 		return
 	}
 
-	mu := c.lock()
-	mu.Lock()
-	defer mu.Unlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	if c.Checks == nil {
 		c.Checks = make(map[string]HealthChecker)
 	}
@@ -94,8 +92,8 @@ func (c *HealthCheckConfig) RegisterHealthCheck(name string, checker HealthCheck
 }
 
 // DefaultHealthCheckConfig returns a default health check configuration.
-func DefaultHealthCheckConfig() HealthCheckConfig {
-	return HealthCheckConfig{
+func DefaultHealthCheckConfig() *HealthCheckConfig {
+	return &HealthCheckConfig{
 		Path:             "/health",
 		Checks:           make(map[string]HealthChecker),
 		IncludeTimestamp: true,
@@ -107,7 +105,7 @@ func DefaultHealthCheckConfig() HealthCheckConfig {
 //
 // It returns a handler rather than a middleware: the health endpoint is a
 // terminal route, so RegisterHealthCheck wires the path for you.
-func HealthCheckHandler(config HealthCheckConfig) core.Handler {
+func HealthCheckHandler(config *HealthCheckConfig) core.Handler {
 	if config.Path == "" {
 		config.Path = "/health"
 	}
@@ -168,7 +166,7 @@ func runChecker(check HealthChecker) (result HealthCheck) {
 
 // RegisterHealthCheckEndpoint registers the health route on the router and
 // returns the handler.
-func RegisterHealthCheckEndpoint(rtr HealthCheckRegistrar, config HealthCheckConfig) core.Handler {
+func RegisterHealthCheckEndpoint(rtr HealthCheckRegistrar, config *HealthCheckConfig) core.Handler {
 	handler := HealthCheckHandler(config)
 	if handler == nil || rtr == nil {
 		return handler
@@ -190,7 +188,7 @@ type HealthCheckRegistrar interface {
 //
 // Deprecated: it returns a core.Handler, not a middleware. Use
 // HealthCheckHandler, or RegisterHealthCheckEndpoint to wire the route.
-func HealthCheckMiddleware(config HealthCheckConfig) core.Handler {
+func HealthCheckMiddleware(config *HealthCheckConfig) core.Handler {
 	return HealthCheckHandler(config)
 }
 
