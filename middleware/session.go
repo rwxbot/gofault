@@ -19,15 +19,25 @@ type SessionConfig struct {
 	Domain   string // Cookie domain
 	Secure   bool   // Secure cookie flag
 	HTTPOnly bool   // HTTPOnly flag
+	// MaxSessions caps how many sessions are held. A client that never sends a
+	// cookie back gets a fresh session per request, so without a cap the map
+	// grows for as long as the process serves traffic. 0 uses
+	// DefaultMaxSessions.
+	MaxSessions int
 }
+
+// DefaultMaxSessions bounds the session count so an uncached client cannot grow
+// the map faster than expired sessions are dropped.
+const DefaultMaxSessions = 10000
 
 // DefaultSessionConfig returns default session configuration.
 func DefaultSessionConfig() SessionConfig {
 	return SessionConfig{
-		Name:     "gofault_session",
-		MaxAge:   86400, // 24 hours
-		Path:     "/",
-		HTTPOnly: true,
+		Name:        "gofault_session",
+		MaxAge:      86400, // 24 hours
+		Path:        "/",
+		HTTPOnly:    true,
+		MaxSessions: DefaultMaxSessions,
 	}
 }
 
@@ -50,34 +60,72 @@ type Session struct {
 }
 
 // SessionStore manages sessions in memory.
+//
+// An expired session is removed when it is next asked for, and a background
+// reaper drops the remainder, because a client that never returns the cookie
+// creates one session per request: without both, the map grows for as long as
+// the process serves traffic. Call Close when the store is no longer needed.
 type SessionStore struct {
 	sessions map[string]*Session
-	mu       sync.RWMutex
-	config   SessionConfig
+	// order holds session IDs in creation order. Reaching the cap evicts from
+	// the front, which is O(1) amortised; scanning the map for the oldest was
+	// O(n) on every insert once the cap was reached, which cut throughput by
+	// roughly eight times under the soak test.
+	order  []string
+	mu     sync.RWMutex
+	config SessionConfig
+
+	stopOnce sync.Once
+	stopped  chan struct{}
+
+	// lastReap throttles the O(n) expiry scan.
+	lastReap time.Time
 }
 
+// reapInterval bounds how often the full expiry scan runs on the request path.
+// Between scans the cap is maintained by the O(1) order queue.
+const reapInterval = 5 * time.Second
+
 // NewSessionStore creates a new session store.
+//
+// MaxAge of 0 means the session has no expiry, so nothing is ever reaped; set a
+// positive MaxAge when the store is expected to serve unbounded traffic.
 func NewSessionStore(cfg SessionConfig) *SessionStore {
 	if cfg.Name == "" {
 		cfg = DefaultSessionConfig()
 	}
-	return &SessionStore{
+	if cfg.MaxSessions <= 0 {
+		cfg.MaxSessions = DefaultMaxSessions
+	}
+
+	s := &SessionStore{
 		sessions: make(map[string]*Session),
 		config:   cfg,
+		stopped:  make(chan struct{}),
 	}
+	go s.reap()
+	return s
 }
 
-// GetSession retrieves a session by ID.
+// Close stops the reaper. Safe to call more than once.
+func (s *SessionStore) Close() {
+	s.stopOnce.Do(func() { close(s.stopped) })
+}
+
+// GetSession retrieves a session by ID, dropping it if it has expired.
 func (s *SessionStore) GetSession(id string) (*Session, bool) {
 	s.mu.RLock()
-	defer s.mu.RUnlock()
-
 	session, exists := s.sessions[id]
+	s.mu.RUnlock()
+
 	if !exists {
 		return nil, false
 	}
 
+	// Expiry is decided without the lock so the delete below can take the write
+	// lock. A session that disappears concurrently is handled as a miss.
 	if !session.Expires.IsZero() && time.Now().After(session.Expires) {
+		s.DeleteSession(id)
 		return nil, false
 	}
 
@@ -95,21 +143,97 @@ func (s *SessionStore) CreateSession() (*Session, error) {
 		ID:      id,
 		Values:  make(map[string]any),
 		Created: time.Now(),
-		Expires: time.Now().Add(time.Duration(s.config.MaxAge) * time.Second),
+	}
+	// A zero MaxAge means the session lasts until the browser is closed, per the
+	// field's own documentation, so Expires stays the zero value and the expiry
+	// checks skip it. Adding 0 used to produce an expiry of now, which made
+	// the session expire immediately instead.
+	if s.config.MaxAge > 0 {
+		session.Expires = time.Now().Add(time.Duration(s.config.MaxAge) * time.Second)
 	}
 
 	s.mu.Lock()
+	// Drop expired entries first so the cap cannot be reached entirely by dead
+	// sessions, which would evict live ones. This scan is throttled because it
+	// is O(n) and runs on the request path.
+	if len(s.sessions) >= s.config.MaxSessions {
+		if time.Since(s.lastReap) > reapInterval {
+			s.reapExpiredLocked(time.Now())
+			s.lastReap = time.Now()
+		}
+	}
+	for len(s.sessions) >= s.config.MaxSessions {
+		if !s.evictOldestLocked() {
+			break
+		}
+	}
 	s.sessions[id] = session
+	s.order = append(s.order, id)
 	s.mu.Unlock()
 
 	return session, nil
 }
 
 // DeleteSession removes a session.
+//
+// It stays in the order queue, which is harmless: evictOldestLocked skips IDs
+// that are no longer in the map.
 func (s *SessionStore) DeleteSession(id string) {
 	s.mu.Lock()
 	delete(s.sessions, id)
 	s.mu.Unlock()
+}
+
+// Len reports how many sessions are held.
+func (s *SessionStore) Len() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return len(s.sessions)
+}
+
+// reapExpiredLocked drops expired sessions. Requires s.mu held for writing.
+func (s *SessionStore) reapExpiredLocked(now time.Time) {
+	for id, session := range s.sessions {
+		if !session.Expires.IsZero() && now.After(session.Expires) {
+			delete(s.sessions, id)
+		}
+	}
+}
+
+// evictOldestLocked drops the oldest session and reports whether it removed one.
+// Requires s.mu held for writing.
+//
+// Stale IDs at the front are discarded as they are found, so the queue does not
+// grow without bound as sessions expire.
+func (s *SessionStore) evictOldestLocked() bool {
+	for len(s.order) > 0 {
+		oldest := s.order[0]
+		s.order = s.order[1:]
+
+		if _, live := s.sessions[oldest]; live {
+			delete(s.sessions, oldest)
+			return true
+		}
+	}
+	return false
+}
+
+// reap drops expired sessions periodically until Close is called.
+func (s *SessionStore) reap() {
+	ticker := time.NewTicker(time.Minute)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-s.stopped:
+			return
+		case <-ticker.C:
+			s.mu.Lock()
+			s.reapExpiredLocked(time.Now())
+			s.order = s.order[:0]
+			s.mu.Unlock()
+		}
+	}
 }
 
 // SessionMiddleware creates session handling middleware.

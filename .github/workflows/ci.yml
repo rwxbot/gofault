@@ -184,6 +184,29 @@ jobs:
       - name: Redis fault injection
         run: go test -tags integration ./redis/ -run "SurvivesRedisOutage|ReconnectsAfterLongOutage|HTTPCache_Survives" -v -timeout 600s
 
+  # Sustained mixed traffic against a real server, watching for growth. Leaks
+  # are slopes, not points: something that is right on every call but retains a
+  # little each time only shows up over duration. It found the session store
+  # growing without bound.
+  soak:
+    runs-on: ubuntu-latest
+    # Only on the main branch and on demand: it is a subset of an hour and is
+    # about trend rather than correctness.
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+          cache: true
+
+      - name: Soak
+        run: go test -tags soak ./soak/ -v -timeout 900s
+        env:
+          GOFAULT_SOAK_DURATION: "3m"
+
   lint:
     runs-on: ubuntu-latest
 
@@ -204,7 +227,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    needs: [test, submodules, integration, redisfault, e2e, lint]
+    needs: [test, submodules, integration, redisfault, e2e, soak, lint]
     if: startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: write

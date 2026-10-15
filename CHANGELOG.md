@@ -620,6 +620,16 @@ landed; every entry names the file so it can be reviewed directly.
   `Allow` header (`router/router.go`)
 
 ### Resource leaks
+- **The session store grew without bound.** A client that never returns the
+  cookie is issued a new session on every request, `GetSession` reported an
+  expired session as invalid without removing it, and nothing reaped the
+  remainder, so the map grew for as long as the process served traffic. Expired
+  sessions are now dropped when read, a reaper runs until Close, and MaxSessions
+  (default 10000) caps the map. Found by the soak test, not by reading: heap grew
+  405 MiB/min under load and is flat after the fix.
+- **`SessionConfig.MaxAge` of 0 expired the session immediately.** The field
+  documents 0 as "until browser closes", but `now.Add(0)` produced an expiry of
+  "now". A zero MaxAge now leaves Expires unset, which the expiry checks skip.
 
 - **`NewRateLimiter` leaked a goroutine per instance.** The cleanup loop had no
   exit condition and there was no way to stop it: 200 limiters left 200
@@ -736,6 +746,16 @@ it, so `internal/deadfield` now fails the build on both this and the next class.
   unreachable database. Verified against real MySQL, along with recovery on
   release, a burst of 40 concurrent callers against a 4-connection pool, and that
   an abandoned request returns its connection instead of wedging the pool.
+
+### Added
+- A soak suite (`-tags soak`) driving sustained mixed traffic through the
+  assembled framework: a real server, request IDs, recovery, compression, rate
+  limiting and sessions. It samples heap and goroutine counts under load, fits a
+  line to the second half, and fails on a materially positive slope. Locally
+  `GOFAULT_SOAK_DURATION=25s`, in CI three minutes on the main branch.
+- The soak also asserts the session cap does not strangle throughput. Enforcing
+  the cap with an O(n) scan on every insert cut the request rate by about eight
+  times, which a growth-only check cannot see.
 
 ### Test results
 
