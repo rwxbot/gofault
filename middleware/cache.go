@@ -180,6 +180,7 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 			ResponseWriter: ctx.Response,
 			statusCode:     200,
 			body:           []byte{},
+			headers:        make(http.Header),
 		}
 		ctx.Response = rec
 		// Restore the real writer before returning, so anything writing to the
@@ -191,22 +192,45 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 		// Call next handler
 		err := next(ctx)
 
+		// The capture buffers everything: Header() hands out the private map,
+		// so the handler's headers only reach the real writer if we copy them
+		// before the status line is committed. Delegating WriteHeader/Write
+		// directly used to commit the real response while the handler's
+		// headers were still sitting in the private map — every header a
+		// handler set (Content-Type included) was dropped on a MISS.
+		if err != nil {
+			// Discard the buffered output and let the router's error path
+			// (exception filter or 500) answer; replaying a half-written
+			// 2xx would commit a status line the filter cannot retract.
+			return err
+		}
+
+		for k, values := range rec.headers {
+			for _, v := range values {
+				rec.ResponseWriter.Header().Add(k, v)
+			}
+		}
+		// Only cacheable responses carry the MISS marker, matching the old
+		// semantics: an error response is replayed untouched and never
+		// enters the cache.
+		cacheable := rec.statusCode < 400
+		if cacheable {
+			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
+		}
+		rec.ResponseWriter.WriteHeader(rec.statusCode)
+		if len(rec.body) > 0 {
+			_, _ = rec.ResponseWriter.Write(rec.body)
+		}
+
 		// Cache the response if successful
-		if err == nil && rec.statusCode < 400 {
+		if cacheable {
 			headers := make(map[string]string)
-			for k, v := range rec.Header() {
+			for k, v := range rec.headers {
 				if len(v) > 0 {
 					headers[k] = v[0]
 				}
 			}
 			cache.Set(cacheKey, rec.body, rec.statusCode, headers)
-			// Copy captured headers to actual response
-			for k, v := range rec.Header() {
-				for _, val := range v {
-					rec.ResponseWriter.Header().Add(k, val)
-				}
-			}
-			rec.ResponseWriter.Header().Set("X-Cache", "MISS")
 		}
 
 		return err
@@ -214,26 +238,43 @@ func CacheMiddleware(cache CacheBackend, config CacheConfig) core.MiddlewareFunc
 }
 
 // generateCacheKey generates a cache key from the request.
+//
+// Host is part of the key: without it, a deployment behind a reverse proxy
+// or any multi-host setup collides distinct tenants onto one entry — a
+// request to a.example.com/foo could be served the body cached for
+// b.example.com/foo.
 func generateCacheKey(ctx *core.Ctx) string {
-	return ctx.Request.Method + ":" + ctx.Request.URL.Path + ":" + ctx.Request.URL.RawQuery
+	return ctx.Request.Host + "|" + ctx.Request.Method + ":" + ctx.Request.URL.Path + ":" + ctx.Request.URL.RawQuery
 }
 
 // responseCapture captures the response for caching.
 type responseCapture struct {
 	http.ResponseWriter
-	statusCode int
-	body       []byte
-	headers    http.Header
+	statusCode  int
+	wroteHeader bool
+	body        []byte
+	headers     http.Header
 }
 
+// responseCapture buffers a handler's response so it can be cached and then
+// replayed onto the real writer. Nothing touches the real ResponseWriter
+// until the middleware replays it: delegating WriteHeader/Write directly
+// while Header() returned a private map committed the status line before the
+// handler's headers existed, so those headers were silently dropped.
 func (r *responseCapture) WriteHeader(statusCode int) {
-	r.statusCode = statusCode
-	r.ResponseWriter.WriteHeader(statusCode)
+	if !r.wroteHeader {
+		r.statusCode = statusCode
+		r.wroteHeader = true
+	}
 }
 
 func (r *responseCapture) Write(b []byte) (int, error) {
+	if !r.wroteHeader {
+		r.statusCode = http.StatusOK
+		r.wroteHeader = true
+	}
 	r.body = append(r.body, b...)
-	return r.ResponseWriter.Write(b)
+	return len(b), nil
 }
 
 func (r *responseCapture) Header() http.Header {

@@ -148,9 +148,25 @@ func TestGenerateCacheKey(t *testing.T) {
 	ctx := &core.Ctx{Request: req}
 
 	key := generateCacheKey(ctx)
-	expected := "GET:/test:foo=bar"
+	// httptest.NewRequest sets Host to example.com.
+	expected := "example.com|GET:/test:foo=bar"
 	if key != expected {
 		t.Errorf("cacheKey = %s, want %s", key, expected)
+	}
+}
+
+// Host must be part of the key: behind a reverse proxy, two tenants with the
+// same path must not share one cache entry.
+func TestGenerateCacheKey_DistinguishesHost(t *testing.T) {
+	reqA := httptest.NewRequest("GET", "/foo", nil)
+	reqA.Host = "a.example.com"
+	reqB := httptest.NewRequest("GET", "/foo", nil)
+	reqB.Host = "b.example.com"
+
+	ka := generateCacheKey(&core.Ctx{Request: reqA})
+	kb := generateCacheKey(&core.Ctx{Request: reqB})
+	if ka == kb {
+		t.Errorf("different hosts must not share a cache key: %s == %s", ka, kb)
 	}
 }
 
@@ -259,5 +275,60 @@ func TestCacheMiddleware_ErrorResponse(t *testing.T) {
 	// Should not cache error responses
 	if rec.Header().Get("X-Cache") != "" {
 		t.Errorf("X-Cache = %s, want empty (errors should not be cached)", rec.Header().Get("X-Cache"))
+	}
+}
+
+// On a cache MISS the handler's own headers (Content-Type and friends) must
+// reach the client: the capture used to hand out a private header map while
+// WriteHeader/Write went straight to the real writer, so those headers were
+// committed before they existed and silently dropped.
+func TestCacheMiddleware_HandlerHeadersSurviveMiss(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
+	cfg := DefaultCacheConfig()
+	cfg.SkipFunc = func(ctx *core.Ctx) bool { return false }
+	middleware := CacheMiddleware(cache, cfg)
+
+	req := httptest.NewRequest("GET", "/doc", nil)
+	rec := httptest.NewRecorder()
+	ctx := &core.Ctx{Request: req, Response: rec}
+
+	err := middleware(ctx, func(ctx *core.Ctx) error {
+		ctx.Response.Header().Set("Content-Type", "application/json")
+		ctx.Response.Header().Set("X-Custom", "kept")
+		ctx.Response.WriteHeader(201)
+		ctx.Response.Write([]byte(`{"ok":true}`))
+		return nil
+	})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got := rec.Header().Get("Content-Type"); got != "application/json" {
+		t.Errorf("Content-Type = %q, want application/json", got)
+	}
+	if got := rec.Header().Get("X-Custom"); got != "kept" {
+		t.Errorf("X-Custom = %q, want kept", got)
+	}
+	if rec.Code != 201 {
+		t.Errorf("status = %d, want 201", rec.Code)
+	}
+	if rec.Body.String() != `{"ok":true}` {
+		t.Errorf("body = %q", rec.Body.String())
+	}
+
+	// The HIT replay must carry the same headers.
+	req2 := httptest.NewRequest("GET", "/doc", nil)
+	rec2 := httptest.NewRecorder()
+	ctx2 := &core.Ctx{Request: req2, Response: rec2}
+	if err := middleware(ctx2, func(ctx *core.Ctx) error {
+		t.Error("handler should not run on HIT")
+		return nil
+	}); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got := rec2.Header().Get("Content-Type"); got != "application/json" {
+		t.Errorf("HIT Content-Type = %q, want application/json", got)
+	}
+	if rec2.Code != 201 || rec2.Body.String() != `{"ok":true}` {
+		t.Errorf("HIT mismatch: code=%d body=%q", rec2.Code, rec2.Body.String())
 	}
 }
