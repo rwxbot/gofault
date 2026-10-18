@@ -14,7 +14,10 @@ import (
 type CompressionConfig struct {
 	// Enabled enables the compression middleware.
 	Enabled bool
-	// Level is the gzip compression level (1-9, default 6).
+	// Level is the gzip compression level: gzip.HuffmanOnly (-2) through
+	// gzip.BestCompression (9), which includes NoCompression (0),
+	// DefaultCompression (-1) and BestSpeed (1). Out-of-range values fall
+	// back to gzip.DefaultCompression (6) or clamp to the nearest bound.
 	Level int
 	// MinSize is the minimum response size to compress (bytes).
 	MinSize int
@@ -76,6 +79,21 @@ func (r *compressCapture) Flush() {
 	}
 }
 
+// normalizeCompressionLevel clamps a configured gzip level into the range
+// gzip.NewWriterLevel accepts: HuffmanOnly(-2) through BestCompression(9),
+// which includes NoCompression(0), DefaultCompression(-1) and BestSpeed(1).
+// The old check treated anything below DefaultCompression as invalid and
+// silently rewrote Level: 1 (BestSpeed) into 6, contradicting the docs.
+func normalizeCompressionLevel(level int) int {
+	if level < gzip.HuffmanOnly {
+		return gzip.DefaultCompression
+	}
+	if level > gzip.BestCompression {
+		return gzip.BestCompression
+	}
+	return level
+}
+
 // CompressionMiddleware compresses responses using gzip when Accept-Encoding
 // contains "gzip".
 func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
@@ -83,10 +101,7 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 		return nil
 	}
 
-	level := config.Level
-	if level < gzip.DefaultCompression || level > gzip.BestCompression {
-		level = gzip.DefaultCompression
-	}
+	level := normalizeCompressionLevel(config.Level)
 
 	minSize := config.MinSize
 	if minSize < 0 {

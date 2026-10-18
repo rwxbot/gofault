@@ -167,3 +167,22 @@ func (f *flushRecorder) Header() http.Header         { return f.header }
 func (f *flushRecorder) Write(b []byte) (int, error) { return len(b), nil }
 func (f *flushRecorder) WriteHeader(int)             {}
 func (f *flushRecorder) Flush()                      { f.flushed = true }
+
+// Level: 1 (BestSpeed) and 0 (NoCompression) are legitimate gzip levels; the
+// old clamp silently rewrote them into 6.
+func TestNormalizeCompressionLevel(t *testing.T) {
+	cases := []struct{ in, want int }{
+		{gzip.BestSpeed, gzip.BestSpeed},
+		{0, 0},
+		{1, 1},
+		{gzip.DefaultCompression, gzip.DefaultCompression},
+		{gzip.BestCompression, gzip.BestCompression},
+		{-3, gzip.DefaultCompression}, // below range: fall back to default
+		{10, gzip.BestCompression},    // above range: clamp to best
+	}
+	for _, c := range cases {
+		if got := normalizeCompressionLevel(c.in); got != c.want {
+			t.Errorf("normalizeCompressionLevel(%d) = %d, want %d", c.in, got, c.want)
+		}
+	}
+}
