@@ -10,6 +10,7 @@ import (
 
 	"github.com/gofault/gofault/controller"
 	"github.com/gofault/gofault/core"
+	"github.com/gofault/gofault/ioc"
 	"github.com/gofault/gofault/router"
 )
 
@@ -426,4 +427,82 @@ type recordingHook struct {
 func (h *recordingHook) OnInit() error {
 	*h.order = append(*h.order, h.name)
 	return nil
+}
+
+// The old registration wrapped every provider as func() provider.Provider,
+// so the container only knew the wrapper type and Resolve of the supplied
+// type always failed. Providers must be resolvable by the concrete type
+// they supply.
+type greeterService struct{ prefix string }
+
+func (s *greeterService) Provide() any             { return s }
+func (s *greeterService) Greet(name string) string { return s.prefix + " " + name }
+
+type countedProvider struct{ calls int }
+
+func (p *countedProvider) Provide() any     { p.calls++; return &greeterService{prefix: "x"} }
+func (p *countedProvider) Scope() ioc.Scope { return ioc.ScopeTransient }
+
+func TestApp_ProvidersResolvableByConcreteType(t *testing.T) {
+	app := New()
+	mod := core.NewModule("svc")
+	svc := &greeterService{prefix: "Hello"}
+	mod.RegisterProviders(svc)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("registration failed: %v", err)
+	}
+
+	got, err := app.Container().Resolve(&greeterService{})
+	if err != nil {
+		t.Fatalf("Resolve(*greeterService) failed: %v", err)
+	}
+	resolved, ok := got.(*greeterService)
+	if !ok {
+		t.Fatalf("resolved %T, want *greeterService", got)
+	}
+	if resolved.Greet("Ny") != "Hello Ny" {
+		t.Errorf("resolved service broken: %q", resolved.Greet("Ny"))
+	}
+}
+
+// A ScopedProvider's declared scope must be honored: transient providers
+// re-Provide per resolution, singletons provide exactly once.
+func TestApp_ScopedProviderTransientReprovides(t *testing.T) {
+	app := New()
+	mod := core.NewModule("svc")
+	p := &countedProvider{}
+	mod.RegisterProviders(p)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("registration failed: %v", err)
+	}
+
+	// Registration probes the type once.
+	if p.calls != 1 {
+		t.Fatalf("Provide calls after registration = %d, want 1", p.calls)
+	}
+
+	if _, err := app.Container().Resolve(&greeterService{}); err != nil {
+		t.Fatalf("first resolve failed: %v", err)
+	}
+	if _, err := app.Container().Resolve(&greeterService{}); err != nil {
+		t.Fatalf("second resolve failed: %v", err)
+	}
+	if p.calls != 3 {
+		t.Errorf("Provide calls = %d, want 3 (1 registration + 2 transient resolutions)", p.calls)
+	}
+}
+
+// A nil-supplied provider is a wiring error and must be reported at
+// registration, not panic on first request.
+type nilProvider struct{}
+
+func (nilProvider) Provide() any { return nil }
+
+func TestApp_NilProviderRejected(t *testing.T) {
+	app := New()
+	mod := core.NewModule("svc")
+	mod.RegisterProviders(nilProvider{})
+	if err := app.RegisterModules(mod); err == nil {
+		t.Error("nil-supplied provider should fail registration")
+	}
 }
