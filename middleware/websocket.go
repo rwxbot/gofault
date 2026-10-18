@@ -2,6 +2,8 @@ package middleware
 
 import (
 	"net/http"
+	"net/url"
+	"strings"
 	"sync"
 	"time"
 
@@ -23,8 +25,31 @@ type WebSocketConfig struct {
 	WriteTimeout time.Duration
 	// PingInterval is the interval for sending ping frames.
 	PingInterval time.Duration
-	// CheckOrigin controls origin validation.
+	// CheckOrigin controls origin validation. Nil (default) applies
+	// SameOriginCheck: the browser's Origin must match the request Host.
+	// gorilla's own nil default accepts every origin, which exposes
+	// authenticated users to Cross-Site WebSocket Hijacking.
 	CheckOrigin func(r *http.Request) bool
+}
+
+// SameOriginCheck is the default origin policy. gorilla/websocket treats a
+// nil CheckOrigin as "accept every Origin header" — the comment that used to
+// claim "same origin check" was false, and the resulting default let any web
+// page open a WebSocket to an authenticated user's server (CSWSH).
+//
+// A missing Origin header is accepted: non-browser clients (curl, server-to-
+// server, mobile apps) do not send one, and the header is only meaningful for
+// browser-driven cross-site requests.
+func SameOriginCheck(r *http.Request) bool {
+	origin := r.Header.Get("Origin")
+	if origin == "" {
+		return true
+	}
+	u, err := url.Parse(origin)
+	if err != nil {
+		return false
+	}
+	return strings.EqualFold(u.Host, r.Host)
 }
 
 // DefaultWebSocketConfig returns a default WebSocket configuration.
@@ -36,8 +61,18 @@ func DefaultWebSocketConfig() WebSocketConfig {
 		ReadTimeout:     60 * time.Second,
 		WriteTimeout:    60 * time.Second,
 		PingInterval:    30 * time.Second,
-		CheckOrigin:     nil, // default: same origin check
+		CheckOrigin:     nil, // nil: SameOriginCheck (see WebSocketConfig.CheckOrigin)
 	}
+}
+
+// effectiveCheckOrigin resolves the origin policy for an upgrader. Passing
+// config.CheckOrigin straight through would let nil reach gorilla, whose nil
+// default accepts every origin.
+func effectiveCheckOrigin(config WebSocketConfig) func(*http.Request) bool {
+	if config.CheckOrigin != nil {
+		return config.CheckOrigin
+	}
+	return SameOriginCheck
 }
 
 // WebSocketHandler defines the interface for WebSocket message handlers.
@@ -93,7 +128,7 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 	upgrader := websocket.Upgrader{
 		ReadBufferSize:  config.ReadBufferSize,
 		WriteBufferSize: config.WriteBufferSize,
-		CheckOrigin:     config.CheckOrigin,
+		CheckOrigin:     effectiveCheckOrigin(config),
 	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {
@@ -146,19 +181,23 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 			return err
 		}
 
-		// Message read loop
-		var readErr error
+		// Message read loop. I/O errors and application errors are kept
+		// apart: IsUnexpectedCloseError only makes sense for close/protocol
+		// errors from ReadMessage, and feeding a handler's business error
+		// through it made every application failure return false and get
+		// silently dropped.
+		var ioErr, handlerErr error
 		for {
 			msgType, data, err := conn.ReadMessage()
 			if err != nil {
-				readErr = err
+				ioErr = err
 				break
 			}
 			if config.ReadTimeout > 0 {
 				conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
 			}
 			if err := handler.HandleMessage(ctx, conn, msgType, data); err != nil {
-				readErr = err
+				handlerErr = err
 				break
 			}
 		}
@@ -168,9 +207,13 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 
 		handler.HandleDisconnect(ctx, conn)
 
+		if handlerErr != nil {
+			return handlerErr
+		}
+
 		// Don't treat normal WebSocket close as an error
-		if websocket.IsUnexpectedCloseError(readErr, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
-			return readErr
+		if websocket.IsUnexpectedCloseError(ioErr, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
+			return ioErr
 		}
 		return nil
 	}
@@ -187,7 +230,7 @@ func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 	upgrader := websocket.Upgrader{
 		ReadBufferSize:  config.ReadBufferSize,
 		WriteBufferSize: config.WriteBufferSize,
-		CheckOrigin:     config.CheckOrigin,
+		CheckOrigin:     effectiveCheckOrigin(config),
 	}
 
 	return func(ctx *core.Ctx, next core.Handler) error {

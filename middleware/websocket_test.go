@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -429,3 +430,86 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 		t.Errorf("expected disconnectMsg 'disconnected', got '%s'", disconnectMsg)
 	}
 }
+
+// CSWSH guard: with the default policy, a browser Origin that does not match
+// the Host must be rejected. gorilla's nil default used to accept it.
+func TestWebSocketMiddleware_CrossOriginRejected(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
+	handler := &mockWSHandler{}
+	mw := WebSocketMiddleware(cfg, handler)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := core.NewCtx(w, r)
+		mw(ctx, func(c *core.Ctx) error { return nil })
+	}))
+	defer server.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
+	_, resp, err := websocket.DefaultDialer.Dial(wsURL, http.Header{"Origin": {"http://evil.example.com"}})
+	if err == nil {
+		t.Fatal("cross-origin handshake should be rejected")
+	}
+	if resp == nil || resp.StatusCode != http.StatusForbidden {
+		t.Errorf("expected 403 rejection, got %+v", resp)
+	}
+}
+
+func TestWebSocketMiddleware_SameOriginAccepted(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
+	handler := &mockWSHandler{}
+	mw := WebSocketMiddleware(cfg, handler)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := core.NewCtx(w, r)
+		mw(ctx, func(c *core.Ctx) error { return nil })
+	}))
+	defer server.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
+	host := strings.TrimPrefix(server.URL, "http://")
+	conn, _, err := websocket.DefaultDialer.Dial(wsURL, http.Header{"Origin": {"http://" + host}})
+	if err != nil {
+		t.Fatalf("same-origin handshake should succeed: %v", err)
+	}
+	conn.Close()
+}
+
+// A handler business error must surface from the middleware: the old shared
+// readErr fed it into IsUnexpectedCloseError, which returned false and the
+// error vanished.
+func TestWebSocketMiddleware_HandlerErrorSurfaces(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
+	cfg.PingInterval = 0
+
+	handler := WebSocketHandlerFunc{
+		OnMessage: func(ctx *core.Ctx, conn *websocket.Conn, msgType int, data []byte) error {
+			return errWSBusiness
+		},
+	}
+	mw := WebSocketMiddleware(cfg, handler)
+
+	var mwErr error
+	var wg sync.WaitGroup
+	wg.Add(1)
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer wg.Done()
+		ctx := core.NewCtx(w, r)
+		mwErr = mw(ctx, func(c *core.Ctx) error { return nil })
+	}))
+	defer server.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
+	conn, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
+	if err != nil {
+		t.Fatalf("dial error: %v", err)
+	}
+	conn.WriteMessage(websocket.TextMessage, []byte("trigger"))
+	conn.Close()
+	wg.Wait()
+
+	if !errors.Is(mwErr, errWSBusiness) {
+		t.Errorf("middleware should return the handler error, got %v", mwErr)
+	}
+}
+
+var errWSBusiness = errors.New("business failure")
