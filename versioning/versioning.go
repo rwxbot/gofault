@@ -180,7 +180,12 @@ func Middleware(config Config) core.MiddlewareFunc {
 		}
 
 		ctx.SetLocal("version", version)
-		ctx.SetLocal("version_status", status)
+		// Store the status as a plain int: core.Ctx.GetVersionStatus asserts
+		// .(int), and a VersionStatus value never satisfies that assertion
+		// even though its underlying type is int — the getter would always
+		// fall back to 0. core cannot import this package (import cycle), so
+		// the conversion happens here.
+		ctx.SetLocal("version_status", int(status))
 
 		return next(ctx)
 	}
@@ -302,7 +307,8 @@ func VersionHandler(handler core.Handler, vs *VersionSet) core.Handler {
 		}
 		// Inject version info into context
 		ctx.SetLocal("version_info", info)
-		ctx.SetLocal("version_status", info.Status)
+		// int conversion: see the note in Middleware about GetVersionStatus.
+		ctx.SetLocal("version_status", int(info.Status))
 
 		// Add deprecation header if needed
 		if info.Status == VersionStatusDeprecated {

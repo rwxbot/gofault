@@ -448,3 +448,58 @@ func TestCompileVersionFormat(t *testing.T) {
 		t.Errorf("captures = %q, want 7 in group 1", m)
 	}
 }
+
+// GetVersionStatus asserts Locals["version_status"].(int). Storing a
+// VersionStatus value made that assertion always fail and the getter always
+// returned 0. The middleware must store a plain int.
+func TestMiddleware_GetVersionStatusRoundTrip(t *testing.T) {
+	cfg := QueryConfig("v", 2)
+	cfg.DefaultStatus = VersionStatusDeprecated
+
+	mw := Middleware(cfg)
+
+	req := httptest.NewRequest("GET", "/api", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
+
+	var got int
+	var called bool
+	if err := mw(ctx, func(c *core.Ctx) error {
+		called = true
+		got = c.GetVersionStatus()
+		return nil
+	}); err != nil {
+		t.Fatalf("middleware error: %v", err)
+	}
+	if !called {
+		t.Fatal("next handler was not called")
+	}
+	if got != int(VersionStatusDeprecated) {
+		t.Errorf("GetVersionStatus() = %d, want %d (deprecated)", got, int(VersionStatusDeprecated))
+	}
+}
+
+// VersionHandler stores the status of the matched version set; the getter
+// must see it too.
+func TestVersionHandler_GetVersionStatusRoundTrip(t *testing.T) {
+	vs := &VersionSet{}
+	vs.Add(VersionInfo{Version: 3, Status: VersionStatusEOL, Message: "gone"})
+
+	req := httptest.NewRequest("GET", "/api", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
+	ctx.SetLocal("version", 3)
+
+	var got int
+	h := VersionHandler(func(c *core.Ctx) error {
+		got = c.GetVersionStatus()
+		return nil
+	}, vs)
+
+	if err := h(ctx); err != nil {
+		t.Fatalf("handler error: %v", err)
+	}
+	if got != int(VersionStatusEOL) {
+		t.Errorf("GetVersionStatus() = %d, want %d (EOL)", got, int(VersionStatusEOL))
+	}
+}
