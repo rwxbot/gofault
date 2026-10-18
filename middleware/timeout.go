@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -110,6 +111,16 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 
 		errCh := make(chan error, 1)
 		go func() {
+			// The handler runs on its own goroutine, so a panic here is
+			// invisible to any RecoveryMiddleware wrapping this one: their
+			// deferred recover sits on a different stack and the process
+			// would die. Convert the panic into an error and let the
+			// router's error path (exception filter or 500) handle it.
+			defer func() {
+				if r := recover(); r != nil {
+					errCh <- fmt.Errorf("timeout middleware: handler panic: %v", r)
+				}
+			}()
 			errCh <- next(&inner)
 		}()
 
@@ -118,6 +129,11 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 			buffered.flushTo(ctx.Response)
 			return err
 		case <-ctxWithTimeout.Done():
+			// The 504 response is fully written here, so the middleware
+			// must return nil: returning the context error would make the
+			// router's default error path write a second response onto the
+			// same writer (superfluous WriteHeader, broken body).
+			ctx.StatusCode = http.StatusGatewayTimeout
 			ctx.Response.Header().Set("Content-Type", "application/json")
 			ctx.Response.WriteHeader(http.StatusGatewayTimeout)
 			payload, _ := json.Marshal(timeoutBody{
@@ -125,7 +141,7 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 				Message: config.ErrorMessage,
 			})
 			_, _ = ctx.Response.Write(payload)
-			return ctxWithTimeout.Err()
+			return nil
 		}
 	}
 }
