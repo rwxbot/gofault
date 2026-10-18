@@ -124,3 +124,57 @@ func TestParseIPPatterns(t *testing.T) {
 		t.Errorf("Expected 3 networks, got %d", len(nets))
 	}
 }
+
+// The critical finding: without a trusted-proxy gate, any client can send
+// "X-Forwarded-For: 127.0.0.1" and walk through an allow-list that permits
+// localhost. Proxy headers must be ignored unless the connection itself
+// comes from a configured trusted proxy.
+func TestIPFilterMiddleware_XFFSpoofingIgnoredByDefault(t *testing.T) {
+	config := DefaultIPFilterConfig()
+	config.Allow = []string{"127.0.0.1"}
+
+	middleware := IPFilterMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
+	}
+
+	// httptest.NewRequest uses RemoteAddr 192.0.2.1:1234 (TEST-NET-1).
+	req := httptest.NewRequest(http.MethodGet, "/admin", nil)
+	req.Header.Set("X-Forwarded-For", "127.0.0.1")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
+
+	if w.Code != http.StatusForbidden {
+		t.Errorf("spoofed XFF must not bypass the allow-list: got %d, want %d", w.Code, http.StatusForbidden)
+	}
+}
+
+func TestIPFilterMiddleware_XFFHonoredFromTrustedProxy(t *testing.T) {
+	config := DefaultIPFilterConfig()
+	config.Allow = []string{"127.0.0.1"}
+	config.TrustedProxies = []string{"192.0.2.0/24"}
+
+	middleware := IPFilterMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
+	}
+
+	// RemoteAddr 192.0.2.1 is inside the trusted proxy range, so the XFF
+	// header set by that proxy is honored.
+	req := httptest.NewRequest(http.MethodGet, "/admin", nil)
+	req.Header.Set("X-Forwarded-For", "127.0.0.1")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
+
+	if w.Code != http.StatusOK {
+		t.Errorf("XFF from a trusted proxy should be honored: got %d, want %d", w.Code, http.StatusOK)
+	}
+}

@@ -20,6 +20,13 @@ type IPFilterConfig struct {
 	// "block" (default): blocked IPs take precedence.
 	// "allow": allowed IPs take precedence.
 	Mode string
+	// TrustedProxies lists CIDR ranges or IPs of reverse proxies between the
+	// internet and this server. X-Forwarded-For and X-Real-IP are only
+	// consulted when the connection's RemoteAddr is one of them. Without
+	// this gate any client could send "X-Forwarded-For: 127.0.0.1" and
+	// bypass the entire filter. Empty (default): proxy headers are ignored
+	// and the TCP remote address is authoritative.
+	TrustedProxies []string
 }
 
 // DefaultIPFilterConfig returns a default IP filter configuration.
@@ -38,9 +45,10 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 
 	allowNets := parseIPPatterns(config.Allow)
 	blockNets := parseIPPatterns(config.Block)
+	trustedNets := parseIPPatterns(config.TrustedProxies)
 
 	return func(ctx *core.Ctx, next core.Handler) error {
-		clientIP := getClientIP(ctx)
+		clientIP := getClientIP(ctx, trustedNets)
 		blocked := isIPBlocked(clientIP, blockNets)
 		allowed := len(allowNets) == 0 || isIPAllowed(clientIP, allowNets)
 
@@ -98,8 +106,43 @@ func parseIPPatterns(patterns []string) []*net.IPNet {
 	return nets
 }
 
-// getClientIP extracts the client IP from the request, checking X-Forwarded-For and X-Real-IP headers.
-func getClientIP(ctx *core.Ctx) net.IP {
+// remoteIP returns the authoritative IP of the TCP connection.
+func remoteIP(ctx *core.Ctx) net.IP {
+	host, _, err := net.SplitHostPort(ctx.Request.RemoteAddr)
+	if err == nil {
+		ip := net.ParseIP(host)
+		if ip != nil {
+			return ip
+		}
+	}
+	return net.ParseIP(ctx.Request.RemoteAddr)
+}
+
+// getClientIP extracts the client IP from the request.
+//
+// X-Forwarded-For and X-Real-IP are attacker-controlled unless the request
+// arrived through a trusted reverse proxy: unconditionally trusting them let
+// any client spoof its way past the filter (e.g. "X-Forwarded-For: 127.0.0.1"
+// against an allow-list that permits localhost). The headers are therefore
+// only consulted when the connection's RemoteAddr is inside TrustedProxies;
+// with no trusted proxies configured the TCP address is authoritative.
+func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
+	remote := remoteIP(ctx)
+	if remote == nil {
+		return nil
+	}
+
+	trusted := false
+	for _, ipNet := range trustedNets {
+		if ipNet.Contains(remote) {
+			trusted = true
+			break
+		}
+	}
+	if !trusted {
+		return remote
+	}
+
 	// Check X-Forwarded-For header first
 	xff := ctx.Request.Header.Get("X-Forwarded-For")
 	if xff != "" {
@@ -120,16 +163,7 @@ func getClientIP(ctx *core.Ctx) net.IP {
 		}
 	}
 
-	// Fall back to remote address
-	host, _, err := net.SplitHostPort(ctx.Request.RemoteAddr)
-	if err == nil {
-		ip := net.ParseIP(host)
-		if ip != nil {
-			return ip
-		}
-	}
-
-	return net.ParseIP(ctx.Request.RemoteAddr)
+	return remote
 }
 
 // isIPBlocked checks if an IP is in the block list.
