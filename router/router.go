@@ -97,7 +97,14 @@ func (r *Router) ExceptionFilter(f exception.ExceptionFilter) {
 }
 
 // Handle registers a route with the given method, path pattern, handler, and optional middleware.
+//
+// A trailing slash on the registration path is dropped ("/foo/" registers as
+// "/foo"): the old pattern ^/foo/$ never matched the very common GET /foo,
+// silently 404ing that route shape. The root "/" is kept as-is.
 func (r *Router) Handle(method, path string, handler core.Handler, mw ...core.MiddlewareFunc) {
+	if len(path) > 1 {
+		path = strings.TrimSuffix(path, "/")
+	}
 	pattern, names := buildPattern(path)
 	entry := routeEntry{
 		method:     method,
@@ -140,6 +147,14 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		defer c.EndRequest(reqCtx)
 	}
 
+	// Match on the normalized path: a request for /foo/ hits the route
+	// registered as /foo (and vice versa), so the two spellings are one
+	// resource instead of a silent 404. Root "/" is kept as-is.
+	reqPath := req.URL.Path
+	if len(reqPath) > 1 {
+		reqPath = strings.TrimSuffix(reqPath, "/")
+	}
+
 	for _, route := range r.routes {
 		// net/http requires HEAD to be served wherever GET is: a HEAD is a GET
 		// whose body is discarded. This is checked before the method match
@@ -149,7 +164,7 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		if route.method != "" && route.method != req.Method && !headFromGet {
 			continue
 		}
-		matches := route.pattern.FindStringSubmatch(req.URL.Path)
+		matches := route.pattern.FindStringSubmatch(reqPath)
 		if matches == nil {
 			continue
 		}
@@ -161,7 +176,7 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	// A path that matches but not with this method is a 405, and the response
 	// must advertise what is allowed. Reporting 404 hides the route from
 	// clients and from monitoring.
-	if allowed := r.allowedMethods(req.URL.Path, req.Method); len(allowed) > 0 {
+	if allowed := r.allowedMethods(reqPath, req.Method); len(allowed) > 0 {
 		w.Header().Set("Allow", strings.Join(allowed, ", "))
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return

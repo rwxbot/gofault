@@ -136,3 +136,48 @@ func TestRouter_ConcurrentRequestsDoNotShareChain(t *testing.T) {
 		t.Errorf("corrupted response: %s", got)
 	}
 }
+
+// A route registered with a trailing slash used to compile to ^/foo/$ and
+// never match the common GET /foo — a silent 404. Registration now
+// normalizes the trailing slash (root "/" excepted).
+func TestRouter_TrailingSlashNormalized(t *testing.T) {
+	r := New()
+	h := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		ctx.Response.Write([]byte("ok"))
+		return nil
+	}
+	r.Handle(http.MethodGet, "/foo/", h)
+
+	req := httptest.NewRequest(http.MethodGet, "/foo", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+	if w.Code != http.StatusOK {
+		t.Errorf("GET /foo against route registered as /foo/ = %d, want 200", w.Code)
+	}
+
+	// The slashed form still works too (same route).
+	req2 := httptest.NewRequest(http.MethodGet, "/foo/", nil)
+	w2 := httptest.NewRecorder()
+	r.ServeHTTP(w2, req2)
+	if w2.Code != http.StatusOK {
+		t.Errorf("GET /foo/ = %d, want 200", w2.Code)
+	}
+}
+
+// Root must stay root: TrimSuffix on "/" would turn it into "" and match nothing.
+func TestRouter_RootPathStillWorks(t *testing.T) {
+	r := New()
+	h := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
+	}
+	r.Handle(http.MethodGet, "/", h)
+
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+	if w.Code != http.StatusOK {
+		t.Errorf("GET / = %d, want 200", w.Code)
+	}
+}
