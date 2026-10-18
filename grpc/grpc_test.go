@@ -573,3 +573,60 @@ func TestUnaryInterceptor_PassesThrough(t *testing.T) {
 		t.Errorf("resp = %v, want resp", resp)
 	}
 }
+
+// The old Start built the listen address as network+":"+port ("tcp:9000"),
+// which net.Listen reads as a host named "tcp" and always fails. With the
+// fix, an ephemeral-port Start must bind successfully.
+func TestServer_StartBindsWithDefaultNetwork(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0 // ephemeral
+	config.Insecure = true
+	s := NewServer(config)
+
+	errCh := make(chan error, 1)
+	go func() { errCh <- s.Start() }()
+
+	// Address() is only non-empty once the listener is bound.
+	deadline := time.Now().Add(2 * time.Second)
+	for s.Address() == "" && time.Now().Before(deadline) {
+		time.Sleep(10 * time.Millisecond)
+	}
+	if s.Address() == "" {
+		s.ImmediateStop()
+		t.Fatal("Start with default Network failed to bind (address never appeared)")
+	}
+	s.Stop()
+	select {
+	case <-errCh:
+	case <-time.After(2 * time.Second):
+		t.Error("Start did not return after Stop")
+	}
+}
+
+// OnBoot must not block the module lifecycle: the old blocking Serve hung
+// App.Start forever.
+func TestGRPCServerModule_OnBootDoesNotBlock(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
+	config.Insecure = true
+	m := NewGRPCServerModule("grpc-test", config)
+
+	done := make(chan error, 1)
+	go func() { done <- m.OnBoot() }()
+
+	select {
+	case err := <-done:
+		if err != nil {
+			t.Fatalf("OnBoot failed: %v", err)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("OnBoot blocked (module lifecycle would hang)")
+	}
+
+	if m.Server().Address() == "" {
+		t.Error("server should be listening after OnBoot")
+	}
+	if err := m.OnShutdown(); err != nil {
+		t.Errorf("OnShutdown failed: %v", err)
+	}
+}
