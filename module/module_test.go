@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
 	"time"
 
@@ -337,6 +338,32 @@ func TestApp_Stop_WithoutStartIsSafe(t *testing.T) {
 	if err := app.Stop(); err != nil {
 		t.Errorf("Stop without a running server should be a no-op, got %v", err)
 	}
+}
+
+// SetRouter and RegisterModules mutate fields that Stop and bootstrapLocked
+// read under a.mu (Stop may run from a signal handler). Without taking the
+// lock in the writers, this test trips the race detector.
+func TestApp_ConcurrentRegistrationAndStop(t *testing.T) {
+	app := New()
+	if err := app.RegisterModules(core.NewModule("seed")); err != nil {
+		t.Fatalf("seed registration failed: %v", err)
+	}
+
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		for i := 0; i < 50; i++ {
+			_ = app.Stop()
+		}
+	}()
+
+	for i := 0; i < 50; i++ {
+		app.SetRouter(router.New())
+		if err := app.RegisterModules(core.NewModule("mod" + string(rune('a'+i%26)) + strconv.Itoa(i))); err != nil {
+			t.Fatalf("registration %d failed: %v", i, err)
+		}
+	}
+	<-done
 }
 
 func TestApp_Stop_CollectsHookErrors(t *testing.T) {

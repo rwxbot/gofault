@@ -82,6 +82,14 @@ type LogConfig struct {
 	Format string `yaml:"format"`
 }
 
+// isUnknownKeyError reports whether one yaml.TypeError entry describes a key
+// that does not map to any struct field. yaml.v3 formats those entries as
+// "line N: field NAME not found in type TYPE"; every other entry it produces
+// under KnownFields(true) is a value type mismatch ("cannot unmarshal ...").
+func isUnknownKeyError(msg string) bool {
+	return strings.Contains(msg, "field ") && strings.Contains(msg, " not found in type ")
+}
+
 // Load reads, parses and validates a YAML configuration file.
 //
 // Unknown keys are rejected: a typo such as "sever.port" used to be silently
@@ -101,10 +109,22 @@ func Load(path string) (*Config, error) {
 	if err := dec.Decode(&cfg); err != nil {
 		var typeErr *yaml.TypeError
 		if errors.As(err, &typeErr) {
+			// yaml.v3 reports both unknown keys (with KnownFields(true)) and
+			// value type mismatches through the same *yaml.TypeError. Only the
+			// unknown-key entries carry "field ... not found in type ...";
+			// labelling a plain type mismatch as unknown would make
+			// errors.Is(err, ErrUnknownField) match a bad-value failure.
+			unknown := false
+			for _, e := range typeErr.Errors {
+				if isUnknownKeyError(e) {
+					unknown = true
+					break
+				}
+			}
 			return nil, &FieldError{
 				Field:   "config",
 				Message: strings.Join(typeErr.Errors, "; "),
-				Unknown: true,
+				Unknown: unknown,
 			}
 		}
 		return nil, fmt.Errorf("failed to parse config file: %w", err)

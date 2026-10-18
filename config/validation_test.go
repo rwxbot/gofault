@@ -39,6 +39,53 @@ sever:
 	}
 }
 
+// A value type mismatch (a string where an int is expected) also surfaces as a
+// *yaml.TypeError under KnownFields(true), but it is not an unknown key: it
+// must not be labelled Unknown and must not match ErrUnknownField.
+func TestLoad_TypeMismatchIsNotUnknownField(t *testing.T) {
+	path := writeConfig(t, `
+server:
+  port: "notanint"
+`)
+
+	_, err := Load(path)
+	if err == nil {
+		t.Fatal("expected an error for a type mismatch")
+	}
+	if errors.Is(err, ErrUnknownField) {
+		t.Errorf("a type mismatch must not match ErrUnknownField, got %v", err)
+	}
+	var fe *FieldError
+	if !errors.As(err, &fe) {
+		t.Fatalf("error = %v (%T), want *FieldError", err, err)
+	}
+	if fe.Unknown {
+		t.Errorf("type mismatch marked Unknown=true: %+v", fe)
+	}
+	if !strings.Contains(err.Error(), "notanint") {
+		t.Errorf("error should quote the bad value, got %v", err)
+	}
+}
+
+// When a file has both an unknown key and a type mismatch, the unknown-key
+// signal must still win so errors.Is(err, ErrUnknownField) matches.
+func TestLoad_MixedErrorsStillMatchUnknownField(t *testing.T) {
+	path := writeConfig(t, `
+server:
+  port: "abc"
+app:
+  boguskey: 1
+`)
+
+	_, err := Load(path)
+	if err == nil {
+		t.Fatal("expected an error")
+	}
+	if !errors.Is(err, ErrUnknownField) {
+		t.Errorf("mixed errors should match ErrUnknownField, got %v", err)
+	}
+}
+
 func TestLoad_RejectsUnknownNestedField(t *testing.T) {
 	path := writeConfig(t, `
 app:
