@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"errors"
 	"os"
 	"testing"
 	"time"
@@ -127,16 +128,36 @@ func TestLock_ReleaseWrongOwner(t *testing.T) {
 		t.Fatal("expected to acquire lock")
 	}
 
-	// lock2 should not be able to release lock1's lock
+	// lock2 should not be able to release lock1's lock — and must report
+	// that it did not hold the lock rather than pretending success.
 	err = lock2.Release(ctx)
-	if err != nil {
-		t.Errorf("Release error (expected nil for Lua script result): %v", err)
+	if !errors.Is(err, ErrLockNotHeld) {
+		t.Errorf("Release by wrong owner = %v, want ErrLockNotHeld", err)
 	}
 
 	// lock1 should still be able to release
 	err = lock1.Release(ctx)
 	if err != nil {
 		t.Errorf("Release error: %v", err)
+	}
+
+	// Releasing an already-released lock reports the same signal.
+	if err := lock1.Release(ctx); !errors.Is(err, ErrLockNotHeld) {
+		t.Errorf("double Release = %v, want ErrLockNotHeld", err)
+	}
+}
+
+// Two holders with an empty value could each satisfy the other's release
+// check (GET == ARGV[1] matches ""), letting either unlock the other.
+// Acquire must reject an empty value outright.
+func TestLock_EmptyValueRejected(t *testing.T) {
+	rdb := newTestClient(t)
+
+	ctx := context.Background()
+	lock := NewLock(rdb, "test-lock-empty", "", 5*time.Second)
+
+	if _, err := lock.Acquire(ctx); err == nil {
+		t.Error("Acquire with empty value should fail, not risk mutual unlock")
 	}
 }
 
