@@ -6,7 +6,9 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+	"unicode/utf8"
 
 	"github.com/gofault/gofault/core"
 )
@@ -386,5 +388,157 @@ func TestIPFilter_Mode(t *testing.T) {
 	// An IP on neither list is denied in both modes when an allow list exists.
 	if serve("allow", "10.0.0.9") {
 		t.Error("Mode=allow should still deny an IP that is not on the allow list")
+	}
+}
+
+// A byte-wise truncation cut mid-rune leaves an invalid trailing byte that
+// goes to disk and back in FileInfo.FileName, and a cut across the extension
+// boundary turns "x.png" into an extension-less blob. Truncation must land
+// on a rune boundary and keep the extension.
+func TestSanitizeFileName_TruncationKeepsRuneBoundaryAndExtension(t *testing.T) {
+	// 300-byte base of multi-byte runes plus a real extension.
+	base := strings.Repeat("é", 150) // 300 bytes
+	name := base + ".png"
+
+	got, err := sanitizeFileName(name)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(got) > maxFileNameLen {
+		t.Errorf("len = %d, want <= %d", len(got), maxFileNameLen)
+	}
+	if !utf8.ValidString(got) {
+		t.Errorf("truncated name is not valid UTF-8: %q", got)
+	}
+	if !strings.HasSuffix(got, ".png") {
+		t.Errorf("truncated name lost its extension: %q", got)
+	}
+
+	// A name ending exactly mid-rune at the cap must not keep a partial rune.
+	long := strings.Repeat("a", 254) + "bcdef" // 254 ASCII + 2×3-byte runes
+	got2, err := sanitizeFileName(long)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(got2) > maxFileNameLen {
+		t.Errorf("len = %d, want <= %d", len(got2), maxFileNameLen)
+	}
+	if !utf8.ValidString(got2) {
+		t.Errorf("cap landed mid-rune: %q", got2)
+	}
+}
+
+// A pre-existing symlink inside the storage root defeats a lexical prefix
+// containment check: <root>/uploads -> <outside> passes the check while every
+// write resolves through the link. Containment must be enforced against the
+// real filesystem (os.Root), not the joined string.
+func TestLocalStorage_StoreRejectsSymlinkedDirEscape(t *testing.T) {
+	parent := t.TempDir()
+	base := filepath.Join(parent, "storage")
+	outside := filepath.Join(parent, "elsewhere")
+	if err := os.MkdirAll(base, 0755); err != nil {
+		t.Fatalf("mkdir base: %v", err)
+	}
+	if err := os.MkdirAll(outside, 0755); err != nil {
+		t.Fatalf("mkdir outside: %v", err)
+	}
+	if err := os.Symlink(outside, filepath.Join(base, "uploads")); err != nil {
+		t.Skipf("symlinks unavailable: %v", err)
+	}
+
+	storage := NewLocalStorage(base)
+
+	body, ct := buildMultipart(t, "file", "evil.txt", "pwned")
+	req := httptest.NewRequest("POST", "/upload", body)
+	req.Header.Set("Content-Type", ct)
+	if err := req.ParseMultipartForm(1 << 20); err != nil {
+		t.Fatalf("ParseMultipartForm: %v", err)
+	}
+	fh := req.MultipartForm.File["file"][0]
+
+	if _, err := storage.Store(fh, "uploads"); err == nil {
+		t.Error("expected Store to fail when the destination dir is a symlink out of the root")
+	}
+	entries, err := os.ReadDir(outside)
+	if err != nil {
+		t.Fatalf("read outside: %v", err)
+	}
+	if len(entries) != 0 {
+		t.Errorf("%d files written outside the root through the symlink", len(entries))
+	}
+}
+
+// Same exposure on the delete side, via a symlinked *prefix*: with
+// <root>/uploads -> <outside>, the lexical check happily accepts
+// "uploads/secret.txt" and os.Remove follows the directory link and unlinks
+// the victim outside. Under os.Root the kernel refuses to traverse the link.
+func TestLocalStorage_DeleteRejectsSymlinkedDirPrefix(t *testing.T) {
+	parent := t.TempDir()
+	base := filepath.Join(parent, "storage")
+	outside := filepath.Join(parent, "outside")
+	if err := os.MkdirAll(base, 0755); err != nil {
+		t.Fatalf("mkdir base: %v", err)
+	}
+	if err := os.MkdirAll(outside, 0755); err != nil {
+		t.Fatalf("mkdir outside: %v", err)
+	}
+	victim := filepath.Join(outside, "secret.txt")
+	if err := os.WriteFile(victim, []byte("keep"), 0644); err != nil {
+		t.Fatalf("seed victim: %v", err)
+	}
+	if err := os.Symlink(outside, filepath.Join(base, "uploads")); err != nil {
+		t.Skipf("symlinks unavailable: %v", err)
+	}
+
+	storage := NewLocalStorage(base)
+	if err := storage.Delete("uploads/secret.txt"); err == nil {
+		t.Error("expected Delete to reject a path traversing a symlinked dir out of the root")
+	}
+	if _, err := os.Stat(victim); err != nil {
+		t.Error("Delete removed a file outside the storage root")
+	}
+}
+
+// A symlinked file component in the write path must not be followed either:
+// uploads/pwned.txt -> outside/pwned.txt would let an upload overwrite an
+// outside file with O_TRUNC.
+func TestLocalStorage_StoreRejectsSymlinkedFileEscape(t *testing.T) {
+	parent := t.TempDir()
+	base := filepath.Join(parent, "storage")
+	outside := filepath.Join(parent, "outside")
+	uploads := filepath.Join(base, "uploads")
+	if err := os.MkdirAll(uploads, 0755); err != nil {
+		t.Fatalf("mkdir uploads: %v", err)
+	}
+	if err := os.MkdirAll(outside, 0755); err != nil {
+		t.Fatalf("mkdir outside: %v", err)
+	}
+	victim := filepath.Join(outside, "pwned.txt")
+	if err := os.WriteFile(victim, []byte("keep"), 0644); err != nil {
+		t.Fatalf("seed victim: %v", err)
+	}
+	if err := os.Symlink(victim, filepath.Join(uploads, "pwned.txt")); err != nil {
+		t.Skipf("symlinks unavailable: %v", err)
+	}
+
+	storage := NewLocalStorage(base)
+
+	body, ct := buildMultipart(t, "file", "pwned.txt", "pwned")
+	req := httptest.NewRequest("POST", "/upload", body)
+	req.Header.Set("Content-Type", ct)
+	if err := req.ParseMultipartForm(1 << 20); err != nil {
+		t.Fatalf("ParseMultipartForm: %v", err)
+	}
+	fh := req.MultipartForm.File["file"][0]
+
+	if _, err := storage.Store(fh, "uploads"); err == nil {
+		t.Error("expected Store to reject writing through a symlink out of the root")
+	}
+	data, err := os.ReadFile(victim)
+	if err != nil {
+		t.Fatalf("stat victim: %v", err)
+	}
+	if string(data) != "keep" {
+		t.Errorf("victim file overwritten through symlink: %q", data)
 	}
 }

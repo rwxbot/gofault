@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-76 defects fixed across 33 commits. Grouped by what they were, not by when they
+77 defects fixed across 34 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
@@ -555,7 +555,17 @@ landed; every entry names the file so it can be reviewed directly.
   target is now validated against the resolved root
 - **File upload escaped its storage root.** The client-supplied filename was
   joined onto `BaseDir` unsanitised, so `../../etc/cron.d/x` wrote outside it.
-  `LocalStorage.Delete` had the same gap (`middleware/upload.go`)
+  `LocalStorage.Delete` had the same gap (`middleware/upload.go`). The first
+  fix added sanitisation plus a lexical prefix containment check — which a
+  pre-existing symlink inside the root defeated: `<root>/uploads -> /tmp/x`
+  passed the string check while every write and delete resolved through the
+  link. Containment is now enforced by the kernel via `os.Root`
+  (openat2-based, no symlink traversal), not by string comparison
+- **Filename truncation cut mid-rune.** The 255-byte cap from the upload fix
+  sliced names by byte: a multi-byte name ending at the cap gained an invalid
+  trailing byte that went to disk and back in `FileInfo.FileName`, and a cut
+  across the extension boundary turned `x.png` into an extension-less blob.
+  Truncation now walks runes and preserves the extension (`middleware/upload.go`)
 - **CORS wildcard subdomains matched too much.** `*.example.com` accepted
   `notexample.com` and `evil-example.com`, because the suffix was not required
   to be preceded by a dot (`middleware/cors.go`)
