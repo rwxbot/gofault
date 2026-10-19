@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-76 defects fixed across 32 commits. Grouped by what they were, not by when they
+76 defects fixed across 33 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
@@ -559,9 +559,14 @@ landed; every entry names the file so it can be reviewed directly.
 - **CORS wildcard subdomains matched too much.** `*.example.com` accepted
   `notexample.com` and `evil-example.com`, because the suffix was not required
   to be preceded by a dot (`middleware/cors.go`)
-- **Rate limiting could be bypassed.** `DefaultKeyFunc` used the whole
-  `X-Forwarded-For` header as the key, so a client rotating the proxy chain got
-  a fresh bucket per request (`middleware/ratelimit.go`)
+- **Rate limiting could be bypassed.** `DefaultKeyFunc` keyed buckets on
+  `X-Forwarded-For`/`X-Real-IP` — first the whole header, then just its first
+  element — but those headers are attacker-controlled either way: a client
+  rotating a forged value got a fresh bucket per request, and `MaxKeys` only
+  caps memory, not the bypass. The default key is now the TCP remote address;
+  servers behind a reverse proxy declare its ranges in the new
+  `TrustedProxies` config, which resolves the client through the chain with
+  the same right-to-left walk as the IP filter (`middleware/ratelimit.go`)
 - **A rejected JWT produced a successful response.** `Router.ServeHTTP` ignored
   the return value of `ExceptionFilter.Capture`, whose contract says false lets
   the exception propagate, so a declining filter left the client with 200 and an

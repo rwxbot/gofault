@@ -716,13 +716,17 @@ token, err := middleware.GenerateToken(&middleware.Claims{
 
 `NewRateLimiter` builds a token-bucket limiter and `Middleware` exposes it to the
 router. `KeyFunc` decides what counts as one caller; `DefaultKeyFunc` uses the
-client address:
+TCP remote address — proxy headers are attacker-controlled, so trusting them
+would let a client rotate a forged `X-Forwarded-For` and mint a fresh bucket
+per request. Behind a reverse proxy, list its address ranges in
+`TrustedProxies` (or provide your own `KeyFunc`) and the key resolves through
+the proxy chain instead:
 
 ```go
 limiter := middleware.NewRateLimiter(middleware.RateLimiterConfig{
     RequestsPerSecond: 20,
     BurstSize:         40,
-    KeyFunc:           middleware.DefaultKeyFunc,
+    TrustedProxies:    []string{"10.0.0.0/8"}, // only when behind a proxy
 })
 
 // Each limiter starts a goroutine to reap idle buckets. Close it when done, or

@@ -70,10 +70,11 @@ func TestCORS_PreflightReturns204(t *testing.T) {
 	}
 }
 
-// X-Forwarded-For may carry a comma-separated proxy chain. The rate limit key
-// must be the client IP (first element), not the whole header, or a client can
-// rotate the chain to mint a fresh bucket per request.
-func TestRateLimit_DefaultKeyFuncUsesClientIP(t *testing.T) {
+// X-Forwarded-For is attacker-controlled, so the default rate limit key must
+// be the TCP remote address, not any proxy header: even taking the first
+// element let a client mint a fresh bucket per request by rotating a forged
+// header. Behind a proxy, configure TrustedProxies or a custom KeyFunc.
+func TestRateLimit_DefaultKeyFuncUsesRemoteAddr(t *testing.T) {
 	rl := NewRateLimiter(RateLimiterConfig{
 		RequestsPerSecond: 1,
 		BurstSize:         1,
@@ -81,15 +82,17 @@ func TestRateLimit_DefaultKeyFuncUsesClientIP(t *testing.T) {
 	})
 
 	req := httptest.NewRequest("GET", "/", nil)
+	req.RemoteAddr = "192.0.2.1:1234"
 	req.Header.Set("X-Forwarded-For", "1.2.3.4, 5.6.7.8")
-	if got := rl.config.KeyFunc(&core.Ctx{Request: req}); got != "1.2.3.4" {
-		t.Errorf("key = %q, want the first IP 1.2.3.4", got)
+	if got := rl.config.KeyFunc(&core.Ctx{Request: req}); got != "192.0.2.1:1234" {
+		t.Errorf("key = %q, want remote addr 192.0.2.1:1234", got)
 	}
 
 	req2 := httptest.NewRequest("GET", "/", nil)
+	req2.RemoteAddr = "192.0.2.1:1234"
 	req2.Header.Set("X-Forwarded-For", "9.9.9.9")
-	if got := rl.config.KeyFunc(&core.Ctx{Request: req2}); got != "9.9.9.9" {
-		t.Errorf("single IP key = %q, want 9.9.9.9", got)
+	if got := rl.config.KeyFunc(&core.Ctx{Request: req2}); got != "192.0.2.1:1234" {
+		t.Errorf("rotated-header key = %q, want the same remote addr", got)
 	}
 
 	req3 := httptest.NewRequest("GET", "/", nil)
