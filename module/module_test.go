@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strconv"
+	"sync"
 	"testing"
 	"time"
 
@@ -505,4 +506,95 @@ func TestApp_NilProviderRejected(t *testing.T) {
 	if err := app.RegisterModules(mod); err == nil {
 		t.Error("nil-supplied provider should fail registration")
 	}
+}
+
+// reqScopedService is a request-scoped provider used to prove the router got a
+// container attached during Bootstrap alone.
+type reqScopedService struct{ n int }
+
+func newReqScopedService() *reqScopedService { return &reqScopedService{} }
+
+// scopeProbeController resolves the request-scoped provider twice within one
+// request and reports whether the two resolutions share an instance. That only
+// holds when ServeHTTP ran BeginRequest, i.e. the router has a container —
+// which Bootstrap-only flows used to never attach.
+type scopeProbeController struct {
+	controller.BaseController
+	app *App
+}
+
+func (c *scopeProbeController) Routes() []core.Route {
+	return []core.Route{{Method: "GET", Path: "", Handler: "Probe"}}
+}
+func (c *scopeProbeController) Prefix() string { return "/probe" }
+
+func (c *scopeProbeController) Probe(ctx *core.Ctx) error {
+	cont := c.app.Container()
+	reqCtx := ctx.Request.Context()
+	a, err := cont.ResolveFromCtx(reqCtx, &reqScopedService{})
+	if err != nil {
+		return err
+	}
+	b, err := cont.ResolveFromCtx(reqCtx, &reqScopedService{})
+	if err != nil {
+		return err
+	}
+	if a == b {
+		_, err = ctx.Response.Write([]byte("shared"))
+	} else {
+		_, err = ctx.Response.Write([]byte("fresh"))
+	}
+	return err
+}
+
+// TestApp_Bootstrap_WiresContainerIntoRouter: the documented Bootstrap()-then-
+// serve-yourself flow never calls Start, so the container wiring must happen in
+// bootstrapLocked, not only in Start.
+func TestApp_Bootstrap_WiresContainerIntoRouter(t *testing.T) {
+	rtr := router.New()
+	app := New()
+	app.SetRouter(rtr)
+	if err := app.Container().RegisterScoped(newReqScopedService); err != nil {
+		t.Fatal(err)
+	}
+	mod := core.NewModule("probe")
+	mod.RegisterControllers(&scopeProbeController{app: app})
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatal(err)
+	}
+	if err := app.Bootstrap(); err != nil {
+		t.Fatal(err)
+	}
+
+	req := httptest.NewRequest("GET", "/probe", nil)
+	w := httptest.NewRecorder()
+	rtr.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Fatalf("expected 200, got %d body=%s", w.Code, w.Body.String())
+	}
+	if w.Body.String() != "shared" {
+		t.Fatalf("Bootstrap must wire container into router: got %q (request-scoped provider not shared)", w.Body.String())
+	}
+}
+
+// TestApp_InitConcurrentWithRegisterModules: Init used to call sortModules,
+// which reads a.modules and a.moduleMap, without holding a.mu. A concurrent
+// RegisterModules writes both, and a concurrent map read/write is undefined
+// behaviour. Run under -race this fails without the lock.
+func TestApp_InitConcurrentWithRegisterModules(t *testing.T) {
+	app := New()
+	var wg sync.WaitGroup
+	for i := 0; i < 20; i++ {
+		wg.Add(2)
+		go func(i int) {
+			defer wg.Done()
+			_ = app.RegisterModules(core.NewModule("m" + strconv.Itoa(i)))
+		}(i)
+		go func() {
+			defer wg.Done()
+			_ = app.Init()
+		}()
+	}
+	wg.Wait()
 }

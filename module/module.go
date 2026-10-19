@@ -198,13 +198,16 @@ func (a *App) sortModules() error {
 // Init initializes all modules in dependency order, calling OnInit hooks.
 // It is called automatically by Bootstrap, but can be called explicitly for testing.
 func (a *App) Init() error {
-	if err := a.sortModules(); err != nil {
-		return fmt.Errorf("module initialization failed: %w", err)
-	}
-
+	// sortModules reads a.modules and a.moduleMap, so it must run under the
+	// lock: a concurrent RegisterModules writes the map, and a concurrent map
+	// read/write is undefined behaviour, not just nondeterminism.
 	a.mu.Lock()
+	err := a.sortModules()
 	mods := append([]*core.Module(nil), a.modules...)
 	a.mu.Unlock()
+	if err != nil {
+		return fmt.Errorf("module initialization failed: %w", err)
+	}
 
 	for _, mod := range mods {
 		for _, hook := range mod.OnInitHooks {
@@ -252,6 +255,12 @@ func (a *App) bootstrapLocked() error {
 	if rtr == nil {
 		return nil
 	}
+	// Wire the container into the router here, not only in Start: the
+	// documented Bootstrap()-then-serve-yourself flow never calls Start, and
+	// without this the router's container stayed nil, so ServeHTTP skipped
+	// BeginRequest and every request-scoped provider silently got a brand-new
+	// instance per resolution.
+	rtr.SetContainer(a.container)
 	for _, mod := range mods {
 		for _, ctrl := range mod.Controllers {
 			for _, route := range ctrl.Routes() {
