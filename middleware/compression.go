@@ -91,6 +91,22 @@ func (r *compressCapture) Flush() {
 	}
 }
 
+// isUpgradeRequest reports whether the request asks to switch protocols —
+// the WebSocket handshake shape: an Upgrade header plus a Connection header
+// naming upgrade. net/http's own 101 handling assumes the writer reaches
+// the client unbuffered.
+func isUpgradeRequest(r *http.Request) bool {
+	if r.Header.Get("Upgrade") == "" {
+		return false
+	}
+	for _, token := range strings.Split(r.Header.Get("Connection"), ",") {
+		if strings.EqualFold(strings.TrimSpace(token), "upgrade") {
+			return true
+		}
+	}
+	return false
+}
+
 // normalizeCompressionLevel clamps a configured gzip level into the range
 // gzip.NewWriterLevel accepts: HuffmanOnly(-2) through BestCompression(9),
 // which includes NoCompression(0), DefaultCompression(-1) and BestSpeed(1).
@@ -122,6 +138,15 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 
 	return func(ctx *core.Ctx, next core.Handler) error {
 		if !acceptsGzip(ctx.Request.Header.Get("Accept-Encoding")) {
+			return next(ctx)
+		}
+
+		// A protocol-upgrade request (WebSocket and friends) must not be
+		// buffered: the 101 handshake response is followed by raw protocol
+		// bytes on the same connection, and the upgrader type-asserts the
+		// writer to http.Hijacker. Capturing here would strand the handshake
+		// in the buffer and fail the assertion.
+		if isUpgradeRequest(ctx.Request) {
 			return next(ctx)
 		}
 

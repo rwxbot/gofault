@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-73 defects fixed across 30 commits. Grouped by what they were, not by when they
+74 defects fixed across 31 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
@@ -740,6 +740,12 @@ it, so `internal/deadfield` now fails the build on both this and the next class.
   interfaces (a Flush or Hijack streams the response and opts it out of the
   cache) and caps buffering at `MaxBodyBytes` (default 256 KiB), streaming
   anything larger (`middleware/cache.go`)
+- **Compression broke WebSocket upgrades.** `compressCapture` likewise did not
+  satisfy `http.Hijacker`, and the upgrader type-asserts the writer to it —
+  with compression enabled and a client sending `Accept-Encoding: gzip` (every
+  browser does), the handshake failed outright. Upgrade requests now bypass
+  the capture entirely: a 101 handshake is followed by raw protocol bytes on
+  the same connection and must never be buffered (`middleware/compression.go`)
 - **DSN credentials were interpolated without escaping.** A password containing
   `@` or `:` — the usual shape of a generated secret — moved the credential
   boundary in both formats, and a database name containing `?` or `/` broke

@@ -1,8 +1,11 @@
 package middleware
 
 import (
+	"bufio"
 	"compress/gzip"
+	"errors"
 	"io"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -244,4 +247,65 @@ func TestCompressionMiddleware_FlushedResponseNotDoubleWritten(t *testing.T) {
 	if ce := w.Header().Get("Content-Encoding"); ce == "gzip" {
 		t.Error("a flushed response must not be gzip-compressed after the fact")
 	}
+}
+
+// A WebSocket handshake under compression used to fail: the capture does not
+// implement http.Hijacker (embedding does not extend the method set), and
+// the upgrader type-asserts the writer to it. The upgrade request must pass
+// through with the real writer untouched. The base writer here implements
+// Hijacker the way net/http's does, so the assertion is meaningful.
+func TestCompressionMiddleware_UpgradeRequestPassthrough(t *testing.T) {
+	mw := CompressionMiddleware(DefaultCompressionConfig())
+
+	next := func(ctx *core.Ctx) error {
+		if _, ok := ctx.Response.(http.Hijacker); !ok {
+			t.Error("upgrade handler cannot reach http.Hijacker under the compression middleware")
+			return nil
+		}
+		ctx.Response.WriteHeader(http.StatusSwitchingProtocols)
+		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/ws", nil)
+	req.Header.Set("Accept-Encoding", "gzip")
+	req.Header.Set("Upgrade", "websocket")
+	req.Header.Set("Connection", "Upgrade")
+	w := &hijackRecorder{ResponseRecorder: httptest.NewRecorder()}
+	ctx := core.NewCtx(w, req)
+
+	if err := mw(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
+	if ce := w.Header().Get("Content-Encoding"); ce != "" {
+		t.Errorf("Content-Encoding = %q on an upgrade response, want none", ce)
+	}
+}
+
+func TestIsUpgradeRequest(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/ws", nil)
+	if isUpgradeRequest(req) {
+		t.Error("plain GET must not look like an upgrade")
+	}
+	req.Header.Set("Upgrade", "websocket")
+	if isUpgradeRequest(req) {
+		t.Error("Upgrade header without Connection: upgrade must not match")
+	}
+	req.Header.Set("Connection", "keep-alive, Upgrade")
+	if !isUpgradeRequest(req) {
+		t.Error("multi-token Connection with Upgrade must match")
+	}
+	req.Header.Set("Connection", "upgrade")
+	if !isUpgradeRequest(req) {
+		t.Error("lowercase upgrade token must match")
+	}
+}
+
+// hijackRecorder is an httptest recorder that also implements http.Hijacker,
+// standing in for net/http's ResponseWriter.
+type hijackRecorder struct {
+	*httptest.ResponseRecorder
+}
+
+func (h *hijackRecorder) Hijack() (net.Conn, *bufio.ReadWriter, error) {
+	return nil, nil, errors.New("not really hijacked")
 }
