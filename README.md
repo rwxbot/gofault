@@ -266,7 +266,10 @@ if err != nil {
     return err
 }
 addr := cfg.Server.GetAddress()
-dsn := cfg.Database.GetDSN()
+dsn, err := cfg.Database.GetDSN()
+if err != nil {
+    return err
+}
 ```
 
 ### HTTP exception filter

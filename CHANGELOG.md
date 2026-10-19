@@ -675,6 +675,16 @@ it, so `internal/deadfield` now fails the build on both this and the next class.
   fields and validates ports, drivers and log settings
 - **`GetDSN` always emitted the MySQL form**, which PostgreSQL and SQLite drivers
   cannot parse
+- **DSN credentials were interpolated without escaping.** A password containing
+  `@` or `:` — the usual shape of a generated secret — moved the credential
+  boundary in both formats, and a database name containing `?` or `/` broke
+  MySQL parsing outright. The mysql branch now percent-encodes the database
+  name (the driver decodes `%XX` there), rejects a username containing `:`
+  because the driver splits the userinfo at the first colon and does not
+  decode escapes, and leaves `@ : # &` in the password alone — verified
+  against go-sql-driver v1.8.1's actual parser. The postgres branch builds the
+  URL through `net/url` so the userinfo and path are RFC 3986 encoded
+  (`config/config.go`)
 - **Compression was O(n²)** for large responses, accumulating into a `[]byte` by
   repeated append
 - **The OpenAPI document never listed a route.** `AddPath` existed but was never

@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -205,6 +206,89 @@ func TestGetDSN_DriverAware(t *testing.T) {
 	empty := DatabaseConfig{Driver: "sqlite"}
 	if _, err := empty.GetDSN(); err == nil {
 		t.Error("expected an error for sqlite with no name")
+	}
+}
+
+// A generated secret full of '@', ':', '#' or spaces used to corrupt the
+// credential split; the mysql driver takes the LAST '@' as the separator and
+// the FIRST ':' inside the userinfo, so those characters must pass through
+// unescaped. The database name is the part that does need escaping: the
+// driver treats '?' and '/' as structure and decodes %XX escapes there.
+func TestGetDSN_MySQLSpecialCharacters(t *testing.T) {
+	db := DatabaseConfig{
+		Driver: "mysql", Host: "127.0.0.1", Port: 3306,
+		Name: "db", User: "app", Password: "p@ss:w#d &x",
+	}
+	got, err := db.GetDSN()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	want := "app:p@ss:w#d &x@tcp(127.0.0.1:3306)/db?charset=utf8mb4"
+	if got != want {
+		t.Errorf("DSN = %q, want %q", got, want)
+	}
+
+	// A name with structural characters must be percent-encoded so the
+	// driver's own unescape turns it back into the original name.
+	db.Name = "d/b?x%y"
+	got, err = db.GetDSN()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	want = "app:p@ss:w#d &x@tcp(127.0.0.1:3306)/d%2Fb%3Fx%25y?charset=utf8mb4"
+	if got != want {
+		t.Errorf("DSN = %q, want %q", got, want)
+	}
+
+	// ':' in the username cannot be represented: the driver splits the
+	// userinfo at the first colon and does not decode escapes there.
+	bad := DatabaseConfig{
+		Driver: "mysql", Host: "h", Port: 3306,
+		Name: "db", User: "do:main", Password: "p",
+	}
+	if _, err := bad.GetDSN(); err == nil {
+		t.Error("expected an error for a mysql user containing ':'")
+	}
+	if got := bad.GetMySQLDSN(); got != "" {
+		t.Errorf("GetMySQLDSN = %q, want empty for an unrepresentable user", got)
+	}
+}
+
+// The postgres DSN is a URL, so the userinfo and the database name must be
+// percent-encoded and must decode back to the original values.
+func TestGetDSN_PostgresEscaping(t *testing.T) {
+	db := DatabaseConfig{
+		Driver: "postgres", Host: "db.internal", Port: 5432,
+		Name: "app/db?x", User: "ad:min", Password: "p@ss w#1",
+	}
+	got, err := db.GetDSN()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	u, err := url.Parse(got)
+	if err != nil {
+		t.Fatalf("postgres DSN %q does not parse as a URL: %v", got, err)
+	}
+	if u.User == nil {
+		t.Fatalf("postgres DSN %q has no userinfo", got)
+	}
+	pass, ok := u.User.Password()
+	if !ok {
+		t.Fatalf("postgres DSN %q has no password", got)
+	}
+	if u.User.Username() != db.User {
+		t.Errorf("user decoded to %q, want %q", u.User.Username(), db.User)
+	}
+	if pass != db.Password {
+		t.Errorf("password decoded to %q, want %q", pass, db.Password)
+	}
+	if name := strings.TrimPrefix(u.Path, "/"); name != db.Name {
+		t.Errorf("database decoded to %q, want %q", name, db.Name)
+	}
+	// The raw DSN must not carry a second '@' that would move the boundary.
+	if strings.Count(strings.TrimPrefix(got, "postgres://"), "@") != 1 {
+		t.Errorf("postgres DSN %q has an unescaped '@' in the credentials", got)
 	}
 }
 
