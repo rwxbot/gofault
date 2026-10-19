@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net"
+	"strings"
 	"testing"
 	"time"
 
@@ -628,5 +629,91 @@ func TestGRPCServerModule_OnBootDoesNotBlock(t *testing.T) {
 	}
 	if err := m.OnShutdown(); err != nil {
 		t.Errorf("OnShutdown failed: %v", err)
+	}
+}
+
+// A half-configured TLS setup (exactly one of TLSCert/TLSKey) used to fall
+// through to creds == nil and serve plaintext with no error — the operator
+// believes the endpoint is encrypted. Start must refuse.
+func TestServer_HalfConfiguredTLSRejected(t *testing.T) {
+	for _, tc := range []struct{ name, cert, key string }{
+		{"cert only", "cert.pem", ""},
+		{"key only", "", "key.pem"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			config := DefaultConfig()
+			config.Port = 0
+			config.TLSCert = tc.cert
+			config.TLSKey = tc.key
+			s := NewServer(config)
+			// bind is the synchronous reservation every start path runs
+			// through; calling it directly keeps the test from blocking in
+			// Serve when the check is missing.
+			ln, err := s.bind()
+			if err == nil {
+				ln.Close()
+				t.Fatal("half-configured TLS must not start a plaintext server")
+			} else if !strings.Contains(err.Error(), "half-configured") {
+				t.Errorf("error = %v, want it to name the half-configured TLS", err)
+			}
+		})
+	}
+}
+
+// Serve on a caller-supplied listener must apply the same check.
+func TestServer_ServeRejectsHalfTLS(t *testing.T) {
+	config := DefaultConfig()
+	config.TLSCert = "cert.pem"
+	s := NewServer(config)
+	ln, err := net.Listen("tcp", "127.0.0.1:0")
+	if err != nil {
+		t.Fatalf("listen: %v", err)
+	}
+	defer ln.Close()
+	// Serve blocks when it accepts the listener, so run it on its own
+	// goroutine and require a fast rejection.
+	errCh := make(chan error, 1)
+	go func() { errCh <- s.Serve(ln) }()
+	select {
+	case err := <-errCh:
+		if err == nil {
+			t.Fatal("Serve must reject a half-configured TLS setup")
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("Serve blocked on a half-configured TLS setup instead of rejecting it")
+	}
+}
+
+// The framework's lifecycle iterates OnBootHooks/OnShutdownHooks; it never
+// discovers methods named OnBoot/OnShutdown on a module. NewGRPCServerModule
+// must register itself into both lists, or the documented "listens on
+// OnBoot, drains on OnShutdown" never happens and the gRPC server never
+// starts as part of an App.
+func TestGRPCServerModule_RegistersLifecycleHooks(t *testing.T) {
+	config := DefaultConfig()
+	config.Port = 0
+	config.Insecure = true
+	m := NewGRPCServerModule("grpc-hooks", config)
+
+	if len(m.Module.OnBootHooks) != 1 {
+		t.Fatalf("OnBootHooks = %d, want 1 (the module must register itself)", len(m.Module.OnBootHooks))
+	}
+	if len(m.Module.OnShutdownHooks) != 1 {
+		t.Fatalf("OnShutdownHooks = %d, want 1", len(m.Module.OnShutdownHooks))
+	}
+
+	// The registered boot hook actually starts the listener.
+	for _, h := range m.Module.OnBootHooks {
+		if err := h.OnBoot(); err != nil {
+			t.Fatalf("registered OnBoot hook: %v", err)
+		}
+	}
+	if m.Server().Address() == "" {
+		t.Error("server not listening after the registered OnBoot hook ran")
+	}
+	for _, h := range m.Module.OnShutdownHooks {
+		if err := h.OnShutdown(); err != nil {
+			t.Errorf("registered OnShutdown hook: %v", err)
+		}
 	}
 }

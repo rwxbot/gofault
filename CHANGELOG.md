@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-74 defects fixed across 31 commits. Grouped by what they were, not by when they
+76 defects fixed across 32 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
@@ -602,6 +602,11 @@ landed; every entry names the file so it can be reviewed directly.
   combination and every browser rejects it, so the configuration worked for
   nobody. With credentials the wildcard now echoes the request's exact
   origin and the response carries `Vary: Origin` (`middleware/cors.go`)
+- **A half-configured gRPC TLS setup served plaintext.** `NewServer` builds
+  credentials only when *both* `TLSCert` and `TLSKey` are set; with exactly
+  one set, credentials stayed nil and the server listened in cleartext with
+  no error and no log — the operator believed the endpoint was encrypted.
+  `bind` and `Serve` now reject the half-configured setup (`grpc/grpc.go`)
 
 ### Concurrency and correctness
 
@@ -636,6 +641,13 @@ landed; every entry names the file so it can be reviewed directly.
   and `bootstrapLocked` built the router without `SetContainer`, so
   `ResolveFromCtx` in a controller always failed even though `Init` had built a
   working container (`module/module.go`)
+- **The gRPC module never joined the app lifecycle.** The framework iterates
+  `OnBootHooks`/`OnShutdownHooks`; it never discovers methods named
+  `OnBoot`/`OnShutdown` on a module. `NewGRPCServerModule` defined those
+  methods but registered nothing, so the documented "listens on OnBoot,
+  drains on OnShutdown" never happened — registering the module into an App
+  started no gRPC server and shutdown drained nothing. The constructor now
+  registers the module into both hook lists (`grpc/grpc.go`)
 - **The timeout middleware replayed a failed handler's partial output.** On the
   non-timeout branch the buffer was flushed onto the real writer even when the
   handler returned an error, committing a 2xx status line the router's error

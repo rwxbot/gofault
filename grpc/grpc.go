@@ -120,6 +120,9 @@ func (s *Server) bind() (net.Listener, error) {
 	if s.started {
 		return nil, fmt.Errorf("server already started")
 	}
+	if err := s.validateTLS(); err != nil {
+		return nil, err
+	}
 
 	addr := fmt.Sprintf(":%d", s.config.Port)
 	ln, err := net.Listen(s.config.Network, addr)
@@ -159,12 +162,32 @@ func (s *Server) StartInBackground() error {
 	return nil
 }
 
+// validateTLS rejects a half-configured TLS setup. NewServer only builds
+// credentials when BOTH TLSCert and TLSKey are set; with exactly one set it
+// silently leaves creds nil, and the server would serve plaintext while the
+// operator believes the endpoint is encrypted. Fail at bind time instead.
+// Callers hold s.mu or run before the server is shared; config is fixed at
+// construction.
+func (s *Server) validateTLS() error {
+	if s.config.Insecure {
+		return nil
+	}
+	if (s.config.TLSCert == "") != (s.config.TLSKey == "") {
+		return fmt.Errorf("grpc: TLS is half-configured: TLSCert and TLSKey must both be set (or Insecure must be true); refusing to serve plaintext")
+	}
+	return nil
+}
+
 // Serve starts the gRPC server on the given listener.
 func (s *Server) Serve(ln net.Listener) error {
 	s.mu.Lock()
 	if s.started {
 		s.mu.Unlock()
 		return fmt.Errorf("server already started")
+	}
+	if err := s.validateTLS(); err != nil {
+		s.mu.Unlock()
+		return err
 	}
 	s.listener = ln
 	s.started = true
@@ -333,11 +356,20 @@ type GRPCServerModule struct {
 }
 
 // NewGRPCServerModule creates a new gRPC server module.
+//
+// The module registers itself as an OnBoot and OnShutdown hook: the
+// framework's lifecycle iterates OnBootHooks/OnShutdownHooks and never
+// discovers methods named OnBoot/OnShutdown on a module, so without this
+// wiring the documented behaviour — "it listens on OnBoot and drains on
+// OnShutdown" — never happened and the gRPC server simply never started.
 func NewGRPCServerModule(name string, config Config) *GRPCServerModule {
-	return &GRPCServerModule{
+	m := &GRPCServerModule{
 		Module: core.NewModule(name),
 		server: NewServer(config),
 	}
+	m.Module.RegisterOnBoot(m)
+	m.Module.RegisterOnShutdown(m)
+	return m
 }
 
 // Server returns the underlying *Server.
