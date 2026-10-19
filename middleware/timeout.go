@@ -126,8 +126,16 @@ func TimeoutMiddleware(config TimeoutConfig) core.MiddlewareFunc {
 
 		select {
 		case err := <-errCh:
+			if err != nil {
+				// Discard the buffered output and let the router's error
+				// path (exception filter or 500) answer. Replaying it and
+				// still returning the error would commit a 2xx status line
+				// the filter cannot retract, and the client would get the
+				// half-written body instead of the error response.
+				return err
+			}
 			buffered.flushTo(ctx.Response)
-			return err
+			return nil
 		case <-ctxWithTimeout.Done():
 			// The 504 response is fully written here, so the middleware
 			// must return nil: returning the context error would make the

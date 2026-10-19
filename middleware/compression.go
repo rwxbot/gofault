@@ -46,6 +46,8 @@ type compressCapture struct {
 	http.ResponseWriter
 	statusCode  int
 	wroteHeader bool
+	flushed     bool // the status line has reached the real writer
+	sent        int  // bytes of body already replayed onto the real writer
 	body        bytes.Buffer
 }
 
@@ -73,7 +75,17 @@ func (r *compressCapture) Write(data []byte) (int, error) {
 // Flush lets handlers that stream still flush, even though the body is
 // buffered. Without it, http.Flusher is unavailable and streaming handlers
 // either error or silently buffer everything.
+//
+// The buffered body must reach the real writer first: in net/http, Flush
+// commits the response with an implicit 200, so flushing an empty buffer
+// would send a 200 status line while the status the handler chose — and the
+// body itself — are still sitting in the buffer and get dropped when the
+// middleware replays it onto an already-committed writer.
 func (r *compressCapture) Flush() {
+	if !r.wroteHeader {
+		r.WriteHeader(http.StatusOK)
+	}
+	r.flushTo(r.ResponseWriter)
 	if f, ok := r.ResponseWriter.(http.Flusher); ok {
 		f.Flush()
 	}
@@ -133,6 +145,15 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 			return err
 		}
 
+		// Once the handler has flushed, the status line and the bytes flushed
+		// so far are already committed on the wire. Gzip-compressing and
+		// replaying the whole buffer would send the flushed prefix twice, so
+		// a flushed response is only topped up with its remaining bytes.
+		if capture.flushed {
+			capture.flushTo(real)
+			return nil
+		}
+
 		// A body is meaningless for these statuses and net/http rejects it, so
 		// drop it rather than letting the handler's Write surface as an error.
 		if !bodyAllowedForStatus(capture.statusCode) {
@@ -171,16 +192,31 @@ func CompressionMiddleware(config CompressionConfig) core.MiddlewareFunc {
 }
 
 // flushTo writes the captured response to the real writer.
+//
+// It is incremental: the first call commits the status line and everything
+// buffered so far, later calls only replay the bytes written since. A
+// streaming handler can Flush several times, and the middleware's own
+// replay at the end of the request must not write the already-flushed
+// prefix a second time.
 func (r *compressCapture) flushTo(w http.ResponseWriter) {
-	// Bodies that must not carry content (204, 304, 1xx) are header-only.
-	if bodyAllowedForStatus(r.statusCode) {
-		w.WriteHeader(r.statusCode)
-		if r.body.Len() > 0 {
-			_, _ = w.Write(r.body.Bytes())
+	if !r.flushed {
+		// Bodies that must not carry content (204, 304, 1xx) are header-only.
+		if bodyAllowedForStatus(r.statusCode) {
+			w.WriteHeader(r.statusCode)
+			if r.body.Len() > 0 {
+				_, _ = w.Write(r.body.Bytes())
+			}
+			r.sent = r.body.Len()
+		} else {
+			w.WriteHeader(r.statusCode)
 		}
+		r.flushed = true
 		return
 	}
-	w.WriteHeader(r.statusCode)
+	if remaining := r.body.Bytes()[r.sent:]; len(remaining) > 0 {
+		_, _ = w.Write(remaining)
+		r.sent = r.body.Len()
+	}
 }
 
 // bodyAllowedForStatus reports whether a status code permits a body.

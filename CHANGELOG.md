@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-61 defects fixed across 25 commits. Grouped by what they were, not by when they
+67 defects fixed across 29 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
@@ -601,6 +601,34 @@ landed; every entry names the file so it can be reviewed directly.
 - **`ioc` raced on singletons.** `entry.inst` is written under the container
   mutex but read without it, so concurrent first-resolves raced on the field and
   the fast path could observe a partially written interface value
+- **Nested request-scoped resolutions built duplicate instances.** A
+  request-scoped type resolved as a constructor argument received a fresh
+  `context.Background()` instead of the request context being resolved, so the
+  same request got two different instances of one request-scoped type — and
+  singletons resolved during a request captured that request's instance for the
+  process lifetime. `callCtor`/`resolveType` now thread the request context
+  through nested resolutions; singleton constructors get an explicit background
+  context (`ioc/container.go`)
+- **`App.Init` sorted modules without the lock, and bootstrap never wired the
+  container into the router.** `Init` mutated `a.modules` through `sortModules`
+  while `RegisterModules` could append concurrently (race detector confirmed);
+  and `bootstrapLocked` built the router without `SetContainer`, so
+  `ResolveFromCtx` in a controller always failed even though `Init` had built a
+  working container (`module/module.go`)
+- **The timeout middleware replayed a failed handler's partial output.** On the
+  non-timeout branch the buffer was flushed onto the real writer even when the
+  handler returned an error, committing a 2xx status line the router's error
+  path could not retract — the client got the half-written body instead of the
+  exception filter's response (`middleware/timeout.go`)
+- **Compression's `Flush` sent an implicit 200 and dropped the response.**
+  `compressCapture.Flush` delegated to the real writer without replaying the
+  buffered body; in net/http `Flush` commits the response with an implicit 200,
+  so the handler's chosen status and the whole body were stranded in the buffer
+  and discarded on an already-committed writer. `Flush` now replays the buffer
+  first and is incremental (a second `Flush` only writes what came since); once
+  a handler has flushed, the middleware tops up the remaining bytes instead of
+  gzip-compressing and replaying the whole buffer, which would have sent the
+  flushed prefix twice (`middleware/compression.go`)
 - **Bind failures hung the process.** `StartWithGracefulShutdown` bound the port
   inside a goroutine, so a port already in use was discarded and the call blocked
   forever waiting for a signal (`server/http.go`)
@@ -640,6 +668,12 @@ landed; every entry names the file so it can be reviewed directly.
 - **`redis.NewClient` leaked its pool on failure.** The connectivity probe
   returned an error without closing the client. Verified: 50 failed
   constructions now leave the goroutine count unchanged
+- **`WebSocketHijackMiddleware` leaked upgraded connections.** After
+  `upgrader.Upgrade` succeeds the connection is off net/http's management, and
+  the middleware never closed it: a handler that returned an error or panicked
+  left the socket open until the peer timed out. `WebSocketMiddleware` already
+  closed its connection; the hijack variant now does the same on every path
+  (`middleware/websocket.go`)
 
 ### Configuration that did nothing
 

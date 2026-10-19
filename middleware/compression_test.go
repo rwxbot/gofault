@@ -186,3 +186,62 @@ func TestNormalizeCompressionLevel(t *testing.T) {
 		}
 	}
 }
+
+// net/http commits the response with an implicit 200 on Flush. Flushing the
+// capture must therefore replay the buffered body onto the real writer first;
+// delegating Flush alone would send a 200 status line while the handler's
+// status and body were still sitting in the buffer, never to be seen.
+func TestCompressCapture_FlushReplaysBody(t *testing.T) {
+	rec := httptest.NewRecorder()
+	capture := newCompressCapture(rec)
+
+	capture.WriteHeader(http.StatusTeapot)
+	_, _ = capture.Write([]byte("chunk1"))
+	capture.Flush()
+
+	if rec.Code != http.StatusTeapot {
+		t.Errorf("status after Flush = %d, want %d", rec.Code, http.StatusTeapot)
+	}
+	if rec.Body.String() != "chunk1" {
+		t.Errorf("body after Flush = %q, want %q", rec.Body.String(), "chunk1")
+	}
+
+	// A second Flush only replays what was written since the first.
+	_, _ = capture.Write([]byte("chunk2"))
+	capture.Flush()
+	if rec.Body.String() != "chunk1chunk2" {
+		t.Errorf("body after second Flush = %q, want %q", rec.Body.String(), "chunk1chunk2")
+	}
+}
+
+// Once a streaming handler has flushed, the middleware must not gzip and
+// replay the whole buffer — the flushed prefix would reach the client twice.
+func TestCompressionMiddleware_FlushedResponseNotDoubleWritten(t *testing.T) {
+	config := DefaultCompressionConfig()
+	config.MinSize = 1
+	mw := CompressionMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
+		f := ctx.Response.(http.Flusher)
+		_, _ = ctx.Response.Write([]byte("first "))
+		f.Flush()
+		_, _ = ctx.Response.Write([]byte("second"))
+		f.Flush()
+		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/stream", nil)
+	req.Header.Set("Accept-Encoding", "gzip")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	if err := mw(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
+	if got := w.Body.String(); got != "first second" {
+		t.Errorf("body = %q, want %q (flushed prefix must not repeat)", got, "first second")
+	}
+	if ce := w.Header().Get("Content-Encoding"); ce == "gzip" {
+		t.Error("a flushed response must not be gzip-compressed after the fact")
+	}
+}

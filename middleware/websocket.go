@@ -238,6 +238,11 @@ func WebSocketHijackMiddleware(config WebSocketConfig) core.MiddlewareFunc {
 		if err != nil {
 			return err
 		}
+		// Close the connection when the handler returns, on every path
+		// including an error or panic through next. WebSocketMiddleware
+		// does the same; without it an upgraded connection whose handler
+		// errored out stayed open until the peer timed out.
+		defer conn.Close()
 
 		ctx.SetLocal("ws_conn", conn)
 		ctx.SetLocal("ws_upgrader", &upgrader)

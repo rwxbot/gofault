@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -130,5 +131,33 @@ func TestTimeoutMiddleware_TimeoutReturnsNil(t *testing.T) {
 	}
 	if ctx.StatusCode != http.StatusGatewayTimeout {
 		t.Errorf("ctx.StatusCode = %d, want %d for the logger/metrics middleware", ctx.StatusCode, http.StatusGatewayTimeout)
+	}
+}
+
+// A handler that wrote a partial response and then failed must NOT have its
+// buffer replayed: committing the buffered 200 and still returning the error
+// makes the router's error response a no-op (superfluous WriteHeader) and
+// leaves the client with the half-written body instead of the real error.
+func TestTimeoutMiddleware_HandlerErrorDiscardsBuffer(t *testing.T) {
+	config := DefaultTimeoutConfig()
+	config.Duration = time.Second
+
+	middleware := TimeoutMiddleware(config)
+
+	next := func(ctx *core.Ctx) error {
+		_, _ = ctx.Response.Write([]byte("half-written"))
+		return errors.New("handler failed")
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/fail", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	err := middleware(ctx, next)
+	if err == nil {
+		t.Fatal("expected the handler error to surface")
+	}
+	if w.Body.Len() != 0 {
+		t.Errorf("buffered body replayed on the error path: %q", w.Body.String())
 	}
 }

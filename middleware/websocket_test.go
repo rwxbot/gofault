@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -513,3 +514,40 @@ func TestWebSocketMiddleware_HandlerErrorSurfaces(t *testing.T) {
 }
 
 var errWSBusiness = errors.New("business failure")
+
+// After Upgrade succeeds, the hijacked connection is not managed by net/http
+// anymore: if the middleware does not close it, an errored handler leaves the
+// socket open until the peer times out. The client must see the connection
+// end shortly after the handler returns, not after a long deadline.
+func TestWebSocketHijackMiddleware_ClosesConnWhenHandlerFails(t *testing.T) {
+	cfg := DefaultWebSocketConfig()
+	mw := WebSocketHijackMiddleware(cfg)
+
+	handlerDone := make(chan struct{})
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := core.NewCtx(w, r)
+		mw(ctx, func(c *core.Ctx) error {
+			close(handlerDone)
+			return errors.New("ws handler failed")
+		})
+	}))
+	defer server.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
+	conn, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
+	if err != nil {
+		t.Fatalf("dial error: %v", err)
+	}
+	defer conn.Close()
+
+	<-handlerDone
+
+	// A closed server side surfaces as a read error well inside the deadline.
+	// Without the fix this read blocks for the full deadline.
+	conn.SetReadDeadline(time.Now().Add(2 * time.Second))
+	if _, _, err := conn.ReadMessage(); err == nil {
+		t.Fatal("expected the server to close the connection after the handler failed")
+	} else if netErr, ok := err.(net.Error); ok && netErr.Timeout() {
+		t.Fatal("connection still open after the handler failed (read timed out)")
+	}
+}
