@@ -3,6 +3,7 @@ package middleware
 import (
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/gofault/gofault/core"
@@ -213,5 +214,90 @@ func TestCORS_ForwardToNext(t *testing.T) {
 	}
 	if ctx.StatusCode != http.StatusCreated {
 		t.Errorf("StatusCode = %d, want %d", ctx.StatusCode, http.StatusCreated)
+	}
+}
+
+// The Fetch spec forbids Access-Control-Allow-Origin: * together with
+// Access-Control-Allow-Credentials: true — browsers reject that pair, so
+// the "allow everything with cookies" configuration silently worked for
+// nobody. With credentials the wildcard must degrade to echoing the
+// request's exact origin, and the response must carry Vary: Origin so a
+// shared cache cannot serve one origin's answer to another.
+func TestCORS_WildcardWithCredentialsEchoesOrigin(t *testing.T) {
+	cfg := CORSConfig{
+		AllowOrigins:     []string{"*"},
+		AllowCredentials: true,
+	}
+	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/api", nil)
+	req.Header.Set("Origin", "http://app.example.com")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
+
+	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "http://app.example.com" {
+		t.Errorf("Access-Control-Allow-Origin = %q, want the exact origin (\"*\" + credentials is invalid)", got)
+	}
+	if got := w.Header().Get("Access-Control-Allow-Credentials"); got != "true" {
+		t.Errorf("Access-Control-Allow-Credentials = %q, want true", got)
+	}
+	if got := w.Header().Get("Vary"); !strings.Contains(got, "Origin") {
+		t.Errorf("Vary = %q, want it to include Origin for an origin-specific response", got)
+	}
+}
+
+// Without credentials the wildcard stays "*": echoing per-origin would only
+// force Vary: Origin and a cache miss per origin for no benefit.
+func TestCORS_WildcardWithoutCredentialsStaysStar(t *testing.T) {
+	cfg := CORSConfig{AllowOrigins: []string{"*"}}
+	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/api", nil)
+	req.Header.Set("Origin", "http://anywhere.com")
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
+
+	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "*" {
+		t.Errorf("Access-Control-Allow-Origin = %q, want *", got)
+	}
+	if got := w.Header().Get("Vary"); got != "" {
+		t.Errorf("Vary = %q, want empty for a wildcard response identical for every origin", got)
+	}
+}
+
+// A credentials-enabled wildcard request without an Origin header is not a
+// CORS request; echoing an empty Access-Control-Allow-Origin would be a
+// header no browser accepts.
+func TestCORS_WildcardWithCredentialsNoOriginHeader(t *testing.T) {
+	cfg := CORSConfig{AllowOrigins: []string{"*"}, AllowCredentials: true}
+	middleware := CORS(cfg)
+
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/api", nil)
+	w := httptest.NewRecorder()
+	ctx := core.NewCtx(w, req)
+
+	middleware(ctx, next)
+
+	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "" {
+		t.Errorf("Access-Control-Allow-Origin = %q, want empty without an Origin request header", got)
 	}
 }

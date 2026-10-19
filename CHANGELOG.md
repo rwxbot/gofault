@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-67 defects fixed across 29 commits. Grouped by what they were, not by when they
+73 defects fixed across 30 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
@@ -581,6 +581,27 @@ landed; every entry names the file so it can be reviewed directly.
   while the assembled framework was broken; only an end-to-end test could see it
 - Compression also committed the capture's default 200 status line on the error
   path, turning the filter's write into a no-op
+- **X-Forwarded-For could still be spoofed through a trusted proxy.** The
+  filter trusted the leftmost XFF entry, but proxies append their hop rather
+  than replacing the header: a client sending `X-Forwarded-For: 127.0.0.1`
+  arrived as `127.0.0.1, <real client>` and walked past an allow-list that
+  permits localhost. The chain is now walked right to left and the first
+  untrusted hop wins; a malformed hop stops the walk rather than trusting
+  across it (`middleware/ipfilter.go`)
+- **The cache middleware served one caller's authenticated body to every
+  later caller.** The key was Host+Method+Path+Query only, so an
+  authenticated response cached for the first caller was replayed to other
+  users — and to unauthenticated ones — of the same URL. Authorization and
+  Cookie are now hashed (SHA-256) into the key, and a response whose own
+  headers say `no-store`/`no-cache`/`private`/`max-age=0`, or that carries
+  `Vary`, is never cached (`middleware/cache.go`)
+- **CORS emitted the invalid `*` + credentials pair.** With
+  `AllowOrigins: ["*"]` and `AllowCredentials: true` the middleware set
+  `Access-Control-Allow-Origin: *` together with
+  `Access-Control-Allow-Credentials: true` — the Fetch spec forbids the
+  combination and every browser rejects it, so the configuration worked for
+  nobody. With credentials the wildcard now echoes the request's exact
+  origin and the response carries `Vary: Origin` (`middleware/cors.go`)
 
 ### Concurrency and correctness
 
@@ -709,6 +730,16 @@ it, so `internal/deadfield` now fails the build on both this and the next class.
   fields and validates ports, drivers and log settings
 - **`GetDSN` always emitted the MySQL form**, which PostgreSQL and SQLite drivers
   cannot parse
+- **The cache capture broke streaming and hijacking, and buffered without
+  bound.** `responseCapture` embedded `http.ResponseWriter` and defined only
+  `Write`/`WriteHeader`/`Header`, so it did not satisfy `http.Flusher` or
+  `http.Hijacker` — embedding does not extend the method set — and handlers
+  that type-assert those interfaces failed outright under the cache
+  middleware. It also appended every byte with no cap, so one large download
+  pinned its whole body in a cache entry. The capture now implements both
+  interfaces (a Flush or Hijack streams the response and opts it out of the
+  cache) and caps buffering at `MaxBodyBytes` (default 256 KiB), streaming
+  anything larger (`middleware/cache.go`)
 - **DSN credentials were interpolated without escaping.** A password containing
   `@` or `:` — the usual shape of a generated secret — moved the credential
   boundary in both formats, and a database name containing `?` or `/` broke

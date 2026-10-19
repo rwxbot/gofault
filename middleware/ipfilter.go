@@ -126,44 +126,65 @@ func remoteIP(ctx *core.Ctx) net.IP {
 // against an allow-list that permits localhost). The headers are therefore
 // only consulted when the connection's RemoteAddr is inside TrustedProxies;
 // with no trusted proxies configured the TCP address is authoritative.
+//
+// Even behind a trusted proxy the FIRST entry of X-Forwarded-For is not the
+// client: proxies append their hop rather than replacing the header, so a
+// client that sent "X-Forwarded-For: 127.0.0.1" arrives with
+// "127.0.0.1, <client>". The chain is therefore scanned right to left — the
+// rightmost entry was written by the proxy we are connected to — and the
+// first entry not itself a trusted proxy is taken as the client. Entries
+// further left are older hops that earlier proxies recorded and may be
+// forged; they are only reachable once every closer hop is trusted.
 func getClientIP(ctx *core.Ctx, trustedNets []*net.IPNet) net.IP {
 	remote := remoteIP(ctx)
 	if remote == nil {
 		return nil
 	}
 
-	trusted := false
-	for _, ipNet := range trustedNets {
-		if ipNet.Contains(remote) {
-			trusted = true
-			break
-		}
-	}
-	if !trusted {
+	if !isTrusted(remote, trustedNets) {
 		return remote
 	}
 
-	// Check X-Forwarded-For header first
 	xff := ctx.Request.Header.Get("X-Forwarded-For")
 	if xff != "" {
-		// Take the first IP in the chain
 		parts := strings.Split(xff, ",")
-		ip := net.ParseIP(strings.TrimSpace(parts[0]))
-		if ip != nil {
-			return ip
+		for i := len(parts) - 1; i >= 0; i-- {
+			ip := net.ParseIP(strings.TrimSpace(parts[i]))
+			if ip == nil {
+				// A malformed hop breaks the chain: everything further left
+				// is unverifiable, so stop rather than trust across it.
+				break
+			}
+			if !isTrusted(ip, trustedNets) {
+				return ip
+			}
 		}
+		// Every entry was a trusted proxy (or the header was garbage): the
+		// closest untrusted hop is the connection itself.
+		return remote
 	}
 
-	// Check X-Real-IP header
+	// X-Real-IP is a single value set by the proxy in front of us. It is only
+	// consulted when the connection is trusted, and unlike XFF there is no
+	// chain to walk — the proxy that set it is the hop we accepted.
 	xri := ctx.Request.Header.Get("X-Real-IP")
 	if xri != "" {
-		ip := net.ParseIP(xri)
-		if ip != nil {
+		if ip := net.ParseIP(xri); ip != nil {
 			return ip
 		}
 	}
 
 	return remote
+}
+
+// isTrusted reports whether ip falls inside one of the trusted proxy nets.
+func isTrusted(ip net.IP, trustedNets []*net.IPNet) bool {
+	for _, ipNet := range trustedNets {
+		if ipNet.Contains(ip) {
+			return true
+		}
+	}
+	return false
 }
 
 // isIPBlocked checks if an IP is in the block list.

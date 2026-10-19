@@ -1,7 +1,9 @@
 package middleware
 
 import (
+	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 
@@ -330,5 +332,148 @@ func TestCacheMiddleware_HandlerHeadersSurviveMiss(t *testing.T) {
 	}
 	if rec2.Code != 201 || rec2.Body.String() != `{"ok":true}` {
 		t.Errorf("HIT mismatch: code=%d body=%q", rec2.Code, rec2.Body.String())
+	}
+}
+
+// The key used to be Host+Method+Path+Query only: the first caller's
+// authenticated body was served from the cache to every later caller of the
+// same URL — including unauthenticated ones. Authorization and Cookie must
+// separate entries.
+func TestCacheMiddleware_CredentialIsolation(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
+	middleware := CacheMiddleware(cache, DefaultCacheConfig())
+
+	hits := 0
+	next := func(ctx *core.Ctx) error {
+		hits++
+		ctx.Response.Header().Set("Content-Type", "application/json")
+		ctx.Response.WriteHeader(http.StatusOK)
+		ctx.Response.Write([]byte("body-" + ctx.Request.Header.Get("Authorization")))
+		return nil
+	}
+
+	call := func(auth string) string {
+		req := httptest.NewRequest(http.MethodGet, "/me", nil)
+		if auth != "" {
+			req.Header.Set("Authorization", auth)
+		}
+		rec := httptest.NewRecorder()
+		ctx := core.NewCtx(rec, req)
+		if err := middleware(ctx, next); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
+		return rec.Body.String()
+	}
+
+	if got := call("Bearer alice"); got != "body-Bearer alice" {
+		t.Fatalf("first call = %q", got)
+	}
+	if got := call("Bearer bob"); got != "body-Bearer bob" {
+		t.Errorf("second user served %q, want its own body (cache key ignored credentials)", got)
+	}
+	if got := call(""); got != "body-" {
+		t.Errorf("unauthenticated caller served %q, want its own body (cache key ignored credentials)", got)
+	}
+	// The same credential still hits the cache.
+	if got := call("Bearer alice"); got != "body-Bearer alice" {
+		t.Errorf("repeat call = %q", got)
+	}
+	if hits != 3 {
+		t.Errorf("handler ran %d times, want 3 (one per distinct credential)", hits)
+	}
+}
+
+// A handler that sets Cache-Control: no-store must not have its body cached
+// for the next caller.
+func TestCacheMiddleware_RespectsNoStore(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
+	middleware := CacheMiddleware(cache, DefaultCacheConfig())
+
+	count := 0
+	next := func(ctx *core.Ctx) error {
+		count++
+		ctx.Response.Header().Set("Cache-Control", "no-store")
+		ctx.Response.WriteHeader(http.StatusOK)
+		ctx.Response.Write([]byte("secret"))
+		return nil
+	}
+
+	for i := 0; i < 2; i++ {
+		req := httptest.NewRequest(http.MethodGet, "/dashboard", nil)
+		rec := httptest.NewRecorder()
+		ctx := core.NewCtx(rec, req)
+		if err := middleware(ctx, next); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
+	}
+	if count != 2 {
+		t.Errorf("handler ran %d times, want 2 (a no-store response must not be cached)", count)
+	}
+}
+
+// Embedding http.ResponseWriter does NOT satisfy http.Flusher: a handler
+// type-asserting the writer used to fail under the cache middleware.
+func TestCacheMiddleware_FlusherPassthrough(t *testing.T) {
+	cache := NewInMemoryCache(DefaultCacheConfig())
+	middleware := CacheMiddleware(cache, DefaultCacheConfig())
+
+	next := func(ctx *core.Ctx) error {
+		f, ok := ctx.Response.(http.Flusher)
+		if !ok {
+			t.Error("ctx.Response does not implement http.Flusher under the cache middleware")
+			return nil
+		}
+		_, _ = ctx.Response.Write([]byte("chunk"))
+		f.Flush()
+		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/stream", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
+	if rec.Body.String() != "chunk" {
+		t.Errorf("body = %q, want chunk", rec.Body.String())
+	}
+	// A flushed response is on the wire; it must not be cached.
+	req2 := httptest.NewRequest(http.MethodGet, "/stream", nil)
+	rec2 := httptest.NewRecorder()
+	ctx2 := core.NewCtx(rec2, req2)
+	if err := middleware(ctx2, next); err != nil {
+		t.Fatalf("second middleware: %v", err)
+	}
+	if rec2.Header().Get("X-Cache") == "HIT" {
+		t.Error("a flushed response was served from cache")
+	}
+}
+
+// One large response used to pin its whole body in the cache entry. Past the
+// cap the response streams to the client and is not cached.
+func TestCacheMiddleware_BodyCap(t *testing.T) {
+	config := DefaultCacheConfig()
+	config.MaxBodyBytes = 1024
+	cache := NewInMemoryCache(config)
+	middleware := CacheMiddleware(cache, config)
+
+	big := strings.Repeat("x", 4096)
+	next := func(ctx *core.Ctx) error {
+		ctx.Response.WriteHeader(http.StatusOK)
+		_, _ = ctx.Response.Write([]byte(big))
+		return nil
+	}
+
+	req := httptest.NewRequest(http.MethodGet, "/big", nil)
+	rec := httptest.NewRecorder()
+	ctx := core.NewCtx(rec, req)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
+	if rec.Body.String() != big {
+		t.Errorf("client received %d bytes, want the full %d", rec.Body.Len(), len(big))
+	}
+	if cache.Size() != 0 {
+		t.Errorf("cache holds %d entries, want 0 (oversized response must not be cached)", cache.Size())
 	}
 }
