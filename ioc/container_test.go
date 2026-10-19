@@ -250,3 +250,43 @@ func TestContainer_ConcurrentNestedSingletonResolve(t *testing.T) {
 		}
 	}
 }
+
+// TestContainer_NestedRequestScopedSharedInstance locks the contract that a
+// request-scoped service whose constructor takes another request-scoped service
+// receives the SAME per-request instance, not a fresh copy. resolveType used to
+// call callCtor directly for request-scoped args, bypassing the per-request
+// cache, so every outer instance got its own inner instance and the documented
+// one-instance-per-request contract was silently broken.
+func TestContainer_NestedRequestScopedSharedInstance(t *testing.T) {
+	c := New()
+	if err := c.RegisterScoped(newDummyService); err != nil {
+		t.Fatal(err)
+	}
+	if err := c.RegisterScoped(newDependentService); err != nil {
+		t.Fatal(err)
+	}
+
+	ctx := c.BeginRequest(context.Background())
+
+	outer, err := c.ResolveFromCtx(ctx, &dependentService{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	inner, err := c.ResolveFromCtx(ctx, &dummyService{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if outer.(*dependentService).dep != inner.(*dummyService) {
+		t.Fatal("nested request-scoped arg must be the same per-request instance")
+	}
+
+	// A second request must get its own pair, distinct from the first.
+	ctx2 := c.BeginRequest(context.Background())
+	outer2, err := c.ResolveFromCtx(ctx2, &dependentService{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if outer2.(*dependentService).dep == outer.(*dependentService).dep {
+		t.Fatal("different requests must not share request-scoped instances")
+	}
+}

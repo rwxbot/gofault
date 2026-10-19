@@ -170,7 +170,7 @@ func (c *container) ResolveFromCtx(ctx context.Context, target any) (any, error)
 	e, ok := c.transients[t]
 	c.mu.RUnlock()
 	if ok {
-		return c.callCtor(e.ctor)
+		return c.callCtor(ctx, e.ctor)
 	}
 
 	// Check request.
@@ -194,7 +194,7 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 	key, ok := ctx.Value(requestCtxKey).(contextKey)
 	if !ok {
 		// No request context: fall back to creating a new instance each time.
-		return c.callCtor(e.ctor)
+		return c.callCtor(ctx, e.ctor)
 	}
 
 	c.mu.RLock()
@@ -210,7 +210,7 @@ func (c *container) resolveRequestScoped(ctx context.Context, e *entry, t reflec
 	}
 
 	// Built outside the lock so nested resolution can take it.
-	created, err := c.callCtor(e.ctor)
+	created, err := c.callCtor(ctx, e.ctor)
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +249,12 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 	// Slow path. Build the instance outside the lock so nested callCtor calls
 	// can take the lock themselves without deadlocking, then publish it under
 	// the lock with a double-check.
-	created, err := c.callCtor(e.ctor)
+	//
+	// A singleton is process-lifetime, so its constructor arguments are resolved
+	// with a background context: a request-scoped dependency must never be
+	// captured into the singleton, or one request's instance would leak into
+	// every later one. Such a dependency falls back to a fresh instance here.
+	created, err := c.callCtor(context.Background(), e.ctor)
 	if err != nil {
 		return nil, err
 	}
@@ -265,13 +270,14 @@ func (c *container) resolveSingleton(e *entry) (any, error) {
 }
 
 // callCtor invokes a constructor, resolving each argument through the
-// container.
-func (c *container) callCtor(ctor any) (any, error) {
+// container. The ctx is threaded into argument resolution so a request-scoped
+// parameter reuses the per-request instance instead of getting a fresh one.
+func (c *container) callCtor(ctx context.Context, ctor any) (any, error) {
 	fn := reflect.ValueOf(ctor)
 	in := make([]reflect.Value, fn.Type().NumIn())
 	for i := range in {
 		argType := fn.Type().In(i)
-		arg, err := c.resolveType(argType)
+		arg, err := c.resolveType(ctx, argType)
 		if err != nil {
 			return nil, fmt.Errorf("cannot resolve arg %d (%v): %w", i, argType, err)
 		}
@@ -283,7 +289,7 @@ func (c *container) callCtor(ctor any) (any, error) {
 	return out[0].Interface(), nil
 }
 
-func (c *container) resolveType(t reflect.Type) (any, error) {
+func (c *container) resolveType(ctx context.Context, t reflect.Type) (any, error) {
 	// Check if it's a registered singleton.
 	c.mu.RLock()
 	e, isSingleton := c.singletons[t]
@@ -299,15 +305,18 @@ func (c *container) resolveType(t reflect.Type) (any, error) {
 	e, ok := c.transients[t]
 	c.mu.RUnlock()
 	if ok {
-		return c.callCtor(e.ctor)
+		return c.callCtor(ctx, e.ctor)
 	}
 
-	// Check request-scoped.
+	// Check request-scoped. This must go through resolveRequestScoped, not
+	// callCtor directly: bypassing it gave every constructor a *fresh* copy of
+	// a request-scoped dependency, silently breaking the one-instance-per-request
+	// contract the moment any request-scoped service took another as a parameter.
 	c.mu.RLock()
 	e, ok = c.request[t]
 	c.mu.RUnlock()
 	if ok {
-		return c.callCtor(e.ctor)
+		return c.resolveRequestScoped(ctx, e, t)
 	}
 
 	return nil, fmt.Errorf("cannot resolve %v", t)
