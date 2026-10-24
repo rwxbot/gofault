@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-81 defects fixed across 35 commits. Grouped by what they were, not by when they
+78 defects fixed across 35 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
