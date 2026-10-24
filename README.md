@@ -1098,3 +1098,18 @@ if vs.IsDeprecated(ctx.GetVersion()) {
 
 `versioning.ResponseWriter` adds the negotiated version to outgoing headers, so
 clients can confirm what the server picked.
+
+## What's new in v3.4.1
+
+v3.4.1 is a defect-fix release: 78 defects across 35 commits, closing every
+known security hole (path traversal in static serving and uploads, cache
+cross-user replay, rate-limit bypass via forged headers, half-configured gRPC
+TLS serving plaintext, Slowloris) and every documented-but-inert configuration
+field. Statement coverage went from 50.0% to 88.8%, and `golangci-lint run
+./...` is green.
+
+Upgrading from v3.4.0 or earlier: read **`MIGRATION.md`** first. Several fixes
+change runtime behaviour on purpose — JWT defaults are stricter, rate limiting
+keys on the TCP connection unless `TrustedProxies` is set, the cache key now
+includes the caller's credentials — and a clean build does not mean the
+upgrade is done. The full defect list is in `CHANGELOG.md`.

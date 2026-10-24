@@ -877,13 +877,21 @@ it, so `internal/deadfield` now fails the build on both this and the next class.
 
 ### Test results
 
-Statement coverage 50.0% -> 87.1%. `controller` 31.6% -> 100%, `core` 58.3%
--> 100%, `exception` 77.1% -> 98.2%, `redis` 78.8% -> 88.5%, `grpc` 81.6%
--> 91.3%, `gorm` 74.1% -> 83.3%, `server` 56.0% -> 90.0%.
+Statement coverage 50.0% -> 88.8%. `controller` 31.6% -> 100%, `core` 58.3%
+-> 100%, `exception` 77.1% -> 98.2%, `redis` 78.8% -> 88.1%, `grpc` 81.6%
+-> 96.0%, `gorm` 74.1% -> 96.3%, `server` 56.0% -> 90.0%, `cmd/gofault`
+-> 75.9% (every function but `main`). A follow-up round closed the remaining
+low ground: a fake dialector/ConnPool drives the `Transaction` failure
+branches no real driver can provoke (Begin error, Rollback error on top of a
+failed handler, Commit error with and without a failing compensating
+Rollback), and `createProject`/`printUsage` failure paths are now asserted.
 
 gRPC additionally gained end-to-end tests over bufconn with a real client;
 RegisterService, the entry point for using the server at all, had no coverage
-and the test named after it never called it.
+and the test named after it never called it. A real-TCP end-to-end test
+(127.0.0.1:0 listener plus a real client dial) complements the bufconn suite,
+so the wire format and `Address()` reporting are verified over an actual
+socket.
 
 Every fix has a test that fails when the fix is reverted. Notable additions:
 randomised coverage of the topological sort over 200 generated dependency
