@@ -9,7 +9,6 @@ import (
 
 type svcA struct{ n int }
 type svcB struct {
-	n   int
 	dep *svcA
 }
 

@@ -17,7 +17,9 @@ func TestBaseController_JSON(t *testing.T) {
 		t.Fatalf("JSON failed: %v", err)
 	}
 	var resp map[string]string
-	json.Unmarshal(w.Body.Bytes(), &resp)
+	if err := json.Unmarshal(w.Body.Bytes(), &resp); err != nil {
+		t.Fatalf("unmarshal: %v", err)
+	}
 	if resp["key"] != "value" {
 		t.Fatalf("expected 'value', got %s", resp["key"])
 	}
@@ -30,7 +32,9 @@ func TestOK(t *testing.T) {
 		t.Fatalf("OK failed: %v", err)
 	}
 	var r Response
-	json.Unmarshal(w.Body.Bytes(), &r)
+	if err := json.Unmarshal(w.Body.Bytes(), &r); err != nil {
+		t.Fatalf("unmarshal: %v", err)
+	}
 	if r.Code != 0 || r.Message != "success" {
 		t.Fatalf("unexpected response: %+v", r)
 	}
@@ -73,7 +77,9 @@ func TestError(t *testing.T) {
 		t.Errorf("status = %d, want %d", w.Code, http.StatusNotFound)
 	}
 	var r Response
-	json.Unmarshal(w.Body.Bytes(), &r)
+	if err := json.Unmarshal(w.Body.Bytes(), &r); err != nil {
+		t.Fatalf("unmarshal: %v", err)
+	}
 	if r.Code != http.StatusNotFound || r.Message != "missing" {
 		t.Errorf("response = %+v, want code 404 / message missing", r)
 	}

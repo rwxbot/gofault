@@ -49,9 +49,11 @@ func TestSortModules_RespectsDependencies(t *testing.T) {
 	app := New()
 
 	// Registered in reverse dependency order on purpose.
-	app.RegisterModules(core.NewModule("last"))
-	app.RegisterModules(core.NewModule("middle"))
-	app.RegisterModules(core.NewModule("first"))
+	for _, name := range []string{"last", "middle", "first"} {
+		if err := app.RegisterModules(core.NewModule(name)); err != nil {
+			t.Fatalf("RegisterModules(%s): %v", name, err)
+		}
+	}
 
 	app.moduleMap["middle"].Depends = []string{"first"}
 	app.moduleMap["last"].Depends = []string{"middle"}
@@ -76,7 +78,9 @@ func TestSortModules_CycleMessageIsStable(t *testing.T) {
 	for run := 0; run < 30; run++ {
 		app := New()
 		for _, n := range []string{"a", "b", "c", "d"} {
-			app.RegisterModules(core.NewModule(n))
+			if err := app.RegisterModules(core.NewModule(n)); err != nil {
+				t.Fatalf("RegisterModules(%s): %v", n, err)
+			}
 		}
 		for _, m := range app.moduleMap {
 			m.Depends = []string{"next"}
@@ -103,8 +107,12 @@ func TestSortModules_CycleMessageIsStable(t *testing.T) {
 // Sorting must be idempotent: Init is reachable more than once.
 func TestSortModules_Idempotent(t *testing.T) {
 	app := New()
-	app.RegisterModules(core.NewModule("b"))
-	app.RegisterModules(core.NewModule("a"))
+	if err := app.RegisterModules(core.NewModule("b")); err != nil {
+		t.Fatalf("RegisterModules(b): %v", err)
+	}
+	if err := app.RegisterModules(core.NewModule("a")); err != nil {
+		t.Fatalf("RegisterModules(a): %v", err)
+	}
 	app.moduleMap["b"].Depends = []string{"a"}
 
 	if err := app.Init(); err != nil {
@@ -125,7 +133,9 @@ func TestSortModules_LosesNoModules(t *testing.T) {
 	app := New()
 	names := []string{"a", "b", "c", "d", "e", "f"}
 	for _, n := range names {
-		app.RegisterModules(core.NewModule(n))
+		if err := app.RegisterModules(core.NewModule(n)); err != nil {
+			t.Fatalf("RegisterModules(%s): %v", n, err)
+		}
 	}
 	app.moduleMap["f"].Depends = []string{"a", "b", "c", "d", "e"}
 
@@ -151,7 +161,9 @@ func TestApp_StopRacingBootstrap(t *testing.T) {
 		app := New()
 		mod := core.NewModule("m")
 		mod.RegisterOnShutdown(&dummyHook{})
-		app.RegisterModules(mod)
+		if err := app.RegisterModules(mod); err != nil {
+			t.Fatalf("RegisterModules: %v", err)
+		}
 
 		var wg sync.WaitGroup
 		wg.Add(2)
@@ -168,7 +180,9 @@ func TestApp_InitHooksStillRun(t *testing.T) {
 	mod := core.NewModule("m")
 	hook := &recordingHook{name: "init", order: new([]string)}
 	mod.RegisterOnInit(hook)
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Bootstrap(); err != nil {
 		t.Fatalf("Bootstrap: %v", err)
@@ -184,7 +198,9 @@ func TestApp_RoutesStillRegistered(t *testing.T) {
 	app := New()
 	mod := core.NewModule("m")
 	mod.RegisterControllers(&dummyController{})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Bootstrap(); err != nil {
 		t.Fatalf("Bootstrap: %v", err)

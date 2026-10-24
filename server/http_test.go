@@ -49,7 +49,7 @@ func TestGracefulShutdown(t *testing.T) {
 	handler := http.NewServeMux()
 	handler.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(200)
-		w.Write([]byte("OK"))
+		_, _ = w.Write([]byte("OK"))
 	})
 
 	srv := New(handler, 0) // port 0 = random available port
@@ -97,11 +97,11 @@ func TestGracefulShutdown_Hooks(t *testing.T) {
 
 	// Start and immediately shutdown
 	go func() {
-		srv.Start()
+		_ = srv.Start()
 	}()
 	time.Sleep(10 * time.Millisecond)
 
-	srv.GracefulShutdown(5 * time.Second)
+	_ = srv.GracefulShutdown(5 * time.Second)
 
 	if !hook1Called {
 		t.Error("hook1 should be called")
@@ -115,7 +115,7 @@ func TestGracefulShutdown_Idempotent(t *testing.T) {
 	srv := New(nil, 0)
 
 	// First shutdown
-	srv.GracefulShutdown(5 * time.Second)
+	_ = srv.GracefulShutdown(5 * time.Second)
 
 	// Second shutdown should be no-op
 	err := srv.GracefulShutdown(5 * time.Second)
@@ -130,7 +130,7 @@ func TestStop(t *testing.T) {
 
 	// Start server
 	go func() {
-		srv.Start()
+		_ = srv.Start()
 	}()
 	time.Sleep(10 * time.Millisecond)
 

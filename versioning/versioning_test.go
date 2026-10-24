@@ -236,12 +236,14 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
 
-		mw(ctx, func(c *core.Ctx) error {
+		if err := mw(ctx, func(c *core.Ctx) error {
 			if c.GetVersion() != 1 {
 				t.Errorf("expected version 1, got %d", c.GetVersion())
 			}
 			return nil
-		})
+		}); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
 	})
 
 	t.Run("extracts version from prefix", func(t *testing.T) {
@@ -249,12 +251,14 @@ func TestMiddleware_PathPrefixStrategy(t *testing.T) {
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
 
-		mw(ctx, func(c *core.Ctx) error {
+		if err := mw(ctx, func(c *core.Ctx) error {
 			if c.GetVersion() != 3 {
 				t.Errorf("expected version 3, got %d", c.GetVersion())
 			}
 			return nil
-		})
+		}); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
 	})
 }
 
@@ -267,12 +271,14 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
 
-		mw(ctx, func(c *core.Ctx) error {
+		if err := mw(ctx, func(c *core.Ctx) error {
 			if c.GetVersion() != 1 {
 				t.Errorf("expected version 1, got %d", c.GetVersion())
 			}
 			return nil
-		})
+		}); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
 	})
 
 	t.Run("extracts version from query", func(t *testing.T) {
@@ -280,12 +286,14 @@ func TestMiddleware_QueryStrategy(t *testing.T) {
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
 
-		mw(ctx, func(c *core.Ctx) error {
+		if err := mw(ctx, func(c *core.Ctx) error {
 			if c.GetVersion() != 3 {
 				t.Errorf("expected version 3, got %d", c.GetVersion())
 			}
 			return nil
-		})
+		}); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
 	})
 }
 
@@ -305,7 +313,9 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 		ctx := core.NewCtx(rec, req)
 		ctx.Locals["version"] = 1
 
-		handler(ctx)
+		if err := handler(ctx); err != nil {
+			t.Fatalf("handler: %v", err)
+		}
 
 		if rec.Header().Get("X-API-Deprecation") != "version=1" {
 			t.Errorf("expected X-API-Deprecation header, got %q", rec.Header().Get("X-API-Deprecation"))
@@ -321,7 +331,9 @@ func TestVersionHandler_DeprecationHeaders(t *testing.T) {
 		ctx := core.NewCtx(rec, req)
 		ctx.Locals["version"] = 2
 
-		handler(ctx)
+		if err := handler(ctx); err != nil {
+			t.Fatalf("handler: %v", err)
+		}
 
 		if rec.Header().Get("X-API-Deprecation") != "" {
 			t.Errorf("expected no deprecation header for active version, got %q", rec.Header().Get("X-API-Deprecation"))

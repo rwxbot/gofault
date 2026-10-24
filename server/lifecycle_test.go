@@ -134,7 +134,7 @@ func TestNew_SetsReadHeaderTimeout(t *testing.T) {
 func TestStart_ServesRequests(t *testing.T) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("pong"))
+		_, _ = w.Write([]byte("pong"))
 	})
 
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
@@ -145,8 +145,8 @@ func TestStart_ServesRequests(t *testing.T) {
 	ln.Close()
 
 	srv := NewWithConfig(mux, addr)
-	go srv.Start()
-	defer srv.GracefulShutdown(2 * time.Second)
+	go func() { _ = srv.Start() }()
+	defer func() { _ = srv.GracefulShutdown(2 * time.Second) }()
 
 	client := &http.Client{Timeout: 2 * time.Second}
 	var body string
@@ -177,7 +177,7 @@ func TestGracefulShutdown_DrainsInFlightRequest(t *testing.T) {
 	mux.HandleFunc("/slow", func(w http.ResponseWriter, r *http.Request) {
 		close(started)
 		<-release
-		w.Write([]byte("done"))
+		_, _ = w.Write([]byte("done"))
 	})
 
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
@@ -188,8 +188,8 @@ func TestGracefulShutdown_DrainsInFlightRequest(t *testing.T) {
 	ln.Close()
 
 	srv := NewWithConfig(mux, addr)
-	go srv.Start()
-	defer srv.GracefulShutdown(2 * time.Second)
+	go func() { _ = srv.Start() }()
+	defer func() { _ = srv.GracefulShutdown(2 * time.Second) }()
 
 	type result struct {
 		body string
@@ -252,7 +252,7 @@ var _ = context.Background
 func TestStartWithGracefulShutdown_ServesThenStopsOnSignal(t *testing.T) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("pong"))
+		_, _ = w.Write([]byte("pong"))
 	})
 
 	ln, err := net.Listen("tcp", "127.0.0.1:0")

@@ -97,14 +97,18 @@ func TestRouter_ConcurrentRequestsDoNotShareChain(t *testing.T) {
 		_, err := ctx.Response.Write([]byte("one"))
 		return err
 	}, func(ctx *core.Ctx, next core.Handler) error {
-		ctx.Response.Write([]byte("A"))
+		if _, err := ctx.Response.Write([]byte("A")); err != nil {
+			return err
+		}
 		return next(ctx)
 	})
 	r.Handle("GET", "/b", func(ctx *core.Ctx) error {
 		_, err := ctx.Response.Write([]byte("two"))
 		return err
 	}, func(ctx *core.Ctx, next core.Handler) error {
-		ctx.Response.Write([]byte("B"))
+		if _, err := ctx.Response.Write([]byte("B")); err != nil {
+			return err
+		}
 		return next(ctx)
 	})
 
@@ -144,7 +148,9 @@ func TestRouter_TrailingSlashNormalized(t *testing.T) {
 	r := New()
 	h := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte("ok"))
+		if _, err := ctx.Response.Write([]byte("ok")); err != nil {
+			return err
+		}
 		return nil
 	}
 	r.Handle(http.MethodGet, "/foo/", h)

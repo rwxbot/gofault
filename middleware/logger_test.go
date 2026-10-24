@@ -36,7 +36,9 @@ func TestRequestLoggerMiddleware_LogRequest(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		if _, err := ctx.Response.Write([]byte(`{"status":"ok"}`)); err != nil {
+			return err
+		}
 		return nil
 	}
 

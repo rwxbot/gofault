@@ -183,7 +183,9 @@ func TestLoggingMiddleware_LogsDuration(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	output := buf.String()
 	// Duration should be logged (format: "POST /path status duration")
@@ -214,7 +216,9 @@ func TestLoggingMiddleware_WithCustomLogger(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	output := buf.String()
 	if !strings.Contains(output, "INFO") {

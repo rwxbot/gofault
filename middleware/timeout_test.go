@@ -35,7 +35,9 @@ func TestTimeoutMiddleware_NoTimeout(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		if _, err := ctx.Response.Write([]byte(`{"status":"ok"}`)); err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -69,7 +71,9 @@ func TestTimeoutMiddleware_Timeout(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusGatewayTimeout {
 		t.Errorf("Expected status %d, got %d", http.StatusGatewayTimeout, w.Code)

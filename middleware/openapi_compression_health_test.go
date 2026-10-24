@@ -230,7 +230,9 @@ func TestCompression_HandlerErrorPassesThrough(t *testing.T) {
 	handlerErr := errors.New("handler failed")
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(strings.Repeat("x", 2048)))
+		if _, err := ctx.Response.Write([]byte(strings.Repeat("x", 2048))); err != nil {
+			return err
+		}
 		return handlerErr
 	}
 
@@ -257,7 +259,9 @@ func TestCompression_NoBodyForBodylessStatuses(t *testing.T) {
 
 		next := func(ctx *core.Ctx) error {
 			ctx.Response.WriteHeader(status)
-			ctx.Response.Write([]byte("should not appear"))
+			if _, err := ctx.Response.Write([]byte("should not appear")); err != nil {
+				return err
+			}
 			return nil
 		}
 

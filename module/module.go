@@ -63,7 +63,15 @@ func (a *App) RegisterModules(mods ...*core.Module) error {
 		}
 		a.moduleMap[m.Name] = m
 		for _, ctrl := range m.Controllers {
-			a.container.Register(func() core.Controller { return ctrl })
+			// Best-effort DI convenience binding. Routes are wired straight
+			// to the controller instances via makeHandler, so a failed
+			// binding never affects dispatch; and because every closure
+			// returns the core.Controller interface, the container keys them
+			// all under one type — only the first controller binds, the
+			// rest collide with ErrDuplicateRegistration. Propagating that
+			// would break every multi-controller app for a binding nothing
+			// in the framework resolves, so it is deliberately dropped.
+			_ = a.container.Register(func() core.Controller { return ctrl })
 		}
 		for _, prov := range m.Providers {
 			if err := a.registerProvider(prov); err != nil {

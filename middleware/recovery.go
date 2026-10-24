@@ -60,7 +60,10 @@ func RecoveryMiddleware(config RecoveryConfig) core.MiddlewareFunc {
 					response["stack"] = stackTrace
 				}
 
-				json.NewEncoder(ctx.Response).Encode(response)
+				// The write can legitimately fail (client already gone, or
+				// headers already committed by the panicking handler). There
+				// is no one left to report to: we are inside the recover.
+				_ = json.NewEncoder(ctx.Response).Encode(response)
 			}
 		}()
 

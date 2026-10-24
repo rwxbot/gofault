@@ -540,7 +540,7 @@
 
 ## [v3.4.1]
 
-77 defects fixed across 34 commits. Grouped by what they were, not by when they
+81 defects fixed across 35 commits. Grouped by what they were, not by when they
 landed; every entry names the file so it can be reviewed directly.
 
 ### Security
@@ -790,6 +790,16 @@ it, so `internal/deadfield` now fails the build on both this and the next class.
 - **A panicking health checker took down the health endpoint**; it is now
   reported as down
 - **`gofault version` reported a hardcoded `v1.0.0`**
+- **Response writes were unchecked.** The cache middleware's HIT replay, the
+  IP filter's 403 body, the static range serving (`io.CopyN`) and the
+  directory listing all discarded the write error, so a half-written body —
+  client gone, or a broken pipe mid-range — was indistinguishable from
+  success in logs and metrics. They now return the error through the
+  middleware chain (`middleware/cache.go`, `middleware/ipfilter.go`,
+  `middleware/static.go`). The same pass cleared every `errcheck`,
+  `unused`, `ineffassign`, `gosimple` and `staticcheck` finding across the
+  repository, so `golangci-lint run ./...` — red since the first CI run —
+  is now green
 
 ### Added
 - `middleware.CacheBackend`, so a cache need not live in the process.

@@ -21,10 +21,18 @@ func TestStaticMiddleware_RejectsSiblingDirectoryWithSharedPrefix(t *testing.T) 
 	root := filepath.Join(parent, "www")
 	secret := filepath.Join(parent, "www-secret")
 
-	os.MkdirAll(root, 0755)
-	os.MkdirAll(secret, 0755)
-	os.WriteFile(filepath.Join(root, "public.txt"), []byte("public"), 0644)
-	os.WriteFile(filepath.Join(secret, "private.txt"), []byte("private"), 0644)
+	if err := os.MkdirAll(root, 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.MkdirAll(secret, 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "public.txt"), []byte("public"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(secret, "private.txt"), []byte("private"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	mw := StaticMiddleware(StaticConfig{Dir: root})
 
@@ -50,7 +58,9 @@ func TestStaticMiddleware_RejectsSiblingDirectoryWithSharedPrefix(t *testing.T) 
 
 func TestStaticMiddleware_ServesFilesInsideRoot(t *testing.T) {
 	root := t.TempDir()
-	os.WriteFile(filepath.Join(root, "ok.txt"), []byte("inside"), 0644)
+	if err := os.WriteFile(filepath.Join(root, "ok.txt"), []byte("inside"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	mw := StaticMiddleware(StaticConfig{Dir: root})
 

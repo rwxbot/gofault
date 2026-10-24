@@ -35,7 +35,9 @@ func buildRandomDAG(t *testing.T, n int, seed int64) *randomApp {
 	order := rng.Perm(n)
 	for _, idx := range order {
 		mod := core.NewModule(ra.names[idx])
-		ra.app.RegisterModules(mod)
+		if err := ra.app.RegisterModules(mod); err != nil {
+			t.Fatalf("RegisterModules(%s): %v", ra.names[idx], err)
+		}
 	}
 
 	// Each module may depend on any subset of the lower-indexed modules.
@@ -99,7 +101,9 @@ func TestSortModules_RandomGraphsAreReproducible(t *testing.T) {
 			app := New()
 			// Rebuild the identical app each time.
 			for _, n := range ra.names {
-				app.RegisterModules(core.NewModule(n))
+				if err := app.RegisterModules(core.NewModule(n)); err != nil {
+					t.Fatalf("RegisterModules(%s): %v", n, err)
+				}
 			}
 			for _, n := range ra.names {
 				app.moduleMap[n].Depends = ra.depends[n]
@@ -136,10 +140,10 @@ func TestSortModules_PreservesRegistrationOrderAmongIndependentModules(t *testin
 	// must come out in exactly the order they went in.
 	app := New()
 
-	var registered []string
 	for _, n := range []string{"freeA", "chainA", "freeB", "chainB", "freeC", "chainC", "freeD"} {
-		app.RegisterModules(core.NewModule(n))
-		registered = append(registered, n)
+		if err := app.RegisterModules(core.NewModule(n)); err != nil {
+			t.Fatalf("RegisterModules(%s): %v", n, err)
+		}
 	}
 	app.moduleMap["chainB"].Depends = []string{"chainA"}
 	app.moduleMap["chainC"].Depends = []string{"chainB"}

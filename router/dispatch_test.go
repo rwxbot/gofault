@@ -132,11 +132,15 @@ func TestRouter_HEADIsServedByGetRoute(t *testing.T) {
 func TestRouter_ExplicitHeadRouteWins(t *testing.T) {
 	r := New()
 	r.Handle(http.MethodGet, "/x", func(ctx *core.Ctx) error {
-		ctx.Response.Write([]byte("get"))
+		if _, err := ctx.Response.Write([]byte("get")); err != nil {
+			return err
+		}
 		return nil
 	})
 	r.Handle(http.MethodHead, "/x", func(ctx *core.Ctx) error {
-		ctx.Response.Write([]byte("head"))
+		if _, err := ctx.Response.Write([]byte("head")); err != nil {
+			return err
+		}
 		return nil
 	})
 

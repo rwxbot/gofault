@@ -18,7 +18,6 @@ import (
 // dummyController is a test controller.
 type dummyController struct {
 	controller.BaseController
-	calledMethod string
 }
 
 func (c *dummyController) Routes() []core.Route {
@@ -72,7 +71,9 @@ func TestApp_RegisterModules(t *testing.T) {
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
 
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if len(app.modules) != 1 {
 		t.Fatalf("expected 1 module, got %d", len(app.modules))
@@ -83,7 +84,9 @@ func TestApp_Bootstrap_DoesNotPanic(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	err := app.Bootstrap()
 	if err != nil {
@@ -106,8 +109,12 @@ func TestApp_LifecycleHooks(t *testing.T) {
 	mod.RegisterOnBoot(hook1)
 	mod.RegisterOnShutdown(hook2)
 
-	app.RegisterModules(mod)
-	app.Bootstrap()
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
+	if err := app.Bootstrap(); err != nil {
+		t.Fatalf("Bootstrap: %v", err)
+	}
 
 	// Run boot hooks manually (normally called by Start).
 	for _, m := range app.modules {
@@ -142,7 +149,9 @@ func TestApp_Bootstrap_MultipleControllers(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{}, &dummyController{})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	err := app.Bootstrap()
 	if err != nil {
@@ -159,7 +168,9 @@ func TestApp_MultipleModules(t *testing.T) {
 	mod2 := core.NewModule("mod2")
 	mod2.RegisterControllers(&dummyController{})
 
-	app.RegisterModules(mod1, mod2)
+	if err := app.RegisterModules(mod1, mod2); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if len(app.modules) != 2 {
 		t.Fatalf("expected 2 modules, got %d", len(app.modules))
@@ -170,7 +181,9 @@ func TestApp_Start_WithoutBootstrap_DoesBootstrap(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	// Verify not booted yet.
 	if app.booted {
@@ -194,8 +207,12 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
-	app.RegisterModules(mod)
-	app.Bootstrap()
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
+	if err := app.Bootstrap(); err != nil {
+		t.Fatalf("Bootstrap: %v", err)
+	}
 
 	// Test index route.
 	req := httptest.NewRequest("GET", "/test/", nil)
@@ -219,7 +236,9 @@ func TestApp_RouteHandlerDispatch(t *testing.T) {
 func TestApp_ProvidersRegistered(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	// Just verify that registration doesn't panic.
 }
@@ -240,7 +259,9 @@ func TestApp_Init_RunsHooksInDependencyOrder(t *testing.T) {
 	base.RegisterOnInit(&recordingHook{name: "base", order: &order})
 	dependent.RegisterOnInit(&recordingHook{name: "dependent", order: &order})
 
-	app.RegisterModules(dependent, base)
+	if err := app.RegisterModules(dependent, base); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Init(); err != nil {
 		t.Fatalf("Init: %v", err)
@@ -254,7 +275,9 @@ func TestApp_Init_PropagatesHookError(t *testing.T) {
 	app := New()
 	mod := core.NewModule("boom")
 	mod.RegisterOnInit(&errInitHook{})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Init(); err == nil {
 		t.Error("expected Init to surface the OnInit failure")
@@ -265,7 +288,9 @@ func TestApp_Init_RejectsUnknownDependency(t *testing.T) {
 	app := New()
 	mod := core.NewModule("a")
 	mod.Depends = []string{"nope"}
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Init(); err == nil {
 		t.Error("expected Init to reject a dependency on an unregistered module")
@@ -278,7 +303,9 @@ func TestApp_Init_RejectsDependencyCycle(t *testing.T) {
 	b := core.NewModule("b")
 	a.Depends = []string{"b"}
 	b.Depends = []string{"a"}
-	app.RegisterModules(a, b)
+	if err := app.RegisterModules(a, b); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Init(); err == nil {
 		t.Error("expected Init to reject a dependency cycle")
@@ -293,7 +320,9 @@ func TestApp_StartAndStop(t *testing.T) {
 	hook := &dummyHook{}
 	mod.RegisterOnBoot(hook)
 	mod.RegisterOnShutdown(hook)
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	errCh := make(chan error, 1)
 	go func() { errCh <- app.Start(0) }()
@@ -335,7 +364,9 @@ func TestApp_StartAndStop(t *testing.T) {
 
 func TestApp_Stop_WithoutStartIsSafe(t *testing.T) {
 	app := New()
-	app.RegisterModules(core.NewModule("test"))
+	if err := app.RegisterModules(core.NewModule("test")); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Stop(); err != nil {
 		t.Errorf("Stop without a running server should be a no-op, got %v", err)
@@ -372,7 +403,9 @@ func TestApp_Stop_CollectsHookErrors(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	mod.RegisterOnShutdown(&dummyHook{shutdownErr: errors.New("shutdown boom")})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Stop(); err == nil {
 		t.Error("expected Stop to report the OnShutdown failure")
@@ -383,7 +416,9 @@ func TestApp_Start_PropagatesBootHookError(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	mod.RegisterOnBoot(&dummyHook{bootErr: errors.New("boot boom")})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 
 	if err := app.Start(0); err == nil {
 		t.Error("expected Start to surface the OnBoot failure")
@@ -394,7 +429,9 @@ func TestApp_Start_WiresContainerIntoRouter(t *testing.T) {
 	app := New()
 	mod := core.NewModule("test")
 	mod.RegisterControllers(&dummyController{})
-	app.RegisterModules(mod)
+	if err := app.RegisterModules(mod); err != nil {
+		t.Fatalf("RegisterModules: %v", err)
+	}
 	if err := app.Bootstrap(); err != nil {
 		t.Fatalf("Bootstrap: %v", err)
 	}
@@ -403,7 +440,7 @@ func TestApp_Start_WiresContainerIntoRouter(t *testing.T) {
 	for i := 0; i < 100 && !app.serverReady(); i++ {
 		time.Sleep(10 * time.Millisecond)
 	}
-	defer app.Stop()
+	defer func() { _ = app.Stop() }()
 
 	// The container must be reachable from a request-scoped provider.
 	if app.Container() == nil {
@@ -510,7 +547,7 @@ func TestApp_NilProviderRejected(t *testing.T) {
 
 // reqScopedService is a request-scoped provider used to prove the router got a
 // container attached during Bootstrap alone.
-type reqScopedService struct{ n int }
+type reqScopedService struct{}
 
 func newReqScopedService() *reqScopedService { return &reqScopedService{} }
 

@@ -43,7 +43,9 @@ func TestContainer_RegisterAndResolve(t *testing.T) {
 
 func TestContainer_SingletonScope(t *testing.T) {
 	c := New()
-	c.Register(newDummyService)
+	if err := c.Register(newDummyService); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
 	a, _ := c.Resolve(&dummyService{})
 	b, _ := c.Resolve(&dummyService{})
 	if a != b {
@@ -53,7 +55,9 @@ func TestContainer_SingletonScope(t *testing.T) {
 
 func TestContainer_TransientScope(t *testing.T) {
 	c := New()
-	c.RegisterTransient(newDummyService)
+	if err := c.RegisterTransient(newDummyService); err != nil {
+		t.Fatalf("RegisterTransient: %v", err)
+	}
 	a, _ := c.Resolve(&dummyService{})
 	b, _ := c.Resolve(&dummyService{})
 	if a == b {
@@ -71,7 +75,9 @@ func TestContainer_ResolveUnknown(t *testing.T) {
 
 func TestContainer_ResolveFromCtx(t *testing.T) {
 	c := New()
-	c.Register(newDummyService)
+	if err := c.Register(newDummyService); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
 
 	ctx1 := c.BeginRequest(context.Background())
 	ctx2 := c.BeginRequest(context.Background())
@@ -101,7 +107,9 @@ func TestContainer_ResolveFromCtx(t *testing.T) {
 
 func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
 	c := New()
-	c.RegisterScoped(newDummyService)
+	if err := c.RegisterScoped(newDummyService); err != nil {
+		t.Fatalf("RegisterScoped: %v", err)
+	}
 
 	ctx1 := c.BeginRequest(context.Background())
 	ctx2 := c.BeginRequest(context.Background())
@@ -123,7 +131,9 @@ func TestContainer_RequestScopedInstancePerContext(t *testing.T) {
 
 func TestContainer_EndRequest_ClearsScope(t *testing.T) {
 	c := New()
-	c.RegisterScoped(newDummyService)
+	if err := c.RegisterScoped(newDummyService); err != nil {
+		t.Fatalf("RegisterScoped: %v", err)
+	}
 
 	ctx := c.BeginRequest(context.Background())
 	inst1, _ := c.ResolveFromCtx(ctx, &dummyService{})
@@ -139,8 +149,12 @@ func TestContainer_EndRequest_ClearsScope(t *testing.T) {
 
 func TestContainer_ResolveWithDependency(t *testing.T) {
 	c := New()
-	c.Register(newDummyService)
-	c.Register(newDependentService)
+	if err := c.Register(newDummyService); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
+	if err := c.Register(newDependentService); err != nil {
+		t.Fatalf("Register: %v", err)
+	}
 
 	dep, err := c.ResolveFromCtx(context.Background(), &dependentService{})
 	if err != nil {
@@ -160,7 +174,9 @@ func TestContainer_ScopedProviderInterface(t *testing.T) {
 	// A provider can implement ScopedProvider to declare its own scope.
 	// Currently this is a marker interface; the container reads it via reflection.
 	c := New()
-	c.RegisterScoped(newDummyService)
+	if err := c.RegisterScoped(newDummyService); err != nil {
+		t.Fatalf("RegisterScoped: %v", err)
+	}
 
 	ctx := c.BeginRequest(context.Background())
 	inst1, _ := c.ResolveFromCtx(ctx, &dummyService{})

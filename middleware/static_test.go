@@ -15,7 +15,9 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 	// Create temp directory and file
 	tmpDir := t.TempDir()
 	testFile := filepath.Join(tmpDir, "test.txt")
-	os.WriteFile(testFile, []byte("Hello, World!"), 0644)
+	if err := os.WriteFile(testFile, []byte("Hello, World!"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{
 		Dir:          tmpDir,
@@ -57,8 +59,12 @@ func TestStaticMiddleware_ServeFile(t *testing.T) {
 
 func TestStaticMiddleware_DirectoryIndex(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.MkdirAll(filepath.Join(tmpDir, "subdir"), 0755)
-	os.WriteFile(filepath.Join(tmpDir, "subdir", "index.html"), []byte("<h1>Index</h1>"), 0644)
+	if err := os.MkdirAll(filepath.Join(tmpDir, "subdir"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(tmpDir, "subdir", "index.html"), []byte("<h1>Index</h1>"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{
 		Dir:   tmpDir,
@@ -112,7 +118,9 @@ func TestStaticMiddleware_NotFound_PassesToNext(t *testing.T) {
 
 func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("prefixed"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("prefixed"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{
 		Dir:    tmpDir,
@@ -145,8 +153,12 @@ func TestStaticMiddleware_Prefix_Stripped(t *testing.T) {
 
 func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.MkdirAll(filepath.Join(tmpDir, "mydir"), 0755)
-	os.WriteFile(filepath.Join(tmpDir, "mydir", "file.txt"), []byte("content"), 0644)
+	if err := os.MkdirAll(filepath.Join(tmpDir, "mydir"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(tmpDir, "mydir", "file.txt"), []byte("content"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{
 		Dir:    tmpDir,
@@ -188,7 +200,9 @@ func TestStaticMiddleware_DirectoryListing(t *testing.T) {
 
 func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("nocache"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("nocache"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{
 		Dir:          tmpDir,
@@ -213,7 +227,9 @@ func TestStaticMiddleware_NoCacheControl(t *testing.T) {
 
 func TestStaticMiddleware_RangeRequest(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "range.txt"), []byte("0123456789"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "range.txt"), []byte("0123456789"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
@@ -243,7 +259,9 @@ func TestStaticMiddleware_RangeRequest(t *testing.T) {
 
 func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "suffix.txt"), []byte("0123456789"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "suffix.txt"), []byte("0123456789"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
@@ -269,7 +287,9 @@ func TestStaticMiddleware_RangeRequest_Suffix(t *testing.T) {
 
 func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("0123456789"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "file.txt"), []byte("0123456789"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
@@ -291,7 +311,9 @@ func TestStaticMiddleware_RangeRequest_Unsatisfiable(t *testing.T) {
 
 func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "file.xyz"), []byte("custom"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "file.xyz"), []byte("custom"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{
 		Dir: tmpDir,
@@ -318,14 +340,22 @@ func TestStaticMiddleware_ExtraExtensions(t *testing.T) {
 
 func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.MkdirAll(filepath.Join(tmpDir, "allowed"), 0755)
-	os.WriteFile(filepath.Join(tmpDir, "allowed", "file.txt"), []byte("allowed"), 0644)
+	if err := os.MkdirAll(filepath.Join(tmpDir, "allowed"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(tmpDir, "allowed", "file.txt"), []byte("allowed"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	// Create a "forbidden" directory outside tmpDir
 	forbiddenDir := filepath.Join(tmpDir, "..", "forbidden")
-	os.MkdirAll(forbiddenDir, 0755)
+	if err := os.MkdirAll(forbiddenDir, 0755); err != nil {
+		t.Fatal(err)
+	}
 	forbiddenFile := filepath.Join(forbiddenDir, "secret.txt")
-	os.WriteFile(forbiddenFile, []byte("secret"), 0644)
+	if err := os.WriteFile(forbiddenFile, []byte("secret"), 0644); err != nil {
+		t.Fatal(err)
+	}
 	defer os.RemoveAll(forbiddenDir)
 
 	config := StaticConfig{Dir: tmpDir}
@@ -350,7 +380,9 @@ func TestStaticMiddleware_Security_PathTraversal(t *testing.T) {
 
 func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "page.html"), []byte("<html></html>"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "page.html"), []byte("<html></html>"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{Dir: tmpDir}
 	mw := StaticMiddleware(config)
@@ -371,7 +403,9 @@ func TestStaticMiddleware_HtmlContentType(t *testing.T) {
 
 func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.WriteFile(filepath.Join(tmpDir, "index.html"), []byte("default index"), 0644)
+	if err := os.WriteFile(filepath.Join(tmpDir, "index.html"), []byte("default index"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	config := StaticConfig{
 		Dir:   tmpDir,
@@ -404,8 +438,12 @@ func TestStaticMiddleware_DefaultIndex(t *testing.T) {
 
 func TestDirectoryListing(t *testing.T) {
 	tmpDir := t.TempDir()
-	os.MkdirAll(filepath.Join(tmpDir, "dir"), 0755)
-	os.WriteFile(filepath.Join(tmpDir, "dir", "file.txt"), []byte("content"), 0644)
+	if err := os.MkdirAll(filepath.Join(tmpDir, "dir"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(tmpDir, "dir", "file.txt"), []byte("content"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	entries, err := os.ReadDir(filepath.Join(tmpDir, "dir"))
 	if err != nil {

@@ -110,7 +110,9 @@ func TestLock_AcquireRelease(t *testing.T) {
 	if !ok {
 		t.Fatal("expected to re-acquire lock after release")
 	}
-	lock.Release(ctx)
+	if err := lock.Release(ctx); err != nil {
+		t.Fatalf("Release: %v", err)
+	}
 }
 
 func TestLock_ReleaseWrongOwner(t *testing.T) {
@@ -211,7 +213,9 @@ func TestCache_KeyPrefix(t *testing.T) {
 	cache := NewCache(rdb, "myapp", 10*time.Second)
 	ctx := context.Background()
 
-	cache.Set(ctx, "user:1", "alice", 0)
+	if err := cache.Set(ctx, "user:1", "alice", 0); err != nil {
+		t.Fatalf("Set: %v", err)
+	}
 
 	// Verify prefix is used
 	val, err := cache.Get(ctx, "user:1")
@@ -230,8 +234,12 @@ func TestCache_DefaultTTL(t *testing.T) {
 	cache := NewCache(rdb, "ttltest", 100*time.Millisecond)
 	ctx := context.Background()
 
-	cache.Set(ctx, "short", "val", 0)
-	cache.Set(ctx, "long", "val", 5*time.Second)
+	if err := cache.Set(ctx, "short", "val", 0); err != nil {
+		t.Fatalf("Set short: %v", err)
+	}
+	if err := cache.Set(ctx, "long", "val", 5*time.Second); err != nil {
+		t.Fatalf("Set long: %v", err)
+	}
 
 	// Wait 150ms
 	time.Sleep(150 * time.Millisecond)
@@ -291,7 +299,9 @@ func TestExists(t *testing.T) {
 		t.Error("expected false for nonexistent key")
 	}
 
-	Set(ctx, rdb, "exists-key", "val", time.Second)
+	if err := Set(ctx, rdb, "exists-key", "val", time.Second); err != nil {
+		t.Fatalf("Set: %v", err)
+	}
 	ok, err = Exists(ctx, rdb, "exists-key")
 	if err != nil {
 		t.Fatalf("Exists error: %v", err)

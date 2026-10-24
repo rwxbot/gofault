@@ -66,7 +66,7 @@ func TestServer_Serve(t *testing.T) {
 	ln := bufconn.Listen(bufSize)
 
 	go func() {
-		s.Serve(ln)
+		_ = s.Serve(ln)
 	}()
 
 	time.Sleep(100 * time.Millisecond)
@@ -255,7 +255,7 @@ func TestServer_Start_Twice(t *testing.T) {
 	addr := ln.Addr().String()
 	_ = addr // suppress unused warning
 
-	go s.Serve(ln)
+	go func() { _ = s.Serve(ln) }()
 	time.Sleep(50 * time.Millisecond)
 
 	// Try to start again - should return error since already started
@@ -299,7 +299,7 @@ func TestStreamInterceptor(t *testing.T) {
 	config.Insecure = true
 	s := NewServer(config)
 
-	go s.Serve(ln)
+	go func() { _ = s.Serve(ln) }()
 	time.Sleep(50 * time.Millisecond)
 	s.Stop()
 
@@ -357,7 +357,7 @@ func TestServer_Address_AfterServe(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	go s.Serve(ln)
+	go func() { _ = s.Serve(ln) }()
 	time.Sleep(50 * time.Millisecond)
 
 	addr := s.Address()
@@ -456,7 +456,7 @@ func TestGRPCServerModule_OnBoot_StartError(t *testing.T) {
 	// Just verify it doesn't panic
 	_ = err
 
-	m.OnShutdown()
+	_ = m.OnShutdown()
 }
 
 func TestServer_WithInsecureCredentials(t *testing.T) {

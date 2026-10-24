@@ -148,7 +148,7 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 		ctx := core.NewCtx(w, r)
 		var capturedConn *websocket.Conn
 		var capturedUpgrader *websocket.Upgrader
-		mw(ctx, func(c *core.Ctx) error {
+		if err := mw(ctx, func(c *core.Ctx) error {
 			capturedConn, _ = c.Locals["ws_conn"].(*websocket.Conn)
 			capturedUpgrader, _ = c.Locals["ws_upgrader"].(*websocket.Upgrader)
 			if capturedConn == nil {
@@ -158,7 +158,9 @@ func TestWebSocketHijackMiddleware_StoresConnection(t *testing.T) {
 				t.Error("upgrader not stored in ctx.Locals")
 			}
 			return nil
-		})
+		}); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
 	}))
 	defer server.Close()
 
@@ -210,7 +212,9 @@ func TestWebSocketMiddleware_FullIntegration(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error { return nil })
+		// The client closes the socket when the test ends; the server
+		// read loop then returns a close error, which is expected here.
+		_ = mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
 
@@ -247,7 +251,11 @@ func TestWebSocketMiddleware_ClientClose(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error { return nil })
+		// The client hangs up without a close frame, so the read loop ends
+		// with a 1006 abnormal-closure error. That error is the point of the
+		// test (the disconnect callback must still fire); it is not a
+		// failure of the middleware.
+		_ = mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
 
@@ -283,7 +291,9 @@ func TestWebSocketMiddleware_EchoHandler(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error { return nil })
+		// The client closes the socket when the test ends; the server
+		// read loop then returns a close error, which is expected here.
+		_ = mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
 
@@ -327,7 +337,10 @@ func TestWebSocketMiddleware_OnConnectCallback(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error { return nil })
+		// The test's deferred conn.Close() ends the server read loop with a
+		// close error; the assertion below is about OnConnect, not about the
+		// shutdown path.
+		_ = mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
 
@@ -376,7 +389,9 @@ func TestWebSocketMiddleware_DisconnectCallback(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error { return nil })
+		// ClientClose-style shutdown: the read loop ends with a close error
+		// once the client hangs up; the assertion is about OnDisconnect.
+		_ = mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
 
@@ -417,8 +432,12 @@ func TestWebSocketHandlerFunc_AllFieldsSet(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 	conn := &websocket.Conn{}
 
-	handler.HandleConnect(ctx, conn)
-	handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("test"))
+	if err := handler.HandleConnect(ctx, conn); err != nil {
+		t.Fatalf("HandleConnect: %v", err)
+	}
+	if err := handler.HandleMessage(ctx, conn, websocket.TextMessage, []byte("test")); err != nil {
+		t.Fatalf("HandleMessage: %v", err)
+	}
 	handler.HandleDisconnect(ctx, conn)
 
 	if connectMsg != "connected" {
@@ -441,7 +460,9 @@ func TestWebSocketMiddleware_CrossOriginRejected(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error { return nil })
+		// CheckOrigin rejects the foreign Origin and mw returns the upgrade
+		// error; the client-side assertions below are the point of the test.
+		_ = mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
 
@@ -462,7 +483,9 @@ func TestWebSocketMiddleware_SameOriginAccepted(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error { return nil })
+		// The client closes the socket when the test ends; the server
+		// read loop then returns a close error, which is expected here.
+		_ = mw(ctx, func(c *core.Ctx) error { return nil })
 	}))
 	defer server.Close()
 
@@ -504,7 +527,9 @@ func TestWebSocketMiddleware_HandlerErrorSurfaces(t *testing.T) {
 	if err != nil {
 		t.Fatalf("dial error: %v", err)
 	}
-	conn.WriteMessage(websocket.TextMessage, []byte("trigger"))
+	if err := conn.WriteMessage(websocket.TextMessage, []byte("trigger")); err != nil {
+		t.Fatalf("write: %v", err)
+	}
 	conn.Close()
 	wg.Wait()
 
@@ -526,7 +551,10 @@ func TestWebSocketHijackMiddleware_ClosesConnWhenHandlerFails(t *testing.T) {
 	handlerDone := make(chan struct{})
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := core.NewCtx(w, r)
-		mw(ctx, func(c *core.Ctx) error {
+		// The business error is expected to surface from mw (that is the
+		// round-2 fix under test); the connection-close assertion below is
+		// what this test actually checks from the client side.
+		_ = mw(ctx, func(c *core.Ctx) error {
 			close(handlerDone)
 			return errors.New("ws handler failed")
 		})
@@ -544,7 +572,9 @@ func TestWebSocketHijackMiddleware_ClosesConnWhenHandlerFails(t *testing.T) {
 
 	// A closed server side surfaces as a read error well inside the deadline.
 	// Without the fix this read blocks for the full deadline.
-	conn.SetReadDeadline(time.Now().Add(2 * time.Second))
+	if err := conn.SetReadDeadline(time.Now().Add(2 * time.Second)); err != nil {
+		t.Fatalf("set read deadline: %v", err)
+	}
 	if _, _, err := conn.ReadMessage(); err == nil {
 		t.Fatal("expected the server to close the connection after the handler failed")
 	} else if netErr, ok := err.(net.Error); ok && netErr.Timeout() {

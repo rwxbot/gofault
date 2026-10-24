@@ -141,10 +141,10 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 		// Set deadlines. A zero timeout means "no deadline" for the connection,
 		// not "expire immediately".
 		if config.ReadTimeout > 0 {
-			conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
+			_ = conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
 		}
 		if config.WriteTimeout > 0 {
-			conn.SetWriteDeadline(time.Now().Add(config.WriteTimeout))
+			_ = conn.SetWriteDeadline(time.Now().Add(config.WriteTimeout))
 		}
 
 		// Start ping handler. A zero or negative interval disables pinging;
@@ -194,7 +194,9 @@ func WebSocketMiddleware(config WebSocketConfig, handler WebSocketHandler) core.
 				break
 			}
 			if config.ReadTimeout > 0 {
-				conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
+				// A failed deadline set means the connection is already
+				// dead; the ReadMessage right below fails and ends the loop.
+				_ = conn.SetReadDeadline(time.Now().Add(config.ReadTimeout))
 			}
 			if err := handler.HandleMessage(ctx, conn, msgType, data); err != nil {
 				handlerErr = err

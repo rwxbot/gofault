@@ -37,7 +37,9 @@ func TestHealthCheckMiddleware_Up(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := &core.Ctx{Request: req, Response: rec}
 
-	handler(ctx)
+	if err := handler(ctx); err != nil {
+		t.Fatalf("handler: %v", err)
+	}
 
 	if rec.Code != http.StatusOK {
 		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)
@@ -67,7 +69,9 @@ func TestHealthCheckMiddleware_Down(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := &core.Ctx{Request: req, Response: rec}
 
-	handler(ctx)
+	if err := handler(ctx); err != nil {
+		t.Fatalf("handler: %v", err)
+	}
 
 	if rec.Code != http.StatusServiceUnavailable {
 		t.Errorf("status code = %d, want %d", rec.Code, http.StatusServiceUnavailable)
@@ -84,7 +88,9 @@ func TestHealthCheckMiddleware_NoChecks(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := &core.Ctx{Request: req, Response: rec}
 
-	handler(ctx)
+	if err := handler(ctx); err != nil {
+		t.Fatalf("handler: %v", err)
+	}
 
 	if rec.Code != http.StatusOK {
 		t.Errorf("status code = %d, want %d", rec.Code, http.StatusOK)

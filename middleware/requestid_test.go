@@ -14,7 +14,9 @@ func TestRequestID_GeneratesNewID(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, func(ctx *core.Ctx) error { return nil })
+	if err := middleware(ctx, func(ctx *core.Ctx) error { return nil }); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	respHeader := w.Header().Get(RequestIDHeader)
 	if respHeader == "" {
@@ -34,7 +36,9 @@ func TestRequestID_UsesProvidedID(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, func(ctx *core.Ctx) error { return nil })
+	if err := middleware(ctx, func(ctx *core.Ctx) error { return nil }); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	respHeader := w.Header().Get(RequestIDHeader)
 	if respHeader != providedID {

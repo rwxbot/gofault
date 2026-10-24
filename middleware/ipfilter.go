@@ -70,7 +70,9 @@ func IPFilterMiddleware(config IPFilterConfig) core.MiddlewareFunc {
 			}
 			ctx.Response.Header().Set("Content-Type", "application/json")
 			ctx.Response.WriteHeader(http.StatusForbidden)
-			ctx.Response.Write([]byte(`{"status":"error","message":"` + msg + `"}`))
+			if _, err := ctx.Response.Write([]byte(`{"status":"error","message":"` + msg + `"}`)); err != nil {
+				return err
+			}
 			return nil
 		}
 

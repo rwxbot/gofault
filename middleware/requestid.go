@@ -29,6 +29,9 @@ func RequestID() core.MiddlewareFunc {
 // generateID creates a random 16-byte hex string.
 func generateID() string {
 	b := make([]byte, 16)
-	rand.Read(b)
+	// crypto/rand.Read never fails since Go 1.24 (the error return is kept
+	// only for compatibility), but the explicit blank assignment keeps the
+	// contract visible to errcheck and to readers.
+	_, _ = rand.Read(b)
 	return hex.EncodeToString(b)
 }

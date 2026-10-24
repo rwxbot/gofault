@@ -33,7 +33,9 @@ func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.Header().Set("Content-Type", "text/plain")
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(strings.Repeat("a", 2000)))
+		if _, err := ctx.Response.Write([]byte(strings.Repeat("a", 2000))); err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -41,7 +43,9 @@ func TestCompressionMiddleware_NoAcceptEncoding(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusOK {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
@@ -105,7 +109,9 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.Header().Set("Content-Type", "text/plain")
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(strings.Repeat("x", 2000)))
+		if _, err := ctx.Response.Write([]byte(strings.Repeat("x", 2000))); err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -114,7 +120,9 @@ func TestCompressionMiddleware_WithGzip(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusOK {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)

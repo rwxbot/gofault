@@ -114,7 +114,6 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 			indexPath := filepath.Join(absPath, config.Index)
 			if stat, err := os.Stat(indexPath); err == nil && !stat.IsDir() {
 				absPath = indexPath
-				filePath = filepath.Join(filePath, config.Index)
 				info = stat
 			} else if config.Browse {
 				// Serve directory listing
@@ -125,7 +124,9 @@ func StaticMiddleware(config StaticConfig) core.MiddlewareFunc {
 				html := DirectoryListing(entries, reqPath)
 				ctx.Response.Header().Set("Content-Type", "text/html; charset=utf-8")
 				ctx.Response.WriteHeader(http.StatusOK)
-				ctx.Response.Write([]byte(html))
+				if _, err := ctx.Response.Write([]byte(html)); err != nil {
+					return err
+				}
 				return nil
 			} else {
 				// No index and browsing disabled
@@ -228,7 +229,7 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	defer file.Close()
 
 	// Seek to start
-	if _, err := file.Seek(start, os.SEEK_SET); err != nil {
+	if _, err := file.Seek(start, io.SeekStart); err != nil {
 		return err
 	}
 
@@ -239,7 +240,9 @@ func serveRangeRequest(ctx *core.Ctx, absPath string, info os.FileInfo, rangeHea
 	ctx.Response.WriteHeader(http.StatusPartialContent)
 
 	// Copy range
-	io.CopyN(ctx.Response, file, contentLength)
+	if _, err := io.CopyN(ctx.Response, file, contentLength); err != nil {
+		return err
+	}
 	return nil
 }
 

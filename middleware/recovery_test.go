@@ -30,7 +30,9 @@ func TestRecoveryMiddleware_PanicRecovered(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusInternalServerError {
 		t.Errorf("Expected status %d, got %d", http.StatusInternalServerError, w.Code)
@@ -47,7 +49,9 @@ func TestRecoveryMiddleware_NoPanic(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		if _, err := ctx.Response.Write([]byte(`{"status":"ok"}`)); err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -79,7 +83,9 @@ func TestRecoveryMiddleware_StackTrace(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusInternalServerError {
 		t.Errorf("Expected status %d, got %d", http.StatusInternalServerError, w.Code)
@@ -112,7 +118,9 @@ func TestRecoveryMiddleware_PanicWithError(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusInternalServerError {
 		t.Errorf("Expected status %d, got %d", http.StatusInternalServerError, w.Code)

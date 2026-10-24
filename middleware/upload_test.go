@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -51,7 +50,9 @@ func TestUploadMiddleware_NoStorage(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "hello")
+	if _, err := io.WriteString(part, "hello"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/upload", body)
@@ -76,7 +77,9 @@ func TestLocalStorage_StoreAndDelete(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "hello world")
+	if _, err := io.WriteString(part, "hello world"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/", body)
@@ -133,7 +136,9 @@ func TestUploadMiddleware_UploadsFile(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "file content here")
+	if _, err := io.WriteString(part, "file content here"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/upload", body)
@@ -180,10 +185,12 @@ func TestUploadMiddleware_SkipNonMultipart(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		called = true
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if !called {
 		t.Error("non-multipart request should skip upload handling")
@@ -206,7 +213,9 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "this file is bigger than 5 bytes")
+	if _, err := io.WriteString(part, "this file is bigger than 5 bytes"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/upload", body)
@@ -214,7 +223,9 @@ func TestUploadMiddleware_MaxSizeExceeded(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
 
-	mw(ctx, func(c *core.Ctx) error { return nil })
+	if err := mw(ctx, func(c *core.Ctx) error { return nil }); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if rec.Code != http.StatusRequestEntityTooLarge {
 		t.Errorf("expected 413, got %d", rec.Code)
@@ -238,7 +249,9 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "content")
+	if _, err := io.WriteString(part, "content"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/upload", body)
@@ -247,10 +260,12 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		called = true
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if !called {
 		t.Error("allowed extension should not be rejected")
@@ -263,7 +278,9 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part2, "content")
+	if _, err := io.WriteString(part2, "content"); err != nil {
+		t.Fatal(err)
+	}
 	writer2.Close()
 
 	req2 := httptest.NewRequest("POST", "/upload", body2)
@@ -271,7 +288,9 @@ func TestUploadMiddleware_AllowedExtensions(t *testing.T) {
 	rec2 := httptest.NewRecorder()
 	ctx2 := core.NewCtx(rec2, req2)
 
-	mw(ctx2, func(c *core.Ctx) error { return nil })
+	if err := mw(ctx2, func(c *core.Ctx) error { return nil }); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if rec2.Code != http.StatusUnsupportedMediaType {
 		t.Errorf("expected 415 for disallowed extension, got %d", rec2.Code)
@@ -292,13 +311,15 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	writer := multipart.NewWriter(body)
 	// Use CreatePart to set explicit Content-Type: text/plain
 	h := make(textproto.MIMEHeader)
-	h.Set("Content-Disposition", fmt.Sprintf(`form-data; name="file"; filename="document.txt"`))
+	h.Set("Content-Disposition", `form-data; name="file"; filename="document.txt"`)
 	h.Set("Content-Type", "text/plain")
 	part, err := writer.CreatePart(h)
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "content")
+	if _, err := io.WriteString(part, "content"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/upload", body)
@@ -307,10 +328,12 @@ func TestUploadMiddleware_AllowedTypes(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		called = true
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if !called {
 		t.Error("allowed type should not be rejected")
@@ -335,7 +358,9 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "content")
+	if _, err := io.WriteString(part, "content"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/skip", body)
@@ -344,10 +369,12 @@ func TestUploadMiddleware_SkipFunc(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		called = true
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if !called {
 		t.Error("skip path should call next handler")
@@ -370,7 +397,9 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		io.WriteString(part, "content")
+		if _, err := io.WriteString(part, "content"); err != nil {
+			t.Fatal(err)
+		}
 	}
 	writer.Close()
 
@@ -380,10 +409,12 @@ func TestUploadMiddleware_MultipleFiles(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var files []FileInfo
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		files = GetUploadFiles(c)
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if len(files) != 3 {
 		t.Errorf("expected 3 files, got %d", len(files))
@@ -415,7 +446,9 @@ func TestLocalStorage_MkdirAll(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	io.WriteString(part, "nested")
+	if _, err := io.WriteString(part, "nested"); err != nil {
+		t.Fatal(err)
+	}
 	writer.Close()
 
 	req := httptest.NewRequest("POST", "/", body)

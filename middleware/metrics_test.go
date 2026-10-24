@@ -55,11 +55,13 @@ func TestMetricsMiddleware_RecordsRequest(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		called = true
 		c.StatusCode = http.StatusOK
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if !called {
 		t.Error("next handler was not called")
@@ -102,10 +104,12 @@ func TestMetricsMiddleware_SkipsHealthCheck(t *testing.T) {
 	ctx := core.NewCtx(rec, req)
 
 	var called bool
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		called = true
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if !called {
 		t.Error("health check should not be skipped")
@@ -144,10 +148,12 @@ func TestMetricsMiddleware_CustomNamespace(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
 
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		c.StatusCode = http.StatusOK
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	mfs, err := registry.Gather()
 	if err != nil {
@@ -176,7 +182,7 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 	var start time.Time
 	doneCh := make(chan struct{})
 
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		start = time.Now()
 		go func() {
 			time.Sleep(20 * time.Millisecond)
@@ -185,7 +191,9 @@ func TestMetricsMiddleware_InflightGauge(t *testing.T) {
 		<-doneCh
 		c.StatusCode = http.StatusOK
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	// While inside handler, in-flight should be 1
 	elapsed := time.Since(start)
@@ -213,10 +221,12 @@ func TestMetricsMiddleware_HistogramBuckets(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
 
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		c.StatusCode = http.StatusOK
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	mfs, err := registry.Gather()
 	if err != nil {
@@ -253,10 +263,12 @@ func TestMetricsMiddleware_StatusCode(t *testing.T) {
 		rec := httptest.NewRecorder()
 		ctx := core.NewCtx(rec, req)
 
-		mw(ctx, func(c *core.Ctx) error {
+		if err := mw(ctx, func(c *core.Ctx) error {
 			c.StatusCode = tt.code
 			return nil
-		})
+		}); err != nil {
+			t.Fatalf("middleware: %v", err)
+		}
 	}
 
 	mfs, _ := registry.Gather()
@@ -305,10 +317,12 @@ func TestMetricsMiddleware_DefaultBucketFallback(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
 
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		c.StatusCode = 200
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	mfs, _ := registry.Gather()
 	if len(mfs) == 0 {
@@ -326,10 +340,12 @@ func TestMetricsMiddleware_ZeroStatusCode(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := core.NewCtx(rec, req)
 
-	mw(ctx, func(c *core.Ctx) error {
+	if err := mw(ctx, func(c *core.Ctx) error {
 		// StatusCode not set, remains 0
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	mfs, _ := registry.Gather()
 	for _, mf := range mfs {
@@ -418,11 +434,15 @@ func TestMetricsMiddleware_ConcurrentRequests(t *testing.T) {
 			rec := httptest.NewRecorder()
 			ctx := core.NewCtx(rec, req)
 
-			mw(ctx, func(c *core.Ctx) error {
+			if err := mw(ctx, func(c *core.Ctx) error {
 				c.StatusCode = http.StatusOK
 				time.Sleep(10 * time.Millisecond)
 				return nil
-			})
+			}); err != nil {
+				// Fatalf from a non-test goroutine is not allowed; Errorf
+				// still fails the test and keeps the doneCh signal flowing.
+				t.Errorf("middleware: %v", err)
+			}
 			doneCh <- struct{}{}
 		}()
 	}

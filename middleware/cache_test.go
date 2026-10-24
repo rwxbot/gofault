@@ -189,7 +189,9 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	err := middleware(ctx, func(ctx *core.Ctx) error {
 		handlerCalled = true
 		ctx.Response.WriteHeader(200)
-		ctx.Response.Write([]byte("Hello"))
+		if _, err := ctx.Response.Write([]byte("Hello")); err != nil {
+			return err
+		}
 		return nil
 	})
 
@@ -212,7 +214,9 @@ func TestCacheMiddleware_Integration(t *testing.T) {
 	err = middleware(ctx2, func(ctx *core.Ctx) error {
 		handlerCalled = true
 		ctx.Response.WriteHeader(200)
-		ctx.Response.Write([]byte("Hello"))
+		if _, err := ctx.Response.Write([]byte("Hello")); err != nil {
+			return err
+		}
 		return nil
 	})
 
@@ -268,11 +272,13 @@ func TestCacheMiddleware_ErrorResponse(t *testing.T) {
 	ctx := &core.Ctx{Request: req, Response: rec}
 
 	// Return 500 error
-	middleware(ctx, func(ctx *core.Ctx) error {
+	if err := middleware(ctx, func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(500)
-		ctx.Response.Write([]byte("Error"))
+		_, _ = ctx.Response.Write([]byte("Error"))
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	// Should not cache error responses
 	if rec.Header().Get("X-Cache") != "" {
@@ -298,7 +304,7 @@ func TestCacheMiddleware_HandlerHeadersSurviveMiss(t *testing.T) {
 		ctx.Response.Header().Set("Content-Type", "application/json")
 		ctx.Response.Header().Set("X-Custom", "kept")
 		ctx.Response.WriteHeader(201)
-		ctx.Response.Write([]byte(`{"ok":true}`))
+		_, _ = ctx.Response.Write([]byte(`{"ok":true}`))
 		return nil
 	})
 	if err != nil {
@@ -348,7 +354,7 @@ func TestCacheMiddleware_CredentialIsolation(t *testing.T) {
 		hits++
 		ctx.Response.Header().Set("Content-Type", "application/json")
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte("body-" + ctx.Request.Header.Get("Authorization")))
+		_, _ = ctx.Response.Write([]byte("body-" + ctx.Request.Header.Get("Authorization")))
 		return nil
 	}
 
@@ -394,7 +400,7 @@ func TestCacheMiddleware_RespectsNoStore(t *testing.T) {
 		count++
 		ctx.Response.Header().Set("Cache-Control", "no-store")
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte("secret"))
+		_, _ = ctx.Response.Write([]byte("secret"))
 		return nil
 	}
 

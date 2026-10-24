@@ -187,7 +187,9 @@ func TestJWTAuth_RejectsTokenWithoutExpiry(t *testing.T) {
 	parts := strings.SplitN(token, ".", 3)
 	payload, _ := base64.RawURLEncoding.DecodeString(parts[1])
 	var m map[string]interface{}
-	json.Unmarshal(payload, &m)
+	if err := json.Unmarshal(payload, &m); err != nil {
+		t.Fatalf("unmarshal payload: %v", err)
+	}
 	delete(m, "exp")
 	newPayload, _ := json.Marshal(m)
 	unsigned := parts[0] + "." + base64.RawURLEncoding.EncodeToString(newPayload)
@@ -318,7 +320,9 @@ func TestLegacyJWTConfig(t *testing.T) {
 	parts := strings.SplitN(token, ".", 3)
 	payload, _ := base64.RawURLEncoding.DecodeString(parts[1])
 	var m map[string]interface{}
-	json.Unmarshal(payload, &m)
+	if err := json.Unmarshal(payload, &m); err != nil {
+		t.Fatalf("unmarshal payload: %v", err)
+	}
 	delete(m, "exp")
 	newPayload, _ := json.Marshal(m)
 	unsigned := parts[0] + "." + base64.RawURLEncoding.EncodeToString(newPayload)

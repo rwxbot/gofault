@@ -70,7 +70,9 @@ func TestCORS_AllowOrigin(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "http://example.com" {
 		t.Errorf("Access-Control-Allow-Origin = %s, want http://example.com", got)
@@ -92,7 +94,9 @@ func TestCORS_WildcardOrigin(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "*" {
 		t.Errorf("Access-Control-Allow-Origin = %s, want *", got)
@@ -114,7 +118,9 @@ func TestCORS_SubdomainWildcard(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "http://api.example.com" {
 		t.Errorf("Access-Control-Allow-Origin = %s, want http://api.example.com", got)
@@ -136,7 +142,9 @@ func TestCORS_DisallowedOrigin(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "" {
 		t.Errorf("Access-Control-Allow-Origin = %s, want empty", got)
@@ -159,7 +167,9 @@ func TestCORS_Credentials(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Credentials"); got != "true" {
 		t.Errorf("Access-Control-Allow-Credentials = %s, want true", got)
@@ -181,7 +191,9 @@ func TestCORS_ExposeHeaders(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	expected := "X-Custom-Header, X-Request-ID"
 	if got := w.Header().Get("Access-Control-Expose-Headers"); got != expected {
@@ -240,7 +252,9 @@ func TestCORS_WildcardWithCredentialsEchoesOrigin(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "http://app.example.com" {
 		t.Errorf("Access-Control-Allow-Origin = %q, want the exact origin (\"*\" + credentials is invalid)", got)
@@ -269,7 +283,9 @@ func TestCORS_WildcardWithoutCredentialsStaysStar(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "*" {
 		t.Errorf("Access-Control-Allow-Origin = %q, want *", got)
@@ -295,7 +311,9 @@ func TestCORS_WildcardWithCredentialsNoOriginHeader(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if got := w.Header().Get("Access-Control-Allow-Origin"); got != "" {
 		t.Errorf("Access-Control-Allow-Origin = %q, want empty without an Origin request header", got)

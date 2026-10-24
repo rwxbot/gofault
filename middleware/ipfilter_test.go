@@ -33,7 +33,9 @@ func TestIPFilterMiddleware_NoRestrictions(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		if _, err := ctx.Response.Write([]byte(`{"status":"ok"}`)); err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -67,7 +69,9 @@ func TestIPFilterMiddleware_BlockList(t *testing.T) {
 	ctx := core.NewCtx(w, req)
 	ctx.Request.RemoteAddr = "192.168.1.100:12345"
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusForbidden {
 		t.Errorf("Expected status %d, got %d", http.StatusForbidden, w.Code)
@@ -82,7 +86,9 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 
 	next := func(ctx *core.Ctx) error {
 		ctx.Response.WriteHeader(http.StatusOK)
-		ctx.Response.Write([]byte(`{"status":"ok"}`))
+		if _, err := ctx.Response.Write([]byte(`{"status":"ok"}`)); err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -106,10 +112,12 @@ func TestIPFilterMiddleware_AllowList(t *testing.T) {
 	ctx2 := core.NewCtx(w2, req2)
 	ctx2.Request.RemoteAddr = "192.168.1.1:12345"
 
-	middleware(ctx2, func(c *core.Ctx) error {
+	if err := middleware(ctx2, func(c *core.Ctx) error {
 		c.Response.WriteHeader(http.StatusOK)
 		return nil
-	})
+	}); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w2.Code != http.StatusForbidden {
 		t.Errorf("Expected status %d, got %d", http.StatusForbidden, w2.Code)
@@ -146,7 +154,9 @@ func TestIPFilterMiddleware_XFFSpoofingIgnoredByDefault(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusForbidden {
 		t.Errorf("spoofed XFF must not bypass the allow-list: got %d, want %d", w.Code, http.StatusForbidden)
@@ -172,7 +182,9 @@ func TestIPFilterMiddleware_XFFHonoredFromTrustedProxy(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusOK {
 		t.Errorf("XFF from a trusted proxy should be honored: got %d, want %d", w.Code, http.StatusOK)
@@ -204,7 +216,9 @@ func TestIPFilterMiddleware_XFFForgedLeftmostIgnored(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusForbidden {
 		t.Errorf("forged leftmost XFF must not bypass the allow-list: got %d, want %d", w.Code, http.StatusForbidden)
@@ -231,7 +245,9 @@ func TestIPFilterMiddleware_XFFSkipsTrustedHops(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusOK {
 		t.Errorf("client behind a trusted second hop should resolve to 203.0.113.9: got %d, want %d", w.Code, http.StatusOK)
@@ -260,7 +276,9 @@ func TestIPFilterMiddleware_XFFMalformedHopStopsWalk(t *testing.T) {
 	w := httptest.NewRecorder()
 	ctx := core.NewCtx(w, req)
 
-	middleware(ctx, next)
+	if err := middleware(ctx, next); err != nil {
+		t.Fatalf("middleware: %v", err)
+	}
 
 	if w.Code != http.StatusForbidden {
 		t.Errorf("garbage rightmost hop must stop the walk (fall back to the proxy address): got %d, want %d", w.Code, http.StatusForbidden)

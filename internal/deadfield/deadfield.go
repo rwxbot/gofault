@@ -212,7 +212,7 @@ func Scan(dir string) (Report, error) {
 			if !ok {
 				return true
 			}
-			ident, ok := sel.Sel.Name, true
+			ident := sel.Sel.Name
 			if ident == "" || !ast.IsExported(ident) {
 				return true
 			}
@@ -360,10 +360,7 @@ func assignmentTargets(f *ast.File) map[*ast.SelectorExpr]bool {
 func hasGoModAbove(stop, dir string) bool {
 	for d := dir; ; d = filepath.Dir(d) {
 		if _, err := os.Stat(filepath.Join(d, "go.mod")); err == nil {
-			if sameDir(d, stop) {
-				return false
-			}
-			return true
+			return !sameDir(d, stop)
 		}
 		if sameDir(d, stop) || sameDir(d, filepath.Dir(d)) {
 			return false

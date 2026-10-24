@@ -47,9 +47,11 @@ func TestDistributedLimiter_PerKey(t *testing.T) {
 		t.Fatalf("NewDistributedLimiter: %v", err)
 	}
 
+	// client-a's budget is 2: the first two allows pass, the rest are denied.
 	for i := 0; i < 5; i++ {
-		if lim.Allow("client-a") {
-			// first two allowed
+		want := i < 2
+		if got := lim.Allow("client-a"); got != want {
+			t.Errorf("client-a allow #%d = %v, want %v", i+1, got, want)
 		}
 	}
 	// client-b must still have its own budget.
