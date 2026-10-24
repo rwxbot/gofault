@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -158,5 +159,106 @@ func TestRunNew(t *testing.T) {
 	}
 	if _, err := os.Stat(filepath.Join(wd, "app1", "main.go")); err != nil {
 		t.Errorf("expected app1 to be scaffolded: %v", err)
+	}
+}
+
+// printUsage must document every subcommand the switch in main handles,
+// otherwise the help output drifts away from the actual CLI surface.
+func TestPrintUsage(t *testing.T) {
+	orig := os.Stdout
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatalf("pipe: %v", err)
+	}
+	os.Stdout = w
+	printUsage()
+	// Close the write end so the read below terminates.
+	_ = w.Close()
+	os.Stdout = orig
+
+	out, err := io.ReadAll(r)
+	if err != nil {
+		t.Fatalf("read usage: %v", err)
+	}
+	usage := string(out)
+	for _, want := range []string{"new", "version", "help", "gofault new myapp"} {
+		if !strings.Contains(usage, want) {
+			t.Errorf("usage output missing %q:\n%s", want, usage)
+		}
+	}
+}
+
+// An execution error (not just a parse error) must surface from
+// executeTemplate: accessing a field on a string value parses fine and
+// only fails when the template runs.
+func TestExecuteTemplate_ExecuteError(t *testing.T) {
+	if _, err := executeTemplate("{{.Name.Missing}}", map[string]string{"Name": "x"}); err == nil {
+		t.Error("expected an execution error for a field lookup on a string value")
+	}
+}
+
+// The very first MkdirAll (the project directory itself) must fail when
+// the name is already taken by a regular file, and the error must name
+// the project directory failure.
+func TestCreateProject_ProjectDirExistsAsFile(t *testing.T) {
+	wd := t.TempDir()
+	t.Chdir(wd)
+
+	if err := os.WriteFile(filepath.Join(wd, "taken"), []byte("occupied"), 0644); err != nil {
+		t.Fatalf("write blocker: %v", err)
+	}
+
+	err := createProject("taken")
+	if err == nil {
+		t.Fatal("expected an error when the project name is a regular file")
+	}
+	if !strings.Contains(err.Error(), "failed to create project directory") {
+		t.Errorf("error = %v, want it to name the project directory failure", err)
+	}
+}
+
+// MkdirAll failing partway through the file loop must abort with a
+// wrapped error naming the directory. "controllers/hello.go" is written
+// last, so pre-creating controllers as a regular file makes its MkdirAll
+// fail without touching the earlier files.
+func TestCreateProject_MkdirFails(t *testing.T) {
+	wd := t.TempDir()
+	t.Chdir(wd)
+
+	if err := os.Mkdir(filepath.Join(wd, "blocked"), 0755); err != nil {
+		t.Fatalf("mkdir: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(wd, "blocked", "controllers"), []byte("not a directory"), 0644); err != nil {
+		t.Fatalf("write blocker: %v", err)
+	}
+
+	err := createProject("blocked")
+	if err == nil {
+		t.Fatal("expected an error when a required directory cannot be created")
+	}
+	if !strings.Contains(err.Error(), "failed to create directory") {
+		t.Errorf("error = %v, want it to name the directory failure", err)
+	}
+}
+
+// A write failure (here: go.mod replaced by a directory) must abort with
+// a wrapped error naming the file.
+func TestCreateProject_WriteFails(t *testing.T) {
+	wd := t.TempDir()
+	t.Chdir(wd)
+
+	if err := os.Mkdir(filepath.Join(wd, "nowrite"), 0755); err != nil {
+		t.Fatalf("mkdir: %v", err)
+	}
+	if err := os.Mkdir(filepath.Join(wd, "nowrite", "go.mod"), 0755); err != nil {
+		t.Fatalf("mkdir go.mod blocker: %v", err)
+	}
+
+	err := createProject("nowrite")
+	if err == nil {
+		t.Fatal("expected an error when a scaffold file cannot be written")
+	}
+	if !strings.Contains(err.Error(), "failed to write") {
+		t.Errorf("error = %v, want it to name the write failure", err)
 	}
 }
